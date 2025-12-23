@@ -634,6 +634,57 @@
             }
         }
 
+        /* Landscape orientation - wider layouts */
+        @media (orientation: landscape) and (max-width: 1024px) {
+            .business-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .subcategory-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            .emergency-banner {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .emergency-banner .icon {
+                font-size: 2rem;
+            }
+
+            .emergency-banner h3 {
+                font-size: 1rem;
+            }
+
+            .emergency-numbers {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .emergency-number {
+                min-height: 50px;
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+        }
+
         /* Hide class */
         .hidden {
             display: none;
