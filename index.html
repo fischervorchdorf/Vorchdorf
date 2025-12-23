@@ -499,16 +499,38 @@
 
         .emergency-numbers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .emergency-number {
             background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 12px;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            min-height: 80px;
+            font-size: 1rem;
+        }
+
+        .emergency-number:hover {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .emergency-number:active {
+            transform: scale(0.98);
         }
 
         /* Subcategories specific styling - Grid Layout */
@@ -595,7 +617,13 @@
             }
 
             .emergency-numbers {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .emergency-number {
+                min-height: 70px;
+                padding: 12px;
+                font-size: 0.9rem;
             }
 
             .back-button {
@@ -661,10 +689,10 @@
             <div>
                 <h3>Notrufnummern - Immer für dich da!</h3>
                 <div class="emergency-numbers">
-                    <div class="emergency-number">🏥 Ärztefunkdienst: 141</div>
-                    <div class="emergency-number">🚒 Feuerwehr: 122</div>
-                    <div class="emergency-number">👮 Polizei: 133</div>
-                    <div class="emergency-number">🚑 Rettung: 144</div>
+                    <a href="tel:141" class="emergency-number">🏥<br>Ärztefunkdienst<br>141</a>
+                    <a href="tel:122" class="emergency-number">🚒<br>Feuerwehr<br>122</a>
+                    <a href="tel:133" class="emergency-number">👮<br>Polizei<br>133</a>
+                    <a href="tel:144" class="emergency-number">🚑<br>Rettung<br>144</a>
                 </div>
             </div>
         </div>
