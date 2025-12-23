@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorchdorf Event-Scraper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-light: #14b8a6;
+            --primary-dark: #0f766e;
+            --secondary: #f0fdfa;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #22c55e;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--gray-50) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .source-card {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .source-card.active {
+            border-color: var(--primary);
+            background: var(--secondary);
+        }
+
+        .source-card .icon {
+            font-size: 2rem;
+        }
+
+        .source-card .info {
+            flex: 1;
+        }
+
+        .source-card .name {
+            font-weight: 600;
+        }
+
+        .source-card .url {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            word-break: break-all;
+        }
+
+        .source-card .status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .status.waiting { background: var(--gray-100); color: var(--text-light); }
+        .status.loading { background: #fef3c7; color: #92400e; }
+        .status.success { background: #dcfce7; color: #166534; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat .label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .events-table th {
+            text-align: left;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border-bottom: 2px solid var(--gray-200);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .events-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-100);
+            vertical-align: top;
+        }
+
+        .events-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .events-table .source-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .source-tag.gemeinde { background: #dbeafe; color: #1e40af; }
+        .source-tag.werbering { background: #fce7f3; color: #9d174d; }
+
+        .category-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: var(--gray-100);
+            color: var(--text-light);
+        }
+
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+        }
+
+        .copy-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .copy-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .help-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .log {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 1rem;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin-bottom: 0.25rem;
+        }
+
+        .log-entry.info { color: var(--text-light); }
+        .log-entry.success { color: var(--success); }
+        .log-entry.error { color: var(--danger); }
+        .log-entry.warning { color: var(--warning); }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .duplicate-warning {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .duplicate-warning .icon {
+            font-size: 1.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab:hover:not(.active) {
+            color: var(--text-dark);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sources {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                justify-content: space-around;
+            }
+
+            .events-table {
+                font-size: 0.8rem;
+            }
+
+            .events-table th, .events-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 Vorchdorf Event-Scraper</h1>
+            <p class="subtitle">Veranstaltungen automatisch von beiden Websites importieren</p>
+        </header>
+
+        <!-- Quellen -->
+        <div class="card">
+            <h2>📡 Datenquellen</h2>
+            <div class="sources">
+                <div class="source-card" id="source-gemeinde">
+                    <span class="icon">🏛️</span>
+                    <div class="info">
+                        <div class="name">Marktgemeinde Vorchdorf</div>
+                        <div class="url">vorchdorf.at/Veranstaltungen</div>
+                    </div>
+                    <span class="status waiting" id="status-gemeinde">Warten</span>
+                </div>
+                <div class="source-card" id="source-werbering">
+                    <span class="icon">🛒</span>
+                    <div class="info">
+                        <div class="name">Vorchdorf Online (Werbering)</div>
+                        <div class="url">vorchdorfonline.at/kalender</div>
+                    </div>
+                    <span class="status waiting" id="status-werbering">Warten</span>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" id="btnScrape" onclick="startScraping()">
+                    🚀 Import starten
+                </button>
+                <button class="btn btn-secondary" id="btnClear" onclick="clearResults()">
+                    🗑️ Zurücksetzen
+                </button>
+            </div>
+
+            <div class="progress-bar" id="progressBar" style="display: none;">
+                <div class="fill" id="progressFill" style="width: 0%"></div>
+            </div>
+
+            <div class="log" id="log" style="display: none;"></div>
+        </div>
+
+        <!-- Ergebnisse -->
+        <div class="card" id="resultsCard" style="display: none;">
+            <h2>📊 Ergebnisse</h2>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="value" id="statTotal">0</div>
+                    <div class="label">Gesamt gefunden</div>
+                </div>
+                <div class="stat">
+                    <div class="value" id="statGemeinde">0</div>
+                    <div class="label">von Gemeinde</div>
+                </div>
+                <div class="stat">
+                    <div class="value" id="statWerbering">0</div>
+                    <div class="label">von Werbering</div>
+                </div>
+                <div class="stat">
+                    <div class="value" id="statDuplicates">0</div>
+                    <div class="label">Duplikate entfernt</div>
+                </div>
+            </div>
+
+            <div class="duplicate-warning" id="duplicateWarning" style="display: none;">
+                <span class="icon">⚠️</span>
+                <div>
+                    <strong>Duplikate erkannt!</strong>
+                    <span id="duplicateText">Einige Events waren auf beiden Seiten vorhanden und wurden zusammengeführt.</span>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('table')">📋 Tabelle</button>
+                <button class="tab" onclick="switchTab('csv')">📄 CSV für Google Sheets</button>
+                <button class="tab" onclick="switchTab('json')">🔧 JSON</button>
+            </div>
+
+            <div class="tab-content active" id="tab-table">
+                <div class="table-container">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Titel</th>
+                                <th>Zeit</th>
+                                <th>Ort</th>
+                                <th>Kategorie</th>
+                                <th>Quelle</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-csv">
+                <p class="help-text" style="margin-bottom: 1rem;">
+                    <strong>So geht's:</strong> Klicke auf "CSV kopieren", öffne dein Google Sheet, klicke in Zelle A2 und füge ein (Strg+V).
+                </p>
+                <textarea id="csvOutput" readonly></textarea>
+                <div class="btn-row" style="margin-top: 1rem;">
+                    <button class="btn btn-success" onclick="copyCSV()">📋 CSV kopieren</button>
+                    <button class="btn btn-secondary" onclick="downloadCSV()">💾 CSV herunterladen</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-json">
+                <textarea id="jsonOutput" readonly></textarea>
+                <div class="btn-row" style="margin-top: 1rem;">
+                    <button class="btn btn-secondary" onclick="copyJSON()">📋 JSON kopieren</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anleitung -->
+        <div class="card">
+            <h2>📖 Anleitung</h2>
+            <ol style="margin-left: 1.5rem; color: var(--text-light);">
+                <li style="margin-bottom: 0.5rem;"><strong>Import starten</strong> – Beide Websites werden ausgelesen</li>
+                <li style="margin-bottom: 0.5rem;"><strong>Ergebnisse prüfen</strong> – Tabelle kontrollieren</li>
+                <li style="margin-bottom: 0.5rem;"><strong>CSV kopieren</strong> – In Google Sheet einfügen (ab Zeile 2)</li>
+                <li style="margin-bottom: 0.5rem;"><strong>Fertig!</strong> – Die App lädt automatisch die neuen Daten</li>
+            </ol>
+            <p class="help-text" style="margin-top: 1rem;">
+                💡 <strong>Tipp:</strong> Führe den Import ca. 1x pro Woche durch, um neue Veranstaltungen zu erfassen.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let allEvents = [];
+        let duplicatesRemoved = 0;
+
+        // Proxy für CORS-Umgehung
+        const PROXY_URL = 'https://api.allorigins.win/raw?url=';
+
+        // Logging
+        function log(message, type = 'info') {
+            const logEl = document.getElementById('log');
+            logEl.style.display = 'block';
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        // Status Update
+        function setStatus(source, status, text) {
+            const el = document.getElementById(`status-${source}`);
+            el.className = `status ${status}`;
+            el.textContent = text;
+            
+            const card = document.getElementById(`source-${source}`);
+            card.classList.toggle('active', status === 'loading' || status === 'success');
+        }
+
+        // Progress Update
+        function setProgress(percent) {
+            const bar = document.getElementById('progressBar');
+            const fill = document.getElementById('progressFill');
+            bar.style.display = 'block';
+            fill.style.width = `${percent}%`;
+        }
+
+        // Kategorie erraten basierend auf Keywords
+        function guessCategory(title, description = '') {
+            const text = (title + ' ' + description).toLowerCase();
+            
+            if (/konzert|musik|chor|orchester|band|singen|adventsingen/.test(text)) return 'kultur';
+            if (/theater|kabarett|kino|film|ausstellung|lesung/.test(text)) return 'kultur';
+            if (/lauf|marathon|turnen|sport|fitness|yoga|training|fußball|tennis|mountainbike|fahrrad/.test(text)) return 'sport';
+            if (/verein|versammlung|sitzung|stammtisch|generalversammlung/.test(text)) return 'verein';
+            if (/ball|fasching|fest|feier|party|silvester|advent|weihnacht|punsch|glöckler/.test(text)) return 'fest';
+            if (/markt|flohmarkt|bauernmarkt|christkindl|verkauf/.test(text)) return 'markt';
+            if (/kind|baby|jugend|schule|kindergarten|eltern/.test(text)) return 'kinder';
+            
+            return 'kultur'; // Default
+        }
+
+        // Datum normalisieren (DD.MM.YYYY -> YYYY-MM-DD)
+        function normalizeDate(dateStr) {
+            if (!dateStr) return '';
+            
+            // Format: DD.MM.YYYY
+            const match = dateStr.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+            if (match) {
+                const day = match[1].padStart(2, '0');
+                const month = match[2].padStart(2, '0');
+                const year = match[3];
+                return `${year}-${month}-${day}`;
+            }
+            
+            return dateStr;
+        }
+
+        // Zeit normalisieren
+        function normalizeTime(timeStr) {
+            if (!timeStr) return '';
+            
+            // Verschiedene Formate: "19:00", "19:00 Uhr", "19.00"
+            const match = timeStr.match(/(\d{1,2})[:\.](\d{2})/);
+            if (match) {
+                return `${match[1].padStart(2, '0')}:${match[2]}`;
+            }
+            
+            return timeStr;
+        }
+
+        // Scrape vorchdorf.at (Gemeinde)
+        async function scrapeGemeinde() {
+            setStatus('gemeinde', 'loading', 'Lädt...');
+            log('Starte Import von vorchdorf.at...', 'info');
+            
+            const events = [];
+            
+            try {
+                // Mehrere Seiten laden (Pagination)
+                for (let page = 0; page < 5; page++) {
+                    const url = page === 0 
+                        ? 'https://www.vorchdorf.at/Unser_Ort/Veranstaltungen'
+                        : `https://www.vorchdorf.at/system/web/veranstaltung.aspx?typ=0&page=${page}&vdatum=${encodeURIComponent(new Date().toLocaleDateString('de-AT'))}&bdatum=31.12.9999&menuonr=218379620`;
+                    
+                    const response = await fetch(PROXY_URL + encodeURIComponent(url));
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const html = await response.text();
+                    
+                    // Parse HTML
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Finde Tabelle mit Veranstaltungen
+                    const rows = doc.querySelectorAll('table tr');
+                    
+                    let foundEvents = 0;
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length >= 3) {
+                            const dateText = cells[0]?.textContent?.trim();
+                            const titleLink = cells[1]?.querySelector('a');
+                            const title = titleLink?.textContent?.trim() || cells[1]?.textContent?.trim();
+                            const location = cells[2]?.textContent?.trim();
+                            
+                            if (dateText && title && /\d{2}\.\d{2}\.\d{4}/.test(dateText)) {
+                                events.push({
+                                    titel: title,
+                                    datum: normalizeDate(dateText),
+                                    zeit_start: '',
+                                    zeit_ende: '',
+                                    ort: location || 'Vorchdorf',
+                                    kategorie: guessCategory(title),
+                                    veranstalter: '',
+                                    beschreibung: '',
+                                    website: titleLink?.href ? `https://www.vorchdorf.at${titleLink.getAttribute('href')}` : '',
+                                    quelle: 'gemeinde'
+                                });
+                                foundEvents++;
+                            }
+                        }
+                    });
+                    
+                    log(`Seite ${page + 1}: ${foundEvents} Events gefunden`, 'info');
+                    
+                    // Keine weiteren Seiten wenn keine Events gefunden
+                    if (foundEvents === 0 && page > 0) break;
+                    
+                    setProgress(10 + (page * 8));
+                }
+                
+                setStatus('gemeinde', 'success', `${events.length} Events`);
+                log(`✓ vorchdorf.at: ${events.length} Events importiert`, 'success');
+                
+            } catch (error) {
+                setStatus('gemeinde', 'error', 'Fehler');
+                log(`✗ vorchdorf.at Fehler: ${error.message}`, 'error');
+            }
+            
+            return events;
+        }
+
+        // Scrape vorchdorfonline.at (Werbering)
+        async function scrapeWerbering() {
+            setStatus('werbering', 'loading', 'Lädt...');
+            log('Starte Import von vorchdorfonline.at...', 'info');
+            
+            const events = [];
+            
+            try {
+                // Lade mehrere Monate
+                const today = new Date();
+                
+                for (let monthOffset = 0; monthOffset < 3; monthOffset++) {
+                    const targetDate = new Date(today.getFullYear(), today.getMonth() + monthOffset, 1);
+                    const timestamp = Math.floor(targetDate.getTime() / 1000);
+                    
+                    const url = monthOffset === 0 
+                        ? 'https://www.vorchdorfonline.at/kalender'
+                        : `https://www.vorchdorfonline.at/kalender?calendar_timestamp=${timestamp}`;
+                    
+                    const response = await fetch(PROXY_URL + encodeURIComponent(url));
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const html = await response.text();
+                    
+                    // Parse HTML
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Finde Kalender-Zellen
+                    const calendarCells = doc.querySelectorAll('td');
+                    
+                    let foundEvents = 0;
+                    calendarCells.forEach(cell => {
+                        const dayMatch = cell.textContent?.match(/^(\d{1,2})\s/);
+                        if (!dayMatch) return;
+                        
+                        const day = parseInt(dayMatch[1]);
+                        const eventLinks = cell.querySelectorAll('a[href*="/termin/"]');
+                        
+                        eventLinks.forEach(link => {
+                            const title = link.textContent?.trim();
+                            const href = link.getAttribute('href');
+                            
+                            // Zeit extrahieren (falls vorhanden)
+                            const timeMatch = link.parentElement?.textContent?.match(/(\d{1,2}:\d{2})\s*-?\s*(\d{1,2}:\d{2})?/);
+                            
+                            if (title && !title.includes('Ganztägig')) {
+                                const eventDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), day);
+                                
+                                events.push({
+                                    titel: title.replace(/^\d{1,2}:\d{2}\s*-?\s*\d{0,2}:?\d{0,2}\s*/, '').trim(),
+                                    datum: eventDate.toISOString().split('T')[0],
+                                    zeit_start: timeMatch ? normalizeTime(timeMatch[1]) : '',
+                                    zeit_ende: timeMatch && timeMatch[2] ? normalizeTime(timeMatch[2]) : '',
+                                    ort: 'Vorchdorf',
+                                    kategorie: guessCategory(title),
+                                    veranstalter: '',
+                                    beschreibung: '',
+                                    website: href ? `https://www.vorchdorfonline.at${href}` : '',
+                                    quelle: 'werbering'
+                                });
+                                foundEvents++;
+                            }
+                        });
+                    });
+                    
+                    log(`Monat ${monthOffset + 1}: ${foundEvents} Events gefunden`, 'info');
+                    setProgress(50 + (monthOffset * 15));
+                }
+                
+                setStatus('werbering', 'success', `${events.length} Events`);
+                log(`✓ vorchdorfonline.at: ${events.length} Events importiert`, 'success');
+                
+            } catch (error) {
+                setStatus('werbering', 'error', 'Fehler');
+                log(`✗ vorchdorfonline.at Fehler: ${error.message}`, 'error');
+            }
+            
+            return events;
+        }
+
+        // Duplikate entfernen
+        function removeDuplicates(events) {
+            const seen = new Map();
+            const unique = [];
+            let duplicates = 0;
+            
+            events.forEach(event => {
+                // Key: Datum + normalisierter Titel
+                const normalizedTitle = event.titel.toLowerCase()
+                    .replace(/[^\w\s]/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                const key = `${event.datum}_${normalizedTitle.substring(0, 30)}`;
+                
+                if (!seen.has(key)) {
+                    seen.set(key, event);
+                    unique.push(event);
+                } else {
+                    duplicates++;
+                    // Merge: Wenn das neue Event mehr Infos hat, übernehmen
+                    const existing = seen.get(key);
+                    if (!existing.zeit_start && event.zeit_start) existing.zeit_start = event.zeit_start;
+                    if (!existing.zeit_ende && event.zeit_ende) existing.zeit_ende = event.zeit_ende;
+                    if (!existing.website && event.website) existing.website = event.website;
+                }
+            });
+            
+            duplicatesRemoved = duplicates;
+            return unique;
+        }
+
+        // Events nach Datum sortieren
+        function sortByDate(events) {
+            return events.sort((a, b) => new Date(a.datum) - new Date(b.datum));
+        }
+
+        // Hauptfunktion
+        async function startScraping() {
+            const btn = document.getElementById('btnScrape');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Importiere...';
+            
+            document.getElementById('log').innerHTML = '';
+            document.getElementById('log').style.display = 'block';
+            
+            log('🚀 Starte Event-Import...', 'info');
+            setProgress(0);
+            
+            // Beide Quellen parallel scrapen
+            const [gemeindeEvents, werberingEvents] = await Promise.all([
+                scrapeGemeinde(),
+                scrapeWerbering()
+            ]);
+            
+            setProgress(90);
+            
+            // Zusammenführen
+            const combined = [...gemeindeEvents, ...werberingEvents];
+            log(`Zusammengeführt: ${combined.length} Events total`, 'info');
+            
+            // Duplikate entfernen
+            const unique = removeDuplicates(combined);
+            log(`Nach Duplikat-Entfernung: ${unique.length} Events (${duplicatesRemoved} Duplikate entfernt)`, 'info');
+            
+            // Sortieren
+            allEvents = sortByDate(unique);
+            
+            setProgress(100);
+            log('✅ Import abgeschlossen!', 'success');
+            
+            // Ergebnisse anzeigen
+            displayResults();
+            
+            btn.disabled = false;
+            btn.innerHTML = '🚀 Import starten';
+        }
+
+        // Ergebnisse anzeigen
+        function displayResults() {
+            document.getElementById('resultsCard').style.display = 'block';
+            
+            // Stats
+            const gemeindeCount = allEvents.filter(e => e.quelle === 'gemeinde').length;
+            const werberingCount = allEvents.filter(e => e.quelle === 'werbering').length;
+            
+            document.getElementById('statTotal').textContent = allEvents.length;
+            document.getElementById('statGemeinde').textContent = gemeindeCount;
+            document.getElementById('statWerbering').textContent = werberingCount;
+            document.getElementById('statDuplicates').textContent = duplicatesRemoved;
+            
+            // Duplikat-Warnung
+            if (duplicatesRemoved > 0) {
+                document.getElementById('duplicateWarning').style.display = 'flex';
+                document.getElementById('duplicateText').textContent = 
+                    `${duplicatesRemoved} Event(s) waren auf beiden Seiten vorhanden und wurden zusammengeführt.`;
+            }
+            
+            // Tabelle
+            const tbody = document.getElementById('eventsTableBody');
+            tbody.innerHTML = allEvents.map(event => `
+                <tr>
+                    <td>${formatDateDE(event.datum)}</td>
+                    <td><strong>${escapeHtml(event.titel)}</strong></td>
+                    <td>${event.zeit_start}${event.zeit_ende ? ' - ' + event.zeit_ende : ''}</td>
+                    <td>${escapeHtml(event.ort)}</td>
+                    <td><span class="category-badge">${event.kategorie}</span></td>
+                    <td><span class="source-tag ${event.quelle}">${event.quelle === 'gemeinde' ? 'Gemeinde' : 'Werbering'}</span></td>
+                </tr>
+            `).join('');
+            
+            // CSV
+            const csv = allEvents.map(e => 
+                [e.titel, e.datum, e.zeit_start, e.zeit_ende, e.ort, e.kategorie, e.veranstalter, e.beschreibung, e.website]
+                    .map(v => `"${(v || '').replace(/"/g, '""')}"`)
+                    .join('\t')
+            ).join('\n');
+            document.getElementById('csvOutput').value = csv;
+            
+            // JSON
+            document.getElementById('jsonOutput').value = JSON.stringify(allEvents, null, 2);
+        }
+
+        // Hilfsfunktionen
+        function formatDateDE(dateStr) {
+            if (!dateStr) return '';
+            const [year, month, day] = dateStr.split('-');
+            return `${day}.${month}.${year}`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        function copyCSV() {
+            const textarea = document.getElementById('csvOutput');
+            textarea.select();
+            document.execCommand('copy');
+            alert('✅ CSV in die Zwischenablage kopiert!\n\nJetzt in Google Sheet einfügen (Strg+V in Zelle A2)');
+        }
+
+        function downloadCSV() {
+            const header = 'titel\tdatum\tzeit_start\tzeit_ende\tort\tkategorie\tveranstalter\tbeschreibung\twebsite\n';
+            const csv = header + document.getElementById('csvOutput').value;
+            const blob = new Blob([csv], { type: 'text/tab-separated-values;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vorchdorf-events-${new Date().toISOString().split('T')[0]}.tsv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyJSON() {
+            const textarea = document.getElementById('jsonOutput');
+            textarea.select();
+            document.execCommand('copy');
+            alert('✅ JSON kopiert!');
+        }
+
+        function clearResults() {
+            allEvents = [];
+            duplicatesRemoved = 0;
+            
+            document.getElementById('resultsCard').style.display = 'none';
+            document.getElementById('progressBar').style.display = 'none';
+            document.getElementById('log').style.display = 'none';
+            document.getElementById('duplicateWarning').style.display = 'none';
+            
+            setStatus('gemeinde', 'waiting', 'Warten');
+            setStatus('werbering', 'waiting', 'Warten');
+            
+            document.getElementById('eventsTableBody').innerHTML = '';
+            document.getElementById('csvOutput').value = '';
+            document.getElementById('jsonOutput').value = '';
+        }
+    </script>
+</body>
+</html>
