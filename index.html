@@ -301,6 +301,75 @@
             text-decoration: underline;
         }
 
+        /* Item Cards Grid - for clubs, education, etc. */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .item-card {
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .item-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 95, 45, 0.2);
+        }
+
+        .item-card-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.05rem;
+            line-height: 1.3;
+        }
+
+        .item-card-info {
+            color: var(--text);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .item-card-info p {
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .item-card-links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .item-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .item-card a:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+
         .info-item {
             background: var(--bg);
             padding: 20px;
@@ -509,8 +578,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .subcategory-list {
+            .items-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .subcategory-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
 
             .search-box {
@@ -2325,14 +2398,20 @@
                         <div class="detail-view fade-in">
                             <h2>${subcategory.title}</h2>
                             <p style="color: var(--text-light); margin-bottom: 20px;">${subcategory.description}</p>
-                            ${subcategory.items.map(item => `
-                                <div class="info-item">
-                                    <h4>${item.title}</h4>
-                                    ${item.info.map(info => `<p>${info}</p>`).join('')}
-                                    ${item.website ? `<p><a href="${item.website}" target="_blank">🌐 Website →</a></p>` : ''}
-                                    ${item.link ? `<p><a href="${item.link}" target="_blank">📋 Mehr Infos →</a></p>` : ''}
-                                </div>
-                            `).join('')}
+                            <div class="items-grid">
+                                ${subcategory.items.map(item => `
+                                    <div class="item-card">
+                                        <div class="item-card-title">${item.title}</div>
+                                        <div class="item-card-info">
+                                            ${item.info.map(info => `<p>${info}</p>`).join('')}
+                                        </div>
+                                        <div class="item-card-links">
+                                            ${item.website ? `<a href="${item.website}" target="_blank">🌐 Website →</a>` : ''}
+                                            ${item.link ? `<a href="${item.link}" target="_blank">📋 Mehr Infos →</a>` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     `;
                 } else {
@@ -2340,13 +2419,17 @@
                     mainContent.innerHTML = `
                         <div class="detail-view fade-in">
                             <h2>${category.icon} ${subcategory.title}</h2>
-                            ${subcategory.items.map(item => `
-                                <div class="info-item">
-                                    <h4>${item.title}</h4>
-                                    ${item.info.map(info => `<p>${info}</p>`).join('')}
-                                    ${item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
-                                </div>
-                            `).join('')}
+                            <div class="items-grid">
+                                ${subcategory.items.map(item => `
+                                    <div class="item-card">
+                                        <div class="item-card-title">${item.title}</div>
+                                        <div class="item-card-info">
+                                            ${item.info.map(info => `<p>${info}</p>`).join('')}
+                                        </div>
+                                        ${item.link ? `<div class="item-card-links"><a href="${item.link}" target="_blank">→ Mehr Informationen</a></div>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     `;
                 }
@@ -2363,12 +2446,14 @@
                         <div class="info-item">
                             <p style="color: var(--text-light); margin-bottom: 20px;">Alle Bildungseinrichtungen in Vorchdorf - Details auf der Gemeinde-Website:</p>
                         </div>
-                        ${category.content.items.map(item => `
-                            <div class="info-item">
-                                <h4>${item.title}</h4>
-                                ${item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
-                            </div>
-                        `).join('')}
+                        <div class="items-grid">
+                            ${category.content.items.map(item => `
+                                <div class="item-card">
+                                    <div class="item-card-title">${item.title}</div>
+                                    ${item.link ? `<div class="item-card-links"><a href="${item.link}" target="_blank">→ Mehr Informationen</a></div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 `;
             }
