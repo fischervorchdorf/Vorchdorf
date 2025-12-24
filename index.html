@@ -2682,10 +2682,9 @@
                         </div>
                         <div class="items-grid">
                             ${category.content.items.map(item => `
-                                <div class="item-card">
+                                <a href="${item.link || '#'}" target="_blank" class="item-card item-card-link">
                                     <div class="item-card-title">${item.title}</div>
-                                    ${item.link ? `<div class="item-card-links"><a href="${item.link}" target="_blank">→ Mehr Informationen</a></div>` : ''}
-                                </div>
+                                </a>
                             `).join('')}
                         </div>
                     </div>
