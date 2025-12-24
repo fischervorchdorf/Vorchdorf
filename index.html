@@ -1326,10 +1326,74 @@
                     ]
                 }
             },
+            sport_fitness: {
+                id: 'sport_fitness',
+                title: '⚽ Sport & Fitness',
+                icon: '⚽',
+                description: 'Fitnessstudios, Sportangebote & Sportstätten',
+                subcategories: {
+                    fitness: {
+                        id: 'fitness',
+                        title: '💪 Fitnessstudios',
+                        items: [
+                            {
+                                title: 'ANYTIME FITNESS Vorchdorf',
+                                info: [
+                                    '💪 Modernes Fitnessstudio',
+                                    '🕒 24 Stunden geöffnet',
+                                    '📍 Falkenohren 6, 4655 Vorchdorf',
+                                    '📞 +43 7614 6000'
+                                ],
+                                link: 'https://www.af-austria.at'
+                            },
+                            {
+                                title: 'MEIN TRAINING Vorchdorf',
+                                info: [
+                                    '💪 Persönliches Training',
+                                    '🏋️ Modern ausgestattet',
+                                    '📍 Markt 33, 4655 Vorchdorf',
+                                    '📞 +43 7614 72577'
+                                ],
+                                link: 'https://www.mein-training.at'
+                            }
+                        ]
+                    },
+                    sports: {
+                        id: 'sports',
+                        title: '⚽ Sportangebote & Sportstätten',
+                        items: [
+                            {
+                                title: 'Tennisanlagen Vorchdorf',
+                                info: [
+                                    '🎾 Schöne Tennisplätze',
+                                    '👥 Tennisclub Union Vorchdorf',
+                                    '📍 Falkenohren, Vorchdorf'
+                                ]
+                            },
+                            {
+                                title: 'Fußballplätze',
+                                info: [
+                                    '⚽ Hauptplatz & Trainingsplätze',
+                                    '👥 ASKÖ Vorchdorf & SV Vorchdorf',
+                                    '📍 Zentrale Lage im Ort'
+                                ]
+                            },
+                            {
+                                title: 'Schwimmen & Wassersport',
+                                info: [
+                                    '🏊 Freibad Vorchdorf',
+                                    '🚣 Trauntal Wassersport',
+                                    '📍 In der Nähe von Almtal'
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
             clubs: {
                 id: 'clubs',
-                title: 'Vereine & Sport',
-                icon: '⚽',
+                title: '🤝 Vereine',
+                icon: '🤝',
                 description: 'Über 60 aktive Vereine in Vorchdorf',
                 subcategories: {
                     sport: {
@@ -2159,11 +2223,54 @@
                                 ]
                             },
                             {
-                                title: 'Parks & Spielplätze',
+                                title: 'Parks & Grünanlagen',
                                 info: [
-                                    'Mehrere Spielplätze im Ort',
+                                    'Mehrere Parkanlagen im Ort',
                                     'Grünanlagen zum Erholen'
                                 ]
+                            }
+                        ]
+                    },
+                    playgrounds: {
+                        id: 'playgrounds',
+                        title: '🎪 Spielplätze für Kinder',
+                        items: [
+                            {
+                                title: 'Spielplatz Vorchdorf',
+                                info: [
+                                    '🎪 Hauptspielplatz',
+                                    '📍 Krumphuberweg 10, Vorchdorf',
+                                    '⭐ Sehr gut erhalten',
+                                    '✓ Verschiedene Spielgeräte'
+                                ]
+                            },
+                            {
+                                title: 'Kinderspielplatz Kirchham',
+                                info: [
+                                    '🎪 Moderner Spielplatz',
+                                    '📍 Kirchham bei Vorchdorf',
+                                    '⭐ Top-Bewertung (5,0)',
+                                    '✓ Rutsche, Schaukel, Spielhaus'
+                                ]
+                            },
+                            {
+                                title: 'Spielplatz Schulstraße',
+                                info: [
+                                    '🎪 Schulnähe Spielplatz',
+                                    '📍 Schulstraße 18, Vorchdorf',
+                                    '✓ Für Grundschüler geeignet',
+                                    '✓ Wohngebiet-Nähe'
+                                ]
+                            },
+                            {
+                                title: 'Spielplatz Kindertraum - Wirt in der Edt',
+                                info: [
+                                    '🎪 Besonderer Spielplatz',
+                                    '📍 Wirt in der Edt, Vorchdorf',
+                                    '🍽️ Kombination mit Restaurant',
+                                    '✓ Gemütliches Café daneben'
+                                ],
+                                link: 'https://www.wirt-edt.at'
                             }
                         ]
                     },
@@ -2483,12 +2590,47 @@
             },
             emergency: {
                 id: 'emergency',
-                title: 'Notfallkontakte',
+                title: '🆘 Notfallkontakte & Standorte',
                 icon: '🆘',
-                description: 'Wichtige Nummern für den Notfall',
+                description: 'Wichtige Nummern und Standorte im Notfall',
                 content: {
                     type: 'info',
                     sections: [
+                        {
+                            title: '📍 Notfall-Standorte in Vorchdorf',
+                            items: [
+                                {
+                                    title: 'Polizei & Rettung',
+                                    info: [
+                                        '🚔 Polizeiinspektion Vorchdorf',
+                                        '🚑 Rettung (im gleichen Gebäude)',
+                                        '📍 Dr. Mitterbauerstraße 4c, 4655 Vorchdorf',
+                                        '☎️ Polizei: 133 | Rettung: 144',
+                                        '⏰ Rund um die Uhr erreichbar'
+                                    ],
+                                    link: 'https://www.vorchdorf.at/Polizeiinspektion_Vorchdorf'
+                                },
+                                {
+                                    title: 'Feuerwehr Vorchdorf',
+                                    info: [
+                                        '🚒 Freiwillige Feuerwehr',
+                                        '📍 Dr. Mitterbauerstraße 4b, 4655 Vorchdorf',
+                                        '☎️ Notfall: 122',
+                                        '📱 +43 7614 7012'
+                                    ]
+                                },
+                                {
+                                    title: 'Defibrillator (AED)',
+                                    info: [
+                                        '❤️ Automatischer Defibrillator',
+                                        '📍 Pfarrhofdurchfahrt, Vorchdorf',
+                                        '⏱️ 24/7 verfügbar',
+                                        '✓ Im Notfall lebensrettend'
+                                    ],
+                                    link: 'https://www.vorchdorfonline.at/artikel/defibrillator-vorchdorfer-pfarrfhofdurchfahrt'
+                                }
+                            ]
+                        },
                         {
                             title: 'Notrufnummern',
                             items: [
@@ -3135,6 +3277,28 @@
             'foto': ['clubs', 'kultur', 'Foto', 'Fotoklub', 'Naturfreunde'],
             'fotografie': ['clubs', 'kultur', 'Fotografie', 'Fotoklub'],
             'kitzmantelfabrik': ['clubs', 'kultur', 'Kitzmantelfabrik', 'Kulturvilla'],
+            
+            // Sport & Fitness (neue Kategorie)
+            'fitnessstudio': ['sport_fitness', 'fitness', 'Fitnessstudio', 'Training', 'Gym'],
+            'gym': ['sport_fitness', 'fitness', 'Fitnessstudio', 'Training'],
+            'anytime': ['sport_fitness', 'fitness', 'ANYTIME FITNESS', 'Fitnessstudio'],
+            'training': ['sport_fitness', 'fitness', 'Training', 'Fitnessstudio'],
+            'spielplatz': ['leisure', 'playgrounds', 'Spielplatz', 'Kinder', 'Spielgeräte', 'Kindertraum'],
+            'spielplätze': ['leisure', 'playgrounds', 'Spielplatz', 'Kinder', 'Spielgeräte'],
+            'kinder': ['leisure', 'playgrounds', 'Kinder', 'Spielplatz', 'Kinderfreundlich'],
+            'schulstraße': ['leisure', 'playgrounds', 'Schulstraße', 'Spielplatz'],
+            'krumphuberweg': ['leisure', 'playgrounds', 'Krumphuberweg', 'Spielplatz'],
+            'kirchham': ['leisure', 'playgrounds', 'Kirchham', 'Spielplatz'],
+            
+            // Notfall & Sicherheit
+            'polizei': ['emergency', 'Polizei', 'Sicherheit', 'Notfall', 'Vorchdorf'],
+            'rettung': ['emergency', 'Rettung', 'Notfall', 'Rettungsdienst', 'Ambulanz'],
+            'feuerwehr': ['emergency', 'Feuerwehr', 'Notfall', 'Brand', 'Hilfe'],
+            'notruf': ['emergency', 'Notruf', 'Notfall', '144', '133', '122'],
+            'notfall': ['emergency', 'Notfall', 'Notfallkontakte', 'Standorte', 'Rettung'],
+            'defibrillator': ['emergency', 'Defibrillator', 'AED', 'Pfarrhof', 'Rettung'],
+            'aed': ['emergency', 'AED', 'Defibrillator'],
+            'notfallstandorte': ['emergency', 'Notfall', 'Standorte', 'Polizei', 'Feuerwehr'],
             
             // Sozial & Jugend
             'jugend': ['clubs', 'soziales', 'Jugend', 'Jugendzentrum', 'Pfadfinder', 'Landjugend'],
