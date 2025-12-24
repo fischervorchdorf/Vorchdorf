@@ -370,6 +370,65 @@
             text-decoration: underline;
         }
 
+        /* Taxi Quick Call Grid */
+        .taxi-quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .taxi-quick-box {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .taxi-quick-box:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(44, 95, 45, 0.3);
+            border-color: transparent;
+        }
+
+        .taxi-quick-icon {
+            font-size: 3rem;
+            display: block;
+        }
+
+        .taxi-quick-text {
+            text-align: center;
+        }
+
+        .taxi-quick-text strong {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .taxi-quick-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .taxi-quick-box:hover .taxi-quick-text p {
+            opacity: 1;
+        }
+
         .info-item {
             background: var(--bg);
             padding: 20px;
@@ -2089,6 +2148,11 @@
                 icon: '🚌',
                 description: 'Bus, Bahn & Verkehr',
                 subcategories: {
+                    taxi_quick: {
+                        id: 'taxi_quick',
+                        title: '☎️ Taxi sofort anrufen',
+                        description: 'Schnelle Fahrservices - direkt anrufen'
+                    },
                     public: {
                         id: 'public',
                         title: 'Öffentlicher Verkehr',
@@ -2150,8 +2214,9 @@
                             {
                                 title: 'Taxi Wiedl',
                                 info: [
-                                    '🚕 Taxiservice in Vorchdorf',
-                                    'Zuverlässig und professional'
+                                    '🚕 Zuverlässiger Taxiservice',
+                                    'Personenbeförderung aller Art',
+                                    '📍 Vorchdorf'
                                 ],
                                 link: 'https://to4009.wixsite.com/wiedl'
                             },
@@ -2159,9 +2224,28 @@
                                 title: 'Attwenger Taxi',
                                 info: [
                                     '🚕 Personenbeförderung',
-                                    'Fahrservices aller Art'
+                                    'Transporte aller Art',
+                                    '📍 Vorchdorf'
                                 ],
                                 link: 'https://www.vorchdorfonline.at/users/attwenger'
+                            },
+                            {
+                                title: 'Gollinger Personenbeförderung',
+                                info: [
+                                    '🚌 Busunternehmen',
+                                    'Fahrservices in der Region',
+                                    '📍 Vorchdorf'
+                                ],
+                                link: 'https://www.gollinger.net'
+                            },
+                            {
+                                title: 'AIGNER Mietwagen, Bus & Taxi',
+                                info: [
+                                    '🚕 Mietwagen und Transporte',
+                                    'Komplette Mobilitätslösungen',
+                                    '📍 Vorchdorf'
+                                ],
+                                link: 'https://www.mietwagen-aigner.at'
                             }
                         ]
                     },
@@ -2500,8 +2584,51 @@
 
             const mainContent = document.getElementById('mainContent');
             
+            // Special handling for taxi quick call page
+            if (categoryId === 'mobility' && subcategoryId === 'taxi_quick') {
+                mainContent.innerHTML = `
+                    <div class="detail-view fade-in">
+                        <h2>☎️ ${subcategory.title}</h2>
+                        <p style="color: var(--text-light); margin-bottom: 25px;">${subcategory.description}</p>
+                        <div class="taxi-quick-grid">
+                            <a href="tel:" class="taxi-quick-box" style="pointer-events: none;">
+                                <div class="taxi-quick-icon">📞</div>
+                                <div class="taxi-quick-text">
+                                    <strong>Taxi Wiedl</strong>
+                                    <p>Anrufen</p>
+                                </div>
+                            </a>
+                            <a href="tel:" class="taxi-quick-box" style="pointer-events: none;">
+                                <div class="taxi-quick-icon">📞</div>
+                                <div class="taxi-quick-text">
+                                    <strong>Attwenger Taxi</strong>
+                                    <p>Anrufen</p>
+                                </div>
+                            </a>
+                            <a href="https://www.gollinger.net" target="_blank" class="taxi-quick-box">
+                                <div class="taxi-quick-icon">🚌</div>
+                                <div class="taxi-quick-text">
+                                    <strong>Gollinger</strong>
+                                    <p>Website</p>
+                                </div>
+                            </a>
+                            <a href="https://www.mietwagen-aigner.at" target="_blank" class="taxi-quick-box">
+                                <div class="taxi-quick-icon">🚕</div>
+                                <div class="taxi-quick-text">
+                                    <strong>Aigner Taxi</strong>
+                                    <p>Website</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="info-item" style="margin-top: 30px;">
+                            <h4>ℹ️ Hinweis</h4>
+                            <p>Für die Telefonnummern von Taxi Wiedl und Attwenger bitte deren Websites besuchen oder im lokalen Telefonbuch nachschlagen.</p>
+                        </div>
+                    </div>
+                `;
+            }
             // Special handling for shopping subcategories - show businesses
-            if (categoryId === 'shopping') {
+            else if (categoryId === 'shopping') {
                 const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
                 mainContent.innerHTML = `
                     <div class="detail-view fade-in">
