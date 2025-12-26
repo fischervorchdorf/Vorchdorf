@@ -408,35 +408,6 @@
             margin-bottom: 5px;
         }
 
-        /* Favorites */
-        .favorite-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 5px;
-            transition: transform 0.2s;
-            display: inline-block;
-        }
-
-        .favorite-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .favorites-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 18px;
-            margin-top: 20px;
-        }
-
-        .favorites-empty {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-light);
-            font-size: 1.1rem;
-        }
-
         .taxi-quick-text p {
             font-size: 0.9rem;
             opacity: 0.8;
@@ -879,10 +850,6 @@
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Suche nach Informationen, Vereinen, Betrieben...">
                 <button onclick="performSearch()" class="search-button">🔍 Suchen</button>
-                <button onclick="showFavorites()" class="search-button" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">⭐ Meine Favoriten</button>
-            </div>
-                <button onclick="performSearch()">🔍 Suchen</button>
-                <button onclick="showFavorites()" class="search-button" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">⭐ Meine Favoriten</button>
             </div>
         </div>
 
@@ -2748,71 +2715,6 @@
         };
 
         // Initialize App
-        // Favorites Management
-        function addToFavorites(title, icon = '⭐') {
-            const favorites = JSON.parse(localStorage.getItem('vorchdorfFavorites')) || [];
-            if (!favorites.find(fav => fav.title === title)) {
-                favorites.push({ title, icon, addedAt: new Date().toISOString() });
-                localStorage.setItem('vorchdorfFavorites', JSON.stringify(favorites));
-            }
-        }
-
-        function removeFromFavorites(title) {
-            const favorites = JSON.parse(localStorage.getItem('vorchdorfFavorites')) || [];
-            const filtered = favorites.filter(fav => fav.title !== title);
-            localStorage.setItem('vorchdorfFavorites', JSON.stringify(filtered));
-        }
-
-        function isFavorite(title) {
-            const favorites = JSON.parse(localStorage.getItem('vorchdorfFavorites')) || [];
-            return favorites.some(fav => fav.title === title);
-        }
-
-        function getFavorites() {
-            return JSON.parse(localStorage.getItem('vorchdorfFavorites')) || [];
-        }
-
-        function showFavorites() {
-            currentView = 'favorites';
-            navigationHistory.push({ type: 'home' });
-            document.getElementById('emergencyBanner').classList.add('hidden');
-            document.getElementById('backButton').classList.remove('hidden');
-            updateBreadcrumb([{ text: 'Meine Favoriten' }]);
-
-            const favorites = getFavorites();
-            const mainContent = document.getElementById('mainContent');
-
-            if (favorites.length === 0) {
-                mainContent.innerHTML = `
-                    <div class="detail-view fade-in">
-                        <h2>⭐ Meine Favoriten</h2>
-                        <div class="favorites-empty">
-                            <p>Du hast noch keine Favoriten gespeichert.</p>
-                            <p>Klicke auf das ⭐-Symbol bei Betrieben, Vereinen oder Orten, um sie zu den Favoriten hinzuzufügen!</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                mainContent.innerHTML = `
-                    <div class="detail-view fade-in">
-                        <h2>⭐ Meine Favoriten (${favorites.length})</h2>
-                        <div class="favorites-grid">
-                            ${favorites.map(fav => `
-                                <div class="item-card" style="background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%); position: relative;">
-                                    <div style="display: flex; justify-content: space-between; align-items: start;">
-                                        <div style="flex: 1;">
-                                            <div class="item-card-title">${fav.icon} ${fav.title}</div>
-                                        </div>
-                                        <button class="favorite-btn" onclick="removeFromFavorites('${fav.title.replace(/'/g, "\\'")}'); showFavorites();" title="Aus Favoriten entfernen">❌</button>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
         function init() {
             renderHome();
         }
