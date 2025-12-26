@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.22';
+        const APP_VERSION = '2.24';
         
         // App State
         let currentView = 'home';
@@ -3397,8 +3397,8 @@
             const normalized = normalizeString(term);
             const synonymMap = {
                 // Friseur/Friseuse Variationen
-                'frisoe': ['friseur', 'friseurin', 'friseuse', 'haarschnitt', 'frisur', 'barber', 'barbershop'],
-                'friseur': ['friseuse', 'friseurin', 'haarschnitt', 'barber', 'barbershop', 'haarschneid'],
+                'frisoe': ['friseur', 'friseurin', 'friseuse', 'haarschnitt', 'frisur', 'barber', 'barbershop', 'haargenau', 'haarstudio', 'schnitt'],
+                'friseur': ['friseuse', 'friseurin', 'haarschnitt', 'barber', 'barbershop', 'haarschneid', 'haargenau', 'haarstudio', 'schnitt'],
                 
                 // Tabak/Zigaretten Variationen
                 'zigaretten': ['tabak', 'trafik', 'rauchen', 'rauchwaren', 'smoker'],
@@ -3411,7 +3411,7 @@
                 'handwerker': ['installateur', 'installation', 'elektro', 'sanitaer', 'klempner', 'maler', 'zimmerer', 'dachdecker'],
                 'installateur': ['installation', 'gas', 'heizung', 'sanitaer'],
                 'klempner': ['installateur', 'sanitaer', 'heizung'],
-                'wasser': ['installateur', 'klempner', 'rohre', 'sanitaer', 'heizung'],
+                'wasser': ['installateur', 'klempner', 'rohre', 'sanitaer', 'heizung', 'installation'],
                 'rohre': ['rohrverlegung', 'rohrleitungen', 'installation', 'klempner', 'sanitaer'],
                 'maler': ['anstreicher', 'malermeister', 'malerarbeiten'],
                 'anstreicher': ['maler', 'malermeister', 'malerarbeiten', 'anstrich'],
