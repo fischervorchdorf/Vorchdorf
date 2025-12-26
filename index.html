@@ -937,11 +937,11 @@
         <!-- Breadcrumb Navigation -->
         <div id="breadcrumb" class="breadcrumb hidden"></div>
 
-        <!-- Main Content -->
+        <!-- Main Content (Categories rendered here) -->
         <div id="mainContent"></div>
 
-        <!-- Emergency Banner (only on home) -->
-        <div id="emergencyBanner" class="emergency-banner">
+        <!-- Emergency Banner (always visible on home) -->
+        <div id="emergencyBanner" class="emergency-banner hidden">
             <div class="icon">🚨</div>
             <div>
                 <h3>Notrufnummern - Immer für dich da!</h3>
@@ -954,7 +954,7 @@
             </div>
         </div>
 
-        <!-- Weather Widget -->
+        <!-- Weather Widget (shown on home below emergency) -->
         <div id="weatherWidget" class="weather-widget hidden"></div>
 
         <footer>
@@ -2870,12 +2870,12 @@
             document.getElementById('backButton').classList.add('hidden');
 
             const mainContent = document.getElementById('mainContent');
+            const weatherWidget = document.getElementById('weatherWidget');
             
-            // Fetch and display weather
+            // Fetch and display weather in dedicated widget below emergency
             fetchWeather().then(weatherData => {
-                let weatherHtml = '';
                 if (weatherData && weatherData.time) {
-                    weatherHtml = `
+                    weatherWidget.innerHTML = `
                         <div class="weather-container">
                             <h3>🌡️ Wetter in Vorchdorf</h3>
                             <div class="weather-content">
@@ -2898,9 +2898,13 @@
                             </div>
                         </div>
                     `;
+                    weatherWidget.classList.remove('hidden');
+                } else {
+                    weatherWidget.classList.add('hidden');
                 }
                 
-                mainContent.innerHTML = weatherHtml + `
+                // Render categories in mainContent (without weather)
+                mainContent.innerHTML = `
                     <div class="cards-grid fade-in">
                         ${Object.values(categories).map(cat => `
                             <div class="card" onclick="navigateToCategory('${cat.id}')">
@@ -2931,6 +2935,7 @@
             navigationHistory.push({ type: 'home' });
 
             document.getElementById('emergencyBanner').classList.add('hidden');
+            document.getElementById('weatherWidget').classList.add('hidden');
             document.getElementById('backButton').classList.remove('hidden');
             updateBreadcrumb([{ text: category.title }]);
 
@@ -3018,6 +3023,7 @@
             navigationHistory.push({ type: 'category', categoryId });
 
             document.getElementById('backButton').classList.remove('hidden');
+            document.getElementById('weatherWidget').classList.add('hidden');
             updateBreadcrumb([
                 { text: category.title, action: `navigateToCategory('${categoryId}')` },
                 { text: subcategory.title }
@@ -3533,6 +3539,7 @@
             const content = document.getElementById('mainContent');
             document.getElementById('backButton').classList.remove('hidden');
             document.getElementById('emergencyBanner').classList.add('hidden');
+            document.getElementById('weatherWidget').classList.add('hidden');
             updateBreadcrumb([{ text: `Suchergebnisse für "${searchTerm}"` }]);
 
             if (results.length === 0) {
