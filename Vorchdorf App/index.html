@@ -3401,9 +3401,11 @@
                 'friseur': ['friseuse', 'friseurin', 'haarschnitt', 'barber', 'barbershop', 'haarschneid'],
                 
                 // Tabak/Zigaretten Variationen
-                'zigaretten': ['tabak', 'trafik', 'rauchen', 'smoker'],
-                'tabak': ['zigaretten', 'trafik', 'rauchen'],
-                'trafik': ['tabak', 'zigaretten', 'rauchen'],
+                'zigaretten': ['tabak', 'trafik', 'rauchen', 'rauchwaren', 'smoker'],
+                'tabak': ['zigaretten', 'trafik', 'rauchen', 'rauchwaren'],
+                'trafik': ['tabak', 'zigaretten', 'rauchen', 'rauchwaren'],
+                'rauchen': ['tabak', 'trafik', 'zigaretten', 'rauchwaren'],
+                'rauchwaren': ['tabak', 'trafik', 'zigaretten', 'rauchen'],
                 
                 // Handwerker Variationen
                 'handwerker': ['installateur', 'installation', 'elektro', 'rohre', 'sanitaer', 'klempner', 'maler', 'zimmerer', 'dachdecker'],
