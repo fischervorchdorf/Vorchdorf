@@ -937,11 +937,11 @@
         <!-- Breadcrumb Navigation -->
         <div id="breadcrumb" class="breadcrumb hidden"></div>
 
-        <!-- Main Content -->
+        <!-- Main Content (Categories rendered here) -->
         <div id="mainContent"></div>
 
-        <!-- Emergency Banner (only on home) -->
-        <div id="emergencyBanner" class="emergency-banner">
+        <!-- Emergency Banner (always visible on home) -->
+        <div id="emergencyBanner" class="emergency-banner hidden">
             <div class="icon">🚨</div>
             <div>
                 <h3>Notrufnummern - Immer für dich da!</h3>
@@ -954,7 +954,7 @@
             </div>
         </div>
 
-        <!-- Weather Widget -->
+        <!-- Weather Widget (shown on home below emergency) -->
         <div id="weatherWidget" class="weather-widget hidden"></div>
 
         <footer>
@@ -2870,12 +2870,12 @@
             document.getElementById('backButton').classList.add('hidden');
 
             const mainContent = document.getElementById('mainContent');
+            const weatherWidget = document.getElementById('weatherWidget');
             
-            // Fetch and display weather
+            // Fetch and display weather in dedicated widget below emergency
             fetchWeather().then(weatherData => {
-                let weatherHtml = '';
                 if (weatherData && weatherData.time) {
-                    weatherHtml = `
+                    weatherWidget.innerHTML = `
                         <div class="weather-container">
                             <h3>🌡️ Wetter in Vorchdorf</h3>
                             <div class="weather-content">
@@ -2898,9 +2898,13 @@
                             </div>
                         </div>
                     `;
+                    weatherWidget.classList.remove('hidden');
+                } else {
+                    weatherWidget.classList.add('hidden');
                 }
                 
-                mainContent.innerHTML = weatherHtml + `
+                // Render categories in mainContent (without weather)
+                mainContent.innerHTML = `
                     <div class="cards-grid fade-in">
                         ${Object.values(categories).map(cat => `
                             <div class="card" onclick="navigateToCategory('${cat.id}')">
@@ -2931,6 +2935,7 @@
             navigationHistory.push({ type: 'home' });
 
             document.getElementById('emergencyBanner').classList.add('hidden');
+            document.getElementById('weatherWidget').classList.add('hidden');
             document.getElementById('backButton').classList.remove('hidden');
             updateBreadcrumb([{ text: category.title }]);
 
@@ -3018,6 +3023,7 @@
             navigationHistory.push({ type: 'category', categoryId });
 
             document.getElementById('backButton').classList.remove('hidden');
+            document.getElementById('weatherWidget').classList.add('hidden');
             updateBreadcrumb([
                 { text: category.title, action: `navigateToCategory('${categoryId}')` },
                 { text: subcategory.title }
@@ -3371,6 +3377,130 @@
             'weltladen': ['clubs', 'soziales', 'Weltladen', 'Fair Trade']
         };
 
+        // Normalisiere deutsche Umlaute und Sonderzeichen für besseres Matching
+        function normalizeString(str) {
+            if (!str) return '';
+            return str.toLowerCase()
+                .replace(/ä/g, 'ae')
+                .replace(/ö/g, 'oe')
+                .replace(/ü/g, 'ue')
+                .replace(/ß/g, 'ss')
+                .trim();
+        }
+
+        // Intelligente Synonym-Suche mit Fuzzy Matching
+        function getSearchSynonyms(term) {
+            const normalized = normalizeString(term);
+            const synonymMap = {
+                // Friseur/Friseuse Variationen
+                'frisoe': ['friseur', 'friseurin', 'friseuse', 'haarschnitt', 'frisur', 'barber', 'barbershop'],
+                'friseur': ['friseuse', 'friseurin', 'haarschnitt', 'barber', 'barbershop', 'haarschneid'],
+                
+                // Tabak/Zigaretten Variationen
+                'zigaretten': ['tabak', 'trafik', 'rauchen', 'smoker'],
+                'tabak': ['zigaretten', 'trafik', 'rauchen'],
+                'trafik': ['tabak', 'zigaretten', 'rauchen'],
+                
+                // Handwerker Variationen
+                'handwerker': ['installateur', 'installation', 'elektro', 'rohre', 'sanitaer', 'klempner', 'maler', 'zimmerer', 'dachdecker'],
+                'installateur': ['installation', 'rohre', 'wasser', 'gas', 'heizung', 'sanitaer'],
+                'klempner': ['installateur', 'rohre', 'sanitaer', 'wasser', 'heizung'],
+                'maler': ['anstreicher', 'malermeister', 'malerarbeiten'],
+                
+                // Arzt Variationen
+                'arzt': ['doktor', 'zahnarzt', 'zahndoktor', 'facharzt', 'allgemeinarzt'],
+                'zahnarzt': ['zahndoktor', 'dental', 'zahn', 'zaehnchen'],
+                'zahndoktor': ['zahnarzt', 'dental', 'zahn'],
+                
+                // Auto Variationen
+                'auto': ['auto', 'kfz', 'fahrzeug', 'wagen', 'pkw', 'automobile', 'autohaus', 'werkstatt'],
+                'werkstatt': ['auto', 'kfz', 'service', 'reparatur'],
+                'tankstelle': ['benzin', 'diesel', 'zapfsaeule', 'tanken'],
+                
+                // Restaurant/Gastro Variationen
+                'restaurant': ['gaststaette', 'gasthof', 'lokal', 'beiz', 'wienerwald'],
+                'gaststaette': ['gasthof', 'restaurant', 'lokal', 'beiz'],
+                'pizzeria': ['pizza', 'italiener', 'restaurant'],
+                'cafe': ['kaffee', 'kaffe', 'baecker', 'baeckerei', 'bakery'],
+                'baecker': ['baeckerei', 'cafe', 'kaffee', 'broetchen'],
+                
+                // Apotheke
+                'apotheke': ['pharmazie', 'pharmazeut', 'medikament', 'arznei'],
+                
+                // Bank Variationen
+                'bank': ['sparkasse', 'kasse', 'geldautomat', 'geldwechsel'],
+                'sparkasse': ['bank', 'geldautomat', 'kasse'],
+                
+                // Fitness/Sport
+                'fitness': ['gym', 'fitnessstudio', 'training', 'krafttraining', 'sport'],
+                'gym': ['fitness', 'fitnessstudio', 'training'],
+                
+                // Frisur/Haarpflege
+                'haarschnitt': ['friseur', 'friseurin', 'friseuse', 'schneid'],
+                'haarschneid': ['friseur', 'friseuse', 'haarschnitt'],
+                
+                // Kleidung/Mode
+                'mode': ['kleidung', 'kleidungsgschaft', 'boutique', 'fashion'],
+                'kleidung': ['mode', 'boutique', 'fashion', 'garderobe'],
+                
+                // Spielzeug/Kinderartikel
+                'spielzeug': ['spielwaren', 'kinderspielzeug', 'babyartikel'],
+                'spielwaren': ['spielzeug', 'kinderspielzeug'],
+                
+                // Moebel
+                'moebel': ['einrichtung', 'einrichtungshaus', 'mobilistaer', 'moebelladen'],
+                'einrichtung': ['moebel', 'einrichtungshaus', 'mobilistaer'],
+                
+                // Blumen/Florist
+                'blumen': ['florist', 'blumenladen', 'bluemchen', 'straus'],
+                'florist': ['blumen', 'blumenladen', 'straus'],
+                
+                // Buecher/Buchhandlung
+                'buecher': ['buchhandlung', 'buchhandel', 'buch', 'buecher', 'lesen'],
+                'buchhandlung': ['buecher', 'buchhandel', 'buch'],
+                
+                // Elektro
+                'elektro': ['elektrotechnik', 'elektrogeraete', 'strom'],
+                'elektrotechnik': ['elektro', 'elektrogeraete'],
+                
+                // Schluessel/Schlosser
+                'schluessel': ['schlosser', 'schloss', 'schluesseldienst'],
+                'schlosser': ['schluessel', 'schloss', 'schluesseldienst'],
+                
+                // Photographie/Fotograf
+                'foto': ['fotograf', 'fotografie', 'fotostudio', 'bilder'],
+                'fotograf': ['foto', 'fotografie', 'fotostudio'],
+                'fotografie': ['fotograf', 'foto', 'fotostudio'],
+                
+                // Versicherung
+                'versicherung': ['versicherer', 'versicherungsagent', 'versicherungsmakler'],
+                'versicherungsmakler': ['versicherung', 'versicherer'],
+                
+                // Rechtsanwalt
+                'anwalt': ['rechtsanwalt', 'anwaeltin', 'jura', 'legal'],
+                'rechtsanwalt': ['anwalt', 'anwaeltin', 'jura', 'legal'],
+                
+                // Zahnarzt Alternative
+                'zaehne': ['zahnarzt', 'zahndoktor', 'dental', 'zahn'],
+                'zahn': ['zahnarzt', 'zahndoktor', 'zaehne', 'dental'],
+                
+                // Verein/Club
+                'verein': ['club', 'verband', 'organisation'],
+                'club': ['verein', 'verband', 'organisation'],
+                
+                // Schule
+                'schule': ['schulen', 'gymnasium', 'gymnasium', 'volksschule', 'unterstufe', 'oberstufe'],
+                'kindergarten': ['vorschule', 'kinderbetreuung', 'vorschulisch'],
+                
+                // Kirche/Religion
+                'kirche': ['religion', 'kirchen', 'gemeinde', 'evangelisch', 'katholisch'],
+                'religion': ['kirche', 'pfarr', 'gemeinde'],
+                'pfarr': ['kirche', 'religion', 'gemeinde'],
+            };
+            
+            return [term, ...( synonymMap[normalized] || [])];
+        }
+
         // Live Search Function with Intelligence
         function performSearch() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -3381,6 +3511,10 @@
             }
 
             const results = [];
+            
+            // Hole alle Synonyme und Variationen
+            const searchVariations = getSearchSynonyms(searchTerm);
+            const normalizedSearchTerm = normalizeString(searchTerm);
 
             // VOLLTEXTSUCHE - Durchsuche ALLES!
             
@@ -3481,11 +3615,18 @@
                 }
             });
 
-            // 3. Suche in BUSINESSES (Werbering)
+            // 3. Suche in BUSINESSES (Werbering) - mit Fuzzy Matching und Synonymen
             allBusinesses.forEach(business => {
                 const businessText = `${business.name} ${business.location} ${business.category}`.toLowerCase();
+                const businessTextNormalized = normalizeString(`${business.name} ${business.location} ${business.category}`);
                 
-                if (businessText.includes(searchTerm)) {
+                // Überprüfe ob einer der Such-Variationen/Synonyme im Text vorhanden ist
+                const isMatch = searchVariations.some(variant => {
+                    const normalizedVariant = normalizeString(variant);
+                    return businessText.includes(variant) || businessTextNormalized.includes(normalizedVariant);
+                });
+                
+                if (isMatch) {
                     results.push({
                         type: 'business',
                         priority: 4,
@@ -3533,6 +3674,7 @@
             const content = document.getElementById('mainContent');
             document.getElementById('backButton').classList.remove('hidden');
             document.getElementById('emergencyBanner').classList.add('hidden');
+            document.getElementById('weatherWidget').classList.add('hidden');
             updateBreadcrumb([{ text: `Suchergebnisse für "${searchTerm}"` }]);
 
             if (results.length === 0) {
