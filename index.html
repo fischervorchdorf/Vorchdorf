@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.19';;
+        const APP_VERSION = '2.18';
         
         // App State
         let currentView = 'home';
@@ -3510,10 +3510,15 @@
             
             // Suche in der Map nach Matches
             Object.entries(synonymMap).forEach(([key, synonyms]) => {
-                // Wenn der Suchbegriff mit dem Key ANFÄNGT oder der Key ANFÄNGT mit dem Suchbegriff
-                // oder wenn ein Synonym mit dem Suchbegriff anfängt
-                if (key.startsWith(normalized) || normalized.startsWith(key) || 
-                    synonyms.some(syn => syn.startsWith(normalized) || normalized.startsWith(normalizeString(syn)))) {
+                // NUR wenn der Suchbegriff mit dem Key ANFÄNGT oder der Key ANFÄNGT mit dem Suchbegriff
+                // (nicht bidirektional bei Synonymen, nur bei Keys)
+                if (key.startsWith(normalized) || normalized.startsWith(key)) {
+                    // Füge den Key und all seine Synonyme hinzu
+                    allSynonyms.add(key);
+                    synonyms.forEach(syn => allSynonyms.add(syn));
+                }
+                // ODER wenn ein Synonym mit dem Suchbegriff ANFÄNGT
+                else if (synonyms.some(syn => syn.startsWith(normalized))) {
                     // Füge den Key und all seine Synonyme hinzu
                     allSynonyms.add(key);
                     synonyms.forEach(syn => allSynonyms.add(syn));
