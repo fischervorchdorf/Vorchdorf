@@ -1,5 +1,5 @@
 // Bump cache to force clients to fetch the latest (favorites-removed) build
-const CACHE_NAME = 'vorchdorf-app-v30';
+const CACHE_NAME = 'vorchdorf-app-v31';
 const urlsToCache = [
   './index.html',
   './manifest.json'

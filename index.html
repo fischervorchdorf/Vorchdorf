@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.20';
+        const APP_VERSION = '2.21';
         
         // App State
         let currentView = 'home';
@@ -3506,7 +3506,7 @@
             };
             
             // Sammle ALLE möglichen Matches
-            const allSynonyms = new Set([term]); // Starte mit dem Original-Suchbegriff
+            const allSynonyms = new Set(); // NICHT mit term starten - nur echte Matches
             
             // Suche in der Map nach Matches
             Object.entries(synonymMap).forEach(([key, synonyms]) => {
@@ -3524,6 +3524,12 @@
                     synonyms.forEach(syn => allSynonyms.add(syn));
                 }
             });
+            
+            // Wenn KEINE Matches in der Map gefunden, dann doch den Original-Term verwenden
+            // (für direkte Suchen wie Firmennamen, Orte, etc.)
+            if (allSynonyms.size === 0) {
+                allSynonyms.add(term);
+            }
             
             return Array.from(allSynonyms);
         }
