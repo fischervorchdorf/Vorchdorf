@@ -959,10 +959,14 @@
 
         <footer>
             Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
+            <span id="versionInfo"></span>
         </footer>
     </div>
 
     <script>
+        // App Version - Update this with each release
+        const APP_VERSION = '2.15';
+        
         // App State
         let currentView = 'home';
         let navigationHistory = [];
@@ -3406,6 +3410,7 @@
                 'installateur': ['installation', 'rohre', 'wasser', 'gas', 'heizung', 'sanitaer'],
                 'klempner': ['installateur', 'rohre', 'sanitaer', 'wasser', 'heizung'],
                 'maler': ['anstreicher', 'malermeister', 'malerarbeiten'],
+                'anstreicher': ['maler', 'malermeister', 'malerarbeiten', 'anstrich'],
                 
                 // Arzt Variationen
                 'arzt': ['doktor', 'zahnarzt', 'zahndoktor', 'facharzt', 'allgemeinarzt'],
@@ -3748,6 +3753,9 @@
 
         // Enter key for search
         document.addEventListener('DOMContentLoaded', function() {
+            // Display version in footer
+            document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
+            
             // Live search - triggers as you type
             document.getElementById('searchInput').addEventListener('input', function(e) {
                 performSearch();
