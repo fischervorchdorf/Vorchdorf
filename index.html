@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.18';
+        const APP_VERSION = '2.19';;
         
         // App State
         let currentView = 'home';
@@ -3505,7 +3505,22 @@
                 'pfarr': ['kirche', 'religion', 'gemeinde'],
             };
             
-            return [term, ...( synonymMap[normalized] || [])];
+            // Sammle ALLE möglichen Matches
+            const allSynonyms = new Set([term]); // Starte mit dem Original-Suchbegriff
+            
+            // Suche in der Map nach Matches
+            Object.entries(synonymMap).forEach(([key, synonyms]) => {
+                // Wenn der Suchbegriff mit dem Key ANFÄNGT oder der Key ANFÄNGT mit dem Suchbegriff
+                // oder wenn ein Synonym mit dem Suchbegriff anfängt
+                if (key.startsWith(normalized) || normalized.startsWith(key) || 
+                    synonyms.some(syn => syn.startsWith(normalized) || normalized.startsWith(normalizeString(syn)))) {
+                    // Füge den Key und all seine Synonyme hinzu
+                    allSynonyms.add(key);
+                    synonyms.forEach(syn => allSynonyms.add(syn));
+                }
+            });
+            
+            return Array.from(allSynonyms);
         }
 
         // Intelligente Such-Funktion mit Fuzzy Matching
