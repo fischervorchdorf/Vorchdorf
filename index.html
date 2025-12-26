@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.15';
+        const APP_VERSION = '2.16';;
         
         // App State
         let currentView = 'home';
@@ -3506,6 +3506,22 @@
             return [term, ...( synonymMap[normalized] || [])];
         }
 
+        // Intelligente Such-Funktion mit Fuzzy Matching
+        function performSmartSearch(text, searchVariations, normalizedSearchTerm) {
+            // text = zu durchsuchender Text
+            // searchVariations = Array von Such-Begriffen mit Synonymen
+            // normalizedSearchTerm = normalisierte Version (Umlaute ersetzt)
+            
+            const textLower = text.toLowerCase();
+            const textNormalized = normalizeString(text);
+            
+            // Überprüfe alle Variationen
+            return searchVariations.some(variant => {
+                const normalizedVariant = normalizeString(variant);
+                return textLower.includes(variant) || textNormalized.includes(normalizedVariant);
+            });
+        }
+
         // Live Search Function with Intelligence
         function performSearch() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -3521,13 +3537,13 @@
             const searchVariations = getSearchSynonyms(searchTerm);
             const normalizedSearchTerm = normalizeString(searchTerm);
 
-            // VOLLTEXTSUCHE - Durchsuche ALLES!
+            // VOLLTEXTSUCHE - Durchsuche ALLES mit Smart-Search!
             
             // 1. Suche in KATEGORIEN (höchste Priorität)
             Object.values(categories).forEach(category => {
-                const categoryText = `${category.title} ${category.description} ${category.id}`.toLowerCase();
+                const categoryText = `${category.title} ${category.description} ${category.id}`;
                 
-                if (categoryText.includes(searchTerm)) {
+                if (performSmartSearch(categoryText, searchVariations, normalizedSearchTerm)) {
                     results.push({
                         type: 'category',
                         priority: 1,
@@ -3541,9 +3557,9 @@
             Object.values(categories).forEach(category => {
                 if (category.subcategories) {
                     Object.values(category.subcategories).forEach(sub => {
-                        const subText = `${sub.title} ${sub.description || ''} ${sub.id}`.toLowerCase();
+                        const subText = `${sub.title} ${sub.description || ''} ${sub.id}`;
                         
-                        if (subText.includes(searchTerm)) {
+                        if (performSmartSearch(subText, searchVariations, normalizedSearchTerm)) {
                             results.push({
                                 type: 'subcategory',
                                 priority: 2,
@@ -3564,9 +3580,9 @@
                                     item.website || '',
                                     item.email || '',
                                     item.adresse || ''
-                                ].join(' ').toLowerCase();
+                                ].join(' ');
                                 
-                                if (itemText.includes(searchTerm)) {
+                                if (performSmartSearch(itemText, searchVariations, normalizedSearchTerm)) {
                                     results.push({
                                         type: 'item',
                                         priority: 3,
@@ -3585,8 +3601,8 @@
                 if (category.content) {
                     if (category.content.type === 'list') {
                         category.content.items.forEach(item => {
-                            const itemText = `${item.title} ${item.link || ''}`.toLowerCase();
-                            if (itemText.includes(searchTerm)) {
+                            const itemText = `${item.title} ${item.link || ''}`;
+                            if (performSmartSearch(itemText, searchVariations, normalizedSearchTerm)) {
                                 results.push({
                                     type: 'content-item',
                                     priority: 3,
@@ -3603,9 +3619,9 @@
                                     item.title || '',
                                     ...(item.info || []),
                                     item.link || ''
-                                ].join(' ').toLowerCase();
+                                ].join(' ');
                                 
-                                if (itemText.includes(searchTerm)) {
+                                if (performSmartSearch(itemText, searchVariations, normalizedSearchTerm)) {
                                     results.push({
                                         type: 'content-item',
                                         priority: 3,
@@ -3618,6 +3634,7 @@
                         });
                     }
                 }
+            });
             });
 
             // 3. Suche in BUSINESSES (Werbering) - mit Fuzzy Matching und Synonymen
