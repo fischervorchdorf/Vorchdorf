@@ -3411,6 +3411,7 @@
                 'handwerker': ['installateur', 'installation', 'elektro', 'sanitaer', 'klempner', 'maler', 'zimmerer', 'dachdecker'],
                 'installateur': ['installation', 'gas', 'heizung', 'sanitaer'],
                 'klempner': ['installateur', 'sanitaer', 'heizung'],
+                'wasser': ['installateur', 'klempner', 'rohre', 'sanitaer', 'heizung'],
                 'rohre': ['rohrverlegung', 'rohrleitungen', 'installation', 'klempner', 'sanitaer'],
                 'maler': ['anstreicher', 'malermeister', 'malerarbeiten'],
                 'anstreicher': ['maler', 'malermeister', 'malerarbeiten', 'anstrich'],
@@ -3526,11 +3527,8 @@
                 }
             });
             
-            // Wenn KEINE Matches in der Map gefunden, dann doch den Original-Term verwenden
-            // (für direkte Suchen wie Firmennamen, Orte, etc.)
-            if (allSynonyms.size === 0) {
-                allSynonyms.add(term);
-            }
+            // IMMER den Original-Suchbegriff hinzufügen (für direkte Firmennamen-Matches)
+            allSynonyms.add(term);
             
             return Array.from(allSynonyms);
         }
