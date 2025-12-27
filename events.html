@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veranstaltungen – Vorchdorf</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f7f7f8; color: #222; }
+    header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
+    header a { text-decoration: none; color: #0366d6; font-weight: 600; }
+    main { padding: 0; }
+    .embed { width: 100%; height: calc(100vh - 58px); border: 0; background: #fff; }
+    .notice { padding: 12px 16px; font-size: 14px; color: #555; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./index.html">← Zurück zur Vorchdorf App</a>
+    <div style="font-weight:700;">Veranstaltungen</div>
+  </header>
+  <main>
+    <!--
+      Google Sheets Integration:
+      1) Öffne dein Google Sheet → Datei → "Im Web veröffentlichen"
+      2) Wähle gesamte Tabelle und kopiere die veröffentlichte URL (Format: pubhtml)
+      3) Ersetze unten den Platzhalter SRC mit deiner veröffentlichten URL
+
+      Alternativ: Veröffentliche als CSV und wir rendern es in der App – sag mir Bescheid, dann baue ich das um.
+    -->
+    <div class="notice">Hinweis: Bitte die veröffentlichte Google-Sheet-URL bereitstellen – aktuell ist ein Platzhalter gesetzt.</div>
+    <iframe class="embed" src="https://docs.google.com/spreadsheets/d/e/REPLACE_PUBLISHED_SHEET_ID/pubhtml?widget=true&headers=false" referrerpolicy="no-referrer" allowfullscreen></iframe>
+  </main>
+</body>
+</html>
