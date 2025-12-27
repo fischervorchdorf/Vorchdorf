@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Cache löschen</title></head>
+<body>
+<h1>Service Worker wird deregistriert...</h1>
+<script>
+navigator.serviceWorker.getRegistrations().then(registrations => {
+  registrations.forEach(reg => reg.unregister());
+  document.body.innerHTML = '<h1>✅ Cache gelöscht!</h1><p><a href="events.html">Zu Veranstaltungen (hard reload mit Cmd+Shift+R)</a></p>';
+});
+</script>
+</body>
+</html>
