@@ -80,6 +80,7 @@
     
     <div id="list" class="list"></div>
     <div id="empty" class="empty" style="display:none;">Keine Veranstaltungen gefunden.</div>
+    <div id="loading" class="empty" style="display:block;">📅 Lade Veranstaltungen...</div>
   </main>
 
   <script>
@@ -96,6 +97,7 @@
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
     const todayBtn = document.getElementById('today');
+    const loadingEl = document.getElementById('loading');
     
     let events = [];
     let currentView = 'calendar';
@@ -303,10 +305,12 @@
     });
     
     searchEl.addEventListener('input', applySearch);
-
     async function init() {
       try {
-        const res = await fetch(SHEETS_CSV_URL);
+        loadingEl.style.display = 'block';
+        // Cache-Buster: Füge Timestamp an URL an
+        const cacheBuster = '?t=' + Date.now();
+        const res = await fetch(SHEETS_CSV_URL + cacheBuster);
         const text = await res.text();
         const allEvents = parseCSV(text);
         
@@ -318,12 +322,15 @@
           return ev.date >= today; // Nur heute oder zukünftige Events
         });
         
+        loadingEl.style.display = 'none';
         renderCalendar();
       } catch (e) {
         console.error('Fehler beim Laden der Veranstaltungen:', e);
+        loadingEl.style.display = 'none';
         emptyEl.style.display = 'block';
-        emptyEl.textContent = 'Fehler beim Laden der Daten.';
+        emptyEl.textContent = 'Fehler beim Laden der Daten: ' + e.message;
       }
+    } }
     }
     
     init();
