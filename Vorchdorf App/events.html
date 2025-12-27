@@ -308,7 +308,16 @@
       try {
         const res = await fetch(SHEETS_CSV_URL);
         const text = await res.text();
-        events = parseCSV(text);
+        const allEvents = parseCSV(text);
+        
+        // Filter: Nur Events von heute und in der Zukunft anzeigen
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Auf Mitternacht setzen für Vergleich
+        events = allEvents.filter(ev => {
+          if (!ev.date) return true; // Events ohne Datum behalten
+          return ev.date >= today; // Nur heute oder zukünftige Events
+        });
+        
         renderCalendar();
       } catch (e) {
         console.error('Fehler beim Laden der Veranstaltungen:', e);
