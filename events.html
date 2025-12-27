@@ -199,7 +199,8 @@
       }
     }sync function init() {
       try {
-    function renderCalendar() {
+    function renderCalendar(filteredEvents = null) {
+      const eventsToShow = filteredEvents || events;
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
       
@@ -229,7 +230,7 @@
       for (let day = 1; day <= lastDayDate; day++) {
         const date = new Date(year, month, day);
         const dateStr = date.toISOString().split('T')[0];
-        const dayEvents = events.filter(e => e.date && e.date.toISOString().split('T')[0] === dateStr);
+        const dayEvents = eventsToShow.filter(e => e.date && e.date.toISOString().split('T')[0] === dateStr);
         const todayClass = isToday(day, month, year) ? ' today' : '';
         
         html += `<div class="cal-day${todayClass}" data-date="${dateStr}">
@@ -304,9 +305,7 @@
       renderCalendar();
     });
     
-    searchEl.addEventListener('input', () => {
-      if (currentView === 'list') applySearch();
-    });
+    searchEl.addEventListener('input', applySearch);
     
     init();st text = await res.text();
         events = parseCSV(text);
