@@ -5,12 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Veranstaltungen – Vorchdorf</title>
   <style>
+    :root { color-scheme: light dark; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f7f7f8; color: #222; }
     header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
     header a { text-decoration: none; color: #0366d6; font-weight: 600; }
-    main { padding: 0; }
-    .embed { width: 100%; height: calc(100vh - 58px); border: 0; background: #fff; }
-    .notice { padding: 12px 16px; font-size: 14px; color: #555; }
+    main { padding: 12px 16px; }
+    .controls { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+    .input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
+    .list { display: grid; gap: 10px; }
+    .card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .title { font-weight: 700; margin-bottom: 6px; }
+    .meta { font-size: 13px; color: #555; margin-bottom: 6px; }
+    .desc { font-size: 14px; color: #333; }
+    .empty { padding: 16px; font-size: 14px; color: #666; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0b0b0d; color: #ddd; }
+      header { background: #111; border-bottom-color: #222; }
+      .card { background: #121212; border-color: #222; }
+      .input { background: #111; border-color: #222; color: #ddd; }
+    }
   </style>
 </head>
 <body>
@@ -19,16 +32,144 @@
     <div style="font-weight:700;">Veranstaltungen</div>
   </header>
   <main>
-    <!--
-      Google Sheets Integration:
-      1) Öffne dein Google Sheet → Datei → "Im Web veröffentlichen"
-      2) Wähle gesamte Tabelle und kopiere die veröffentlichte URL (Format: pubhtml)
-      3) Ersetze unten den Platzhalter SRC mit deiner veröffentlichten URL
-
-      Alternativ: Veröffentliche als CSV und wir rendern es in der App – sag mir Bescheid, dann baue ich das um.
-    -->
-    <div class="notice">Hinweis: Bitte die veröffentlichte Google-Sheet-URL bereitstellen – aktuell ist ein Platzhalter gesetzt.</div>
-    <iframe class="embed" src="https://docs.google.com/spreadsheets/d/e/REPLACE_PUBLISHED_SHEET_ID/pubhtml?widget=true&headers=false" referrerpolicy="no-referrer" allowfullscreen></iframe>
+    <div class="controls">
+      <input id="search" class="input" type="search" placeholder="Suche nach Titel, Ort, Datum…" />
+    </div>
+    <div id="list" class="list"></div>
+    <div id="empty" class="empty" style="display:none;">Keine Veranstaltungen gefunden.</div>
   </main>
+
+  <script>
+    // 1) Empfohlener Weg: Google Sheets JSON Endpoint
+    //    Format: https://docs.google.com/spreadsheets/d/GOOGLE_SHEET_ID/gviz/tq?tqx=out:json&sheet=SHEET_NAME
+    //    -> Im Google Sheet: Datei → "Im Web veröffentlichen" aktivieren
+    //    -> SHEET_NAME ist der Tabellenblattname (z.B. "Events")
+    const SHEETS_JSON_URL = 'REPLACE_GOOGLE_SHEETS_JSON_URL';
+
+    // Optional: CSV Endpoint (falls bevorzugt)
+    // const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/GOOGLE_SHEET_ID/export?format=csv&gid=TAB_ID';
+
+    const listEl = document.getElementById('list');
+    const emptyEl = document.getElementById('empty');
+    const searchEl = document.getElementById('search');
+    let events = [];
+
+    function stripGVizJSON(text) {
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      return text.slice(start, end + 1);
+    }
+
+    function normalizeDate(val) {
+      if (!val) return null;
+      if (typeof val === 'string') {
+        const m = val.match(/Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)/);
+        if (m) return new Date(Number(m[1]), Number(m[2]), Number(m[3]));
+        const d = new Date(val);
+        return isNaN(d) ? null : d;
+      }
+      if (typeof val === 'number') return new Date(val);
+      return null;
+    }
+
+    function formatDate(d) {
+      if (!d) return '';
+      return d.toLocaleDateString('de-AT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function mapGVizRows(data) {
+      const cols = data.table.cols.map(c => (c.label || '').toLowerCase());
+      const rows = data.table.rows.map(r => r.c.map(c => c ? (c.v ?? c.f ?? '') : ''));
+      const idx = {
+        date: cols.findIndex(l => l.includes('datum') || l.includes('date')),
+        title: cols.findIndex(l => l.includes('titel') || l.includes('title') || l.includes('event')),
+        location: cols.findIndex(l => l.includes('ort') || l.includes('location') || l.includes('place')),
+        link: cols.findIndex(l => l.includes('link') || l.includes('url')),
+        description: cols.findIndex(l => l.includes('beschreibung') || l.includes('desc')),
+      };
+      return rows.map(row => {
+        const dateVal = row[idx.date];
+        const date = normalizeDate(dateVal);
+        return {
+          date,
+          title: idx.title >= 0 ? row[idx.title] : '',
+          location: idx.location >= 0 ? row[idx.location] : '',
+          link: idx.link >= 0 ? row[idx.link] : '',
+          description: idx.description >= 0 ? row[idx.description] : '',
+        };
+      }).filter(e => e.title).sort((a, b) => {
+        const ad = a.date ? a.date.getTime() : 0;
+        const bd = b.date ? b.date.getTime() : 0;
+        return ad - bd;
+      });
+    }
+
+    function render(list) {
+      listEl.innerHTML = '';
+      if (!list || list.length === 0) {
+        emptyEl.style.display = 'block';
+        return;
+      }
+      emptyEl.style.display = 'none';
+      list.forEach(ev => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = ev.title;
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        const parts = [formatDate(ev.date), ev.location].filter(Boolean);
+        meta.textContent = parts.join(' • ');
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = ev.description || '';
+        card.appendChild(title);
+        card.appendChild(meta);
+        card.appendChild(desc);
+        if (ev.link) {
+          const a = document.createElement('a');
+          a.href = ev.link;
+          a.textContent = 'Mehr Infos';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.style.display = 'inline-block';
+          a.style.marginTop = '8px';
+          card.appendChild(a);
+        }
+        listEl.appendChild(card);
+      });
+    }
+
+    function applySearch() {
+      const q = (searchEl.value || '').toLowerCase();
+      const filtered = events.filter(ev => {
+        return [ev.title, ev.location, ev.description, formatDate(ev.date)].some(x => (x || '').toLowerCase().includes(q));
+      });
+      render(filtered);
+    }
+
+    async function init() {
+      try {
+        if (!SHEETS_JSON_URL || SHEETS_JSON_URL.includes('REPLACE_GOOGLE_SHEETS_JSON_URL')) {
+          render([]);
+          emptyEl.innerHTML = 'Bitte Google Sheet veröffentlichen und die JSON-URL in events.html eintragen.';
+          return;
+        }
+        const res = await fetch(SHEETS_JSON_URL);
+        const text = await res.text();
+        const json = JSON.parse(stripGVizJSON(text));
+        events = mapGVizRows(json);
+        render(events);
+      } catch (e) {
+        console.error('Fehler beim Laden der Veranstaltungen:', e);
+        emptyEl.style.display = 'block';
+        emptyEl.textContent = 'Fehler beim Laden der Daten.';
+      }
+    }
+
+    searchEl.addEventListener('input', applySearch);
+    init();
+  </script>
 </body>
 </html>
