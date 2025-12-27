@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veranstaltungen – Vorchdorf</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f7f7f8; color: #222; }
+    header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
+    header a { text-decoration: none; color: #0366d6; font-weight: 600; }
+    main { padding: 12px 16px; }
+    .controls { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+    .input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
+    .list { display: grid; gap: 10px; }
+    .card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .title { font-weight: 700; margin-bottom: 6px; }
+    .meta { font-size: 13px; color: #555; margin-bottom: 6px; }
+    .desc { font-size: 14px; color: #333; }
+    .empty { padding: 16px; font-size: 14px; color: #666; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0b0b0d; color: #ddd; }
+      header { background: #111; border-bottom-color: #222; }
+      .card { background: #121212; border-color: #222; }
+      .input { background: #111; border-color: #222; color: #ddd; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./index.html">← Zurück zur Vorchdorf App</a>
+    <div style="font-weight:700;">Veranstaltungen</div>
+  </header>
+  <main>
+    <div class="controls">
+      <input id="search" class="input" type="search" placeholder="Suche nach Titel, Ort, Datum…" />
+    </div>
+    <div id="list" class="list"></div>
+    <div id="empty" class="empty" style="display:none;">Keine Veranstaltungen gefunden.</div>
+  </main>
+
+  <script>
+    // Google Sheets CSV Endpoint (bereits veröffentlicht)
+    const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Pi8u-l21PXA8Qls1zBJK1Y5XWDmdwr5TLgioOuWSRhhoToDG1tmHt8NBR7S7jqn10WdHIk1zhK7g/pub?output=csv';
+
+    const listEl = document.getElementById('list');
+    const emptyEl = document.getElementById('empty');
+    const searchEl = document.getElementById('search');
+    let events = [];
+
+    function normalizeDate(val) {
+      if (!val) return null;
+      if (typeof val === 'string') {
+        // Try DD.MM.YYYY format
+        const match = val.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+        if (match) {
+          return new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+        }
+        const d = new Date(val);
+        return isNaN(d) ? null : d;
+      }
+      if (typeof val === 'number') return new Date(val);
+      return null;
+    }
+
+    function formatDate(d) {
+      if (!d) return '';
+      return d.toLocaleDateString('de-AT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length < 2) return [];
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/^"|"$/g, ''));
+      const idx = {
+        date: headers.findIndex(h => h.includes('datum') || h.includes('date')),
+        title: headers.findIndex(h => h.includes('titel') || h.includes('title') || h.includes('event') || h.includes('veranstaltung')),
+        location: headers.findIndex(h => h.includes('ort') || h.includes('location') || h.includes('place')),
+        link: headers.findIndex(h => h.includes('link') || h.includes('url')),
+        description: headers.findIndex(h => h.includes('beschreibung') || h.includes('desc')),
+      };
+      const rows = lines.slice(1).map(line => {
+        const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+        const dateVal = idx.date >= 0 ? cols[idx.date] : '';
+        const date = normalizeDate(dateVal);
+        return {
+          date,
+          title: idx.title >= 0 ? cols[idx.title] : '',
+          location: idx.location >= 0 ? cols[idx.location] : '',
+          link: idx.link >= 0 ? cols[idx.link] : '',
+          description: idx.description >= 0 ? cols[idx.description] : '',
+        };
+      });
+      return rows.filter(e => e.title).sort((a, b) => {
+        const ad = a.date ? a.date.getTime() : 0;
+        const bd = b.date ? b.date.getTime() : 0;
+        return ad - bd;
+      });
+    }
+
+    function render(list) {
+      listEl.innerHTML = '';
+      if (!list || list.length === 0) {
+        emptyEl.style.display = 'block';
+        return;
+      }
+      emptyEl.style.display = 'none';
+      list.forEach(ev => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = ev.title;
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        const parts = [formatDate(ev.date), ev.location].filter(Boolean);
+        meta.textContent = parts.join(' • ');
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = ev.description || '';
+        card.appendChild(title);
+        card.appendChild(meta);
+        card.appendChild(desc);
+        if (ev.link) {
+          const a = document.createElement('a');
+          a.href = ev.link;
+          a.textContent = 'Mehr Infos';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.style.display = 'inline-block';
+          a.style.marginTop = '8px';
+          card.appendChild(a);
+        }
+        listEl.appendChild(card);
+      });
+    }
+
+    function applySearch() {
+      const q = (searchEl.value || '').toLowerCase();
+      const filtered = events.filter(ev => {
+        return [ev.title, ev.location, ev.description, formatDate(ev.date)].some(x => (x || '').toLowerCase().includes(q));
+      });
+      render(filtered);
+    }
+
+    async function init() {
+      try {
+        const res = await fetch(SHEETS_CSV_URL);
+        const text = await res.text();
+        events = parseCSV(text);
+        render(events);
+      } catch (e) {
+        console.error('Fehler beim Laden der Veranstaltungen:', e);
+        emptyEl.style.display = 'block';
+        emptyEl.textContent = 'Fehler beim Laden der Daten.';
+      }
+    }
+
+    searchEl.addEventListener('input', applySearch);
+    init();
+  </script>
+</body>
+</html>
