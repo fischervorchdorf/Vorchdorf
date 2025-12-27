@@ -40,31 +40,22 @@
   </main>
 
   <script>
-    // 1) Empfohlener Weg: Google Sheets JSON Endpoint
-    //    Format: https://docs.google.com/spreadsheets/d/GOOGLE_SHEET_ID/gviz/tq?tqx=out:json&sheet=SHEET_NAME
-    //    -> Im Google Sheet: Datei → "Im Web veröffentlichen" aktivieren
-    //    -> SHEET_NAME ist der Tabellenblattname (z.B. "Events")
-    const SHEETS_JSON_URL = 'REPLACE_GOOGLE_SHEETS_JSON_URL';
-
-    // Optional: CSV Endpoint (falls bevorzugt)
-    // const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/GOOGLE_SHEET_ID/export?format=csv&gid=TAB_ID';
+    // Google Sheets CSV Endpoint (bereits veröffentlicht)
+    const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Pi8u-l21PXA8Qls1zBJK1Y5XWDmdwr5TLgioOuWSRhhoToDG1tmHt8NBR7S7jqn10WdHIk1zhK7g/pub?output=csv';
 
     const listEl = document.getElementById('list');
     const emptyEl = document.getElementById('empty');
     const searchEl = document.getElementById('search');
     let events = [];
 
-    function stripGVizJSON(text) {
-      const start = text.indexOf('{');
-      const end = text.lastIndexOf('}');
-      return text.slice(start, end + 1);
-    }
-
     function normalizeDate(val) {
       if (!val) return null;
       if (typeof val === 'string') {
-        const m = val.match(/Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)/);
-        if (m) return new Date(Number(m[1]), Number(m[2]), Number(m[3]));
+        // Try DD.MM.YYYY format
+        const match = val.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+        if (match) {
+          return new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+        }
         const d = new Date(val);
         return isNaN(d) ? null : d;
       }
@@ -77,27 +68,30 @@
       return d.toLocaleDateString('de-AT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     }
 
-    function mapGVizRows(data) {
-      const cols = data.table.cols.map(c => (c.label || '').toLowerCase());
-      const rows = data.table.rows.map(r => r.c.map(c => c ? (c.v ?? c.f ?? '') : ''));
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length < 2) return [];
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/^"|"$/g, ''));
       const idx = {
-        date: cols.findIndex(l => l.includes('datum') || l.includes('date')),
-        title: cols.findIndex(l => l.includes('titel') || l.includes('title') || l.includes('event')),
-        location: cols.findIndex(l => l.includes('ort') || l.includes('location') || l.includes('place')),
-        link: cols.findIndex(l => l.includes('link') || l.includes('url')),
-        description: cols.findIndex(l => l.includes('beschreibung') || l.includes('desc')),
+        date: headers.findIndex(h => h.includes('datum') || h.includes('date')),
+        title: headers.findIndex(h => h.includes('titel') || h.includes('title') || h.includes('event') || h.includes('veranstaltung')),
+        location: headers.findIndex(h => h.includes('ort') || h.includes('location') || h.includes('place')),
+        link: headers.findIndex(h => h.includes('link') || h.includes('url')),
+        description: headers.findIndex(h => h.includes('beschreibung') || h.includes('desc')),
       };
-      return rows.map(row => {
-        const dateVal = row[idx.date];
+      const rows = lines.slice(1).map(line => {
+        const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+        const dateVal = idx.date >= 0 ? cols[idx.date] : '';
         const date = normalizeDate(dateVal);
         return {
           date,
-          title: idx.title >= 0 ? row[idx.title] : '',
-          location: idx.location >= 0 ? row[idx.location] : '',
-          link: idx.link >= 0 ? row[idx.link] : '',
-          description: idx.description >= 0 ? row[idx.description] : '',
+          title: idx.title >= 0 ? cols[idx.title] : '',
+          location: idx.location >= 0 ? cols[idx.location] : '',
+          link: idx.link >= 0 ? cols[idx.link] : '',
+          description: idx.description >= 0 ? cols[idx.description] : '',
         };
-      }).filter(e => e.title).sort((a, b) => {
+      });
+      return rows.filter(e => e.title).sort((a, b) => {
         const ad = a.date ? a.date.getTime() : 0;
         const bd = b.date ? b.date.getTime() : 0;
         return ad - bd;
@@ -151,15 +145,9 @@
 
     async function init() {
       try {
-        if (!SHEETS_JSON_URL || SHEETS_JSON_URL.includes('REPLACE_GOOGLE_SHEETS_JSON_URL')) {
-          render([]);
-          emptyEl.innerHTML = 'Bitte Google Sheet veröffentlichen und die JSON-URL in events.html eintragen.';
-          return;
-        }
-        const res = await fetch(SHEETS_JSON_URL);
+        const res = await fetch(SHEETS_CSV_URL);
         const text = await res.text();
-        const json = JSON.parse(stripGVizJSON(text));
-        events = mapGVizRows(json);
+        events = parseCSV(text);
         render(events);
       } catch (e) {
         console.error('Fehler beim Laden der Veranstaltungen:', e);
