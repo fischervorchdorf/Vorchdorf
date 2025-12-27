@@ -3565,7 +3565,6 @@
             const normalizedSearchTerm = normalizeString(searchTerm);
 
             // VOLLTEXTSUCHE - Durchsuche ALLES mit Smart-Search!
-            
             // 1. Suche in KATEGORIEN (höchste Priorität)
             Object.values(categories).forEach(category => {
                 const categoryText = `${category.title} ${category.description} ${category.id}`;
@@ -3684,10 +3683,34 @@
                 }
             });
 
-            // Sortiere nach Priorität (Kategorien zuerst, dann Unterkategorien, dann Items, dann Businesses)
-            results.sort((a, b) => a.priority - b.priority);
-
+            // 4. Suche in VERANSTALTUNGEN (falls geladen)
+            if (window.vorchdorfEvents && window.vorchdorfEvents.length > 0) {
+                window.vorchdorfEvents.forEach(event => {
             // Entferne Duplikate
+            const uniqueResults = [];
+            const seen = new Set();
+            
+            results.forEach(result => {
+                let key;
+                if (result.type === 'business') {
+                    key = `business-${result.business.name}`;
+                } else if (result.type === 'category') {
+                    key = `category-${result.category.id}`;
+                } else if (result.type === 'subcategory') {
+                    key = `subcategory-${result.category.id}-${result.subcategory.id}`;
+                } else if (result.type === 'item') {
+                    key = `item-${result.category.id}-${result.subcategory.id}-${result.item.title}`;
+                } else if (result.type === 'content-item') {
+                    key = `content-${result.category.id}-${result.item.title}`;
+                } else if (result.type === 'event') {
+                    key = `event-${result.event.title}-${result.event.date}`;
+                }
+                
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueResults.push(result);
+                }
+            });Entferne Duplikate
             const uniqueResults = [];
             const seen = new Set();
             
@@ -3775,8 +3798,6 @@
                         <div class="business-card" onclick="navigateToCategory('${result.category.id}')" style="cursor: pointer;">
                             <div class="business-name">${result.item.title}</div>
                             <div class="business-location">📂 ${result.category.title}</div>
-                        </div>
-                    `;
                 } else if (result.type === 'business') {
                     // Werbering-Betriebe
                     const b = result.business;
@@ -3786,6 +3807,19 @@
                             <div class="business-location">📍 ${b.location}</div>
                             ${b.link ? `<a href="${b.link}" class="business-link" target="_blank">🌐 Website besuchen</a>` : ''}
                         </div>
+                    `;
+                } else if (result.type === 'event') {
+                    // Veranstaltungen
+                    const e = result.event;
+                    const dateStr = e.date ? e.date.toLocaleDateString('de-AT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) : '';
+                    html += `
+                        <div class="business-card" onclick="window.location.href='events.html'" style="cursor: pointer;">
+                            <div class="business-name">📅 ${e.title}</div>
+                            <div class="business-location">${dateStr}${e.location ? ' • ' + e.location : ''}</div>
+                            ${e.description ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${e.description}</p>` : ''}
+                        </div>
+                    `;
+                }       </div>
                     `;
                 }
             });
@@ -3798,6 +3832,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
+            
+            // Load events from Google Sheets for search integration
+            loadEventsForSearch();
             
             // Live search - triggers as you type
             document.getElementById('searchInput').addEventListener('input', function(e) {
@@ -3861,6 +3898,61 @@
             
             init();
         });
+
+        // Load events from Google Sheets CSV for search integration
+        async function loadEventsForSearch() {
+            const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Pi8u-l21PXA8Qls1zBJK1Y5XWDmdwr5TLgioOuWSRhhoToDG1tmHt8NBR7S7jqn10WdHIk1zhK7g/pub?output=csv';
+            
+            try {
+                const res = await fetch(SHEETS_CSV_URL);
+                const text = await res.text();
+                window.vorchdorfEvents = parseEventsCSV(text);
+                console.log('✅ Events loaded for search:', window.vorchdorfEvents.length);
+            } catch (e) {
+                console.log('⚠️ Could not load events for search:', e);
+                window.vorchdorfEvents = [];
+            }
+        }
+
+        function parseEventsCSV(text) {
+            const lines = text.trim().split('\n');
+            if (lines.length < 2) return [];
+            
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/^"|"$/g, ''));
+            const idx = {
+                date: headers.findIndex(h => h.includes('datum') || h.includes('date')),
+                title: headers.findIndex(h => h.includes('titel') || h.includes('title') || h.includes('event') || h.includes('veranstaltung')),
+                location: headers.findIndex(h => h.includes('ort') || h.includes('location') || h.includes('place')),
+                link: headers.findIndex(h => h.includes('link') || h.includes('url')),
+                description: headers.findIndex(h => h.includes('beschreibung') || h.includes('desc')),
+            };
+            
+            const events = lines.slice(1).map(line => {
+                const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+                const dateVal = idx.date >= 0 ? cols[idx.date] : '';
+                let date = null;
+                
+                if (dateVal) {
+                    const match = dateVal.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+                    if (match) {
+                        date = new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+                    } else {
+                        date = new Date(dateVal);
+                    }
+                    if (isNaN(date)) date = null;
+                }
+                
+                return {
+                    date,
+                    title: idx.title >= 0 ? cols[idx.title] : '',
+                    location: idx.location >= 0 ? cols[idx.location] : '',
+                    link: idx.link >= 0 ? cols[idx.link] : '',
+                    description: idx.description >= 0 ? cols[idx.description] : '',
+                };
+            });
+            
+            return events.filter(e => e.title);
+        }
     </script>
 </body>
 </html>
