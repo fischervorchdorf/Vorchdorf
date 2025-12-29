@@ -2829,10 +2829,19 @@
         // Initialize App
         function init() {
             console.log('=== INIT STARTED ===');
-            console.log('categories object:', typeof categories);
-            console.log('categories keys:', Object.keys(categories || {}));
-            
-            renderHome();
+            try {
+                console.log('categories defined:', typeof categories);
+                console.log('categories count:', Object.keys(categories || {}).length);
+                
+                // Remove loading message
+                const loading = document.getElementById('loadingMessage');
+                if (loading) loading.remove();
+                
+                renderHome();
+            } catch(e) {
+                console.error('ERROR in init:', e);
+                document.getElementById('mainContent').innerHTML = '<div style="color:red;padding:20px;"><h2>❌ JavaScript Error</h2><p>' + e.message + '</p></div>';
+            }
         }
 
         // Fetch Weather Data
@@ -2875,6 +2884,8 @@
         // Render Home View
         function renderHome() {
             console.log('=== RENDERHOME STARTED ===');
+            
+            // Simple error wrapper
             try {
                 currentView = 'home';
                 navigationHistory = [];
@@ -2887,83 +2898,81 @@
                 const mainContent = document.getElementById('mainContent');
                 const weatherWidget = document.getElementById('weatherWidget');
                 
-                if (!emergencyBanner || !breadcrumb || !backButton || !mainContent || !weatherWidget) {
-                    console.error('Missing DOM elements');
+                console.log('DOM elements check:', {
+                    emergencyBanner: !!emergencyBanner,
+                    breadcrumb: !!breadcrumb,
+                    backButton: !!backButton,
+                    mainContent: !!mainContent,
+                    weatherWidget: !!weatherWidget
+                });
+                
+                if (!mainContent) {
+                    console.error('mainContent element not found!');
                     return;
                 }
                 
-                emergencyBanner.classList.remove('hidden');
-                breadcrumb.classList.add('hidden');
-                backButton.classList.add('hidden');
+                emergencyBanner?.classList.remove('hidden');
+                breadcrumb?.classList.add('hidden');
+                backButton?.classList.add('hidden');
                 
-                console.log('categories:', categories);
-                console.log('categories type:', typeof categories);
+                console.log('Categories check:', {
+                    isDefined: !!categories,
+                    type: typeof categories,
+                    length: Object.keys(categories || {}).length
+                });
                 
                 if (!categories || Object.keys(categories).length === 0) {
-                    console.error('Categories is empty or not defined');
                     mainContent.innerHTML = '<p style="color: red; padding: 20px;">FEHLER: Kategorien nicht definiert!</p>';
                     return;
                 }
                 
-                // Render categories immediately
-                const categoryCards = Object.values(categories).map(cat => {
-                    if (!cat || !cat.id || !cat.icon || !cat.title) {
-                        console.warn('Invalid category:', cat);
-                        return '';
-                    }
-                    return `
-                        <div class="card" onclick="navigateToCategory('${cat.id}')">
-                            <span class="card-icon">${cat.icon}</span>
-                            <h3>${cat.title}</h3>
-                            <p>${cat.description || ''}</p>
-                        </div>
-                    `;
-                }).join('');
-                
-                mainContent.innerHTML = `
-                    <div class="cards-grid fade-in">
-                        ${categoryCards}
-                    </div>
-                `;
-                console.log('✅ Categories rendered successfully');
-                
-                // Load weather non-blocking
-                fetchWeather().then(weatherData => {
-                    if (weatherData && weatherData.time) {
-                        weatherWidget.innerHTML = `
-                            <div class="weather-container">
-                                <h3>🌡️ Wetter in Vorchdorf</h3>
-                                <div class="weather-content">
-                                    ${weatherData.time.slice(0, 3).map((date, idx) => {
-                                        const dateObj = new Date(date);
-                                        const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
-                                        const icon = getWeatherIcon(weatherData.weather_code[idx]);
-                                        const desc = getWeatherDescription(weatherData.weather_code[idx]);
-                                        const tempMax = Math.round(weatherData.temperature_2m_max[idx]);
-                                        const tempMin = Math.round(weatherData.temperature_2m_min[idx]);
-                                        return `
-                                            <div class="weather-day">
-                                                <h4>${dayName}</h4>
-                                                <div class="weather-icon">${icon}</div>
-                                                <div class="weather-temp">${tempMax}° / ${tempMin}°</div>
-                                                <div class="weather-description">${desc}</div>
-                                            </div>
-                                        `;
-                                    }).join('')}
-                                </div>
+                // Build HTML
+                let html = '<div class="cards-grid fade-in">';
+                for (const [key, cat] of Object.entries(categories)) {
+                    if (cat && cat.id && cat.icon && cat.title) {
+                        html += `
+                            <div class="card" onclick="navigateToCategory('${cat.id}')">
+                                <span class="card-icon">${cat.icon}</span>
+                                <h3>${cat.title}</h3>
+                                <p>${cat.description || ''}</p>
                             </div>
                         `;
-                        weatherWidget.classList.remove('hidden');
-                    } else {
-                        weatherWidget.classList.add('hidden');
                     }
-                }).catch(error => {
-                    console.log('Wetter konnte nicht geladen werden:', error);
-                    weatherWidget.classList.add('hidden');
-                });
+                }
+                html += '</div>';
+                
+                mainContent.innerHTML = html;
+                console.log('✅ Categories rendered');
+                
+                // Load weather async
+                fetchWeather().then(weatherData => {
+                    if (weatherData?.time) {
+                        let weatherHtml = '<div class="weather-container"><h3>🌡️ Wetter in Vorchdorf</h3><div class="weather-content">';
+                        for (let i = 0; i < Math.min(3, weatherData.time.length); i++) {
+                            const dateObj = new Date(weatherData.time[i]);
+                            const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
+                            const icon = getWeatherIcon(weatherData.weather_code[i]);
+                            const desc = getWeatherDescription(weatherData.weather_code[i]);
+                            const tempMax = Math.round(weatherData.temperature_2m_max[i]);
+                            const tempMin = Math.round(weatherData.temperature_2m_min[i]);
+                            weatherHtml += `
+                                <div class="weather-day">
+                                    <h4>${dayName}</h4>
+                                    <div class="weather-icon">${icon}</div>
+                                    <div class="weather-temp">${tempMax}° / ${tempMin}°</div>
+                                    <div class="weather-description">${desc}</div>
+                                </div>
+                            `;
+                        }
+                        weatherHtml += '</div></div>';
+                        weatherWidget.innerHTML = weatherHtml;
+                        weatherWidget.classList.remove('hidden');
+                    }
+                }).catch(err => console.log('Weather error:', err));
+                
             } catch(error) {
                 console.error('Fatal error in renderHome:', error);
-                document.getElementById('mainContent').innerHTML = '<p style="color: red; padding: 20px;">🔴 FEHLER: ' + error.message + '</p>';
+                document.getElementById('mainContent').innerHTML = '<p style="color: red; padding: 20px;">🔴 Error: ' + error.message + '</p>';
             }
         }
 
