@@ -939,8 +939,8 @@
 
         <!-- Main Content (Categories rendered here) -->
         <div id="mainContent">
-            <div style="padding: 20px; text-align: center; color: red; font-size: 18px;">
-                ⏳ App wird geladen... Falls dieser Text bleibt, gibt es ein JavaScript-Problem.
+            <div id="loadingMessage" style="padding: 20px; text-align: center; color: red; font-size: 18px;">
+                ⏳ App wird geladen...
             </div>
         </div>
 
@@ -2929,38 +2929,38 @@
                 
                 // Load weather non-blocking
                 fetchWeather().then(weatherData => {
-                if (weatherData && weatherData.time) {
-                    weatherWidget.innerHTML = `
-                        <div class="weather-container">
-                            <h3>🌡️ Wetter in Vorchdorf</h3>
-                            <div class="weather-content">
-                                ${weatherData.time.slice(0, 3).map((date, idx) => {
-                                    const dateObj = new Date(date);
-                                    const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
-                                    const icon = getWeatherIcon(weatherData.weather_code[idx]);
-                                    const desc = getWeatherDescription(weatherData.weather_code[idx]);
-                                    const tempMax = Math.round(weatherData.temperature_2m_max[idx]);
-                                    const tempMin = Math.round(weatherData.temperature_2m_min[idx]);
-                                    return `
-                                        <div class="weather-day">
-                                            <h4>${dayName}</h4>
-                                            <div class="weather-icon">${icon}</div>
-                                            <div class="weather-temp">${tempMax}° / ${tempMin}°</div>
-                                            <div class="weather-description">${desc}</div>
-                                        </div>
-                                    `;
-                                }).join('')}
+                    if (weatherData && weatherData.time) {
+                        weatherWidget.innerHTML = `
+                            <div class="weather-container">
+                                <h3>🌡️ Wetter in Vorchdorf</h3>
+                                <div class="weather-content">
+                                    ${weatherData.time.slice(0, 3).map((date, idx) => {
+                                        const dateObj = new Date(date);
+                                        const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
+                                        const icon = getWeatherIcon(weatherData.weather_code[idx]);
+                                        const desc = getWeatherDescription(weatherData.weather_code[idx]);
+                                        const tempMax = Math.round(weatherData.temperature_2m_max[idx]);
+                                        const tempMin = Math.round(weatherData.temperature_2m_min[idx]);
+                                        return `
+                                            <div class="weather-day">
+                                                <h4>${dayName}</h4>
+                                                <div class="weather-icon">${icon}</div>
+                                                <div class="weather-temp">${tempMax}° / ${tempMin}°</div>
+                                                <div class="weather-description">${desc}</div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
                             </div>
-                        </div>
-                    `;
-                    weatherWidget.classList.remove('hidden');
-                } else {
+                        `;
+                        weatherWidget.classList.remove('hidden');
+                    } else {
+                        weatherWidget.classList.add('hidden');
+                    }
+                }).catch(error => {
+                    console.log('Wetter konnte nicht geladen werden:', error);
                     weatherWidget.classList.add('hidden');
-                }
-            }).catch(error => {
-                console.log('Wetter konnte nicht geladen werden:', error);
-                weatherWidget.classList.add('hidden');
-            });
+                });
             } catch(error) {
                 console.error('Fatal error in renderHome:', error);
                 document.getElementById('mainContent').innerHTML = '<p style="color: red; padding: 20px;">🔴 FEHLER: ' + error.message + '</p>';
