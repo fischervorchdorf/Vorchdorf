@@ -938,11 +938,7 @@
         <div id="breadcrumb" class="breadcrumb hidden"></div>
 
         <!-- Main Content (Categories rendered here) -->
-        <div id="mainContent">
-            <div id="loadingMessage" style="padding: 20px; text-align: center; color: red; font-size: 18px;">
-                ⏳ App wird geladen...
-            </div>
-        </div>
+        <div id="mainContent"></div>
 
         <!-- Emergency Banner (always visible on home) -->
         <div id="emergencyBanner" class="emergency-banner hidden">
@@ -968,10 +964,8 @@
     </div>
 
     <script>
-        console.log('🚀 Vorchdorf App Script starting...');
-        
         // App Version - Update this with each release
-        const APP_VERSION = '2.39';
+        const APP_VERSION = '2.27';
         
         // App State
         let currentView = 'home';
@@ -1407,7 +1401,7 @@
             },
             sport_fitness: {
                 id: 'sport_fitness',
-                title: 'Sport & Fitness',
+                title: '⚽ Sport & Fitness',
                 icon: '⚽',
                 description: 'Fitnessstudios, Sportangebote & Sportstätten',
                 subcategories: {
@@ -1500,7 +1494,7 @@
             },
             clubs: {
                 id: 'clubs',
-                title: 'Vereine',
+                title: '🤝 Vereine',
                 icon: '🤝',
                 description: 'Über 60 aktive Vereine in Vorchdorf',
                 subcategories: {
@@ -2698,7 +2692,7 @@
             },
             emergency: {
                 id: 'emergency',
-                title: 'Notfallkontakte & Standorte',
+                title: '🆘 Notfallkontakte & Standorte',
                 icon: '🆘',
                 description: 'Wichtige Nummern und Standorte im Notfall',
                 content: {
@@ -2828,20 +2822,7 @@
 
         // Initialize App
         function init() {
-            console.log('=== INIT STARTED ===');
-            try {
-                console.log('categories defined:', typeof categories);
-                console.log('categories count:', Object.keys(categories || {}).length);
-                
-                // Remove loading message
-                const loading = document.getElementById('loadingMessage');
-                if (loading) loading.remove();
-                
-                renderHome();
-            } catch(e) {
-                console.error('ERROR in init:', e);
-                document.getElementById('mainContent').innerHTML = '<div style="color:red;padding:20px;"><h2>❌ JavaScript Error</h2><p>' + e.message + '</p></div>';
-            }
+            renderHome();
         }
 
         // Fetch Weather Data
@@ -2883,97 +2864,62 @@
 
         // Render Home View
         function renderHome() {
-            console.log('=== RENDERHOME STARTED ===');
-            
-            // Simple error wrapper
-            try {
-                currentView = 'home';
-                navigationHistory = [];
-                currentCategory = null;
-                currentSubcategory = null;
+            currentView = 'home';
+            navigationHistory = [];
+            currentCategory = null;
+            currentSubcategory = null;
 
-                const emergencyBanner = document.getElementById('emergencyBanner');
-                const breadcrumb = document.getElementById('breadcrumb');
-                const backButton = document.getElementById('backButton');
-                const mainContent = document.getElementById('mainContent');
-                const weatherWidget = document.getElementById('weatherWidget');
-                
-                console.log('DOM elements check:', {
-                    emergencyBanner: !!emergencyBanner,
-                    breadcrumb: !!breadcrumb,
-                    backButton: !!backButton,
-                    mainContent: !!mainContent,
-                    weatherWidget: !!weatherWidget
-                });
-                
-                if (!mainContent) {
-                    console.error('mainContent element not found!');
-                    return;
+            document.getElementById('emergencyBanner').classList.remove('hidden');
+            document.getElementById('breadcrumb').classList.add('hidden');
+            document.getElementById('backButton').classList.add('hidden');
+
+            const mainContent = document.getElementById('mainContent');
+            const weatherWidget = document.getElementById('weatherWidget');
+            
+            // Fetch and display weather in dedicated widget below emergency
+            fetchWeather().then(weatherData => {
+                if (weatherData && weatherData.time) {
+                    weatherWidget.innerHTML = `
+                        <div class="weather-container">
+                            <h3>🌡️ Wetter in Vorchdorf</h3>
+                            <div class="weather-content">
+                                ${weatherData.time.slice(0, 3).map((date, idx) => {
+                                    const dateObj = new Date(date);
+                                    const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
+                                    const icon = getWeatherIcon(weatherData.weather_code[idx]);
+                                    const desc = getWeatherDescription(weatherData.weather_code[idx]);
+                                    const tempMax = Math.round(weatherData.temperature_2m_max[idx]);
+                                    const tempMin = Math.round(weatherData.temperature_2m_min[idx]);
+                                    return `
+                                        <div class="weather-day">
+                                            <h4>${dayName}</h4>
+                                            <div class="weather-icon">${icon}</div>
+                                            <div class="weather-temp">${tempMax}° / ${tempMin}°</div>
+                                            <div class="weather-description">${desc}</div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                    weatherWidget.classList.remove('hidden');
+                } else {
+                    weatherWidget.classList.add('hidden');
                 }
                 
-                emergencyBanner?.classList.remove('hidden');
-                breadcrumb?.classList.add('hidden');
-                backButton?.classList.add('hidden');
-                
-                console.log('Categories check:', {
-                    isDefined: !!categories,
-                    type: typeof categories,
-                    length: Object.keys(categories || {}).length
-                });
-                
-                if (!categories || Object.keys(categories).length === 0) {
-                    mainContent.innerHTML = '<p style="color: red; padding: 20px;">FEHLER: Kategorien nicht definiert!</p>';
-                    return;
-                }
-                
-                // Build HTML
-                let html = '<div class="cards-grid fade-in">';
-                for (const [key, cat] of Object.entries(categories)) {
-                    if (cat && cat.id && cat.icon && cat.title) {
-                        html += `
+                // Render categories in mainContent (without weather)
+                mainContent.innerHTML = `
+                    <div class="cards-grid fade-in">
+                        ${Object.values(categories).map(cat => `
                             <div class="card" onclick="navigateToCategory('${cat.id}')">
                                 <span class="card-icon">${cat.icon}</span>
                                 <h3>${cat.title}</h3>
-                                <p>${cat.description || ''}</p>
+                                <p>${cat.description}</p>
                             </div>
-                        `;
-                    }
-                }
-                html += '</div>';
-                
-                mainContent.innerHTML = html;
-                console.log('✅ Categories rendered');
-                
-                // Load weather async
-                fetchWeather().then(weatherData => {
-                    if (weatherData?.time) {
-                        let weatherHtml = '<div class="weather-container"><h3>🌡️ Wetter in Vorchdorf</h3><div class="weather-content">';
-                        for (let i = 0; i < Math.min(3, weatherData.time.length); i++) {
-                            const dateObj = new Date(weatherData.time[i]);
-                            const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
-                            const icon = getWeatherIcon(weatherData.weather_code[i]);
-                            const desc = getWeatherDescription(weatherData.weather_code[i]);
-                            const tempMax = Math.round(weatherData.temperature_2m_max[i]);
-                            const tempMin = Math.round(weatherData.temperature_2m_min[i]);
-                            weatherHtml += `
-                                <div class="weather-day">
-                                    <h4>${dayName}</h4>
-                                    <div class="weather-icon">${icon}</div>
-                                    <div class="weather-temp">${tempMax}° / ${tempMin}°</div>
-                                    <div class="weather-description">${desc}</div>
-                                </div>
-                            `;
-                        }
-                        weatherHtml += '</div></div>';
-                        weatherWidget.innerHTML = weatherHtml;
-                        weatherWidget.classList.remove('hidden');
-                    }
-                }).catch(err => console.log('Weather error:', err));
-                
-            } catch(error) {
-                console.error('Fatal error in renderHome:', error);
-                document.getElementById('mainContent').innerHTML = '<p style="color: red; padding: 20px;">🔴 Error: ' + error.message + '</p>';
-            }
+                        `).join('')}
+                    </div>
+                `;
+            });
         }
 
         // Navigate to Category
@@ -3619,6 +3565,7 @@
             const normalizedSearchTerm = normalizeString(searchTerm);
 
             // VOLLTEXTSUCHE - Durchsuche ALLES mit Smart-Search!
+            
             // 1. Suche in KATEGORIEN (höchste Priorität)
             Object.values(categories).forEach(category => {
                 const categoryText = `${category.title} ${category.description} ${category.id}`;
@@ -3737,34 +3684,10 @@
                 }
             });
 
-            // 4. Suche in VERANSTALTUNGEN (falls geladen)
-            if (window.vorchdorfEvents && window.vorchdorfEvents.length > 0) {
-                window.vorchdorfEvents.forEach(event => {
+            // Sortiere nach Priorität (Kategorien zuerst, dann Unterkategorien, dann Items, dann Businesses)
+            results.sort((a, b) => a.priority - b.priority);
+
             // Entferne Duplikate
-            const uniqueResults = [];
-            const seen = new Set();
-            
-            results.forEach(result => {
-                let key;
-                if (result.type === 'business') {
-                    key = `business-${result.business.name}`;
-                } else if (result.type === 'category') {
-                    key = `category-${result.category.id}`;
-                } else if (result.type === 'subcategory') {
-                    key = `subcategory-${result.category.id}-${result.subcategory.id}`;
-                } else if (result.type === 'item') {
-                    key = `item-${result.category.id}-${result.subcategory.id}-${result.item.title}`;
-                } else if (result.type === 'content-item') {
-                    key = `content-${result.category.id}-${result.item.title}`;
-                } else if (result.type === 'event') {
-                    key = `event-${result.event.title}-${result.event.date}`;
-                }
-                
-                if (!seen.has(key)) {
-                    seen.add(key);
-                    uniqueResults.push(result);
-                }
-            });Entferne Duplikate
             const uniqueResults = [];
             const seen = new Set();
             
@@ -3852,6 +3775,8 @@
                         <div class="business-card" onclick="navigateToCategory('${result.category.id}')" style="cursor: pointer;">
                             <div class="business-name">${result.item.title}</div>
                             <div class="business-location">📂 ${result.category.title}</div>
+                        </div>
+                    `;
                 } else if (result.type === 'business') {
                     // Werbering-Betriebe
                     const b = result.business;
@@ -3860,17 +3785,6 @@
                             <div class="business-name">${b.name}</div>
                             <div class="business-location">📍 ${b.location}</div>
                             ${b.link ? `<a href="${b.link}" class="business-link" target="_blank">🌐 Website besuchen</a>` : ''}
-                        </div>
-                    `;
-                } else if (result.type === 'event') {
-                    // Veranstaltungen
-                    const e = result.event;
-                    const dateStr = e.date ? e.date.toLocaleDateString('de-AT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) : '';
-                    html += `
-                        <div class="business-card" onclick="window.location.href='events.html'" style="cursor: pointer;">
-                            <div class="business-name">📅 ${e.title}</div>
-                            <div class="business-location">${dateStr}${e.location ? ' • ' + e.location : ''}</div>
-                            ${e.description ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${e.description}</p>` : ''}
                         </div>
                     `;
                 }
@@ -3884,9 +3798,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
-            
-            // Load events from Google Sheets for search integration
-            loadEventsForSearch();
             
             // Live search - triggers as you type
             document.getElementById('searchInput').addEventListener('input', function(e) {
@@ -3950,61 +3861,6 @@
             
             init();
         });
-
-        // Load events from Google Sheets CSV for search integration
-        async function loadEventsForSearch() {
-            const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Pi8u-l21PXA8Qls1zBJK1Y5XWDmdwr5TLgioOuWSRhhoToDG1tmHt8NBR7S7jqn10WdHIk1zhK7g/pub?output=csv';
-            
-            try {
-                const res = await fetch(SHEETS_CSV_URL);
-                const text = await res.text();
-                window.vorchdorfEvents = parseEventsCSV(text);
-                console.log('✅ Events loaded for search:', window.vorchdorfEvents.length);
-            } catch (e) {
-                console.log('⚠️ Could not load events for search:', e);
-                window.vorchdorfEvents = [];
-            }
-        }
-
-        function parseEventsCSV(text) {
-            const lines = text.trim().split('\n');
-            if (lines.length < 2) return [];
-            
-            const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/^"|"$/g, ''));
-            const idx = {
-                date: headers.findIndex(h => h.includes('datum') || h.includes('date')),
-                title: headers.findIndex(h => h.includes('titel') || h.includes('title') || h.includes('event') || h.includes('veranstaltung')),
-                location: headers.findIndex(h => h.includes('ort') || h.includes('location') || h.includes('place')),
-                link: headers.findIndex(h => h.includes('link') || h.includes('url')),
-                description: headers.findIndex(h => h.includes('beschreibung') || h.includes('desc')),
-            };
-            
-            const events = lines.slice(1).map(line => {
-                const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
-                const dateVal = idx.date >= 0 ? cols[idx.date] : '';
-                let date = null;
-                
-                if (dateVal) {
-                    const match = dateVal.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
-                    if (match) {
-                        date = new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
-                    } else {
-                        date = new Date(dateVal);
-                    }
-                    if (isNaN(date)) date = null;
-                }
-                
-                return {
-                    date,
-                    title: idx.title >= 0 ? cols[idx.title] : '',
-                    location: idx.location >= 0 ? cols[idx.location] : '',
-                    link: idx.link >= 0 ? cols[idx.link] : '',
-                    description: idx.description >= 0 ? cols[idx.description] : '',
-                };
-            });
-            
-            return events.filter(e => e.title);
-        }
     </script>
 </body>
 </html>
