@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.38';
+        const APP_VERSION = '2.39';
         
         // App State
         let currentView = 'home';
@@ -1291,6 +1291,7 @@
                 subcategories: {
                     doctors_websites: {
                         id: 'doctors_websites',
+                        icon: '👨‍⚕️',
                         title: 'Ärzte in Vorchdorf - eigene Webseiten',
                         description: 'Klicken für Details',
                         items: [
@@ -1353,26 +1354,31 @@
                     },
                     doctors_vorchdorf: {
                         id: 'doctors_vorchdorf',
+                        icon: '🌐',
                         title: 'Ärzte in Vorchdorf auf vorchdorf.at',
                         directLink: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Aerzte_in_Vorchdorf'
                     },
                     doctors_opening_hours: {
                         id: 'doctors_opening_hours',
+                        icon: '⏰',
                         title: 'Ärzte in Vorchdorf Öffnungszeiten',
                         directLink: 'https://www.google.com/search?q=ärzte+vorchdorf+öffnungszeiten'
                     },
                     specialists: {
                         id: 'specialists',
+                        icon: '🔍',
                         title: 'Kinder- und Fachärzte auf arztsuche',
                         directLink: 'https://arztsuche.aekooe.at/finder/search/land/OO,SA'
                     },
                     pharmacy: {
                         id: 'pharmacy',
+                        icon: '💊',
                         title: 'Apotheken auf apothekensuche',
                         directLink: 'https://www.apothekerkammer.at/apothekensuche/4655,+%C3%96sterreich/4655/@47.9989105,13.9451777/p=postal_code'
                     },
                     social: {
                         id: 'social',
+                        icon: '🤝',
                         title: 'Soziale Einrichtungen',
                         items: [
                             {
@@ -3037,9 +3043,12 @@
                         ` : ''}
                         <div class="subcategory-list">
                             ${subcategoryList.map(sub => {
-                                // Extract emoji from title
-                                const emojiMatch = sub.title.match(/^([^\s])\s/);
-                                const emoji = emojiMatch ? emojiMatch[1] : '📂';
+                                // Use icon field or extract emoji from title
+                                let emoji = sub.icon || '📂';
+                                if (!sub.icon) {
+                                    const emojiMatch = sub.title.match(/^([^\s])\s/);
+                                    emoji = emojiMatch ? emojiMatch[1] : '📂';
+                                }
                                 const titleText = sub.title.replace(/^[^\s]\s/, '');
                                 return `
                                     <div class="subcategory-item" onclick="navigateToSubcategory('${categoryId}', '${sub.id}')">
