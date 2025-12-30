@@ -913,7 +913,7 @@
     </button>
 
     <div class="app-container">
-        <header>
+        <header onclick="goHome()" style="cursor: pointer;">
             <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
             <h1>Vorchdorf-APP</h1>
             <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
@@ -965,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.39';
+        const APP_VERSION = '2.40';
         
         // App State
         let currentView = 'home';
@@ -3269,6 +3269,12 @@
             } else if (last.type === 'category') {
                 navigateToCategory(last.categoryId);
             }
+        }
+
+        // Go back to home
+        function goHome() {
+            navigationHistory = [];
+            renderHome();
         }
 
         // Update Breadcrumb
