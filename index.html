@@ -561,6 +561,21 @@
             opacity: 1;
         }
 
+        .business-card-icon {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 12px;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(244, 185, 35, 0.3));
+            transition: all 0.3s;
+        }
+
+        .business-card:hover .business-card-icon {
+            animation: none;
+            transform: scale(1.4) rotate(15deg);
+            filter: drop-shadow(0 0 15px rgba(244, 185, 35, 0.6));
+        }
+
         .business-name {
             font-weight: 700;
             color: var(--primary);
@@ -3502,8 +3517,9 @@
                     <div class="business-grid">
                         ${allBusinesses.map(business => `
                             <div class="business-card">
+                                <div class="business-card-icon">📁</div>
                                 <div class="business-name">${business.name}</div>
-                                <div class="business-location">📍 ${business.location}</div>
+                                <div class="business-location">${business.location}</div>
                                 ${business.link ? `<a href="${business.link}" class="business-link" target="_blank">🌐 Website →</a>` : ''}
                             </div>
                         `).join('')}
