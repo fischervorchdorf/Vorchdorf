@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Willkommen in Vorchdorf - Dein Neustart-Guide</title>
     
     <!-- PWA Meta Tags -->
@@ -1398,7 +1401,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.44';
+        const APP_VERSION = '2.47';
         
         // App State
         let currentView = 'home';
@@ -4339,16 +4342,16 @@
             let deferredPrompt;
             const installButton = document.getElementById('installButton');
 
-            // Service Worker Registration
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(registration => {
-                        console.log('✅ Service Worker registered:', registration);
-                    })
-                    .catch(error => {
-                        console.log('❌ Service Worker registration failed:', error);
-                    });
-            }
+            // Service Worker Registration - DISABLED due to caching issues
+            // if ('serviceWorker' in navigator) {
+            //     navigator.serviceWorker.register('./service-worker.js')
+            //         .then(registration => {
+            //             console.log('✅ Service Worker registered:', registration);
+            //         })
+            //         .catch(error => {
+            //             console.log('❌ Service Worker registration failed:', error);
+            //         });
+            // }
 
             // Listen for beforeinstallprompt event
             window.addEventListener('beforeinstallprompt', (e) => {
