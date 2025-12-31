@@ -29,26 +29,21 @@
         }
 
         :root {
-            --primary: #1a472a;
-            --primary-light: #2d7a47;
-            --primary-lighter: #4a9b64;
-            --secondary: #f4b923;
-            --bg: #f0f4f8;
+            --primary: #2c5f2d;
+            --primary-light: #4a8a4d;
+            --secondary: #e8b923;
+            --bg: #f8f9fa;
             --card-bg: #ffffff;
-            --text: #1a2332;
-            --text-light: #5a6f86;
-            --border: #d8e1eb;
-            --shadow: rgba(0, 0, 0, 0.08);
-            --shadow-md: rgba(0, 0, 0, 0.12);
-            --shadow-lg: rgba(0, 0, 0, 0.15);
-            --accent: #e74c3c;
-            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
-            --gradient-2: linear-gradient(135deg, #f0f4f8 0%, #e8f0f5 100%);
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --accent: #d35400;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--gradient-2);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f5 100%);
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
@@ -62,18 +57,17 @@
 
         /* Header */
         header {
-            background: var(--gradient-1);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             padding: 15px 30px;
             border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 15px 40px var(--shadow-lg), 0 0 1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px var(--shadow);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 20px;
             flex-wrap: nowrap;
-            backdrop-filter: blur(10px);
         }
 
         header img {
@@ -106,8 +100,7 @@
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 25px var(--shadow-md);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px var(--shadow);
         }
 
         .search-box {
@@ -133,24 +126,20 @@
 
         .search-box button {
             padding: 15px 30px;
-            background: var(--gradient-1);
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 10px;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(26, 71, 42, 0.2);
         }
 
         .search-box button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(26, 71, 42, 0.35);
-        }
-
-        .search-box button:active {
-            transform: translateY(-1px);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
         }
 
         /* Navigation Breadcrumb */
@@ -179,6 +168,7 @@
             color: var(--text-light);
         }
 
+        /* Back Button - Fixed on Right Side */
         .back-button {
             position: fixed;
             top: 20px;
@@ -194,20 +184,15 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 24px var(--shadow-lg);
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px var(--shadow);
             z-index: 1000;
         }
 
         .back-button:hover {
-            background: var(--gradient-1);
+            background: var(--primary);
             color: white;
-            transform: scale(1.08) translateY(-2px);
-            box-shadow: 0 12px 32px rgba(26, 71, 42, 0.25);
-        }
-
-        .back-button:active {
-            transform: scale(1.04) translateY(0px);
+            transform: scale(1.05);
         }
 
         /* Cards Grid for Main Categories */
@@ -222,39 +207,20 @@
             background: var(--card-bg);
             border-radius: 15px;
             padding: 15px;
-            box-shadow: 0 8px 24px var(--shadow-md), 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 20px var(--shadow);
             cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             border: 2px solid transparent;
             aspect-ratio: 1 / 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
         }
 
         .card:hover {
-            transform: translateY(-8px) perspective(1000px) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(26, 71, 42, 0.15), 0 0 1px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary-lighter);
-        }
-
-        .card:hover::before {
-            opacity: 1;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
         }
 
         .card-icon {
@@ -310,8 +276,7 @@
             background: white;
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 30px var(--shadow-md);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px var(--shadow);
         }
 
         .detail-view h2 {
@@ -343,37 +308,17 @@
             padding: 18px;
             border-radius: 12px;
             border: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            box-shadow: 0 4px 12px var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .business-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
         }
 
         .business-card:hover {
             border-color: var(--primary);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 12px 28px rgba(26, 71, 42, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 95, 45, 0.15);
             background: white;
-        }
-
-        .business-card:hover::after {
-            opacity: 1;
         }
 
         .business-name {
@@ -421,22 +366,11 @@
             padding: 18px;
             border-radius: 12px;
             border: 2px solid transparent;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            box-shadow: 0 6px 20px var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .item-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(26, 71, 42, 0.03) 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
+            box-shadow: 0 5px 20px var(--shadow);
         }
 
         .item-card-link {
@@ -447,18 +381,14 @@
 
         .item-card-link:hover {
             border-color: var(--primary);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 32px rgba(26, 71, 42, 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 95, 45, 0.2);
         }
 
         .item-card:hover {
-            border-color: var(--primary-lighter);
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 16px 32px rgba(26, 71, 42, 0.12);
-        }
-
-        .item-card:hover::before {
-            opacity: 1;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 95, 45, 0.2);
         }
 
         .item-card-title {
@@ -502,32 +432,16 @@
             cursor: pointer;
             text-decoration: none;
             color: inherit;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 6px 20px var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .taxi-quick-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.35s;
-            z-index: -1;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px var(--shadow);
         }
 
         .taxi-quick-box:hover {
-            background: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(26, 71, 42, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(44, 95, 45, 0.3);
             border-color: transparent;
-        }
-
-        .taxi-quick-box:hover::before {
-            opacity: 1;
         }
 
         .taxi-quick-icon {
@@ -562,13 +476,6 @@
             border-radius: 10px;
             margin-bottom: 15px;
             border-left: 4px solid var(--primary);
-            box-shadow: 0 4px 12px var(--shadow-md);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .info-item:hover {
-            transform: translateX(4px);
-            box-shadow: 0 6px 20px var(--shadow-lg);
         }
 
         .info-item h4 {
@@ -1058,7 +965,7 @@
 
     <script>
         // App Version - Update this with each release
-        const APP_VERSION = '2.43';
+        const APP_VERSION = '2.42';
         
         // App State
         let currentView = 'home';
