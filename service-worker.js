@@ -1,5 +1,6 @@
 // Bump cache to force clients to fetch the latest (favorites-removed) build
-const CACHE_NAME = 'vorchdorf-app-v2-46';
+// Updated: 2025-12-31 Cache version incremented for v2.46
+const CACHE_NAME = 'vorchdorf-app-v2-46-final';
 const urlsToCache = [
   './index.html',
   './manifest.json'
