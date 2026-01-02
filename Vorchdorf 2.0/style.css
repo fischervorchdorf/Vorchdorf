@@ -1,0 +1,121 @@
+/* --- BASIS STYLING --- */
+:root {
+    --primary: #1a472a;
+    --primary-light: #2d7a47;
+    --secondary: #f4b923;
+    --bg: #f0f4f8;
+    --card-bg: #ffffff;
+    --text: #1a2332;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: -apple-system, system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* --- DAS UNIFORME GRID FÜR ALLE KACHELN --- */
+.cards-grid, .subcategory-list, .business-grid, .items-grid {
+    display: grid;
+    /* Mindestens 140px breit, füllt den Platz automatisch */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+/* --- DAS UNIFORME BOX-DESIGN (KACHELN) --- */
+.card, .subcategory-item, .item-card, .business-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    aspect-ratio: 1 / 1; /* Quadratisch */
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+}
+
+.card:hover, .subcategory-item:hover, .item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: var(--secondary);
+}
+
+/* Icons in den Kacheln */
+.card-icon, .subcategory-icon, .business-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Text in den Kacheln */
+.card h3, .subcategory-item h4, .item-card-title, .business-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--primary);
+    /* Verhindert Text-Überlauf */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card p, .subcategory-item p {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 5px;
+    line-height: 1.1;
+}
+
+/* Spezielles für Businesses (Werbering) */
+.business-card {
+    aspect-ratio: auto; /* Businesses dürfen etwas höher sein, wenn nötig */
+    min-height: 140px;
+}
+
+/* Handy-Optimierung */
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr); /* Immer 2 nebeneinander am Handy */
+        gap: 10px;
+    }
+    .card h3 { font-size: 0.85rem; }
+}
+
+/* Header & Navigation (beibehalten und leicht optimiert) */
+header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+header img { height: 50px; }
+.back-button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    font-weight: bold;
+    color: var(--primary);
+}
+.hidden { display: none !important; }
