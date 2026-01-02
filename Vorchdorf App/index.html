@@ -24,6 +24,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
     <link rel="apple-touch-icon" href="./icon-192.png">
     
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -338,7 +341,7 @@
         /* Cards Grid for Main Categories */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -355,6 +358,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
             position: relative;
             overflow: hidden;
             animation: slide-in 0.6s ease-out backwards;
@@ -407,23 +412,29 @@
         }
 
         .card-icon {
-            font-size: 2rem;
+            font-size: 3rem;
             margin-bottom: 8px;
             display: block;
             animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 0 5px rgba(244, 185, 35, 0.3));
+            color: var(--primary);
+            line-height: 1;
         }
 
-        .card:hover .card-icon {
-            animation: none;
-            transform: scale(1.3) rotate(-5deg) translateX(12px);
+        .card-icon i {
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-icon i {
+            color: var(--secondary);
+            transform: scale(1.2) rotate(-5deg);
             filter: drop-shadow(0 0 15px rgba(244, 185, 35, 0.6));
         }
 
         .card h3 {
             color: var(--primary);
             margin-bottom: 6px;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             line-height: 1.2;
             word-wrap: break-word;
             overflow-wrap: break-word;
@@ -431,6 +442,10 @@
             transition: color 0.3s;
             font-weight: 700;
             letter-spacing: 0.5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .card:hover h3 {
@@ -440,23 +455,30 @@
 
         .card p {
             color: var(--text-light);
-            font-size: 0.75rem;
-            line-height: 1.3;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         @media (max-width: 768px) {
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                gap: 12px;
+                margin-bottom: 20px;
             }
             .card {
-                padding: 15px;
+                padding: 12px;
+                min-height: 140px;
             }
             .card-icon {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                margin-bottom: 6px;
             }
             .card h3 {
-                font-size: 0.95rem;
+                font-size: 0.75rem;
             }
             .card p {
                 font-size: 0.75rem;
@@ -1670,21 +1692,21 @@
             events: {
                 id: 'events',
                 title: 'Veranstaltungen',
-                icon: '📅',
+                icon: '<i class="fas fa-calendar-days"></i>',
                 description: 'Events, Konzerte, Feste & mehr',
                 externalLink: 'events.html'
             },
             gallery: {
                 id: 'gallery',
                 title: 'Bilder & Galerie',
-                icon: '📸',
+                icon: '<i class="fas fa-images"></i>',
                 description: 'Bilder und Fotos von Vorchdorf',
                 externalLink: 'http://www.vorchdorfer.at/'
             },
             welcome: {
                 id: 'welcome',
                 title: 'Willkommen',
-                icon: '🏠',
+                icon: '<i class="fas fa-home"></i>',
                 description: 'Erste Infos über Vorchdorf',
                 content: {
                     type: 'info',
@@ -1727,12 +1749,12 @@
             health: {
                 id: 'health',
                 title: 'Gesundheit & Soziales',
-                icon: '🏥',
+                icon: '<i class="fas fa-hospital"></i>',
                 description: 'Ärzte, Apotheken & Beratungsstellen',
                 subcategories: {
                     doctors_websites: {
                         id: 'doctors_websites',
-                        icon: '👨‍⚕️',
+                        icon: '<i class="fas fa-user-doctor"></i>',
                         title: 'Ärzte in Vorchdorf - eigene Webseiten',
                         description: 'Klicken für Details',
                         items: [
@@ -1795,31 +1817,31 @@
                     },
                     doctors_vorchdorf: {
                         id: 'doctors_vorchdorf',
-                        icon: '🌐',
+                        icon: '<i class="fas fa-globe"></i>',
                         title: 'Ärzte in Vorchdorf auf vorchdorf.at',
                         directLink: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Aerzte_in_Vorchdorf'
                     },
                     doctors_opening_hours: {
                         id: 'doctors_opening_hours',
-                        icon: '⏰',
+                        icon: '<i class="fas fa-clock"></i>',
                         title: 'Ärzte in Vorchdorf Öffnungszeiten',
                         directLink: 'https://www.google.com/search?q=ärzte+vorchdorf+öffnungszeiten'
                     },
                     specialists: {
                         id: 'specialists',
-                        icon: '🔍',
+                        icon: '<i class="fas fa-magnifying-glass"></i>',
                         title: 'Kinder- und Fachärzte auf arztsuche',
                         directLink: 'https://arztsuche.aekooe.at/finder/search/land/OO,SA'
                     },
                     pharmacy: {
                         id: 'pharmacy',
-                        icon: '💊',
+                        icon: '<i class="fas fa-pills"></i>',
                         title: 'Apotheken auf apothekensuche',
                         directLink: 'https://www.apothekerkammer.at/apothekensuche/4655,+%C3%96sterreich/4655/@47.9989105,13.9451777/p=postal_code'
                     },
                     social: {
                         id: 'social',
-                        icon: '🤝',
+                        icon: '<i class="fas fa-handshake"></i>',
                         title: 'Soziale Einrichtungen',
                         items: [
                             {
@@ -1852,7 +1874,7 @@
             education: {
                 id: 'education',
                 title: 'Bildung',
-                icon: '🎓',
+                icon: '<i class="fas fa-graduation-cap"></i>',
                 description: 'Schulen, Kindergärten & Weiterbildung',
                 content: {
                     type: 'list',
@@ -1923,7 +1945,7 @@
             sport_fitness: {
                 id: 'sport_fitness',
                 title: 'Sport & Fitness',
-                icon: '⚽',
+                icon: '<i class="fas fa-futbol"></i>',
                 description: 'Fitnessstudios, Sportangebote & Sportstätten',
                 subcategories: {
                     fitness: {
@@ -1955,7 +1977,7 @@
                     sports: {
                         id: 'sports',
                         title: 'Sportangebote & Sportstätten',
-                        icon: '⚽',
+                        icon: '<i class="fas fa-futbol"></i>',
                         items: [
                             {
                                 title: 'Tennisanlagen Vorchdorf',
@@ -2017,7 +2039,7 @@
             clubs: {
                 id: 'clubs',
                 title: 'Vereine',
-                icon: '🤝',
+                icon: '<i class="fas fa-people-group"></i>',
                 description: 'Über 60 aktive Vereine in Vorchdorf',
                 subcategories: {
                     sport: {
@@ -2796,7 +2818,7 @@
             leisure: {
                 id: 'leisure',
                 title: 'Freizeit & Kultur',
-                icon: '🎨',
+                icon: '<i class="fas fa-palette"></i>',
                 description: 'Veranstaltungen, Sehenswürdigkeiten & mehr',
                 subcategories: {
                     sights: {
@@ -2952,7 +2974,7 @@
             mobility: {
                 id: 'mobility',
                 title: 'Mobilität',
-                icon: '🚌',
+                icon: '<i class="fas fa-bus"></i>',
                 description: 'Bus, Bahn & Verkehr',
                 subcategories: {
                     taxi_quick: {
@@ -3215,7 +3237,7 @@
             emergency: {
                 id: 'emergency',
                 title: 'Notfallkontakte & Standorte',
-                icon: '🆘',
+                icon: '<i class="fas fa-triangle-exclamation"></i>',
                 description: 'Wichtige Nummern und Standorte im Notfall',
                 content: {
                     type: 'info',
