@@ -18,12 +18,12 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=2.59">
+    <link rel="manifest" href="./manifest.json?v=2.60">
     
     <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.59">
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.59">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=2.59">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.60">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.60">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=2.60">
     
     <style>
         * {
@@ -2045,8 +2045,22 @@
             stats.textContent = `${products.length} Produkt${products.length !== 1 ? 'e' : ''} gefunden`;
 
             grid.innerHTML = products.map((product, index) => {
-                // WICHTIG: Cleaniere die Image-URL mit robuster Funktion
-                const imageUrl = cleanImageUrl(product['Bild 1 Url von Imgur']);
+                // WICHTIG: Extrahiere Image-URL direkt OHNE externe Funktion
+                let imageUrl = product['Bild 1 Url von Imgur'] || '';
+                
+                // Einfach nur trimmen und checken ob es mit http startet
+                if (imageUrl) {
+                    imageUrl = imageUrl.trim();
+                    // Falls es HTML enthält, nur die echte URL nehmen
+                    if (imageUrl.includes('href=')) {
+                        const m = imageUrl.match(/href=["']([^"']+)["']/);
+                        imageUrl = m ? m[1] : '';
+                    }
+                    // Nur wenn es mit http startet, verwenden
+                    if (!imageUrl.startsWith('http')) {
+                        imageUrl = '';
+                    }
+                }
                 
                 const category = product.Kategorie || 'Sonstiges';
                 const icon = flohmarktCategoryIcons[category] || '📦';
@@ -2115,16 +2129,21 @@
 
             if (!flohmarktCurrentProduct) return;
 
-            // Bilder sammeln - verwende die richtigen Feldnamen UND cleaniere URLs
-            const rawImages = [
+            // Bilder sammeln und direkt cleanieren
+            const images = [
                 flohmarktCurrentProduct['Bild 1 Url von Imgur'],
                 flohmarktCurrentProduct['Bild 2'],
                 flohmarktCurrentProduct['Bild 3'],
                 flohmarktCurrentProduct['Bild 4']
-            ];
-            
-            // Cleaniere jede URL mit robuster Funktion
-            const images = rawImages.map(url => cleanImageUrl(url)).filter(url => url);
+            ].map(url => {
+                if (!url) return '';
+                let cleaned = url.trim();
+                if (cleaned.includes('href=')) {
+                    const m = cleaned.match(/href=["']([^"']+)["']/);
+                    cleaned = m ? m[1] : '';
+                }
+                return cleaned.startsWith('http') ? cleaned : '';
+            }).filter(url => url);
 
             flohmarktCurrentProduct.images = images;
 
@@ -2142,7 +2161,18 @@
             document.getElementById('flohmarktModalAvatar').textContent = sellerName.charAt(0).toUpperCase();
 
             const email = flohmarktCurrentProduct['Deine E-mail'] || 'kontakt@vorchdorf.at';
-            let imageUrl = cleanImageUrl(flohmarktCurrentProduct['Bild 1 Url von Imgur']);
+            // Cleaniere Image-URL direkt
+            let imageUrl = flohmarktCurrentProduct['Bild 1 Url von Imgur'] || '';
+            if (imageUrl) {
+                imageUrl = imageUrl.trim();
+                if (imageUrl.includes('href=')) {
+                    const m = imageUrl.match(/href=["']([^"']+)["']/);
+                    imageUrl = m ? m[1] : '';
+                }
+                if (!imageUrl.startsWith('http')) {
+                    imageUrl = '';
+                }
+            }
             
             const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
             
@@ -2372,7 +2402,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.59';
+        const APP_VERSION = '2.60';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
