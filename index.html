@@ -2015,11 +2015,11 @@
             stats.textContent = `${products.length} Produkt${products.length !== 1 ? 'e' : ''} gefunden`;
 
             grid.innerHTML = products.map((product, index) => {
-                const imageUrl = product['Bild 1 URL (Imgur-Link)'] || product['Bild 1 URL'];
+                const imageUrl = product['Bild 1 Url von Imgur'];
                 const category = product.Kategorie || 'Sonstiges';
                 const icon = flohmarktCategoryIcons[category] || '📦';
-                const price = flohmarktFormatPrice(product['Preis in €'] || product.Preis);
-                const seller = product['Dein Name'] || product['Verkäufer Name'] || 'Anonym';
+                const price = flohmarktFormatPrice(product['Preis in Euro']);
+                const seller = product.Firmenname || 'Anonym';
 
                 return `
                     <article class="flohmarkt-product-card" onclick="openFlohmarktModal(${index})">
@@ -2083,12 +2083,12 @@
 
             if (!flohmarktCurrentProduct) return;
 
-            // Bilder sammeln
+            // Bilder sammeln - verwende die richtigen Feldnamen
             const images = [
-                flohmarktCurrentProduct['Bild 1 URL (Imgur-Link)'] || flohmarktCurrentProduct['Bild 1 URL'],
-                flohmarktCurrentProduct['Bild 2 URL'],
-                flohmarktCurrentProduct['Bild 3 URL'],
-                flohmarktCurrentProduct['Bild 4 URL']
+                flohmarktCurrentProduct['Bild 1 Url von Imgur'],
+                flohmarktCurrentProduct['Bild 2'],
+                flohmarktCurrentProduct['Bild 3'],
+                flohmarktCurrentProduct['Bild 4']
             ].filter(url => url && url.trim() !== '');
 
             flohmarktCurrentProduct.images = images;
@@ -2099,14 +2099,14 @@
             
             document.getElementById('flohmarktModalCategory').textContent = `${icon} ${cat}`;
             document.getElementById('flohmarktModalTitle').textContent = flohmarktCurrentProduct.Produktname || 'Ohne Titel';
-            document.getElementById('flohmarktModalPrice').textContent = flohmarktFormatPrice(flohmarktCurrentProduct['Preis in €'] || flohmarktCurrentProduct.Preis);
+            document.getElementById('flohmarktModalPrice').textContent = flohmarktFormatPrice(flohmarktCurrentProduct['Preis in Euro']);
             document.getElementById('flohmarktModalDescription').textContent = flohmarktCurrentProduct.Beschreibung || 'Keine Beschreibung vorhanden.';
             
-            const sellerName = flohmarktCurrentProduct['Dein Name'] || flohmarktCurrentProduct['Verkäufer Name'] || 'Anonym';
+            const sellerName = flohmarktCurrentProduct.Firmenname || 'Anonym';
             document.getElementById('flohmarktModalSellerName').textContent = sellerName;
             document.getElementById('flohmarktModalAvatar').textContent = sellerName.charAt(0).toUpperCase();
 
-            const email = flohmarktCurrentProduct['Deine E-Mail'] || flohmarktCurrentProduct['Verkäufer Email'];
+            const email = flohmarktCurrentProduct['Deine E-mail'] || 'kontakt@vorchdorf.at';
             const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
             const body = encodeURIComponent(`Hallo ${sellerName},\n\nich interessiere mich für Ihr Produkt "${flohmarktCurrentProduct.Produktname}" auf dem Vorchdorf Flohmarkt.\n\nMit freundlichen Grüßen`);
             document.getElementById('flohmarktModalContactBtn').href = `mailto:${email}?subject=${subject}&body=${body}`;
