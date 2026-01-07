@@ -223,7 +223,7 @@
         </header>
 
         <div class="success-message" id="successMessage">
-            ✅ Produkt erfolgreich eingereicht! Die Google Forms wurden aktualisiert.
+            ✅ Produkt erfolgreich eingepflegt! Du kannst jetzt das nächste Produkt eingeben.
         </div>
 
         <div class="error-message" id="errorMessage"></div>
@@ -401,6 +401,8 @@
         });
 
         document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Verhindere normales Absenden
+            
             // Validierung
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -408,13 +410,44 @@
             const bild1 = document.getElementById('bild1').value.trim();
 
             if (!name || !email || !produktname || !bild1) {
-                e.preventDefault();
                 showError('Bitte füllen Sie alle Pflichtfelder aus (mit *)');
                 return;
             }
 
-            // Formular normal absenden - keine preventDefault()
-            // Google Forms empfängt die Daten automatisch
+            // Formular-Daten sammeln
+            const formData = new FormData();
+            formData.append('entry.1382988510', document.getElementById('produktname').value);
+            formData.append('entry.2012320514', document.getElementById('kategorie').value);
+            formData.append('entry.274195462', document.getElementById('preis').value);
+            formData.append('entry.347264883', document.getElementById('beschreibung').value);
+            formData.append('entry.1178331212', document.getElementById('name').value);
+            formData.append('entry.203128062', document.getElementById('email').value);
+            formData.append('entry.345257709', document.getElementById('bild1').value);
+            formData.append('entry.67189089', document.getElementById('bild2').value);
+            formData.append('entry.1046437419', document.getElementById('bild3').value);
+            formData.append('entry.1740704266', document.getElementById('bild4').value);
+
+            // Zu Google Forms senden
+            const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse';
+            
+            fetch(googleFormUrl, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Wichtig: CORS wird ignoriert
+            })
+            .then(() => {
+                // Erfolg! (no-cors gibt keine echte Response, aber das ist ok)
+                showSuccess();
+                document.getElementById('flohmarktForm').reset();
+                prefillFormFromURL(); // URL-Parameter wieder vorbefüllen
+                
+                // Scroll zu Erfolgsmeldung
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            })
+            .catch(error => {
+                console.error('Fehler:', error);
+                showError('Fehler beim Speichern. Bitte versuchen Sie es erneut.');
+            });
         });
 
         function showSuccess() {
