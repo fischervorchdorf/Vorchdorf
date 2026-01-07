@@ -414,40 +414,57 @@
                 return;
             }
 
-            // Formular-Daten sammeln
-            const formData = new FormData();
-            formData.append('entry.1382988510', document.getElementById('produktname').value);
-            formData.append('entry.2012320514', document.getElementById('kategorie').value);
-            formData.append('entry.274195462', document.getElementById('preis').value);
-            formData.append('entry.347264883', document.getElementById('beschreibung').value);
-            formData.append('entry.1178331212', document.getElementById('name').value);
-            formData.append('entry.203128062', document.getElementById('email').value);
-            formData.append('entry.345257709', document.getElementById('bild1').value);
-            formData.append('entry.67189089', document.getElementById('bild2').value);
-            formData.append('entry.1046437419', document.getElementById('bild3').value);
-            formData.append('entry.1740704266', document.getElementById('bild4').value);
+            // Erstelle einen versteckten iframe für Form-Submit
+            let iframe = document.getElementById('formSubmitFrame');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'formSubmitFrame';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+            }
 
-            // Zu Google Forms senden
-            const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse';
+            // Erstelle ein verstecktes Formular
+            const hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            hiddenForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse';
+            hiddenForm.target = 'formSubmitFrame';
+
+            // Füge Formular-Felder hinzu
+            const fields = {
+                'entry.1382988510': document.getElementById('produktname').value,
+                'entry.2012320514': document.getElementById('kategorie').value,
+                'entry.274195462': document.getElementById('preis').value,
+                'entry.347264883': document.getElementById('beschreibung').value,
+                'entry.1178331212': document.getElementById('name').value,
+                'entry.203128062': document.getElementById('email').value,
+                'entry.345257709': document.getElementById('bild1').value,
+                'entry.67189089': document.getElementById('bild2').value,
+                'entry.1046437419': document.getElementById('bild3').value,
+                'entry.1740704266': document.getElementById('bild4').value
+            };
+
+            for (const [key, value] of Object.entries(fields)) {
+                if (value) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = value;
+                    hiddenForm.appendChild(input);
+                }
+            }
+
+            document.body.appendChild(hiddenForm);
+            hiddenForm.submit();
+            hiddenForm.remove();
+
+            // Zeige Erfolgsmeldung direkt (nicht auf iframe Response warten)
+            showSuccess();
+            document.getElementById('flohmarktForm').reset();
+            prefillFormFromURL(); // URL-Parameter wieder vorbefüllen
             
-            fetch(googleFormUrl, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' // Wichtig: CORS wird ignoriert
-            })
-            .then(() => {
-                // Erfolg! (no-cors gibt keine echte Response, aber das ist ok)
-                showSuccess();
-                document.getElementById('flohmarktForm').reset();
-                prefillFormFromURL(); // URL-Parameter wieder vorbefüllen
-                
-                // Scroll zu Erfolgsmeldung
-                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-            })
-            .catch(error => {
-                console.error('Fehler:', error);
-                showError('Fehler beim Speichern. Bitte versuchen Sie es erneut.');
-            });
+            // Scroll zu Erfolgsmeldung
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+        });
         });
 
         function showSuccess() {
