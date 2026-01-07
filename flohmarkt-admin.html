@@ -259,8 +259,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="kategorie">Kategorie *</label>
-                        <select id="kategorie" name="entry.2012320514" required>
-                            <option value="">-- Wählen Sie eine Kategorie --</option>
+                        <input type="text" id="kategorie" name="entry.2012320514" placeholder="Kategorie eingeben oder tippen (z.B. 's' für Schulsachen)..." list="kategorieList" required>
+                        <datalist id="kategorieList">
                             <option value="Schulsachen">📚 Schulsachen</option>
                             <option value="Büromaterial">✏️ Büromaterial</option>
                             <option value="Spiele">🎮 Spiele</option>
@@ -271,7 +271,7 @@
                             <option value="Rauchzubehör">🚬 Rauchzubehör</option>
                             <option value="Kleidung">👕 Kleidung</option>
                             <option value="Sonstiges">📦 Sonstiges</option>
-                        </select>
+                        </datalist>
                     </div>
                     <div class="form-group">
                         <label for="preis">Preis (€) *</label>
