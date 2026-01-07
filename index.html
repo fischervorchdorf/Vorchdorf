@@ -2109,11 +2109,25 @@
             document.getElementById('flohmarktModalAvatar').textContent = sellerName.charAt(0).toUpperCase();
 
             const email = flohmarktCurrentProduct['Deine E-mail'] || 'kontakt@vorchdorf.at';
-            const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
             const imageUrl = flohmarktCurrentProduct['Bild 1 Url von Imgur'] || '';
-            const imageInfo = imageUrl ? `\n\nProduktbild: ${imageUrl}` : '';
-            const body = encodeURIComponent(`Hallo ${sellerName},\n\nich interessiere mich für Ihr Produkt "${flohmarktCurrentProduct.Produktname}" auf dem Vorchdorf Flohmarkt.${imageInfo}\n\nMit freundlichen Grüßen`);
-            document.getElementById('flohmarktModalContactBtn').href = `mailto:${email}?subject=${subject}&body=${body}`;
+            const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
+            
+            // Baue Email-Body mit allen Infos
+            const emailBody = `Hallo ${sellerName},
+
+ich interessiere mich für Ihr Produkt "${flohmarktCurrentProduct.Produktname}" auf dem Vorchdorf Flohmarkt.
+
+Produktbeschreibung: ${flohmarktCurrentProduct.Beschreibung || 'Keine Angabe'}
+${imageUrl ? `Produktbild: ${imageUrl}` : ''}
+
+Mit freundlichen Grüßen`;
+
+            // Click-Handler für Contact-Button - öffne Email-Modal
+            document.getElementById('flohmarktModalContactBtn').onclick = function(e) {
+                e.preventDefault();
+                openEmailPreviewModal(email, subject, emailBody, imageUrl, sellerName);
+            };
+            document.getElementById('flohmarktModalContactBtn').href = 'javascript:void(0)'; // Verhindere default-Link
 
             // Bilder
             updateFlohmarktModalImage();
@@ -2186,6 +2200,110 @@
         function closeFlohmarktModal() {
             document.getElementById('flohmarktModalOverlay').classList.remove('active');
             document.body.style.overflow = '';
+        }
+
+        // Email Preview Modal - mit Bild und HTML-Vorschau
+        function openEmailPreviewModal(toEmail, subject, body, imageUrl, sellerName) {
+            // Erstelle Modal-HTML
+            const previewHtml = `
+                <div class="email-preview-modal">
+                    <div class="email-preview-content">
+                        <h3>📧 Email-Vorschau</h3>
+                        
+                        <div class="email-header">
+                            <p><strong>An:</strong> ${toEmail}</p>
+                            <p><strong>Betreff:</strong> ${decodeURIComponent(subject)}</p>
+                        </div>
+                        
+                        <div class="email-body">
+                            <div style="white-space: pre-wrap; color: #333; line-height: 1.6;">${body.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                            ${imageUrl ? `<div class="email-image" style="margin-top: 20px; text-align: center;">
+                                <img src="${imageUrl}" alt="Produktbild" style="max-width: 100%; max-height: 300px; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>` : ''}
+                        </div>
+                        
+                        <div class="email-actions">
+                            <button class="btn-primary" onclick="sendEmailFromPreview('${toEmail}', '${subject}', '${btoa(body)}')">📤 Email senden</button>
+                            <button class="btn-secondary" onclick="closeEmailPreviewModal()">Abbrechen</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Erstelle Modal-Container falls nicht vorhanden
+            let modal = document.getElementById('emailPreviewModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'emailPreviewModal';
+                modal.style.cssText = `
+                    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+                    z-index: 10000; padding: 20px;
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            modal.innerHTML = previewHtml;
+            modal.style.display = 'flex';
+            
+            // Style Modal
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                .email-preview-modal {
+                    background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                    max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
+                    padding: 30px;
+                }
+                .email-preview-content h3 {
+                    margin-top: 0; color: #1a472a; margin-bottom: 20px; font-size: 1.3rem;
+                }
+                .email-header {
+                    background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;
+                    border-left: 4px solid #1a472a;
+                }
+                .email-header p {
+                    margin: 5px 0; font-size: 0.95rem;
+                }
+                .email-body {
+                    padding: 20px; background: #fafafa; border-radius: 8px; margin-bottom: 20px;
+                    border: 1px solid #e0e0e0;
+                }
+                .email-actions {
+                    display: flex; gap: 10px; justify-content: flex-end;
+                }
+                .btn-primary, .btn-secondary {
+                    padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer;
+                    font-size: 0.95rem; font-weight: 500; transition: all 0.3s;
+                }
+                .btn-primary {
+                    background: #1a472a; color: white;
+                }
+                .btn-primary:hover {
+                    background: #2d7a47; transform: translateY(-2px);
+                }
+                .btn-secondary {
+                    background: #ddd; color: #333;
+                }
+                .btn-secondary:hover {
+                    background: #ccc;
+                }
+                .email-image {
+                    text-align: center;
+                }
+            `;
+            document.head.appendChild(styleTag);
+        }
+
+        function closeEmailPreviewModal() {
+            const modal = document.getElementById('emailPreviewModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function sendEmailFromPreview(toEmail, subject, encodedBody) {
+            const body = atob(encodedBody); // Decode from base64
+            const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+            setTimeout(() => closeEmailPreviewModal(), 100);
         }
 
         // Event Listeners für Flohmarkt
