@@ -2018,7 +2018,27 @@
             stats.textContent = `${products.length} Produkt${products.length !== 1 ? 'e' : ''} gefunden`;
 
             grid.innerHTML = products.map((product, index) => {
-                const imageUrl = product['Bild 1 Url von Imgur'];
+                // WICHTIG: Cleaniere die Image-URL
+                let imageUrl = product['Bild 1 Url von Imgur'] || '';
+                if (imageUrl) {
+                    // Entferne HTML-Tags
+                    imageUrl = imageUrl.replace(/<[^>]*>/g, '');
+                    // Extrahiere URL aus href="URL" Pattern
+                    const match = imageUrl.match(/href="([^"]+)"/);
+                    if (match) {
+                        imageUrl = match[1];
+                    }
+                    // Entferne trailing HTML
+                    if (imageUrl.includes('>')) {
+                        imageUrl = imageUrl.split('>').pop();
+                    }
+                    imageUrl = imageUrl.trim();
+                    // Nur wenn echte URL
+                    if (!imageUrl.startsWith('http')) {
+                        imageUrl = '';
+                    }
+                }
+                
                 const category = product.Kategorie || 'Sonstiges';
                 const icon = flohmarktCategoryIcons[category] || '📦';
                 const price = flohmarktFormatPrice(product['Preis in Euro']);
