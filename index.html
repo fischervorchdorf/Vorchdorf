@@ -2207,9 +2207,11 @@
 
         // App Version - Update this with each release
         const APP_VERSION = '2.50';
+        const CACHE_BUSTER = '20260107'; // Timestamp für Force-Reload
         
         // Force cache bust on version change
         if (localStorage.getItem('appVersion') !== APP_VERSION) {
+            localStorage.setItem('appVersion', APP_VERSION);
             if ('caches' in window) {
                 caches.keys().then(cacheNames => {
                     cacheNames.forEach(cacheName => caches.delete(cacheName));
