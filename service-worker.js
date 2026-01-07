@@ -1,9 +1,9 @@
 // Bump cache to force clients to fetch the latest (favorites-removed) build
-// Updated: 2025-12-31 Cache version incremented for v2.46
-const CACHE_NAME = 'vorchdorf-app-v2-46-final';
+// Updated: 2026-01-07 Dynamic Cache Busting
+const CACHE_NAME = 'vorchdorf-app-' + Date.now();
 const urlsToCache = [
-  './index.html',
-  './manifest.json'
+  './index.html?v=' + Date.now(),
+  './manifest.json?v=' + Date.now()
 ];
 
 // Installation - Cache all files

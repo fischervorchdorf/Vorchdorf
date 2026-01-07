@@ -2322,20 +2322,33 @@ Mit freundlichen Grüßen`;
                 if (e.key === 'ArrowRight') flohmarktNextImage();
             }
         });
-
         // App Version - Update this with each release
-        const APP_VERSION = '2.51';
-        const CACHE_BUSTER = '20260107-2'; // Force aggressive cache bust
+        const APP_VERSION = '2.53';
+        const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
-        // Force cache bust on version change
+        // AGGRESSIVE CACHE CLEARING
+        // 1. Unregister all service workers
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                registrations.forEach(reg => reg.unregister());
+            });
+        }
+        
+        // 2. Clear all caches
+        if ('caches' in window) {
+            caches.keys().then(cacheNames => {
+                cacheNames.forEach(cacheName => caches.delete(cacheName));
+            });
+        }
+        
+        // 3. Clear storage if version mismatch
         if (localStorage.getItem('appVersion') !== APP_VERSION) {
+            localStorage.clear();
+            sessionStorage.clear();
             localStorage.setItem('appVersion', APP_VERSION);
-            if ('caches' in window) {
-                caches.keys().then(cacheNames => {
-                    cacheNames.forEach(cacheName => caches.delete(cacheName));
-                });
-            }
-            localStorage.setItem('appVersion', APP_VERSION);
+            localStorage.setItem('cacheBuster', CACHE_BUSTER);
+            // Force hard refresh
+            setTimeout(() => location.reload(true), 200);
         }
         
         // App State
