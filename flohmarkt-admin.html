@@ -228,7 +228,7 @@
 
         <div class="error-message" id="errorMessage"></div>
 
-        <form id="flohmarktForm" target="_blank">
+        <form id="flohmarktForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse" method="POST" target="_blank">
             <!-- Verkäufer-Informationen -->
             <div class="form-section">
                 <h2>👤 Ihre Informationen</h2>
@@ -236,12 +236,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="entry.5" required>
                         <p class="help-text">Wie sollen sich Käufer nennen, wenn sie Sie kontaktieren?</p>
                     </div>
                     <div class="form-group">
                         <label for="email">E-Mail *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="entry.6" required>
                         <p class="help-text">E-Mails von Interessenten erhalten Sie hier</p>
                     </div>
                 </div>
@@ -253,13 +253,13 @@
                 
                 <div class="form-group">
                     <label for="produktname">Produktname *</label>
-                    <input type="text" id="produktname" name="produktname" placeholder="z.B. Vintage Fahrrad, Schulrucksack..." required>
+                    <input type="text" id="produktname" name="entry.1" placeholder="z.B. Vintage Fahrrad, Schulrucksack..." required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="kategorie">Kategorie *</label>
-                        <select id="kategorie" name="kategorie" required>
+                        <select id="kategorie" name="entry.2" required>
                             <option value="">-- Wählen Sie eine Kategorie --</option>
                             <option value="Schulsachen">📚 Schulsachen</option>
                             <option value="Büromaterial">✏️ Büromaterial</option>
@@ -273,13 +273,13 @@
                     </div>
                     <div class="form-group">
                         <label for="preis">Preis (€) *</label>
-                        <input type="number" id="preis" name="preis" step="0.01" min="0" placeholder="z.B. 69.90" required>
+                        <input type="number" id="preis" name="entry.3" step="0.01" min="0" placeholder="z.B. 69.90" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="beschreibung">Beschreibung *</label>
-                    <textarea id="beschreibung" name="beschreibung" placeholder="Zustand, Material, Größe, Besonderheiten..." required></textarea>
+                    <textarea id="beschreibung" name="entry.4" placeholder="Zustand, Material, Größe, Besonderheiten..." required></textarea>
                     <p class="help-text">Beschreiben Sie das Produkt detailliert, damit Käufer es besser einschätzen können</p>
                 </div>
             </div>
@@ -300,24 +300,24 @@
 
                 <div class="form-group">
                     <label for="bild1">Bild 1 (Imgur-Link) *</label>
-                    <input type="text" id="bild1" name="bild1" placeholder="https://i.imgur.com/..." required>
+                    <input type="text" id="bild1" name="entry.7" placeholder="https://i.imgur.com/..." required>
                     <p class="help-text">Das Hauptbild - sichtbar in der Produktliste</p>
                 </div>
 
                 <div class="form-group">
                     <label for="bild2">Bild 2 (Imgur-Link)</label>
-                    <input type="text" id="bild2" name="bild2" placeholder="https://i.imgur.com/...">
+                    <input type="text" id="bild2" name="entry.8" placeholder="https://i.imgur.com/...">
                     <p class="help-text">Optional - weitere Bilder erhöhen die Verkaufschancen</p>
                 </div>
 
                 <div class="form-group">
                     <label for="bild3">Bild 3 (Imgur-Link)</label>
-                    <input type="text" id="bild3" name="bild3" placeholder="https://i.imgur.com/...">
+                    <input type="text" id="bild3" name="entry.9" placeholder="https://i.imgur.com/...">
                 </div>
 
                 <div class="form-group">
                     <label for="bild4">Bild 4 (Imgur-Link)</label>
-                    <input type="text" id="bild4" name="bild4" placeholder="https://i.imgur.com/...">
+                    <input type="text" id="bild4" name="entry.10" placeholder="https://i.imgur.com/...">
                 </div>
             </div>
 
@@ -364,8 +364,6 @@
         };
 
         document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
             // Validierung
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -373,31 +371,14 @@
             const bild1 = document.getElementById('bild1').value.trim();
 
             if (!name || !email || !produktname || !bild1) {
+                e.preventDefault();
                 showError('Bitte füllen Sie alle Pflichtfelder aus (mit *)');
                 return;
             }
 
-            // Google Form URL mit Parametern zusammenstellen
-            let formUrl = GOOGLE_FORM_URL + '?usp=pp_url';
-
-            // Form-Daten hinzufügen
-            Object.keys(FORM_FIELDS).forEach(fieldId => {
-                const value = document.getElementById(fieldId).value.trim();
-                if (value) {
-                    formUrl += `&${FORM_FIELDS[fieldId]}=${encodeURIComponent(value)}`;
-                }
-            });
-
-            // Google Forms öffnen
-            window.open(formUrl, 'google-form-popup');
-
-            // Erfolgsmeldung zeigen
+            // Die Formular-Daten werden automatisch an Google Forms gesendet
+            // Das Formular verwendet die 'entry.X' Namen in den Input-Feldern
             showSuccess();
-            
-            // Formular zurücksetzen
-            setTimeout(() => {
-                document.getElementById('flohmarktForm').reset();
-            }, 1000);
         });
 
         function showSuccess() {
