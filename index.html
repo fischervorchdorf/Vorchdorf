@@ -2109,7 +2109,23 @@
             document.getElementById('flohmarktModalAvatar').textContent = sellerName.charAt(0).toUpperCase();
 
             const email = flohmarktCurrentProduct['Deine E-mail'] || 'kontakt@vorchdorf.at';
-            const imageUrl = flohmarktCurrentProduct['Bild 1 Url von Imgur'] || '';
+            let imageUrl = flohmarktCurrentProduct['Bild 1 Url von Imgur'] || '';
+            
+            // WICHTIG: Cleaniere die URL - entferne HTML-Tags wenn vorhanden
+            if (imageUrl) {
+                // Extrahiere echte URL falls HTML-Link: href="URL">Text</a>
+                const urlMatch = imageUrl.match(/href="([^"]+)"/);
+                if (urlMatch) {
+                    imageUrl = urlMatch[1]; // Nutze die echte URL
+                }
+                // Entferne auch leading/trailing HTML
+                imageUrl = imageUrl.replace(/<[^>]*>/g, '').trim();
+                // Wenn immer noch mit > endet, schneide alles danach weg
+                if (imageUrl.includes('>')) {
+                    imageUrl = imageUrl.split('>')[imageUrl.split('>').length - 1];
+                }
+            }
+            
             const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
             
             // Baue Email-Body mit allen Infos
