@@ -368,6 +368,7 @@
         // URL-Parameter auslesen und Felder vorbefüllen
         function prefillFormFromURL() {
             const params = new URLSearchParams(window.location.search);
+            console.log('URL-Parameter gefunden:', Array.from(params.entries()));
             
             // Mapping von Entry-IDs zu Input-IDs
             const entryToField = {
@@ -385,11 +386,14 @@
 
             // Alle URL-Parameter durchgehen
             for (const [entryId, value] of params.entries()) {
+                console.log('Verarbeite:', entryId, '=', value);
                 if (entryToField[entryId]) {
                     const fieldId = entryToField[entryId];
                     const element = document.getElementById(fieldId);
+                    console.log('Element für', fieldId, ':', element);
                     if (element) {
                         element.value = decodeURIComponent(value);
+                        console.log('Befüllt:', fieldId, 'mit:', element.value);
                     }
                 }
             }
