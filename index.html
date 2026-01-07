@@ -2108,7 +2108,9 @@
 
             const email = flohmarktCurrentProduct['Deine E-mail'] || 'kontakt@vorchdorf.at';
             const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
-            const body = encodeURIComponent(`Hallo ${sellerName},\n\nich interessiere mich für Ihr Produkt "${flohmarktCurrentProduct.Produktname}" auf dem Vorchdorf Flohmarkt.\n\nMit freundlichen Grüßen`);
+            const imageUrl = flohmarktCurrentProduct['Bild 1 Url von Imgur'] || '';
+            const imageInfo = imageUrl ? `\n\nProduktbild: ${imageUrl}` : '';
+            const body = encodeURIComponent(`Hallo ${sellerName},\n\nich interessiere mich für Ihr Produkt "${flohmarktCurrentProduct.Produktname}" auf dem Vorchdorf Flohmarkt.${imageInfo}\n\nMit freundlichen Grüßen`);
             document.getElementById('flohmarktModalContactBtn').href = `mailto:${email}?subject=${subject}&body=${body}`;
 
             // Bilder
