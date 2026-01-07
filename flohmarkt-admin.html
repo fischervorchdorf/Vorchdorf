@@ -348,6 +348,9 @@
     </div>
 
     <script>
+        console.log('Script geladen! URL:', window.location.href);
+        console.log('Search-String:', window.location.search);
+        
         // Google Form Integration
         const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/viewform';
 
@@ -369,6 +372,10 @@
         function prefillFormFromURL() {
             const params = new URLSearchParams(window.location.search);
             console.log('URL-Parameter gefunden:', Array.from(params.entries()));
+            
+            // Direktes Testen - prüfe ob Name-Element existiert
+            const nameElement = document.getElementById('name');
+            console.log('Name-Element existiert?', !!nameElement, nameElement);
             
             // Mapping von Entry-IDs zu Input-IDs
             const entryToField = {
