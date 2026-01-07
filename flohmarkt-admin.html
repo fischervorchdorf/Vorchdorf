@@ -228,7 +228,7 @@
 
         <div class="error-message" id="errorMessage"></div>
 
-        <form id="flohmarktForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse" method="POST" target="_blank">
+        <form id="flohmarktForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse" method="POST">
             <!-- Verkäufer-Informationen -->
             <div class="form-section">
                 <h2>👤 Ihre Informationen</h2>
@@ -378,9 +378,8 @@
                 return;
             }
 
-            // Die Formular-Daten werden automatisch an Google Forms gesendet
-            // Das Formular verwendet die 'entry.X' Namen in den Input-Feldern
-            showSuccess();
+            // Formular normal absenden - keine preventDefault()
+            // Google Forms empfängt die Daten automatisch
         });
 
         function showSuccess() {
