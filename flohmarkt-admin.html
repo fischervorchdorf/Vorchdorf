@@ -365,6 +365,41 @@
             'bild4': 'entry.10'                     // Bild 4 URL
         };
 
+        // URL-Parameter auslesen und Felder vorbefüllen
+        function prefillFormFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // Mapping von Entry-IDs zu Input-IDs
+            const entryToField = {
+                'entry.1382988510': 'produktname',  // Produktname
+                'entry.2012320514': 'kategorie',    // Kategorie
+                'entry.274195462': 'preis',         // Preis
+                'entry.347264883': 'beschreibung',  // Beschreibung
+                'entry.1178331212': 'name',         // Firmenname
+                'entry.203128062': 'email',         // Email
+                'entry.345257709': 'bild1',         // Bild 1
+                'entry.67189089': 'bild2',          // Bild 2
+                'entry.1046437419': 'bild3',        // Bild 3
+                'entry.1740704266': 'bild4'         // Bild 4
+            };
+
+            // Alle URL-Parameter durchgehen
+            for (const [entryId, value] of params.entries()) {
+                if (entryToField[entryId]) {
+                    const fieldId = entryToField[entryId];
+                    const element = document.getElementById(fieldId);
+                    if (element) {
+                        element.value = decodeURIComponent(value);
+                    }
+                }
+            }
+        }
+
+        // Beim Laden der Seite vorbefüllen
+        document.addEventListener('DOMContentLoaded', function() {
+            prefillFormFromURL();
+        });
+
         document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
             // Validierung
             const name = document.getElementById('name').value.trim();
