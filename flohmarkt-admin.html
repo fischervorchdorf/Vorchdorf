@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorchdorf Flohmarkt - Produkt einstellen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0f5 100%);
+            color: #1a2332;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #1a472a;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #1a472a;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #5a6f86;
+            font-size: 1.1rem;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            font-size: 1.3rem;
+            color: #1a472a;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f4b923;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a2332;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d8e1eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1a472a;
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .help-text {
+            font-size: 0.9rem;
+            color: #5a6f86;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .info-box {
+            background: #f0f8ff;
+            border-left: 4px solid #1a472a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #1a472a;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #5a6f86;
+            font-size: 0.95rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit {
+            background: #1a472a;
+            color: white;
+            min-width: 150px;
+        }
+
+        .btn-submit:hover {
+            background: #2d7a47;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-reset {
+            background: #f4b923;
+            color: #1a472a;
+            min-width: 150px;
+        }
+
+        .btn-reset:hover {
+            background: #e8a81c;
+            transform: translateY(-2px);
+        }
+
+        .btn-back {
+            background: #d8e1eb;
+            color: #1a2332;
+            min-width: 150px;
+        }
+
+        .btn-back:hover {
+            background: #c8d1db;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #28a745;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #f5222d;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #d8e1eb;
+            color: #5a6f86;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 Vorchdorf Flohmarkt</h1>
+            <p>Produkt einstellen</p>
+        </header>
+
+        <div class="success-message" id="successMessage">
+            ✅ Produkt erfolgreich eingereicht! Die Google Forms wurden aktualisiert.
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="flohmarktForm" target="_blank">
+            <!-- Verkäufer-Informationen -->
+            <div class="form-section">
+                <h2>👤 Ihre Informationen</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                        <p class="help-text">Wie sollen sich Käufer nennen, wenn sie Sie kontaktieren?</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail *</label>
+                        <input type="email" id="email" name="email" required>
+                        <p class="help-text">E-Mails von Interessenten erhalten Sie hier</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produkt-Informationen -->
+            <div class="form-section">
+                <h2>📦 Produktinformationen</h2>
+                
+                <div class="form-group">
+                    <label for="produktname">Produktname *</label>
+                    <input type="text" id="produktname" name="produktname" placeholder="z.B. Vintage Fahrrad, Schulrucksack..." required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="kategorie">Kategorie *</label>
+                        <select id="kategorie" name="kategorie" required>
+                            <option value="">-- Wählen Sie eine Kategorie --</option>
+                            <option value="Schulsachen">📚 Schulsachen</option>
+                            <option value="Büromaterial">✏️ Büromaterial</option>
+                            <option value="Spiele">🎮 Spiele</option>
+                            <option value="Bücher">📖 Bücher</option>
+                            <option value="Handarbeit">🧶 Handarbeit</option>
+                            <option value="Deko">🏠 Deko</option>
+                            <option value="Elektro">⚡ Elektro</option>
+                            <option value="Sonstiges">📦 Sonstiges</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="preis">Preis (€) *</label>
+                        <input type="number" id="preis" name="preis" step="0.50" min="0" placeholder="z.B. 25.50" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="beschreibung">Beschreibung *</label>
+                    <textarea id="beschreibung" name="beschreibung" placeholder="Zustand, Material, Größe, Besonderheiten..." required></textarea>
+                    <p class="help-text">Beschreiben Sie das Produkt detailliert, damit Käufer es besser einschätzen können</p>
+                </div>
+            </div>
+
+            <!-- Bilder -->
+            <div class="form-section">
+                <h2>📸 Bilder (Imgur)</h2>
+                
+                <div class="info-box">
+                    <h3>Wie füge ich Bilder ein?</h3>
+                    <p>
+                        1. Gehen Sie auf <a href="https://imgur.com" target="_blank" style="color: #1a472a; font-weight: 600;">imgur.com</a><br>
+                        2. Laden Sie Ihr Bild hoch (max. 4 Bilder möglich)<br>
+                        3. Kopieren Sie die direkte Link-URL (rechtsklick → "Link kopieren")<br>
+                        4. Fügen Sie den Link unten ein
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="bild1">Bild 1 (Imgur-Link) *</label>
+                    <input type="text" id="bild1" name="bild1" placeholder="https://i.imgur.com/..." required>
+                    <p class="help-text">Das Hauptbild - sichtbar in der Produktliste</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="bild2">Bild 2 (Imgur-Link)</label>
+                    <input type="text" id="bild2" name="bild2" placeholder="https://i.imgur.com/...">
+                    <p class="help-text">Optional - weitere Bilder erhöhen die Verkaufschancen</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="bild3">Bild 3 (Imgur-Link)</label>
+                    <input type="text" id="bild3" name="bild3" placeholder="https://i.imgur.com/...">
+                </div>
+
+                <div class="form-group">
+                    <label for="bild4">Bild 4 (Imgur-Link)</label>
+                    <input type="text" id="bild4" name="bild4" placeholder="https://i.imgur.com/...">
+                </div>
+            </div>
+
+            <!-- Wichtige Hinweise -->
+            <div class="info-box">
+                <h3>ℹ️ Wichtige Hinweise</h3>
+                <p>
+                    ✓ Ihre Kontaktdaten werden nur an interessierte Käufer weitergegeben<br>
+                    ✓ Das Angebot wird nach Überprüfung freigeschaltet (Status: "Aktiv")<br>
+                    ✓ Geben Sie den Verkauf selbst über E-Mail ab (Abholung / Bezahlung vor Ort)<br>
+                    ✓ Bitte überprüfen Sie Ihre Angaben vor dem Absenden
+                </p>
+            </div>
+
+            <!-- Buttons -->
+            <div class="btn-group">
+                <button type="submit" class="btn-submit">✅ Produkt einstellen</button>
+                <button type="reset" class="btn-reset">🔄 Zurücksetzen</button>
+                <button type="button" class="btn-back" onclick="history.back()">⬅️ Zurück</button>
+            </div>
+        </form>
+
+        <footer>
+            Version 2.48 • Vorchdorf Flohmarkt Admin • <a href="https://fischervorchdorf.github.io/Vorchdorf/" style="color: #1a472a; text-decoration: none; font-weight: 600;">Zur Flohmarkt-App</a>
+        </footer>
+    </div>
+
+    <script>
+        // Google Form Integration
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/viewform';
+
+        // Form Field Mapping (Entry IDs - diese müssen an dein Google Form angepasst werden!)
+        // Du musst die Entry-IDs aus deinem Google Form ermitteln!
+        const FORM_FIELDS = {
+            'name': 'entry.XXXXXX',              // Dein Name
+            'email': 'entry.XXXXXX',             // Deine E-Mail
+            'produktname': 'entry.XXXXXX',       // Produktname
+            'kategorie': 'entry.XXXXXX',         // Kategorie
+            'preis': 'entry.XXXXXX',             // Preis
+            'beschreibung': 'entry.XXXXXX',      // Beschreibung
+            'bild1': 'entry.XXXXXX',             // Bild 1 URL
+            'bild2': 'entry.XXXXXX',             // Bild 2 URL
+            'bild3': 'entry.XXXXXX',             // Bild 3 URL
+            'bild4': 'entry.XXXXXX'              // Bild 4 URL
+        };
+
+        document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validierung
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const produktname = document.getElementById('produktname').value.trim();
+            const bild1 = document.getElementById('bild1').value.trim();
+
+            if (!name || !email || !produktname || !bild1) {
+                showError('Bitte füllen Sie alle Pflichtfelder aus (mit *)');
+                return;
+            }
+
+            // Google Form URL mit Parametern zusammenstellen
+            let formUrl = GOOGLE_FORM_URL + '?usp=pp_url';
+
+            // Form-Daten hinzufügen
+            Object.keys(FORM_FIELDS).forEach(fieldId => {
+                const value = document.getElementById(fieldId).value.trim();
+                if (value) {
+                    formUrl += `&${FORM_FIELDS[fieldId]}=${encodeURIComponent(value)}`;
+                }
+            });
+
+            // Google Forms öffnen
+            window.open(formUrl, 'google-form-popup');
+
+            // Erfolgsmeldung zeigen
+            showSuccess();
+            
+            // Formular zurücksetzen
+            setTimeout(() => {
+                document.getElementById('flohmarktForm').reset();
+            }, 1000);
+        });
+
+        function showSuccess() {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            errorMsg.textContent = '❌ ' + message;
+            errorMsg.style.display = 'block';
+            successMsg.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
