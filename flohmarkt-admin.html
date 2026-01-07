@@ -400,6 +400,13 @@
             prefillFormFromURL();
         });
 
+        // Auch sofort aufrufen, falls DOM schon geladen ist
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', prefillFormFromURL);
+        } else {
+            prefillFormFromURL();
+        }
+
         document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Verhindere normales Absenden
             
