@@ -2062,6 +2062,15 @@
                     // Nur wenn es mit http startet, verwenden
                     if (!imageUrl.startsWith('http')) {
                         imageUrl = '';
+                    } else {
+                        // Repariere unvollständige imgur.com URLs (ohne Dateiendung)
+                        if (imageUrl.includes('imgur.com/') && !imageUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                            // Konvertiere imgur.com/ID zu i.imgur.com/ID.jpg
+                            const match = imageUrl.match(/imgur\.com\/([a-zA-Z0-9]+)$/);
+                            if (match) {
+                                imageUrl = `https://i.imgur.com/${match[1]}.jpg`;
+                            }
+                        }
                     }
                 }
                 
@@ -2145,7 +2154,17 @@
                     const m = cleaned.match(/href=["']([^"']+)["']/);
                     cleaned = m ? m[1] : '';
                 }
-                return cleaned.startsWith('http') ? cleaned : '';
+                if (!cleaned.startsWith('http')) {
+                    return '';
+                }
+                // Repariere unvollständige imgur.com URLs
+                if (cleaned.includes('imgur.com/') && !cleaned.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                    const match = cleaned.match(/imgur\.com\/([a-zA-Z0-9]+)$/);
+                    if (match) {
+                        cleaned = `https://i.imgur.com/${match[1]}.jpg`;
+                    }
+                }
+                return cleaned;
             }).filter(url => url);
 
             flohmarktCurrentProduct.images = images;
@@ -2405,7 +2424,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.61';
+        const APP_VERSION = '2.62';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
