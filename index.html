@@ -18,12 +18,12 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=2.60">
+    <link rel="manifest" href="./manifest.json?v=2.61">
     
     <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.60">
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.60">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=2.60">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.61">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.61">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=2.61">
     
     <style>
         * {
@@ -1983,10 +1983,13 @@
                 const csv = await response.text();
                 const products = parseCSV(csv);
                 
-                // Nur aktive Produkte anzeigen
-                flohmarktAllProducts = products.filter(p => 
-                    p.Status && p.Status.toLowerCase() === 'aktiv'
-                );
+                // DEBUG: Alle Produkte anzeigen (Filter entfernt zum Debuggen)
+                flohmarktAllProducts = products; // TEMP: Zeige ALLE Produkte
+                
+                console.log('DEBUG: Geladen', flohmarktAllProducts.length, 'Produkte');
+                if (flohmarktAllProducts.length > 0) {
+                    console.log('DEBUG: Erstes Produkt Status:', flohmarktAllProducts[0].Status);
+                }
 
                 renderFlohmarktProducts(flohmarktAllProducts);
             } catch (error) {
@@ -2402,7 +2405,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.60';
+        const APP_VERSION = '2.61';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
