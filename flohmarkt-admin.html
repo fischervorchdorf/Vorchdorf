@@ -348,80 +348,36 @@
     </div>
 
     <script>
-        console.log('Script geladen! URL:', window.location.href);
-        console.log('Search-String:', window.location.search);
-        
-        // Google Form Integration
-        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/viewform';
-
-        // Form Field Mapping (Entry IDs)
-        const FORM_FIELDS = {
-            'produktname': 'entry.1',               // Produktname
-            'kategorie': 'entry.2',                 // Kategorie
-            'preis': 'entry.3',                     // Preis in Euro
-            'beschreibung': 'entry.4',              // Beschreibung
-            'name': 'entry.5',                      // Firmenname
-            'email': 'entry.6',                     // Deine E-mail
-            'bild1': 'entry.7',                     // Bild 1 URL
-            'bild2': 'entry.8',                     // Bild 2 URL
-            'bild3': 'entry.9',                     // Bild 3 URL
-            'bild4': 'entry.10'                     // Bild 4 URL
+        const entryToField = {
+            'entry.1382988510': 'produktname',
+            'entry.2012320514': 'kategorie',
+            'entry.274195462': 'preis',
+            'entry.347264883': 'beschreibung',
+            'entry.1178331212': 'name',
+            'entry.203128062': 'email',
+            'entry.345257709': 'bild1',
+            'entry.67189089': 'bild2',
+            'entry.1046437419': 'bild3',
+            'entry.1740704266': 'bild4'
         };
 
-        // URL-Parameter auslesen und Felder vorbefüllen
         function prefillFormFromURL() {
             const params = new URLSearchParams(window.location.search);
-            console.log('URL-Parameter gefunden:', Array.from(params.entries()));
-            
-            // Direktes Testen - prüfe ob Name-Element existiert
-            const nameElement = document.getElementById('name');
-            console.log('Name-Element existiert?', !!nameElement, nameElement);
-            
-            // Mapping von Entry-IDs zu Input-IDs
-            const entryToField = {
-                'entry.1382988510': 'produktname',  // Produktname
-                'entry.2012320514': 'kategorie',    // Kategorie
-                'entry.274195462': 'preis',         // Preis
-                'entry.347264883': 'beschreibung',  // Beschreibung
-                'entry.1178331212': 'name',         // Firmenname
-                'entry.203128062': 'email',         // Email
-                'entry.345257709': 'bild1',         // Bild 1
-                'entry.67189089': 'bild2',          // Bild 2
-                'entry.1046437419': 'bild3',        // Bild 3
-                'entry.1740704266': 'bild4'         // Bild 4
-            };
-
-            // Alle URL-Parameter durchgehen
             for (const [entryId, value] of params.entries()) {
-                console.log('Verarbeite:', entryId, '=', value);
                 if (entryToField[entryId]) {
-                    const fieldId = entryToField[entryId];
-                    const element = document.getElementById(fieldId);
-                    console.log('Element für', fieldId, ':', element);
+                    const element = document.getElementById(entryToField[entryId]);
                     if (element) {
                         element.value = decodeURIComponent(value);
-                        console.log('Befüllt:', fieldId, 'mit:', element.value);
                     }
                 }
             }
         }
 
-        // Beim Laden der Seite vorbefüllen
-        document.addEventListener('DOMContentLoaded', function() {
-            prefillFormFromURL();
-        });
-
-        // Auch sofort aufrufen, falls DOM schon geladen ist
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', prefillFormFromURL);
-        } else {
-            prefillFormFromURL();
-        }
+        prefillFormFromURL();
 
         document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Verhindere normales Absenden
+            e.preventDefault();
             
-            // Validierung
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const produktname = document.getElementById('produktname').value.trim();
@@ -432,7 +388,6 @@
                 return;
             }
 
-            // Erstelle einen versteckten iframe für Form-Submit
             let iframe = document.getElementById('formSubmitFrame');
             if (!iframe) {
                 iframe = document.createElement('iframe');
@@ -441,13 +396,11 @@
                 document.body.appendChild(iframe);
             }
 
-            // Erstelle ein verstecktes Formular
             const hiddenForm = document.createElement('form');
             hiddenForm.method = 'POST';
             hiddenForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/formResponse';
             hiddenForm.target = 'formSubmitFrame';
 
-            // Füge Formular-Felder hinzu
             const fields = {
                 'entry.1382988510': document.getElementById('produktname').value,
                 'entry.2012320514': document.getElementById('kategorie').value,
@@ -475,12 +428,9 @@
             hiddenForm.submit();
             hiddenForm.remove();
 
-            // Zeige Erfolgsmeldung direkt (nicht auf iframe Response warten)
             showSuccess();
             document.getElementById('flohmarktForm').reset();
-            prefillFormFromURL(); // URL-Parameter wieder vorbefüllen
-            
-            // Scroll zu Erfolgsmeldung
+            prefillFormFromURL();
             document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
         });
 
@@ -501,9 +451,6 @@
             errorMsg.style.display = 'block';
             successMsg.style.display = 'none';
         }
-
-        // Sofort nach dem Script laden
-        prefillFormFromURL();
     </script>
 </body>
 </html>
