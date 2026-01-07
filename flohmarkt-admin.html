@@ -349,19 +349,18 @@
         // Google Form Integration
         const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdjm-MN7MaedD9F5Vm03YsKGefc1KVjrUCbF49myI4feIy7xw/viewform';
 
-        // Form Field Mapping (Entry IDs - diese müssen an dein Google Form angepasst werden!)
-        // Du musst die Entry-IDs aus deinem Google Form ermitteln!
+        // Form Field Mapping (Entry IDs)
         const FORM_FIELDS = {
-            'name': 'entry.XXXXXX',              // Dein Name
-            'email': 'entry.XXXXXX',             // Deine E-Mail
-            'produktname': 'entry.XXXXXX',       // Produktname
-            'kategorie': 'entry.XXXXXX',         // Kategorie
-            'preis': 'entry.XXXXXX',             // Preis
-            'beschreibung': 'entry.XXXXXX',      // Beschreibung
-            'bild1': 'entry.XXXXXX',             // Bild 1 URL
-            'bild2': 'entry.XXXXXX',             // Bild 2 URL
-            'bild3': 'entry.XXXXXX',             // Bild 3 URL
-            'bild4': 'entry.XXXXXX'              // Bild 4 URL
+            'produktname': 'entry.1',               // Produktname
+            'kategorie': 'entry.2',                 // Kategorie
+            'preis': 'entry.3',                     // Preis in Euro
+            'beschreibung': 'entry.4',              // Beschreibung
+            'name': 'entry.5',                      // Firmenname
+            'email': 'entry.6',                     // Deine E-mail
+            'bild1': 'entry.7',                     // Bild 1 URL
+            'bild2': 'entry.8',                     // Bild 2 URL
+            'bild3': 'entry.9',                     // Bild 3 URL
+            'bild4': 'entry.10'                     // Bild 4 URL
         };
 
         document.getElementById('flohmarktForm').addEventListener('submit', function(e) {
