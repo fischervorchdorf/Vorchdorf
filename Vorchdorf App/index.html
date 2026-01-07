@@ -2208,6 +2208,16 @@
         // App Version - Update this with each release
         const APP_VERSION = '2.48';
         
+        // Force cache bust on version change
+        if (localStorage.getItem('appVersion') !== APP_VERSION) {
+            if ('caches' in window) {
+                caches.keys().then(cacheNames => {
+                    cacheNames.forEach(cacheName => caches.delete(cacheName));
+                });
+            }
+            localStorage.setItem('appVersion', APP_VERSION);
+        }
+        
         // App State
         let currentView = 'home';
         let navigationHistory = [];
