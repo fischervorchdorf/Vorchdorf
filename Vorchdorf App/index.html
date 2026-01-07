@@ -2004,29 +2004,29 @@
         // Flohmarkt Produkte rendern
         function cleanImageUrl(url) {
             if (!url || typeof url !== 'string') return '';
+            
             let cleaned = url.trim();
             
-            // 1. Entferne alle HTML-Tags
-            cleaned = cleaned.replace(/<[^>]*>/g, '');
+            // Entferne HTML-Tags und Whitespace
+            cleaned = cleaned.replace(/<[^>]*>/g, '').trim();
             
-            // 2. Extrahiere URL aus href="..." Pattern
-            const hrefMatch = cleaned.match(/href=["']([^"']+)["']/i);
-            if (hrefMatch) {
-                cleaned = hrefMatch[1];
+            // Wenn es ein href-Link ist, extrahiere die URL
+            if (cleaned.includes('href=')) {
+                const match = cleaned.match(/href=["']([^"']+)["']/i);
+                if (match && match[1]) {
+                    cleaned = match[1].trim();
+                }
             }
             
-            // 3. Extrahiere erste https:// URL falls mehrere vorhanden
-            const httpMatch = cleaned.match(/(https?:\/\/[^\s"'<>]+)/);
-            if (httpMatch) {
-                cleaned = httpMatch[1];
+            // Entferne führende/nachfolgende Quotes
+            cleaned = cleaned.replace(/^["']|["']$/g, '').trim();
+            
+            // Prüfe ob es eine echte URL ist (muss mit http anfangen)
+            if (cleaned && (cleaned.startsWith('http://') || cleaned.startsWith('https://'))) {
+                return cleaned;
             }
             
-            // 4. Entferne Anführungszeichen
-            cleaned = cleaned.replace(/['"]/g, '');
-            
-            // 5. Trim und checke ob echte URL
-            cleaned = cleaned.trim();
-            return (cleaned && cleaned.startsWith('http')) ? cleaned : '';
+            return '';
         }
 
         function renderFlohmarktProducts(products) {
