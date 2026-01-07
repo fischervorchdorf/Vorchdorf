@@ -338,7 +338,7 @@
         /* Cards Grid for Main Categories */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -351,7 +351,7 @@
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 2px solid transparent;
-            aspect-ratio: 1 / 1;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -446,10 +446,10 @@
 
         .card p {
             color: var(--text-light);
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 1rem;
+            line-height: 1.5;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -2206,8 +2206,8 @@
         });
 
         // App Version - Update this with each release
-        const APP_VERSION = '2.50';
-        const CACHE_BUSTER = '20260107'; // Timestamp für Force-Reload
+        const APP_VERSION = '2.51';
+        const CACHE_BUSTER = '20260107-2'; // Force aggressive cache bust
         
         // Force cache bust on version change
         if (localStorage.getItem('appVersion') !== APP_VERSION) {
