@@ -4219,6 +4219,19 @@
             const mainContent = document.getElementById('mainContent');
             const weatherWidget = document.getElementById('weatherWidget');
             
+            // Render categories ZUERST - immer!
+            mainContent.innerHTML = `
+                <div class="cards-grid fade-in">
+                    ${Object.values(categories).map(cat => `
+                        <div class="card" onclick="navigateToCategory('${cat.id}')">
+                            <span class="card-icon">${cat.icon}</span>
+                            <h3>${cat.title}</h3>
+                            <p>${cat.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
             // Fetch and display weather in dedicated widget below emergency
             fetchWeather().then(weatherData => {
                 if (weatherData && weatherData.time) {
@@ -4249,19 +4262,9 @@
                 } else {
                     weatherWidget.classList.add('hidden');
                 }
-                
-                // Render categories in mainContent (without weather)
-                mainContent.innerHTML = `
-                    <div class="cards-grid fade-in">
-                        ${Object.values(categories).map(cat => `
-                            <div class="card" onclick="navigateToCategory('${cat.id}')">
-                                <span class="card-icon">${cat.icon}</span>
-                                <h3>${cat.title}</h3>
-                                <p>${cat.description}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
+            }).catch(error => {
+                console.error('Wetter-Fehler, verstecke Widget:', error);
+                weatherWidget.classList.add('hidden');
             });
         }
 
