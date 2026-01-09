@@ -1864,7 +1864,7 @@
         <!-- Weather Widget (shown on home below emergency) -->
         <div id="weatherWidget" class="weather-widget hidden"></div>
 
-        <footer>
+        <footer id="mainFooter">
             Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
             <span id="versionInfo"></span>
         </footer>
@@ -1910,6 +1910,12 @@
                 <h3>Keine Produkte gefunden</h3>
                 <p>Versuche eine andere Suche oder Kategorie</p>
             </div>
+
+            <!-- Footer im Flohmarkt unten -->
+            <footer style="margin-top: 40px;">
+                Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
+                <span id="flohmarktVersionInfo"></span>
+            </footer>
         </div>
 
         <!-- Flohmarkt Modal -->
@@ -2007,6 +2013,12 @@
         // Flohmarkt Produkte laden
         async function loadFlohmarktProducts() {
             try {
+                // Verstecke Footer wenn Flohmarkt aktiv
+                const mainFooter = document.getElementById('mainFooter');
+                if (mainFooter) {
+                    mainFooter.style.display = 'none';
+                }
+                
                 const proxyUrl = 'https://api.allorigins.win/raw?url=';
                 let response;
                 
@@ -2448,9 +2460,9 @@ Mit freundlichen Grüßen`;
                     padding: 30px;
                 }
                 .flohmarkt-info-modal {
-                    background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                    max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
-                    padding: 30px;
+                    background: white; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+                    max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto;
+                    padding: 30px; position: relative; z-index: 10001;
                 }
                 .flohmarkt-info-modal h3 {
                     margin-top: 0; color: #1a472a; margin-bottom: 20px; font-size: 1.3rem;
@@ -2554,7 +2566,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.69';
+        const APP_VERSION = '2.70';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
@@ -4922,6 +4934,11 @@ Mit freundlichen Grüßen`;
         // Go back to home
         function goHome() {
             navigationHistory = [];
+            // Zeige Footer wieder wenn zur Home zurück
+            const mainFooter = document.getElementById('mainFooter');
+            if (mainFooter) {
+                mainFooter.style.display = 'block';
+            }
             renderHome();
         }
 
@@ -5535,6 +5552,7 @@ Mit freundlichen Grüßen`;
         document.addEventListener('DOMContentLoaded', function() {
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
+            document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
             
             // Live search - triggers as you type
             document.getElementById('searchInput').addEventListener('input', function(e) {
