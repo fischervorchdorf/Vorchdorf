@@ -1,0 +1,37 @@
+# GitHub Pages Configuration
+# Serve the Vorchdorf App directly without root index.html
+
+include: ["Vorchdorf App"]
+
+# Exclude unnecessary files
+exclude:
+  - README.md
+  - .gitignore
+  - node_modules
+  - files
+  - files 2
+  - sicherung_v2.42
+  - "Vorchdorf Flohmarkt Produkte - Google Sheets-Dateien"
+  - "Vereine Vorchdorf"
+  - "*.backup"
+  - "*-admin.html"
+  - "*-scraper.html"
+  - "*-veranstaltungen.html"
+  - "ANLEITUNG-*.md"
+  - "ICON-ANLEITUNG.md"
+  - "PWA-SETUP.md"
+  - "force-reload.html"
+  - "test.html"
+  - "events*.html"
+  - "aerzte.html"
+  - "flohmarkt*.html"
+  - "index.html"
+
+# Markdown processor
+markdown: kramdown
+
+# Theme
+theme: null
+
+# No Jekyll
+future: false
