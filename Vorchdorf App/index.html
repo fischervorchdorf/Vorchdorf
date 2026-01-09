@@ -20,12 +20,12 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=2.77">
+    <link rel="manifest" href="./manifest.json?v=2.78">
     
     <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.77">
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.77">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=2.77">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.78">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.78">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=2.78">
     
     <style>
         * {
@@ -1542,7 +1542,7 @@
 
         /* Flohmarkt Modal */
         .flohmarkt-modal-overlay {
-            display: none;
+            display: none !important;
             position: fixed;
             top: 0;
             left: 0;
@@ -1550,9 +1550,8 @@
             bottom: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 1);
             z-index: 999999;
-            backdrop-filter: blur(2px);
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -1565,18 +1564,16 @@
 
         .flohmarkt-modal {
             background: white;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 85vh;
+            border-radius: 16px;
+            max-width: 700px;
+            width: 95%;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
             animation: slideUp 0.3s ease;
-            box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 100px rgba(0,0,0,0.8);
             z-index: 1000000;
             padding: 0;
-        }
-            z-index: 10000;
         }
 
         @keyframes slideUp {
@@ -1669,39 +1666,41 @@
         }
 
         .flohmarkt-modal-content {
-            padding: 20px;
+            padding: 30px;
         }
 
         .flohmarkt-modal-category {
             display: inline-block;
-            background: rgba(26, 71, 42, 0.1);
+            background: rgba(26, 71, 42, 0.15);
             color: var(--primary);
-            padding: 5px 12px;
+            padding: 8px 16px;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .flohmarkt-modal-title {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text);
+            margin-bottom: 12px;
+            color: #000;
+            line-height: 1.3;
         }
 
         .flohmarkt-modal-price {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .flohmarkt-modal-description {
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -2547,7 +2546,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.77';
+        const APP_VERSION = '2.78';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
