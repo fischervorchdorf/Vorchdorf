@@ -1,6 +1,6 @@
-# GitHub Pages Configuration
-# Serve the Vorchdorf App directly without root index.html
+# GitHub Pages Configuration for Vorchdorf App
 
+# Build settings
 include: ["Vorchdorf App"]
 
 # Exclude unnecessary files
@@ -9,7 +9,7 @@ exclude:
   - .gitignore
   - node_modules
   - files
-  - files 2
+  - "files 2"
   - sicherung_v2.42
   - "Vorchdorf Flohmarkt Produkte - Google Sheets-Dateien"
   - "Vereine Vorchdorf"
@@ -25,13 +25,8 @@ exclude:
   - "events*.html"
   - "aerzte.html"
   - "flohmarkt*.html"
-  - "index.html"
 
-# Markdown processor
 markdown: kramdown
-
-# Theme
 theme: null
-
-# No Jekyll
 future: false
+safe: false
