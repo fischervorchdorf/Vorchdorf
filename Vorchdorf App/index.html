@@ -1380,6 +1380,7 @@
             border-radius: 12px;
             margin-bottom: 20px;
             text-align: center;
+            position: relative;
         }
 
         .flohmarkt-header h2 {
@@ -1388,6 +1389,27 @@
         }
 
         .flohmarkt-header p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .flohmarkt-info-btn {
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: 2px solid white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .flohmarkt-info-btn:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.05);
+        }
             opacity: 0.9;
         }
 
@@ -1852,6 +1874,7 @@
             <div class="flohmarkt-header">
                 <h2>🛒 Vorchdorf Flohmarkt</h2>
                 <p>Kaufen & Verkaufen in der Region</p>
+                <button class="flohmarkt-info-btn" onclick="openFlohmarktInfo()">ℹ️ Info</button>
             </div>
 
             <section class="flohmarkt-filter">
@@ -1871,6 +1894,10 @@
                     <option value="Lederwaren">👜 Lederwaren</option>
                     <option value="Rauchzubehör">🚬 Rauchzubehör</option>
                     <option value="Sonstiges">📦 Sonstiges</option>
+                </select>
+                <select id="flohmarktVerkaeifer" class="flohmarkt-filter-select">
+                    <option value="">Alle Verkäufer</option>
+                    <option value="Trafik Fischer">👤 Trafik Fischer</option>
                 </select>
             </section>
 
@@ -2117,6 +2144,7 @@
         function filterFlohmarktProducts() {
             const search = document.getElementById('flohmarktSearch').value.toLowerCase();
             const category = document.getElementById('flohmarktCategory').value;
+            const verkaeufer = document.getElementById('flohmarktVerkaeifer').value;
 
             const filtered = flohmarktAllProducts.filter(product => {
                 const matchesSearch = !search || 
@@ -2124,8 +2152,9 @@
                     (product.Beschreibung && product.Beschreibung.toLowerCase().includes(search));
                 
                 const matchesCategory = !category || product.Kategorie === category;
+                const matchesVerkaeufer = !verkaeufer || product.Firmenname === verkaeufer;
 
-                return matchesSearch && matchesCategory;
+                return matchesSearch && matchesCategory && matchesVerkaeufer;
             });
 
             renderFlohmarktProducts(filtered);
@@ -2135,14 +2164,15 @@
         function openFlohmarktModal(index) {
             const search = document.getElementById('flohmarktSearch').value.toLowerCase();
             const category = document.getElementById('flohmarktCategory').value;
-            
+            const verkaeufer = document.getElementById('flohmarktVerkaeifer').value;
             // Gefilterte Liste verwenden
             const filtered = flohmarktAllProducts.filter(product => {
                 const matchesSearch = !search || 
                     (product.Produktname && product.Produktname.toLowerCase().includes(search)) ||
                     (product.Beschreibung && product.Beschreibung.toLowerCase().includes(search));
                 const matchesCategory = !category || product.Kategorie === category;
-                return matchesSearch && matchesCategory;
+                const matchesVerkaeufer = !verkaeufer || product.Firmenname === verkaeufer;
+                return matchesSearch && matchesCategory && matchesVerkaeufer;
             });
 
             flohmarktCurrentProduct = filtered[index];
@@ -2320,6 +2350,51 @@ Mit freundlichen Grüßen`;
             document.body.style.overflow = '';
         }
 
+        // Flohmarkt Info Modal
+        function openFlohmarktInfo() {
+            const infoText = `
+                <div class="flohmarkt-info-modal">
+                    <h3>ℹ️ Willkommen beim Vorchdorfer-Flohmarkt!</h3>
+                    
+                    <p>Hier bieten unsere Werberingmitglieder ausgewählte Artikel an – Schnäppchen, Einzelstücke oder Waren, für die im Geschäft einfach der Platz fehlt.</p>
+                    
+                    <strong>So funktioniert's:</strong>
+                    <p>Stöbern Sie in den Angeboten. Wenn Ihnen etwas gefällt, drücken Sie einfach auf E-Mail senden. Der Verkäufer meldet sich bei Ihnen, um einen Abholtermin zu vereinbaren. Bezahlt wird erst bei der Abholung – direkt und unkompliziert, ganz ohne Online-Zahlung.</p>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn-primary" onclick="closeFlohmarktInfo()" style="padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 500; background: #1a472a; color: white; transition: all 0.3s;">✓ Verstanden</button>
+                    </div>
+                </div>
+            `;
+            
+            let modal = document.getElementById('flohmarktInfoModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'flohmarktInfoModal';
+                modal.style.cssText = `
+                    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+                    z-index: 9999; padding: 20px;
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            modal.innerHTML = infoText;
+            modal.style.display = 'flex';
+            modal.onclick = (e) => {
+                if (e.target === modal) closeFlohmarktInfo();
+            };
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFlohmarktInfo() {
+            const modal = document.getElementById('flohmarktInfoModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+            document.body.style.overflow = '';
+        }
+
         // Email Preview Modal - mit Bild und HTML-Vorschau
         function openEmailPreviewModal(toEmail, subject, body, imageUrl, sellerName) {
             // Erstelle Modal-HTML
@@ -2371,6 +2446,20 @@ Mit freundlichen Grüßen`;
                     background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
                     max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
                     padding: 30px;
+                }
+                .flohmarkt-info-modal {
+                    background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                    max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
+                    padding: 30px;
+                }
+                .flohmarkt-info-modal h3 {
+                    margin-top: 0; color: #1a472a; margin-bottom: 20px; font-size: 1.3rem;
+                }
+                .flohmarkt-info-modal p {
+                    color: #333; line-height: 1.6; margin-bottom: 15px;
+                }
+                .flohmarkt-info-modal strong {
+                    color: #1a472a; display: block; margin-top: 15px; margin-bottom: 10px;
                 }
                 .email-preview-content h3 {
                     margin-top: 0; color: #1a472a; margin-bottom: 20px; font-size: 1.3rem;
@@ -2435,6 +2524,7 @@ Mit freundlichen Grüßen`;
         // Event Listeners für Flohmarkt
         document.getElementById('flohmarktSearch').addEventListener('input', filterFlohmarktProducts);
         document.getElementById('flohmarktCategory').addEventListener('change', filterFlohmarktProducts);
+        document.getElementById('flohmarktVerkaeifer').addEventListener('change', filterFlohmarktProducts);
         document.getElementById('flohmarktModalClose').addEventListener('click', closeFlohmarktModal);
         document.getElementById('flohmarktModalOverlay').addEventListener('click', (e) => {
             if (e.target === document.getElementById('flohmarktModalOverlay')) closeFlohmarktModal();
@@ -2464,7 +2554,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.68';
+        const APP_VERSION = '2.69';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
