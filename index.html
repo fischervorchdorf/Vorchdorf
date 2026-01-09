@@ -2345,17 +2345,17 @@ Mit freundlichen Grüßen`;
         function openFlohmarktInfo() {
             console.log('openFlohmarktInfo called');
             const infoHtml = `
-                <div class="flohmarkt-info-modal">
-                    <button class="flohmarkt-info-close" onclick="closeFlohmarktInfo()">✕</button>
-                    <h2>ℹ️ Willkommen beim Vorchdorfer-Flohmarkt!</h2>
+                <div class="flohmarkt-info-modal" style="background: white; border-radius: 16px; max-width: 800px; width: 95%; max-height: 90vh; padding: 50px 40px; position: relative; z-index: 10001; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                    <button class="flohmarkt-info-close" onclick="closeFlohmarktInfo()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #666;">✕</button>
+                    <h2 style="font-size: 2rem; color: #000000; margin: 0 0 20px 0;">ℹ️ Willkommen beim Vorchdorfer-Flohmarkt!</h2>
                     
-                    <p>Hier bieten unsere Werberingmitglieder ausgewählte Artikel an – Schnäppchen, Einzelstücke oder Waren, für die im Geschäft einfach der Platz fehlt.</p>
+                    <p style="font-size: 1.1rem; color: #000000; line-height: 1.6; margin: 10px 0;">Hier bieten unsere Werberingmitglieder ausgewählte Artikel an – Schnäppchen, Einzelstücke oder Waren, für die im Geschäft einfach der Platz fehlt.</p>
                     
-                    <h3>So funktioniert's:</h3>
-                    <p>Stöbern Sie in den Angeboten. Wenn Ihnen etwas gefällt, drücken Sie einfach auf E-Mail senden. Der Verkäufer meldet sich bei Ihnen, um einen Abholtermin zu vereinbaren. Bezahlt wird erst bei der Abholung – direkt und unkompliziert, ganz ohne Online-Zahlung.</p>
+                    <h3 style="font-size: 1.3rem; color: #000000; margin: 20px 0 10px 0;">So funktioniert's:</h3>
+                    <p style="font-size: 1.1rem; color: #000000; line-height: 1.6; margin: 10px 0;">Stöbern Sie in den Angeboten. Wenn Ihnen etwas gefällt, drücken Sie einfach auf E-Mail senden. Der Verkäufer meldet sich bei Ihnen, um einen Abholtermin zu vereinbaren. Bezahlt wird erst bei der Abholung – direkt und unkompliziert, ganz ohne Online-Zahlung.</p>
                     
                     <div style="text-align: center; margin-top: 40px;">
-                        <button class="flohmarkt-info-btn-close" onclick="closeFlohmarktInfo()">✓ Schließen</button>
+                        <button class="flohmarkt-info-btn-close" onclick="closeFlohmarktInfo()" style="background: #4CAF50; color: white; border: none; padding: 12px 30px; font-size: 1.1rem; border-radius: 8px; cursor: pointer;">✓ Schließen</button>
                     </div>
                 </div>
             `;
@@ -2378,7 +2378,7 @@ Mit freundlichen Grüßen`;
                 bottom: 0 !important;
                 width: 100% !important;
                 height: 100% !important;
-                background: rgba(0, 0, 0, 1) !important;
+                background: rgba(0, 0, 0, 0.5) !important;
                 z-index: 999999 !important;
                 padding: 20px !important;
                 overflow-y: auto !important;
@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.82';
+        const APP_VERSION = '2.83';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
