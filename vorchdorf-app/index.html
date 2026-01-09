@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.85';
+        const APP_VERSION = '2.86';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4763,17 +4763,12 @@ Mit freundlichen Grüßen`;
                         ` : ''}
                         <div class="subcategory-list">
                             ${subcategoryList.map(sub => {
-                                // Use icon field or extract emoji from title
-                                let emoji = sub.icon || '📂';
-                                if (!sub.icon) {
-                                    const emojiMatch = sub.title.match(/^([^\s])\s/);
-                                    emoji = emojiMatch ? emojiMatch[1] : '📂';
-                                }
+                                // Extract emoji from title - Shopping kategory only shows title emoji, no separate icon
                                 const titleText = sub.title.replace(/^[^\s]\s/, '');
+                                const titleEmoji = sub.title.match(/^([^\s])/)?.[1] || '';
                                 return `
                                     <div class="subcategory-item" onclick="navigateToSubcategory('${categoryId}', '${sub.id}')">
-                                        <span class="subcategory-icon">${emoji}</span>
-                                        <h4>${titleText}</h4>
+                                        <h4>${titleEmoji} ${titleText}</h4>
                                         <p>${sub.description || 'Klicken für Details'}</p>
                                     </div>
                                 `;
