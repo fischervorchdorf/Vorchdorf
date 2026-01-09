@@ -4754,14 +4754,26 @@ Mit freundlichen Grüßen`;
                         <p><a href="https://www.vorchdorfonline.at" target="_blank">🌐 www.vorchdorfonline.at</a></p>
                     </div>
                     <div class="business-grid">
-                        ${allBusinesses.map(business => `
+                        ${allBusinesses.map(business => {
+                            // Hole das Icon aus der entsprechenden Subcategory
+                            let categoryIcon = '📁';
+                            for (let catId in categories) {
+                                const cat = categories[catId];
+                                if (cat.subcategories && cat.subcategories[business.category]) {
+                                    const sub = cat.subcategories[business.category];
+                                    categoryIcon = sub.icon || sub.title.charAt(0);
+                                    break;
+                                }
+                            }
+                            return `
                             <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                <div class="business-card-icon">📁</div>
+                                <div class="business-card-icon">${categoryIcon}</div>
                                 <div class="business-name">${business.name}</div>
                                 <div class="business-location">${business.location}</div>
                                 ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
                             </div>
-                        `).join('')}
+                            `;
+                        }).join('')}
                     </div>
                 </div>
             `;
@@ -4834,6 +4846,7 @@ Mit freundlichen Grüßen`;
             // Special handling for shopping subcategories - show businesses
             else if (categoryId === 'shopping') {
                 const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
+                const subcategoryIcon = subcategory.icon || '📂';
                 mainContent.innerHTML = `
                     <div class="detail-view fade-in">
                         <h2>${subcategory.title}</h2>
@@ -4841,6 +4854,7 @@ Mit freundlichen Grüßen`;
                         <div class="business-grid">
                             ${categoryBusinesses.map(business => `
                                 <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
+                                    <div class="business-card-icon">${subcategoryIcon}</div>
                                     <div class="business-name">${business.name}</div>
                                     <div class="business-location">📍 ${business.location}</div>
                                     ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
