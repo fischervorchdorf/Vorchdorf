@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.88';
+        const APP_VERSION = '2.89';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -2931,39 +2931,118 @@ Mit freundlichen Grüßen`;
             welcome: {
                 id: 'welcome',
                 title: 'Willkommen',
-                icon: '🏠',
+                icon: '👋',
                 description: 'Erste Infos über Vorchdorf',
                 content: {
                     type: 'info',
                     sections: [
                         {
-                            title: 'Herzlich Willkommen in Vorchdorf!',
+                            title: '👋 Herzlich willkommen in Vorchdorf!',
                             items: [
                                 {
-                                    title: 'Über Vorchdorf',
+                                    title: 'Wir freuen uns, dass Sie hier sind!',
                                     info: [
-                                        'Vorchdorf ist eine lebendige Marktgemeinde in Oberösterreich',
-                                        'Ca. 7.500 Einwohner',
-                                        'Historischer Ortskern mit moderner Infrastruktur',
-                                        'Zentrale Lage zwischen Gmunden und Lambach'
+                                        'Vorchdorf ist mehr als nur ein Wohnort – es ist das lebendige Tor zum Salzkammergut.',
+                                        'Zwischen Tradition, starker Wirtschaft und wunderschöner Natur bietet unsere Marktgemeinde alles, was man zum Wohlfühlen braucht.',
+                                        'Damit Sie sich schnell zurechtfinden, haben wir hier die wichtigsten Fakten und erste Schritte für Sie zusammengefasst.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '🔢 Vorchdorf in Zahlen & Fakten',
+                            items: [
+                                {
+                                    title: 'Ein kurzer Steckbrief Ihrer neuen Heimat',
+                                    info: [
+                                        '📏 Fläche: 47,78 km²',
+                                        '📍 Seehöhe: 414 m ü. A.',
+                                        '👥 Einwohner: ca. 8.300 (Stand 2024/2025)',
+                                        '📮 Postleitzahl: 4655',
+                                        '🗺️ Lage: Bezirk Gmunden, direkt an der A1 Westautobahn',
+                                        '🏘️ Struktur: 27 Ortschaften, wichtiger Wirtschaftsstandort im Almtal'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '📝 Checkliste: Neu in Vorchdorf? Das ist zu tun',
+                            items: [
+                                {
+                                    title: '1️⃣ Anmeldung (Meldezettel)',
+                                    info: [
+                                        'Innerhalb von 3 Tagen nach Bezug der Unterkunft beim Meldeamt anmelden',
+                                        'Wo: Marktgemeindeamt Vorchdorf (Erdgeschoss, Bürgerservice)',
+                                        'Mitbringen: Meldezettel (unterschrieben), Reisepass/Personalausweis, Geburtsurkunde'
                                     ]
                                 },
                                 {
-                                    title: 'Wichtige erste Schritte',
+                                    title: '2️⃣ Müllabfuhr & ASZ-Karte',
                                     info: [
-                                        '📍 Meldepflicht: Innerhalb von 3 Tagen beim Gemeindeamt melden',
-                                        '🏛️ Gemeindeamt: Schloßplatz 7, 4655 Vorchdorf',
-                                        '☎️ Telefon: +43 7614 6555 500',
-                                        '📧 E-Mail: gemeinde@vorchdorf.ooe.gv.at',
-                                        '🌐 Website: www.vorchdorf.at'
-                                    ],
-                                    link: 'https://www.vorchdorf.at'
+                                        'In Vorchdorf legen wir Wert auf Mülltrennung',
+                                        'Mülltonnen: Anmeldung für Restmüll- und Biotonnen am Gemeindeamt',
+                                        'ASZ (Altstoffsammelzentrum): OÖ-Siedlerkarte beim Gemeindeamt abholen'
+                                    ]
                                 },
                                 {
-                                    title: 'Öffnungszeiten Gemeindeamt',
+                                    title: '3️⃣ Wasserzählerstand',
                                     info: [
-                                        'Mo, Mi, Do, Fr: 07:00 - 12:00 Uhr',
-                                        'Di: 07:00 - 18:00 Uhr'
+                                        'Bei Eigentümerwechsel den Wasserzählerstand dem Steueramt melden',
+                                        'Wichtig für korrekte Abrechnung'
+                                    ]
+                                },
+                                {
+                                    title: '4️⃣ Hundesteuer',
+                                    info: [
+                                        'Wenn Sie einen vierbeinigen Freund mitbringen: Hund am Gemeindeamt anmelden',
+                                        'Dort erhalten Sie auch die Hundemarke'
+                                    ]
+                                },
+                                {
+                                    title: '5️⃣ Vorchdorf-Card (Tipp!)',
+                                    info: [
+                                        'Holen Sie sich Informationen zur Vorchdorf-Card (Werbering)',
+                                        'Unsere lokale Gutscheinkarte wird in unzähligen Geschäften akzeptiert',
+                                        'Ideal, um den Ort kennenzulernen'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '🏛️ Gemeindeamt & Öffnungszeiten',
+                            items: [
+                                {
+                                    title: 'Marktgemeinde Vorchdorf',
+                                    info: [
+                                        '📍 Schloßplatz 7, 4655 Vorchdorf',
+                                        '📞 Telefon: +43 7614 6555',
+                                        '📧 E-Mail: gemeinde@vorchdorf.ooe.gv.at'
+                                    ]
+                                },
+                                {
+                                    title: 'Öffnungszeiten Bürgerservice',
+                                    info: [
+                                        'Montag: 07:00 – 12:00 Uhr',
+                                        'Dienstag: 07:00 – 12:00 Uhr & 14:00 – 18:00 Uhr',
+                                        'Mittwoch: kein Parteienverkehr',
+                                        'Donnerstag: 07:00 – 12:00 Uhr & 14:00 – 17:00 Uhr',
+                                        'Freitag: 07:00 – 12:00 Uhr'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '💡 Wussten Sie schon?',
+                            items: [
+                                {
+                                    title: 'Vorchdorf als Verkehrsknotenpunkt',
+                                    info: [
+                                        'Vorchdorf ist ein Verkehrsknotenpunkt der besonderen Art',
+                                        'Bei uns treffen sich nicht nur Autobahn und Landstraßen zusammen',
+                                        'Sondern auch zwei berühmte Lokalbahnen am selben Bahnhof:',
+                                        '🚊 Die Traunseetram (aus Gmunden)',
+                                        '🚊 Die Vorchdorferbahn (aus Lambach)',
+                                        'Steigen Sie ein und erkunden Sie die Region!'
                                     ]
                                 }
                             ]
@@ -4654,10 +4733,13 @@ Mit freundlichen Grüßen`;
             const mainContent = document.getElementById('mainContent');
             const weatherWidget = document.getElementById('weatherWidget');
             
-            // Render categories ZUERST - immer!
+            // Render categories in custom order
+            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'flohmarkt'];
+            const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
+            
             mainContent.innerHTML = `
                 <div class="cards-grid fade-in">
-                    ${Object.values(categories).map(cat => `
+                    ${sortedCategories.map(cat => `
                         <div class="card" onclick="navigateToCategory('${cat.id}')">
                             <span class="card-icon">${cat.icon}</span>
                             <h3>${cat.title}</h3>
