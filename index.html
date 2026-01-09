@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.93';
+        const APP_VERSION = '2.94';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -5135,31 +5135,6 @@ Mit freundlichen Grüßen`;
                 if (subcategoryId === 'all_businesses_az') {
                     // Group businesses by category and sort A-Z
                     const categoryMap = {};
-                    const categoryIcons = {
-                        legal: '⚖️',
-                        banks: '🏦',
-                        construction: '🏠',
-                        beauty: '💪',
-                        accounting: '📊',
-                        catering: '🎪',
-                        services: '🔧',
-                        it: '💻',
-                        photo: '📸',
-                        flowers: '🌸',
-                        healthcare: '⚕️',
-                        wholesale: '📦',
-                        gastro: '🍽️',
-                        industry: '🏭',
-                        cars: '🚙',
-                        culture: '🎭',
-                        food: '🛒',
-                        fashion: '👗',
-                        jewelry: '💎',
-                        gas: '⛽',
-                        tobacco: '🚬',
-                        transport: '🚗',
-                        advertising: '📢'
-                    };
                     
                     // Group by category
                     allBusinesses.forEach(business => {
@@ -5174,15 +5149,19 @@ Mit freundlichen Grüßen`;
                         categoryMap[cat].sort((a, b) => a.name.localeCompare(b.name, 'de'));
                     });
                     
-                    // Get category titles from categories object and sort them
+                    // Get category titles from categories object and sort them alphabetically by title (without emoji)
                     const sortedCategories = Object.keys(categoryMap)
                         .map(catId => ({
                             id: catId,
                             title: categories.shopping.subcategories[catId].title,
-                            icon: categoryIcons[catId] || '📁',
                             businesses: categoryMap[catId]
                         }))
-                        .sort((a, b) => a.title.localeCompare(b.title, 'de'));
+                        .sort((a, b) => {
+                            // Remove emoji for sorting (emoji is usually at start with space after)
+                            const titleA = a.title.replace(/^[^\w]*/, '').trim();
+                            const titleB = b.title.replace(/^[^\w]*/, '').trim();
+                            return titleA.localeCompare(titleB, 'de');
+                        });
                     
                     mainContent.innerHTML = `
                         <div class="detail-view fade-in">
@@ -5192,7 +5171,7 @@ Mit freundlichen Grüßen`;
                                 ${sortedCategories.map(cat => `
                                     <div style="margin-bottom: 40px;">
                                         <h3 style="font-size: 1.3em; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-color);">
-                                            ${cat.icon} ${cat.title}
+                                            ${cat.title}
                                         </h3>
                                         <div class="business-grid">
                                             ${cat.businesses.map(business => `
