@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, public">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, public, proxy-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta http-equiv="ETag" content="">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Willkommen in Vorchdorf - Dein Neustart-Guide</title>
@@ -19,12 +20,12 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=2.74">
+    <link rel="manifest" href="./manifest.json?v=2.77">
     
     <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.74">
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.74">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=2.74">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.77">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.77">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=2.77">
     
     <style>
         * {
@@ -1543,9 +1544,15 @@
         .flohmarkt-modal-overlay {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 999999;
+            backdrop-filter: blur(2px);
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -1553,19 +1560,23 @@
         }
 
         .flohmarkt-modal-overlay.active {
-            display: flex;
+            display: flex !important;
         }
 
         .flohmarkt-modal {
             background: white;
             border-radius: 12px;
             max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
+            width: 90%;
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
             animation: slideUp 0.3s ease;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+            z-index: 1000000;
+            padding: 0;
+        }
+            z-index: 10000;
         }
 
         @keyframes slideUp {
@@ -2536,8 +2547,41 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.74';
-        const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
+        const APP_VERSION = '2.77';
+        
+        // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
+        (async function checkForUpdates() {
+            try {
+                const response = await fetch('./index.html?t=' + Date.now(), { 
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                const html = await response.text();
+                const match = html.match(/const APP_VERSION = '([^']+)'/);
+                if (match && match[1] !== APP_VERSION) {
+                    console.log('Neue Version verfügbar: ' + match[1]);
+                    // Aktualisiere alle Caches und lade neu
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.getRegistrations().then(registrations => {
+                            registrations.forEach(reg => reg.unregister());
+                        });
+                    }
+                    if ('caches' in window) {
+                        caches.keys().then(names => names.forEach(name => caches.delete(name)));
+                    }
+                    // Hard reload nach 2 Sekunden
+                    setTimeout(() => {
+                        window.location.href = './?t=' + Date.now();
+                    }, 2000);
+                }
+            } catch(e) {
+                console.log('Update-Check fehlgeschlagen:', e);
+            }
+        })();
         
         // AGGRESSIVE CACHE CLEARING
         // 1. Unregister all service workers
@@ -4710,14 +4754,26 @@ Mit freundlichen Grüßen`;
                         <p><a href="https://www.vorchdorfonline.at" target="_blank">🌐 www.vorchdorfonline.at</a></p>
                     </div>
                     <div class="business-grid">
-                        ${allBusinesses.map(business => `
+                        ${allBusinesses.map(business => {
+                            // Hole das Icon aus der entsprechenden Subcategory
+                            let categoryIcon = '📁';
+                            for (let catId in categories) {
+                                const cat = categories[catId];
+                                if (cat.subcategories && cat.subcategories[business.category]) {
+                                    const sub = cat.subcategories[business.category];
+                                    categoryIcon = sub.icon || sub.title.charAt(0);
+                                    break;
+                                }
+                            }
+                            return `
                             <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                <div class="business-card-icon">📁</div>
+                                <div class="business-card-icon">${categoryIcon}</div>
                                 <div class="business-name">${business.name}</div>
                                 <div class="business-location">${business.location}</div>
                                 ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
                             </div>
-                        `).join('')}
+                            `;
+                        }).join('')}
                     </div>
                 </div>
             `;
@@ -4790,6 +4846,7 @@ Mit freundlichen Grüßen`;
             // Special handling for shopping subcategories - show businesses
             else if (categoryId === 'shopping') {
                 const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
+                const subcategoryIcon = subcategory.icon || '📂';
                 mainContent.innerHTML = `
                     <div class="detail-view fade-in">
                         <h2>${subcategory.title}</h2>
@@ -4797,6 +4854,7 @@ Mit freundlichen Grüßen`;
                         <div class="business-grid">
                             ${categoryBusinesses.map(business => `
                                 <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
+                                    <div class="business-card-icon">${subcategoryIcon}</div>
                                     <div class="business-name">${business.name}</div>
                                     <div class="business-location">📍 ${business.location}</div>
                                     ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
