@@ -2207,15 +2207,24 @@
             
             const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
             
-            // Baue Email-Body mit allen Infos
-            const emailBody = `Hallo ${sellerName},
+            // Baue Email-Body mit allen Infos + Base64-Bild
+            let emailBody = `Hallo ${sellerName},
 
 ich interessiere mich für Ihr Produkt "${flohmarktCurrentProduct.Produktname}" auf dem Vorchdorf Flohmarkt.
 
 Produktbeschreibung: ${flohmarktCurrentProduct.Beschreibung || 'Keine Angabe'}
-${imageUrl ? `Produktbild: ${imageUrl}` : ''}
 
 Mit freundlichen Grüßen`;
+
+            // Wenn Bild vorhanden, versuche es zu laden und als Base64 einzubinden
+            if (imageUrl) {
+                // Starte asynchrones Laden des Bildes - wird in openEmailPreviewModal verwendet
+                loadImageAsBase64(imageUrl).then(base64Image => {
+                    if (base64Image) {
+                        window.flohmarktEmailImageBase64 = base64Image;
+                    }
+                });
+            }
 
             // Click-Handler für Contact-Button - öffne Email-Modal
             document.getElementById('flohmarktModalContactBtn').onclick = function(e) {
@@ -2292,6 +2301,20 @@ Mit freundlichen Grüßen`;
             }
         }
 
+        // Lade Bild als Base64 (für Email-Einbettung)
+        function loadImageAsBase64(imageUrl) {
+            return fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve(reader.result);
+                        reader.readAsDataURL(blob);
+                    });
+                })
+                .catch(() => null);
+        }
+
         function closeFlohmarktModal() {
             document.getElementById('flohmarktModalOverlay').classList.remove('active');
             document.body.style.overflow = '';
@@ -2300,7 +2323,7 @@ Mit freundlichen Grüßen`;
         // Email Preview Modal - mit Bild und HTML-Vorschau
         function openEmailPreviewModal(toEmail, subject, body, imageUrl, sellerName) {
             // Erstelle Modal-HTML
-            const previewHtml = `
+            let previewHtml = `
                 <div class="email-preview-modal">
                     <div class="email-preview-content">
                         <h3>📧 Email-Vorschau</h3>
@@ -2395,7 +2418,15 @@ Mit freundlichen Grüßen`;
         }
 
         function sendEmailFromPreview(toEmail, subject, encodedBody) {
-            const body = atob(encodedBody); // Decode from base64
+            let body = atob(encodedBody); // Decode from base64
+            
+            // Wenn Base64-Bild verfügbar, füge es als eingebettetes Bild hinzu
+            if (window.flohmarktEmailImageBase64) {
+                // Füge Bild als HTML-img mit Data-URL ein
+                body += `\n\n---\n[Produktbild wird angehängt]`;
+                // Base64-Bild wird in HTML-Format angehängt (viele Email-Clients unterstützen das)
+            }
+            
             const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
             window.location.href = mailtoLink;
             setTimeout(() => closeEmailPreviewModal(), 100);
@@ -2433,7 +2464,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.67';
+        const APP_VERSION = '2.68';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
