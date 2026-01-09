@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.84';
+        const APP_VERSION = '2.85';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4814,7 +4814,6 @@ Mit freundlichen Grüßen`;
                             }
                             return `
                             <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                <div class="business-card-icon">${categoryIcon}</div>
                                 <div class="business-name">${business.name}</div>
                                 <div class="business-location">${business.location}</div>
                                 ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
