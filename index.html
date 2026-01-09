@@ -2566,7 +2566,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.70';
+        const APP_VERSION = '2.71';
         const CACHE_BUSTER = 'v' + Date.now(); // Dynamic cache buster
         
         // AGGRESSIVE CACHE CLEARING
@@ -4741,11 +4741,11 @@ Mit freundlichen Grüßen`;
                     </div>
                     <div class="business-grid">
                         ${allBusinesses.map(business => `
-                            <div class="business-card">
+                            <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
                                 <div class="business-card-icon">📁</div>
                                 <div class="business-name">${business.name}</div>
                                 <div class="business-location">${business.location}</div>
-                                ${business.link ? `<a href="${business.link}" class="business-link" target="_blank">🌐 Website →</a>` : ''}
+                                ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
                             </div>
                         `).join('')}
                     </div>
@@ -4826,10 +4826,10 @@ Mit freundlichen Grüßen`;
                         <p style="color: var(--text-light); margin-bottom: 20px;">${subcategory.description}</p>
                         <div class="business-grid">
                             ${categoryBusinesses.map(business => `
-                                <div class="business-card">
+                                <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
                                     <div class="business-name">${business.name}</div>
                                     <div class="business-location">📍 ${business.location}</div>
-                                    ${business.link ? `<a href="${business.link}" class="business-link" target="_blank">🌐 Website →</a>` : ''}
+                                    ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
                                 </div>
                             `).join('')}
                         </div>
