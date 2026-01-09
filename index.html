@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.83';
+        const APP_VERSION = '2.84';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4893,7 +4893,6 @@ Mit freundlichen Grüßen`;
             // Special handling for shopping subcategories - show businesses
             else if (categoryId === 'shopping') {
                 const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
-                const subcategoryIcon = subcategory.icon || '📂';
                 mainContent.innerHTML = `
                     <div class="detail-view fade-in">
                         <h2>${subcategory.title}</h2>
@@ -4901,7 +4900,6 @@ Mit freundlichen Grüßen`;
                         <div class="business-grid">
                             ${categoryBusinesses.map(business => `
                                 <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                    <div class="business-card-icon">${subcategoryIcon}</div>
                                     <div class="business-name">${business.name}</div>
                                     <div class="business-location">📍 ${business.location}</div>
                                     ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
