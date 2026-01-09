@@ -1,0 +1,24 @@
+name: Sync Root index.html
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Vorchdorf App/index.html'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Copy Vorchdorf App/index.html to root
+        run: cp "Vorchdorf App/index.html" "index.html"
+      
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-sync: Update root index.html from Vorchdorf App" && git push)
