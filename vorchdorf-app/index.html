@@ -2594,7 +2594,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.92';
+        const APP_VERSION = '2.93';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4277,6 +4277,11 @@ Mit freundlichen Grüßen`;
                         id: 'advertising',
                         title: '📢 Werbung & PR',
                         description: 'Werbeagenturen und Medien'
+                    },
+                    all_businesses_az: {
+                        id: 'all_businesses_az',
+                        title: '📋 Alle Betriebe von A-Z',
+                        description: 'Komplette Übersicht aller 240+ Werbering-Betriebe alphabetisch sortiert nach Branche'
                     }
                 }
             },
@@ -5126,22 +5131,101 @@ Mit freundlichen Grüßen`;
             }
             // Special handling for shopping subcategories - show businesses
             else if (categoryId === 'shopping') {
-                const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
-                mainContent.innerHTML = `
-                    <div class="detail-view fade-in">
-                        <h2>${subcategory.title}</h2>
-                        <p style="color: var(--text-light); margin-bottom: 20px;">${subcategory.description}</p>
-                        <div class="business-grid">
-                            ${categoryBusinesses.map(business => `
-                                <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                    <div class="business-name">${business.name}</div>
-                                    <div class="business-location">📍 ${business.location}</div>
-                                    ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
-                                </div>
-                            `).join('')}
+                // Special handling for A-Z directory
+                if (subcategoryId === 'all_businesses_az') {
+                    // Group businesses by category and sort A-Z
+                    const categoryMap = {};
+                    const categoryIcons = {
+                        legal: '⚖️',
+                        banks: '🏦',
+                        construction: '🏠',
+                        beauty: '💪',
+                        accounting: '📊',
+                        catering: '🎪',
+                        services: '🔧',
+                        it: '💻',
+                        photo: '📸',
+                        flowers: '🌸',
+                        healthcare: '⚕️',
+                        wholesale: '📦',
+                        gastro: '🍽️',
+                        industry: '🏭',
+                        cars: '🚙',
+                        culture: '🎭',
+                        food: '🛒',
+                        fashion: '👗',
+                        jewelry: '💎',
+                        gas: '⛽',
+                        tobacco: '🚬',
+                        transport: '🚗',
+                        advertising: '📢'
+                    };
+                    
+                    // Group by category
+                    allBusinesses.forEach(business => {
+                        if (!categoryMap[business.category]) {
+                            categoryMap[business.category] = [];
+                        }
+                        categoryMap[business.category].push(business);
+                    });
+                    
+                    // Sort each category alphabetically by business name
+                    Object.keys(categoryMap).forEach(cat => {
+                        categoryMap[cat].sort((a, b) => a.name.localeCompare(b.name, 'de'));
+                    });
+                    
+                    // Get category titles from categories object and sort them
+                    const sortedCategories = Object.keys(categoryMap)
+                        .map(catId => ({
+                            id: catId,
+                            title: categories.shopping.subcategories[catId].title,
+                            icon: categoryIcons[catId] || '📁',
+                            businesses: categoryMap[catId]
+                        }))
+                        .sort((a, b) => a.title.localeCompare(b.title, 'de'));
+                    
+                    mainContent.innerHTML = `
+                        <div class="detail-view fade-in">
+                            <h2>📋 ${subcategory.title}</h2>
+                            <p style="color: var(--text-light); margin-bottom: 30px;">${subcategory.description}</p>
+                            <div style="max-width: 100%;">
+                                ${sortedCategories.map(cat => `
+                                    <div style="margin-bottom: 40px;">
+                                        <h3 style="font-size: 1.3em; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-color);">
+                                            ${cat.icon} ${cat.title}
+                                        </h3>
+                                        <div class="business-grid">
+                                            ${cat.businesses.map(business => `
+                                                <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
+                                                    <div class="business-name">${business.name}</div>
+                                                    <div class="business-location">📍 ${business.location}</div>
+                                                    ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else {
+                    const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
+                    mainContent.innerHTML = `
+                        <div class="detail-view fade-in">
+                            <h2>${subcategory.title}</h2>
+                            <p style="color: var(--text-light); margin-bottom: 20px;">${subcategory.description}</p>
+                            <div class="business-grid">
+                                ${categoryBusinesses.map(business => `
+                                    <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
+                                        <div class="business-name">${business.name}</div>
+                                        <div class="business-location">📍 ${business.location}</div>
+                                        ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
             } else {
                 // Special handling for clubs - show both website and vorchdorfonline link
                 if (categoryId === 'clubs') {
