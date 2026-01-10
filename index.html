@@ -1666,41 +1666,41 @@
         }
 
         .flohmarkt-modal-content {
-            padding: 30px;
+            padding: 20px;
         }
 
         .flohmarkt-modal-category {
             display: inline-block;
             background: rgba(26, 71, 42, 0.15);
             color: var(--primary);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 50px;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .flohmarkt-modal-title {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #000;
             line-height: 1.3;
         }
 
         .flohmarkt-modal-price {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .flohmarkt-modal-description {
             color: #333;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -1708,7 +1708,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .flohmarkt-modal-seller-avatar {
@@ -1740,7 +1740,7 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 50px;
             font-weight: 700;
             cursor: pointer;
@@ -1748,6 +1748,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1000001;
+            position: relative;
             gap: 8px;
             font-size: 1rem;
             transition: background 0.3s;
@@ -1786,6 +1788,72 @@
             .flohmarkt-product-image,
             .flohmarkt-product-placeholder {
                 height: 150px;
+            }
+        }
+
+        /* Extra Mobile Optimizations for Flohmarkt Modal */
+        @media (max-width: 480px) {
+            .flohmarkt-modal {
+                width: 98%;
+                max-height: 85vh;
+                border-radius: 12px;
+            }
+
+            .flohmarkt-modal-images {
+                height: 220px;
+            }
+
+            .flohmarkt-modal-content {
+                padding: 14px;
+                max-height: calc(85vh - 220px - 40px);
+                overflow-y: auto;
+            }
+
+            .flohmarkt-modal-title {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+
+            .flohmarkt-modal-price {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+            }
+
+            .flohmarkt-modal-category {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+                margin-bottom: 10px;
+            }
+
+            .flohmarkt-modal-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+            }
+
+            .flohmarkt-modal-seller {
+                margin-bottom: 12px;
+                gap: 10px;
+            }
+
+            .flohmarkt-modal-seller-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .flohmarkt-modal-seller-info h4 {
+                font-size: 0.95rem;
+            }
+
+            .flohmarkt-modal-seller-info small {
+                font-size: 0.8rem;
+            }
+
+            .flohmarkt-modal-contact-btn {
+                padding: 12px;
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -2594,7 +2662,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.94';
+        const APP_VERSION = '2.95';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
