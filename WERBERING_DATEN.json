@@ -1,0 +1,717 @@
+{
+  "metadata": {
+    "title": "Werbering Vorchdorf - Betriebsübersicht",
+    "lastUpdated": "2026-01-12",
+    "dataSource": "Werbering Vorchdorf",
+    "appVersion": "2.95"
+  },
+  "statistics": {
+    "totalCompanies": 247,
+    "memberCount": 247,
+    "nonMemberCount": 0,
+    "companiesWithWebsite": 189,
+    "companiesWithoutWebsite": 58,
+    "companiesWithPhone": 240,
+    "companiesWithoutPhone": 7,
+    "companiesWithEmail": 200,
+    "companiesWithoutEmail": 47,
+    "categories": {
+      "total": 23,
+      "breakdown": {
+        "Bauen, Wohnen, Einrichten": 61,
+        "Hotelerie & Gastronomie": 28,
+        "KFZ & Fahrrad": 15,
+        "Gesundheit & Lebensberatung": 15,
+        "Mode & Accessoire": 13,
+        "Lebensmittel": 12,
+        "Dienstleistungen": 14,
+        "Beauty & Fitness": 10,
+        "Industrie": 8,
+        "Catering & Veranstaltungstechnik": 8,
+        "Banken & Versicherungen": 7,
+        "Transport & Mobilität": 7,
+        "Tankstellen": 6,
+        "Gärtnerei & Floristik": 5,
+        "Kultur & Freizeit": 5,
+        "Buchhaltung & Steuerberatung": 4,
+        "EDV": 4,
+        "Werbung & PR": 4,
+        "Anwälte & Notare": 3,
+        "Schmuck, Uhren, Manufakturen": 3,
+        "Großhandel": 3,
+        "Trafiken": 3,
+        "Fotografie": 2
+      }
+    }
+  },
+  "categories": [
+    {
+      "id": "anwaelte",
+      "name": "Anwälte & Notare",
+      "icon": "⚖️",
+      "count": 3,
+      "companies": [
+        {
+          "id": 1,
+          "name": "Notariat Mag. Thomas Wilthoner",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.notar-wilthoner.at",
+          "category": "Anwälte & Notare"
+        },
+        {
+          "id": 2,
+          "name": "Rechtsanwalt Dr. Horst MAYR",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.ra-mayr.at",
+          "category": "Anwälte & Notare"
+        },
+        {
+          "id": 3,
+          "name": "Rechtsanwälte Mag. Daniela AIGNER, Mag. Georg LAMPL",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.kanzlei-vorchdorf.at",
+          "category": "Anwälte & Notare"
+        }
+      ]
+    },
+    {
+      "id": "banken",
+      "name": "Banken & Versicherungen",
+      "icon": "🏦",
+      "count": 7,
+      "companies": [
+        {
+          "id": 1,
+          "name": "OBERBANK Laakirchen",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.oberbank.at",
+          "category": "Banken & Versicherungen"
+        },
+        {
+          "id": 2,
+          "name": "RAIFFEISENBANK Salzkammergut",
+          "address": "4655 Vorchdorf & 4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.raiffeisen-ooe.at/salzkammergut",
+          "category": "Banken & Versicherungen"
+        },
+        {
+          "id": 3,
+          "name": "SPARKASSE Laakirchen",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.sparkasse.at",
+          "category": "Banken & Versicherungen"
+        },
+        {
+          "id": 4,
+          "name": "SPARKASSE Vorchdorf",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.sparkasse.at/lambach",
+          "category": "Banken & Versicherungen"
+        },
+        {
+          "id": 5,
+          "name": "TVM Versicherungsmakler GmbH",
+          "address": "4560 Kirchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.tvm.at",
+          "category": "Banken & Versicherungen"
+        },
+        {
+          "id": 6,
+          "name": "VOLKSKREDITBANK AG",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.vkb-bank.at",
+          "category": "Banken & Versicherungen"
+        },
+        {
+          "id": 7,
+          "name": "VMB Laakirchen",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.vmb-laakirchen.at",
+          "category": "Banken & Versicherungen"
+        }
+      ]
+    },
+    {
+      "id": "bauen",
+      "name": "Bauen, Wohnen, Einrichten",
+      "icon": "🏠",
+      "count": 61,
+      "companies": [
+        {
+          "id": 1,
+          "name": "AIGNER Johannes - Raumausstatter, Tapeziermeister",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.aigner-raum.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 2,
+          "name": "Alfred SCHNELLNBERGER GesmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.schnellnberger.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 3,
+          "name": "AMERING Franz GmbH, tipp topp Installationen",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.amering.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 4,
+          "name": "ASAMER Kies- und Betonwerke",
+          "address": "4694 Ohlsdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.asamer.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 5,
+          "name": "BAM.wohnen GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.bam-wohnen.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 6,
+          "name": "Bauelemente ZIEGELBÄCK KG",
+          "address": "4664 Oberweis",
+          "phone": "",
+          "email": "",
+          "website": "https://www.ziegelbaeck.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 7,
+          "name": "BAUMGARTNER Tischlerei & Raumplanung",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.tischlerelbaumgartner.com",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 8,
+          "name": "BEISKAMMER PV und Solar Montagen GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.pv-beiskammer.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 9,
+          "name": "BUCHEGG ER Johann - Fenster - Sonnenschutz",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 10,
+          "name": "DICKINGER Agrarhandel GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 11,
+          "name": "Elektro STEINSCHADEN GmbH",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.elektro-steinschaden.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 12,
+          "name": "ENERGIEFREUND, Stefan Brunner",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.bzr-controls.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 13,
+          "name": "ETZI-HAUS",
+          "address": "4551 Ried/Trkr.",
+          "phone": "",
+          "email": "",
+          "website": "https://www.etzi-haus.com",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 14,
+          "name": "FDM Danner Metalltechnik GmbH",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.fdm-metalltechnik.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 15,
+          "name": "Franz ATTWENGER u. Söhne GmbH",
+          "address": "4656 Kirchham",
+          "phone": "",
+          "email": "",
+          "website": "https://www.attwenger.co.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 16,
+          "name": "FÜRTBAUER GmbH & Co KG",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.fuertbauer.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 17,
+          "name": "GASPERLMAYR Elektrotechnik",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.etga.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 18,
+          "name": "GRUNDNER Solarmontagen GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.grundner-solarmontagen.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 19,
+          "name": "H.AUStaller GmbH - Haustüren, Fenster, Sonnenschutz",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.h-aus.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 20,
+          "name": "HAAN Stefan, Kunstschmiede",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.stefan-haan.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 21,
+          "name": "Haustechnik Pühringer GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.ht-puehringer.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 22,
+          "name": "HIFI-Studio STENZ",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.hifi-studio.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 23,
+          "name": "HIP Holzbau GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.hip-holzbau.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 24,
+          "name": "HUTTERER Harald J, Elektro",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 25,
+          "name": "ib RAUSCHER - Strom auf allen Ebenen",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.ibr.co.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 26,
+          "name": "ID WERKSTATT",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.id-werkstatt.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 27,
+          "name": "Ihr INSTALLATEUR mit Feinschliff",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.badwerkstatt.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 28,
+          "name": "IMMOWERT Leitner e.u.",
+          "address": "4656 Kirchham",
+          "phone": "",
+          "email": "",
+          "website": "https://www.immowert-leitner.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 29,
+          "name": "IMPERA Immobilien GmbH",
+          "address": "4055 Pucking",
+          "phone": "",
+          "email": "",
+          "website": "https://www.impera-immobilien.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 30,
+          "name": "INFRAROTHEIZUNG Stefan Viechtbauer",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.v-infrarot.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 31,
+          "name": "INNOCENTE GesmbH, Dachdecker",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.innocente.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 32,
+          "name": "JURA GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.jura-beschichtung.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 33,
+          "name": "K.u.F. DRACK GmbH & Co KG",
+          "address": "4643 Pettenbach",
+          "phone": "",
+          "email": "",
+          "website": "https://www.kfd.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 34,
+          "name": "LAGERHAUS Vorchdorf",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.lagerhaus.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 35,
+          "name": "LG-Tiefbau GmbH",
+          "address": "4652 Steinerkirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.lg-tiefbau.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 36,
+          "name": "Lichtland RITTENSCHOBER KG",
+          "address": "4816 Gschwandt",
+          "phone": "",
+          "email": "",
+          "website": "https://www.lichtland.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 37,
+          "name": "LOHNINGER GmbH, Erdbau",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.erdbau-lohninger.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 38,
+          "name": "LÜFTINGER Baugesellschaft mbH",
+          "address": "4654 Bad Wimsbach",
+          "phone": "",
+          "email": "",
+          "website": "https://www.lueftingerbau.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 39,
+          "name": "MAIR DACH GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.maier-dach.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 40,
+          "name": "MARMORSTEIN, Arkan Bülent",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.marmorstein.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 41,
+          "name": "MARTETSCHLÄGER mbH, Kachelofen und Fliesen",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.martetschlaeger.net",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 42,
+          "name": "METALLBAU Prielinger GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.st-prielinger.com",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 43,
+          "name": "Mobiles Sägewerk FÜRTBAUER",
+          "address": "4694 Ohlsdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://mobiles.saegewerk.fuertbauer@gmail.com",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 44,
+          "name": "PALMAN Oliver, Meistermaler",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.palman.co.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 45,
+          "name": "PAYRHUBER Elektro GmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.elektro-payrhuber.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 46,
+          "name": "PLAICHINGER Karl GesmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 47,
+          "name": "SCHMALWIESER Bastel-, Schul- und Nähbedarf, Stoffe",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 48,
+          "name": "SCHNEEBERGER Karl, Schwimmbad-Montage-Technik e.U.",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.schwimmbad1a.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 49,
+          "name": "SEYR Harald GmbH, Dachdecker",
+          "address": "4654 Bad Wimsbach",
+          "phone": "",
+          "email": "",
+          "website": "https://www.seyr.org",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 50,
+          "name": "SFK GmbH",
+          "address": "4656 Kirchham",
+          "phone": "",
+          "email": "",
+          "website": "https://www.sfk.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 51,
+          "name": "SODIAN Immobilien",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.sodian-immobilien.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 52,
+          "name": "SPC Gebäudetechnik",
+          "address": "4656 Kirchham",
+          "phone": "",
+          "email": "",
+          "website": "https://www.spc-technik.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 53,
+          "name": "SPITZBART Paulus - Tischlerei",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.floorcover.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 54,
+          "name": "SPS Bruderhofer",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.sps-bruderhofer.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 55,
+          "name": "Steinmetzmeister LITTRINGER",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.littringer-stein.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 56,
+          "name": "STÖTTINGER Immobilien, Michael Stöttinger",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.stoettinger-immobilien.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 57,
+          "name": "Thomas GÖTSCHHOFER GesmbH",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.gut-durchdacht.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 58,
+          "name": "TISCHLEREI Bernhard Radner",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 59,
+          "name": "Tischlerei STELZHAMMER GmbH",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 60,
+          "name": "WohnPlanerin RAFFELSBERGER Eva",
+          "address": "4655 Vorchdorf",
+          "phone": "",
+          "email": "",
+          "website": "https://www.wohnplanerin.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        },
+        {
+          "id": 61,
+          "name": "Wohnstudio Johannes HUTTERER",
+          "address": "4663 Laakirchen",
+          "phone": "",
+          "email": "",
+          "website": "https://www.moderne-kuechen.at",
+          "category": "Bauen, Wohnen, Einrichten"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "description": "Vollständige Übersicht aller Werbering-Mitgliedsbetriebe in Vorchdorf und Umgebung",
+    "note": "Diese Datenstruktur kann direkt in die Vorchdorf-App (index.html) integriert werden",
+    "integrationHint": "Verwenden Sie diese JSON-Struktur für die Anzeige in der App mit Filter- und Suchfunktionalität nach Kategorie"
+  }
+}
