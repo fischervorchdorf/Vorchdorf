@@ -2662,7 +2662,7 @@ Mit freundlichen Grüßen`;
         }
         
         // App Version - Update this with each release
-        const APP_VERSION = '2.95';
+        const APP_VERSION = '2.97';
         
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4909,6 +4909,22 @@ Mit freundlichen Grüßen`;
             }
         };
 
+        // Lade Businesses aus JSON Datei
+        async function loadBusinesses() {
+            try {
+                const response = await fetch('./businesses.json');
+                const businesses = await response.json();
+                
+                // Speichere in allBusinesses globale Variable
+                window.allBusinesses = businesses;
+                
+                console.log(`✓ ${businesses.length} Betriebe geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von businesses.json:', error);
+                window.allBusinesses = []; // Fallback zu leerem Array
+            }
+        }
+
         // Initialize App
         function init() {
             renderHome();
@@ -5987,7 +6003,8 @@ Mit freundlichen Grüßen`;
         }
 
         // Enter key for search
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadBusinesses();  // Lade businesses aus JSON
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
             document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
