@@ -4348,8 +4348,8 @@ Mit freundlichen Grüßen`;
                     },
                     all_businesses_az: {
                         id: 'all_businesses_az',
-                        title: '📋 Alle Betriebe von A-Z',
-                        description: 'Komplette Übersicht aller 240+ Werbering-Betriebe alphabetisch sortiert nach Branche'
+                        title: '🎖️ Alle Werbering-Mitglieder von A-Z',
+                        description: 'Komplette Übersicht aller Werbering-Mitglieder alphabetisch sortiert nach Branche'
                     }
                 }
             },
@@ -5217,11 +5217,11 @@ Mit freundlichen Grüßen`;
             else if (categoryId === 'shopping') {
                 // Special handling for A-Z directory
                 if (subcategoryId === 'all_businesses_az') {
-                    // Group businesses by category and sort A-Z
+                    // Group businesses by category and sort A-Z - NUR WERBERINGMITGLIEDER
                     const categoryMap = {};
                     
-                    // Group by category
-                    allBusinesses.forEach(business => {
+                    // Group by category - nur Werberingmitglieder
+                    allBusinesses.filter(b => b.werbering === true).forEach(business => {
                         if (!categoryMap[business.category]) {
                             categoryMap[business.category] = [];
                         }
@@ -5249,7 +5249,7 @@ Mit freundlichen Grüßen`;
                     
                     mainContent.innerHTML = `
                         <div class="detail-view fade-in">
-                            <h2>📋 ${subcategory.title}</h2>
+                            <h2>🎖️ ${subcategory.title}</h2>
                             <p style="color: var(--text-light); margin-bottom: 30px;">${subcategory.description}</p>
                             <div style="max-width: 100%;">
                                 ${sortedCategories.map(cat => `
@@ -5260,9 +5260,13 @@ Mit freundlichen Grüßen`;
                                         <div class="business-grid">
                                             ${cat.businesses.map(business => `
                                                 <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                                    <div class="business-name">${business.name}</div>
+                                                    <div class="business-header" style="display: flex; justify-content: space-between; align-items: start;">
+                                                        <div class="business-name" style="flex: 1;">${business.name}</div>
+                                                        <span style="font-size: 1rem; margin-left: 8px;">🎖️</span>
+                                                    </div>
                                                     <div class="business-location">📍 ${business.location}</div>
-                                                    ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
+                                                    ${business.search ? `<div class="business-services" style="font-size: 0.85rem; color: var(--text-light); margin-top: 6px;">🔧 ${business.search}</div>` : ''}
+                                                    ${business.link ? `<div class="business-link" style="margin-top: 8px; font-weight: 500;">🌐 Website →</div>` : ''}
                                                 </div>
                                             `).join('')}
                                         </div>
@@ -5280,9 +5284,13 @@ Mit freundlichen Grüßen`;
                             <div class="business-grid">
                                 ${categoryBusinesses.map(business => `
                                     <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
-                                        <div class="business-name">${business.name}</div>
+                                        <div class="business-header" style="display: flex; justify-content: space-between; align-items: start;">
+                                            <div class="business-name">${business.name}</div>
+                                            ${business.werbering ? `<span style="font-size: 1.2rem;" title="Werberingmitglied">🎖️</span>` : ''}
+                                        </div>
                                         <div class="business-location">📍 ${business.location}</div>
-                                        ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
+                                        ${business.search ? `<div class="business-services" style="font-size: 0.85rem; color: var(--text-light); margin-top: 6px;">🔧 ${business.search}</div>` : ''}
+                                        ${business.link ? `<div class="business-link" style="margin-top: 8px; font-weight: 500;">🌐 Website →</div>` : ''}
                                     </div>
                                 `).join('')}
                             </div>
