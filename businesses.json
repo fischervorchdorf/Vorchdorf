@@ -1,272 +1,2218 @@
 [
-    { "name": "A-TEAM die Fahrschule", "location": "4650 Lambach", "link": "https://www.ateam-fahrschule.at", "category": "services", "search": "Fahrschule, Führerscheinausbildung alle Klassen", "werbering": true },
-    { "name": "A1 Apotheke, Mag. Valik", "location": "4655 Vorchdorf", "link": "https://www.a1apotheke.at", "category": "healthcare", "search": "Apotheke, Medikamente, Beratung, Kosmetik", "werbering": true },
-    { "name": "ABIES Austria GmbH", "location": "4664 Laakirchen", "link": "https://www.abies-austria.at", "category": "industry", "search": "Holzverarbeitung, Holzprodukte, Holzverarbeitung", "werbering": true },
-    { "name": "AHTEL Hochleithner Telekommunikation", "location": "4654 Bad Wimsbach", "link": "https://www.ahtel.at", "category": "it", "search": "Telekommunikation, Telefon, Internet, Netzwerke", "werbering": true },
-    { "name": "AIGNER - Mietwagen, Bus, Taxi, Transporte aller Art", "location": "4655 Vorchdorf", "link": "https://www.mietwagen-aigner.at", "category": "transport", "search": "Taxi & Mietwagen, Mietwagen, Bus, Taxi, Transporte", "werbering": true },
-    { "name": "AIGNER Johannes - Raumausstatter, Tapeziermeister", "location": "Bahnhofstr. 17, 4655 Vorchdorf", "link": "https://www.aigner-raum.at", "category": "construction", "search": "Raumausstatter, Vorhänge, Bettwaren, Bodenbeläge, Tapeten", "werbering": true },
-    { "name": "Aitzetmüller Gerhard", "location": "Bahnhofstrasse 1, 4655 Vorchdorf", "link": "http://www.VBVorchdorf.at", "category": "banks", "search": "Versicherung, Versicherungsberatung, alle Sparten", "werbering": false },
-    { "name": "AITZETMÜLLER Markus, Massagepraktik", "location": "4655 Vorchdorf", "link": "", "category": "healthcare", "search": "Massage & Wellness, Massage, Entspannung", "werbering": true },
-    { "name": "Alfred SCHNELLNBERGER GesmbH", "location": "4655 Vorchdorf", "link": "https://www.schnellnberger.at", "category": "construction", "search": "Fliesen & Natursteine, Fliesen", "werbering": true },
-    { "name": "ALMTAL CAMP", "location": "4643 Pettenbach", "link": "https://www.almtal-camp.at", "category": "gastro", "search": "Camping, Campingplatz, Stellplätze", "werbering": true },
-    { "name": "ALMTAL-Apotheke, Mag. Falkensammer", "location": "4655 Vorchdorf", "link": "https://www.almtalapotheke.at", "category": "healthcare", "search": "Apotheke, Medikamente, Beratung, Kosmetik", "werbering": true },
-    { "name": "AMERING Franz GesmbH, tipp topp Installationen", "location": "4655 Vorchdorf", "link": "https://www.amering.at", "category": "construction", "search": "Installateur, Badgestaltung, Wassertechnik, Heiztechnik, Solartechnik", "werbering": true },
-    { "name": "ANYTIME FITNESS Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.af-austria.at", "category": "beauty", "search": "Fitness, Fitnesstraining, 24h geöffnet", "werbering": true },
-    { "name": "ARTINA GmbH", "location": "4663 Laakirchen", "link": "https://www.artina.at", "category": "industry", "search": "Industrie, Künstlerbedarf, Staffeleien", "werbering": true },
-    { "name": "ASAMER Kies- und Betonwerke", "location": "4694 Ohlsdorf", "link": "https://www.asamer.at", "category": "construction", "search": "Kies & Beton, Kies, Beton, Baustoffe", "werbering": true },
-    { "name": "Attwenger Taxi - Mietwagen - Botendienst", "location": "Mühlenstraße 4, 4655 Vorchdorf", "link": "https://www.taxi-attwenger.at", "category": "transport", "search": "Taxi & Mietwagen, Taxi, Mietwagen, Botendienst, 24h", "werbering": true },
-    { "name": "Auto Gundendorfer", "location": "Mühltal 12, 4655 Vorchdorf", "link": "https://www.auto-gundendorfer.at", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "Autohaus SCHWEIGER", "location": "4643 Pettenbach", "link": "https://www.kfz-schweiger.at", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "Automobile MAIRHUBER GmbH", "location": "4664 Oberweis", "link": "https://www.autohausmairhuber.at", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "Automobile SCHUSTER GmbH", "location": "4663 Laakirchen", "link": "https://www.auto-schuster.at", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "Automobile SWOBODA GmbH", "location": "4664 Oberweis", "link": "https://www.automobileswoboda.at", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "BAM.wohnen GmbH", "location": "4655 Vorchdorf", "link": "https://www.bam-wohnen.at", "category": "construction", "search": "Möbel & Einrichtung, Möbel, Einrichtung, Wohndesign", "werbering": true },
-    { "name": "BARBERSHOP Erkan Abi", "location": "4655 Vorchdorf", "link": "https://www.erkanabibarbershop.at", "category": "beauty", "search": "Friseur, Herrenfriseur, Barber, Bartpflege", "werbering": true },
-    { "name": "Bauelemente ZIEGELBÄCK KG", "location": "4664 Oberweis", "link": "https://www.ziegelbaeck.at", "category": "construction", "search": "Fenster & Sonnenschutz, Fenster, Türen, Sonnenschutz", "werbering": true },
-    { "name": "Baumgartner Andreas, Tischlerei", "location": "Mühltal 44, 4655 Vorchdorf", "link": "https://www.tischlerelbaumgartner.com", "category": "construction", "search": "Tischlerei, Möbel nach Maß, Türen, Innenausbau", "werbering": true },
-    { "name": "Baumwerk GmbH", "location": "Hötzelsdorf 10, 4655 Vorchdorf", "link": "https://www.baumwerk.at/", "category": "services", "search": "Landschaftspflege, Baumpflege, Gartengestaltung", "werbering": true },
-    { "name": "BEISKAMMER PV und Solar Montagen GmbH", "location": "4655 Vorchdorf", "link": "https://www.pv-beiskammer.at", "category": "construction", "search": "Solar & PV, Photovoltaik, Solarmontage", "werbering": true },
-    { "name": "Bestattung Radner", "location": "Schulstraße 18, 4655 Vorchdorf", "link": "http://www.bestattung-vorchdorf.at", "category": "services", "search": "Bestattung, Bestattungen, Trauerbegleitung", "werbering": false },
-    { "name": "BIERHOTEL Ranklleiten", "location": "4643 Pettenbach", "link": "https://www.ranklleiten.com", "category": "gastro", "search": "Hotel, Pension, Gastronomie, Übernachtung, Bierverkostung, Restaurant", "werbering": true },
-    { "name": "Bildungshaus VILLA ROSENTAL", "location": "4663 Laakirchen", "link": "https://www.instituthuemer.at", "category": "healthcare", "search": "Bildung, Seminare, Bildungsveranstaltungen", "werbering": true },
-    { "name": "Blumen Krenmayr", "location": "Schlossplatz 1, 4655 Vorchdorf", "link": "http://www.grosz.at/ausstellungen/details.php?id=427&gem=37", "category": "flowers", "search": "Blumen & Gärtnerei, Blumen, Floristik", "werbering": false },
-    { "name": "Blumen MUSCARI", "location": "4663 Laakirchen", "link": "https://www.muscari.at", "category": "flowers", "search": "Blumen & Gärtnerei, Blumen, Floristik", "werbering": true },
-    { "name": "BNP Wirtschaftstreuhand und Steuerberatungs GmbH", "location": "4655 Vorchdorf", "link": "https://www.bnp.at", "category": "accounting", "search": "Steuerberatung, Buchhaltung, Steuererklärung, Bilanzierung", "werbering": true },
-    { "name": "BP Tankstelle", "location": "4655 Vorchdorf", "link": "", "category": "gas", "search": "Tankstelle, Kraftstoffe, Shop", "werbering": true },
-    { "name": "BRAUEREI Schloss Eggenberg Stöhr GmbH & Co KG", "location": "4655 Vorchdorf", "link": "https://www.schloss-eggenberg.at", "category": "food", "search": "Brauerei, Bier, Brauereiführungen", "werbering": true },
-    { "name": "BUCHEGGER Johann - Fenster - Sonnenschutz", "location": "4655 Vorchdorf", "link": "", "category": "construction", "search": "Fenster & Sonnenschutz, Fenster, Türen, Sonnenschutz", "werbering": true },
-    { "name": "BÄCKEREI, CAFÉ im Gwölb", "location": "4655 Vorchdorf", "link": "https://www.im-gwoelb.at", "category": "gastro", "search": "Bäckerei, Brot, Gebäck, Café", "werbering": true },
-    { "name": "BÄCKEREI, CAFÉ Probst", "location": "Lambacherstraße 15, 4655 Vorchdorf", "link": "https://www.baeckerei-probst.at", "category": "gastro", "search": "Bäckerei, Brot, Gebäck, Torten", "werbering": true },
-    { "name": "BÄCKEREI, CAFÉ Resch&Frisch", "location": "4655 Vorchdorf", "link": "https://www.resch-frisch.com", "category": "gastro", "search": "Bäckerei, Brot, Gebäck", "werbering": true },
-    { "name": "Café Bäckerei ZACH", "location": "4663 Laakirchen", "link": "https://www.zach.baecker.at", "category": "gastro", "search": "Bäckerei, Brot, Gebäck, Café", "werbering": true },
-    { "name": "Creativ Optik Plakolm", "location": "Kapellenweg 2, 4655 Vorchdorf", "link": "https://www.plakolm.at", "category": "healthcare", "search": "Optik & Hörgeräte, Brillen, Kontaktlinsen, Hörgeräte", "werbering": true },
-    { "name": "CRW Sports Zordl Yvonne", "location": "4655 Vorchdorf", "link": "https://www.crw-sports.net", "category": "cars", "search": "Sport & Freizeit, Rad", "werbering": true },
-    { "name": "DENK Klaus, Hotel, Bed & Breakfast", "location": "4655 Vorchdorf", "link": "https://www.hoteldenk.at", "category": "gastro", "search": "Hotel & Pension, Übernachtung, Frühstück", "werbering": true },
-    { "name": "Dickinger Agrarhandel GmbH", "location": "Stampfstrasse 3, 4655 Vorchdorf", "link": "", "category": "construction", "search": "Agrarhandel, Futtermittel, Landwirtschaftsbedarf", "werbering": true },
-    { "name": "Die STÖTTINGERS", "location": "4655 Vorchdorf", "link": "https://www.diestoettingers.at", "category": "healthcare", "search": "Handel, Kindersitze, Radanhänger, Alpaka", "werbering": true },
-    { "name": "DOLCE Eiscafé", "location": "4655 Vorchdorf", "link": "", "category": "gastro", "search": "Gastronomie, Eis, Kaffee", "werbering": true },
-    { "name": "DROGERIE GRÄFINGER", "location": "4663 Laakirchen", "link": "https://www.drogerie-graefinger.at", "category": "beauty", "search": "Drogerie, Drogerieartikel, Kosmetik, Humanenergetik", "werbering": true },
-    { "name": "ECKMANN Friseursalon", "location": "4663 Laakirchen", "link": "", "category": "beauty", "search": "Friseur, Damen- und Herrenfriseur", "werbering": true },
-    { "name": "EDV Kickinger", "location": "Schloßplatz 15, 4655 Vorchdorf", "link": "http://www.EDVKICKI.at", "category": "it", "search": "IT & EDV, EDV-Service, Verkauf", "werbering": false },
-    { "name": "EGRU - Unternehmensberatung", "location": "Kapellenweg 8, 4655 Vorchdorf", "link": "", "category": "services", "search": "Unternehmensberatung, Unternehmensberatung", "werbering": false },
-    { "name": "Elektro STEINSCHADEN GmbH", "location": "4663 Laakirchen", "link": "https://www.elektro-steinschaden.at", "category": "construction", "search": "Elektroinstallation, Elektroinstallation", "werbering": true },
-    { "name": "Elektro-Payrhuber GmbH", "location": "Bahnhofstraße 29, 4655 Vorchdorf", "link": "http://www.elektropayrhuber.at", "category": "construction", "search": "Elektroinstallation, Elektroinstallation", "werbering": false },
-    { "name": "ENERGIEFREUND, Stefan Brunner", "location": "4655 Vorchdorf", "link": "https://www.bzr-controls.at", "category": "construction", "search": "Energie, Energieberatung, Energietechnik", "werbering": true },
-    { "name": "ENI Tankstelle", "location": "4655 Vorchdorf", "link": "", "category": "gas", "search": "Tankstelle, Kraftstoffe, Shop", "werbering": true },
-    { "name": "EP: Kickinger", "location": "Schloßplatz 15, 4655 Vorchdorf", "link": "https://www.ep.at/kickinger/", "category": "it", "search": "IT & EDV, Elektrogeräte, EDV", "werbering": false },
-    { "name": "ESTHOFER Auto Team GmbH", "location": "4655 Vorchdorf", "link": "https://www.esthofer.com", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "ETZI-HAUS", "location": "4551 Ried/Trkr.", "link": "https://www.etzi-haus.com", "category": "construction", "search": "Holzbau, Holzhäuser, Fertighäuser", "werbering": true },
-    { "name": "EUROWHEEL GmbH", "location": "4655 Vorchdorf", "link": "https://www.eurowheel.eu", "category": "cars", "search": "Industrie, Felgen, Räder", "werbering": true },
-    { "name": "FDM Danner Metalltechnik GmbH", "location": "4663 Laakirchen", "link": "https://www.fdm-metalltechnik.at", "category": "construction", "search": "Metallbau, Metallverarbeitung", "werbering": true },
-    { "name": "FEINE WEINE", "location": "4663 Laakirchen", "link": "https://www.feine-weine.at", "category": "food", "search": "Weinhandel, Weine, Weinberatung", "werbering": true },
-    { "name": "FISCHER Martin, Tabak Trafik", "location": "4655 Vorchdorf", "link": "", "category": "tobacco", "search": "Trafik, Tabakwaren, Zeitschriften, Lotto, Bücher, Schulartikel, Büroartikel, Konzertkarten", "werbering": true },
-    { "name": "Fix Fax Bürotechnik HGes.mbH.", "location": "Neue Landstraße 70, 4655 Vorchdorf", "link": "https://www.fixfax.at", "category": "it", "search": "Bürotechnik, Drucker, Kopierer, Faxgeräte, PC", "werbering": true },
-    { "name": "Fleischhauerei KINAST GmbH", "location": "4662 Steyrermühl", "link": "https://www.fleischhauerei-kinast.at", "category": "food", "search": "Fleischerei, Frischfleisch, Wurst", "werbering": true },
-    { "name": "FOTOART", "location": "4663 Laakirchen", "link": "https://www.fotoart.at", "category": "photo", "search": "Fotografie, Fotografie, Bildbearbeitung", "werbering": true },
-    { "name": "Foxxy Dance Bar", "location": "4655 Vorchdorf", "link": "https://www.foxxy.at", "category": "gastro", "search": "Gastronomie, Bar, Events", "werbering": true },
-    { "name": "Franz ATTWENGER u. Söhne GmbH", "location": "4656 Kirchham", "link": "https://www.attwenger.co.at", "category": "construction", "search": "Tischlerei, Möbel, Innenarchitektur, Türen", "werbering": true },
-    { "name": "Franz Zotter Innenarchitektur und Online Möbelshop", "location": "Feldham 6, 4655 Vorchdorf", "link": "http://www.franzzotter.at", "category": "construction", "search": "Möbel & Einrichtung, Möbel, Innenarchitektur", "werbering": false },
-    { "name": "FREIBAD Laakirchen", "location": "4663 Laakirchen", "link": "https://www.laakirchen.at", "category": "culture", "search": "Freibad, Schwimmen, Baden, Erholung", "werbering": true },
-    { "name": "FREIBAD Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.vorchdorf.at", "category": "culture", "search": "Freibad, Schwimmen, Baden, Erholung", "werbering": true },
-    { "name": "Fundgrube-Vorchdorf", "location": "Bahnhofstraße 34, 4655 Vorchdorf", "link": "http://www.fundgrube-vorchdorf.com", "category": "fashion", "search": "Secondhand, Secondhand, Gebrauchtwaren", "werbering": false },
-    { "name": "FUSSL Modestraße, Mayr GmbH", "location": "4655 Vorchdorf", "link": "https://www.fussl.at", "category": "fashion", "search": "Mode & Bekleidung, Mode, Bekleidung", "werbering": true },
-    { "name": "FUZO Coffee & Kitchen", "location": "4655 Vorchdorf", "link": "https://www.fuzo-vorchdorf.at", "category": "gastro", "search": "Gastronomie, Kaffee, Speisen, Frühstück", "werbering": true },
-    { "name": "Fuzzy Dance Bar", "location": "4655 Vorchdorf", "link": "https://www.fuzzybar.at", "category": "gastro", "search": "Gastronomie, Bar, Events", "werbering": true },
-    { "name": "FÜRTBAUER GmbH & Co KG", "location": "4663 Laakirchen", "link": "https://www.fuertbauer.at", "category": "construction", "search": "Installateur, Badgestaltung, Wassertechnik, Heiztechnik, Solartechnik", "werbering": true },
-    { "name": "FÜRTBAUER-Bilanzbuchhaltung", "location": "4664 Oberweis", "link": "", "category": "accounting", "search": "Steuerberatung, Buchhaltung, Bilanzierung", "werbering": true },
-    { "name": "Galerie im Gewölbe", "location": "4655 Vorchdorf", "link": "", "category": "culture", "search": "Kunst, Kunst", "werbering": false },
-    { "name": "Garten Haselberger", "location": "Albenedt 14, 4655 Vorchdorf", "link": "", "category": "services", "search": "Landschaftspflege, Gartengestaltung", "werbering": false },
-    { "name": "GASPERLMAYR Elektrotechnik", "location": "4655 Vorchdorf", "link": "https://www.etga.at", "category": "construction", "search": "Elektroinstallation, Elektroinstallation", "werbering": true },
-    { "name": "Gasthaus Hinterreitner", "location": "Eggenberg 11, 4655 Vorchdorf", "link": "https://www.ghhinterreitner.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "Gasthaus THALSTUBE", "location": "4663 Laakirchen", "link": "https://www.thalstube.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "Gasthof BADER", "location": "4663 Laakirchen", "link": "https://www.gasthofbader.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "Gasthof PÖLL", "location": "4656 Kirchham", "link": "https://www.gasthauspoell.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "Gasthof WIRT AM BACH", "location": "4664 Oberweis", "link": "https://www.wirtambach.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "GATSBY - Ihr Platz an der Bar", "location": "4655 Vorchdorf", "link": "https://www.gatsby.at", "category": "gastro", "search": "Gastronomie, Bar, Cocktails", "werbering": true },
-    { "name": "GemeinsamLeben - Pflege & Betreuung für ältere Menschen", "location": "Haidstraße 8/1, 4655 Vorchdorf", "link": "http://www.gemeinsam-leben-ooe.at/", "category": "healthcare", "search": "Pflege & Betreuung, Pflege, Betreuung älterer Menschen", "werbering": false },
-    { "name": "Geschäftsvermittlung", "location": "Falkenohren 29, 4655 Vorchdorf", "link": "", "category": "services", "search": "Dienstleistung, Geschäftsvermittlung, Homepageerstellung", "werbering": false },
-    { "name": "Getränkegroßhandel WAGNER KG", "location": "4664 Laakirchen", "link": "https://www.wagnerweb.at", "category": "food", "search": "Getränkehandel, Getränke, Großhandel", "werbering": true },
-    { "name": "Gollinger Mietwagen & Krankenbeförderung", "location": "Pettenbacherstraße 12, 4655 Vorchdorf", "link": "https://www.gollinger.net", "category": "transport", "search": "Taxi & Mietwagen, Mietwagen, Krankenbeförderung", "werbering": true },
-    { "name": "GRAROCK Günter, LITO", "location": "4655 Vorchdorf", "link": "https://www.lito.at", "category": "catering", "search": "Veranstaltungstechnik, Veranstaltungstechnik, Ton", "werbering": true },
-    { "name": "GRUBER GmbH Landtechnik & Zweiräder", "location": "4652 Steinerkirchen", "link": "https://www.teamgruber.at", "category": "cars", "search": "Landtechnik, Landmaschinen, Zweiräder, Microcars", "werbering": true },
-    { "name": "Grundner Solarmontagen GmbH", "location": "Berg 8, 4655 Vorchdorf", "link": "https://www.grundner-solarmontagen.at", "category": "construction", "search": "Solar & PV, Solarmontage", "werbering": true },
-    { "name": "H.AUStaller GmbH", "location": "4655 Vorchdorf", "link": "https://www.h-aus.at", "category": "construction", "search": "Fenster & Sonnenschutz, Haustüren, Fenster, Sonnenschutz", "werbering": true },
-    { "name": "HAAN Stefan, Kunstschmiede", "location": "4655 Vorchdorf", "link": "https://www.stefan-haan.at", "category": "construction", "search": "Metallbau, Kunstschmiede, Metallarbeiten", "werbering": true },
-    { "name": "HAARGENAU Lohninger", "location": "Bahnhofstraße 19, 4655 Vorchdorf", "link": "https://www.haargenau.at", "category": "beauty", "search": "Friseur, Damen- und Herrenfriseur", "werbering": true },
-    { "name": "Haarstudio Bettina Staudinger", "location": "Bärnthal 17, 4655 Vorchdorf", "link": "https://www.bettina-haarstudio.at/index.php/kontakt", "category": "beauty", "search": "Friseur, Damen- und Herrenfriseur", "werbering": true },
-    { "name": "Harry Sports", "location": "Weidenstraße 38, 4655 Vorchdorf", "link": "", "category": "fashion", "search": "Sport & Freizeit, Sportartikel, Teamsportausrüstung", "werbering": false },
-    { "name": "HARTNER Aggregate und Industrietechnik GmbH", "location": "4643 Pettenbach", "link": "https://www.erich-hartner.at", "category": "wholesale", "search": "Industrie, Aggregate, Industrietechnik", "werbering": true },
-    { "name": "Haustechnik Pühringer GmbH", "location": "4655 Vorchdorf", "link": "https://www.ht-puehringer.at", "category": "construction", "search": "Installateur, Heizung, Sanitär, Lüftung", "werbering": true },
-    { "name": "HEINZEL STEYRERMÜHL GmbH", "location": "4662 Steyrermühl", "link": "https://www.heinzelpaper.com", "category": "industry", "search": "Papier, Papierherstellung", "werbering": true },
-    { "name": "HELIOS-Apotheke", "location": "4663 Laakirchen", "link": "https://www.heliosapotheke.at", "category": "healthcare", "search": "Apotheke, Medikamente, Beratung, Kosmetik", "werbering": true },
-    { "name": "HELLEIN Barbara Personalverrechnung", "location": "4655 Vorchdorf", "link": "https://www.hellein.net", "category": "accounting", "search": "Personalverrechnung, Personalverrechnung", "werbering": true },
-    { "name": "HERMANSEDER Bernhard Trafik", "location": "4655 Vorchdorf", "link": "", "category": "tobacco", "search": "Trafik, Tabakwaren, Zeitschriften", "werbering": true },
-    { "name": "HerWeinspaziert - Weinhandel", "location": "4654 Bad Wimsbach", "link": "", "category": "gastro", "search": "Weinhandel, Weine, Weinverkostung", "werbering": true },
-    { "name": "Heson Metall-u.Kunststofftechnik GmbH", "location": "Pettenbacherstrasse 66, 4655 Vorchdorf", "link": "https://www.heson.com", "category": "industry", "search": "Industrie, Metall- und Kunststofftechnik", "werbering": true },
-    { "name": "Hessenberger Computertechnik Ges.m.b.H.", "location": "Pettenbacherstraße 61a, 4655 Vorchdorf", "link": "http://www.hessenberger.at", "category": "it", "search": "IT & EDV, Computer, Netzwerke, Warenwirtschaft", "werbering": false },
-    { "name": "HIFI-Studio STENZ", "location": "4655 Vorchdorf", "link": "https://www.hifi-studio.at", "category": "construction", "search": "HIFI & AUDIO, HiFi, TV, Audio", "werbering": true },
-    { "name": "HILFE IM ALLTAG, Maria Schimpl", "location": "4655 Vorchdorf", "link": "https://www.hilfe-im-alltag.at", "category": "services", "search": "Pflege & Betreuung, Alltagshilfe, Betreuung", "werbering": true },
-    { "name": "HIP Holzbau GmbH", "location": "4655 Vorchdorf", "link": "https://www.hip-holzbau.at", "category": "construction", "search": "Holzbau, Holzbau, Zimmerei", "werbering": true },
-    { "name": "HOCHLEITHNER Schuhe, Sport, Mode", "location": "4656 Bad Wimsbach", "link": "https://www.hochleithner.net", "category": "fashion", "search": "Mode & Bekleidung, Schuhe, Sport, Mode", "werbering": true },
-    { "name": "HOCHREITER KFZ GMBH", "location": "4656 Kirchham", "link": "https://www.toyota-hochreiter.at", "category": "cars", "search": "Autohaus, Toyota, Neuwagen, Service", "werbering": true },
-    { "name": "HOFER - Technisches Zeichenbüro", "location": "Thalbachweg 38, 4655 Vorchdorf", "link": "", "category": "services", "search": "Dienstleistung, 3D-Pläne, Einreichpläne", "werbering": false },
-    { "name": "HOFTAVERNE ZIEGELBÖCK", "location": "4655 Vorchdorf", "link": "https://www.hoftaverne.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "HOIDINGER'S Mostschenke", "location": "4663 Laakirchen", "link": "https://www.hoidinger.at", "category": "gastro", "search": "Gastronomie, Most, regionale Küche", "werbering": true },
-    { "name": "Humanenergetik PRANAOM", "location": "4655 Vorchdorf", "link": "https://www.pranaom.at", "category": "healthcare", "search": "Massage & Wellness, Humanenergetik, Energiearbeit", "werbering": true },
-    { "name": "HUTTERER Harald J, Elektro", "location": "4655 Vorchdorf", "link": "", "category": "construction", "search": "Elektroinstallation, Elektroinstallation", "werbering": true },
-    { "name": "ib RAUSCHER - Strom auf allen Ebenen", "location": "4655 Vorchdorf", "link": "https://www.ibr.co.at", "category": "construction", "search": "Elektroinstallation, Elektroinstallation, Photovoltaik", "werbering": true },
-    { "name": "ID WERKSTATT", "location": "4655 Vorchdorf", "link": "https://www.id-werkstatt.at", "category": "construction", "search": "Gastronomieeinrichtungen, Einrichtung, Design", "werbering": true },
-    { "name": "Ihr INSTALLATEUR mit Feinschliff", "location": "4655 Vorchdorf", "link": "https://www.badwerkstatt.at", "category": "construction", "search": "Installateur, Bad, Heizung, Sanitär", "werbering": true },
-    { "name": "IMMOWERT Leitner e.u.", "location": "4656 Kirchham", "link": "https://www.immowert-leitner.at", "category": "construction", "search": "Immobilien, Immobilienbewertung", "werbering": true },
-    { "name": "IMPERA Immobilien GmbH", "location": "4055 Pucking", "link": "https://www.impera-immobilien.at", "category": "construction", "search": "Immobilien, Immobilienvermittlung", "werbering": true },
-    { "name": "INFRAROTHEIZUNG Stefan Viechtbauer", "location": "4655 Vorchdorf", "link": "http://www.v-infrarot.at/hp/", "category": "construction", "search": "Wärmetechnik, Infrarotheizung", "werbering": true },
-    { "name": "INNOCENTE GesmbH, Dachdecker", "location": "4655 Vorchdorf", "link": "https://www.innocente.at", "category": "construction", "search": "Dachdecker, Dachdeckerarbeiten", "werbering": true },
-    { "name": "JO'S RESTAURANT", "location": "4655 Vorchdorf", "link": "https://www.jos-restaurant.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "JURA GmbH", "location": "4655 Vorchdorf", "link": "https://www.jura-beschichtung.at", "category": "construction", "search": "Industrie, Beschichtungen", "werbering": true },
-    { "name": "Juwelier GASSENBAUER", "location": "4655 Vorchdorf", "link": "https://www.juwelier-gassenbauer.at", "category": "jewelry", "search": "Schmuck & Uhren, Schmuck, Uhren, Reparaturen", "werbering": true },
-    { "name": "K.u.F. DRACK GmbH & Co KG", "location": "4643 Pettenbach", "link": "https://www.kfd.at", "category": "construction", "search": "Industrie, Holz, Elektro, Metall", "werbering": true },
-    { "name": "KALKI'S Hausfleischerei u. Catering", "location": "4655 Vorchdorf", "link": "https://www.kalkishausfleischerei.at", "category": "gastro", "search": "Fleischerei, Fleisch, Wurst, Catering", "werbering": true },
-    { "name": "KARMA LOUNGE Cocktails & Kitchen", "location": "4655 Vorchdorf", "link": "", "category": "gastro", "search": "Gastronomie, Bar, Cocktails, Speisen", "werbering": true },
-    { "name": "KFZ-Bogner GmbH.", "location": "Lambacherstraße 41a, 4655 Vorchdorf", "link": "http://www.kfz-bogner.at", "category": "cars", "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen", "werbering": false },
-    { "name": "KIENINGER JESSICA, Hunde- und Katzensalon", "location": "4663 Laakirchen", "link": "https://www.hundekatzensalon.com", "category": "services", "search": "Hundesalon & Tierpflege, Hundepflege, Katzenpflege", "werbering": true },
-    { "name": "KITZMANTELFABRIK", "location": "4655 Vorchdorf", "link": "https://www.kitzmantelfabrik.at", "category": "culture", "search": "Museum & Kultur, Museum, Veranstaltungen, Kultur", "werbering": true },
-    { "name": "kmb Metalltechnik", "location": "Feldhamer Straße 39, 4655 Vorchdorf", "link": "http://www.kmb-technik.at", "category": "industry", "search": "Industrie, Metalltechnik", "werbering": false },
-    { "name": "Kohler - Intercoiffeur - Damen- u. Herrenfriseur", "location": "Schloßplatz 9, 4655 Vorchdorf", "link": "http://www.salon-kohler.at", "category": "beauty", "search": "Friseur, Damen- und Herrenfriseur", "werbering": false },
-    { "name": "KREATIVE BLUMEREI", "location": "4664 Oberweis", "link": "https://www.kreative-blumerei.at", "category": "flowers", "search": "Blumen & Gärtnerei, Blumen, Floristik", "werbering": true },
-    { "name": "KRENMAYR KG, Thomas Krenmayr", "location": "4655 Vorchdorf", "link": "https://www.blumen-krenmayr.at", "category": "flowers", "search": "Blumen & Gärtnerei, Blumen, Floristik", "werbering": true },
-    { "name": "Kreuzeder Säge- & Hobelwerk", "location": "Lederau 46, 4655 Vorchdorf", "link": "", "category": "industry", "search": "Holzverarbeitung, Sägewerk, Hobelwerk, Bauholz", "werbering": false },
-    { "name": "KRONBERGER Autohaus GmbH", "location": "4656 Kirchham", "link": "https://www.ford-kronberger.at", "category": "cars", "search": "Autohaus, Ford, Neuwagen, Service", "werbering": true },
-    { "name": "KÖNIGSWIESER Gerätetechnik", "location": "4655 Vorchdorf", "link": "https://www.koenigswieser.com", "category": "industry", "search": "Landtechnik, Forsttechnik, Seilwinden", "werbering": true },
-    { "name": "LAAKIRCHEN PAPIER AG", "location": "4663 Laakirchen", "link": "https://www.heinzelpaper.com", "category": "industry", "search": "Papier, Papierherstellung", "werbering": true },
-    { "name": "LAGERHAUS Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.lagerhaus.at", "category": "construction", "search": "Agrarhandel, Baustoffe, Gartenbedarf, Landwirtschaft", "werbering": true },
-    { "name": "Landschaftspflege PREINSTORFER", "location": "4655 Vorchdorf", "link": "https://www.landschaftspflege-preinstorfer.at", "category": "services", "search": "Landschaftspflege, Landschaftspflege, Kommunaldienst", "werbering": true },
-    { "name": "LANG Schuhmode", "location": "4655 Vorchdorf", "link": "https://www.fmzvorchdorf.at", "category": "fashion", "search": "Mode & Bekleidung, Schuhe, Mode", "werbering": true },
-    { "name": "LCA - Agentur für Rationalisierungs- u. Sicherheitstechnik", "location": "Messenbacherstrasse 24, 4655 Vorchdorf", "link": "", "category": "services", "search": "Unternehmensberatung, Rationalisierung, Sicherheitstechnik", "werbering": false },
-    { "name": "LEATHER ROSE, Rosemarie Spitzbart", "location": "4655 Vorchdorf", "link": "https://www.leatherrose.at", "category": "jewelry", "search": "Lederwaren, Lederwaren, Handwerk", "werbering": true },
-    { "name": "LEISS Kfz", "location": "4655 Vorchdorf", "link": "https://www.kfz-leiss.at", "category": "cars", "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen", "werbering": true },
-    { "name": "LEITHINGER, Gärtnerei und Blumen", "location": "4655 Vorchdorf", "link": "https://www.gaertnerei-leithinger.at", "category": "flowers", "search": "Blumen & Gärtnerei, Gärtnerei, Blumen, Pflanzen", "werbering": true },
-    { "name": "LG-Tiefbau GmbH", "location": "4652 Steinerkirchen", "link": "https://www.lg-tiefbau.at", "category": "construction", "search": "Bau & Tiefbau, Tiefbau, Erdbewegungen", "werbering": true },
-    { "name": "Lichtland RITTENSCHOBER KG", "location": "4816 Gschwandt", "link": "https://www.lichtland.at", "category": "construction", "search": "Licht & Lampen, Lampen, Beleuchtung", "werbering": true },
-    { "name": "Lohninger Ges.m.b.H.", "location": "Adlhaming 30, 4655 Vorchdorf", "link": "https://www.erdbau-lohninger.at", "category": "construction", "search": "Bau & Tiefbau, Erdbau, Baggerarbeiten", "werbering": true },
-    { "name": "LOIDL Michael, Tabak Trafik", "location": "4663 Laakirchen", "link": "", "category": "tobacco", "search": "Trafik, Tabakwaren, Zeitschriften", "werbering": true },
-    { "name": "LUMETSBERGER Elke, florale elements", "location": "Waldstraße 10, 4655 Vorchdorf", "link": "http://www.elke-lumetsberger.at", "category": "flowers", "search": "Blumen & Gärtnerei, Blumen, Floristik", "werbering": true },
-    { "name": "LÜFTINGER Baugesellschaft mbH", "location": "4654 Bad Wimsbach", "link": "https://www.lueftingerbau.at", "category": "construction", "search": "Bau & Tiefbau, Bau, Tiefbau", "werbering": true },
-    { "name": "MAIR DACH GmbH", "location": "4655 Vorchdorf", "link": "https://www.maier-dach.at", "category": "construction", "search": "Dachdecker, Dachdeckerarbeiten", "werbering": true },
-    { "name": "Malerei Jürgen Prielinger", "location": "Burgstraße 12, 4655 Vorchdorf", "link": "http://www.malerei-prielinger.at", "category": "construction", "search": "Malerei, Malerarbeiten, Fassade", "werbering": false },
-    { "name": "MARKTGEMEINDE Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.vorchdorf.at", "category": "services", "search": "Gemeinde, Gemeindeverwaltung", "werbering": true },
-    { "name": "MARMORSTEIN, Arkan Bülent", "location": "4655 Vorchdorf", "link": "https://www.marmorstein.at", "category": "construction", "search": "Steinmetz, Marmor, Steinarbeiten", "werbering": true },
-    { "name": "Martetschläger GesmbH & Co KG, Öfen und Fliesenfachmarkt", "location": "Dr. Mitterbauerstraße 5, 4655 Vorchdorf", "link": "https://www.martetschlaeger.net", "category": "construction", "search": "Fliesen & Öfen, Kachelöfen, Fliesen", "werbering": true },
-    { "name": "Massmöbel Individuell", "location": "Eggenberg 13, 4655 Vorchdorf", "link": "", "category": "construction", "search": "Möbel & Einrichtung, Möbel nach Maß", "werbering": false },
-    { "name": "Mayr Horst, Dr. Rechtsanwalt", "location": "Bahnhofstraße 1, 4655 Vorchdorf", "link": "", "category": "legal", "search": "Rechtsanwalt, Rechtsberatung, Vertretung", "werbering": false },
-    { "name": "McDonald's Vorchdorf", "location": "4655 Vorchdorf", "link": "", "category": "gastro", "search": "Gastronomie, Fast Food", "werbering": true },
-    { "name": "MEIN TRAINING Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.mein-training.at", "category": "beauty", "search": "Fitness, Fitnesstraining", "werbering": true },
-    { "name": "Metallbau Prielinger GmbH", "location": "Josef Haas-Straße 10, 4655 Vorchdorf", "link": "https://www.prielinger.com/", "category": "construction", "search": "Metallbau, Metallbau, Schlosserei", "werbering": true },
-    { "name": "MEYER Logistik", "location": "4655 Vorchdorf", "link": "https://www.meyer-logistik.at", "category": "industry", "search": "Transport & Logistik, Logistik, Transport", "werbering": true },
-    { "name": "Miba Sinter Austria GmbH", "location": "Dr. Mitterbauerstraße 1, 4655 Vorchdorf", "link": "http://www.miba.com", "category": "industry", "search": "Industrie, Sinterteile, Automobilzulieferer", "werbering": false },
-    { "name": "MICHLHOF zu Haitzing", "location": "4663 Laakirchen", "link": "https://www.michlhof-haitzing.at", "category": "gastro", "search": "Bauernhof, Bauernhof, Direktvermarktung", "werbering": true },
-    { "name": "MOBILE PFLEGE Marina Nußbaumer", "location": "4655 Vorchdorf", "link": "https://www.mobilepflegenussbaumer.at", "category": "services", "search": "Pflege & Betreuung, Mobile Pflege, Betreuung", "werbering": true },
-    { "name": "Mobiles Sägewerk FÜRTBAUER", "location": "4694 Ohlsdorf", "link": "", "category": "services", "search": "Holzverarbeitung, Mobiles Sägewerk", "werbering": true },
-    { "name": "Moden BAUMGARTNER", "location": "4663 Laakirchen", "link": "", "category": "fashion", "search": "Mode & Bekleidung, Mode, Bekleidung", "werbering": true },
-    { "name": "MOORBAD Gmös", "location": "4663 Laakirchen", "link": "https://www.moorbad-gmoes.at", "category": "healthcare", "search": "Massage & Wellness, Moorbad, Wellness", "werbering": true },
-    { "name": "Musikinstrumente Hemetsberger", "location": "Schloßplatz 9, 4655 Vorchdorf", "link": "http://www.musik-hemetsberger.at", "category": "culture", "search": "Musik, Musikinstrumente", "werbering": false },
-    { "name": "Mühle Bäckerei Bachinger GmbH", "location": "Lindacherstraße 7, 4655 Vorchdorf", "link": "", "category": "food", "search": "Bäckerei, Brot, Gebäck, 100% Roggenbrot", "werbering": false },
-    { "name": "MÜLLER Kraftfahrzeug GesmbH", "location": "4654 Bad Wimsbach", "link": "https://www.kfz-mueller.at", "category": "cars", "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen, Neuwagen, Gebrauchtwagen", "werbering": true },
-    { "name": "MÜLLER Tankstellen GesmbH", "location": "4812 St. Konrad", "link": "", "category": "gas", "search": "Tankstelle, Kraftstoffe, Shop", "werbering": true },
-    { "name": "NAHWÄRME Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.nahwaermevorchdorf.at", "category": "services", "search": "Energie, Fernwärme, Nahwärme", "werbering": true },
-    { "name": "NKD", "location": "Bahnhofstraße 16, 4655 Vorchdorf", "link": "https://www.nkd.at", "category": "fashion", "search": "Mode & Bekleidung, Mode, Textilien", "werbering": true },
-    { "name": "NOTARIAT Mag. Thomas Wilthoner", "location": "Bahnhofstraße 21, 4655 Vorchdorf", "link": "https://www.notar-wilthoner.at", "category": "legal", "search": "Notar, Beglaubigungen, Verträge, Grundbuch", "werbering": true },
-    { "name": "OBERBANK Laakirchen", "location": "4663 Laakirchen", "link": "https://www.oberbank.at", "category": "banks", "search": "Bank, Konten, Kredite, Beratung", "werbering": true },
-    { "name": "OBERÖSTERREICH.TV", "location": "4650 Lambach", "link": "https://www.oberoesterreich.tv", "category": "advertising", "search": "Medien, TV, Nachrichten", "werbering": true },
-    { "name": "PALMAN Oliver, Meistermaler", "location": "4655 Vorchdorf", "link": "https://www.palman.co.at", "category": "construction", "search": "Malerei, Malerarbeiten, Fassade", "werbering": true },
-    { "name": "PAPIERWELT MUSEUM und ALFA", "location": "4662 Steyrermühl", "link": "https://www.papiermuseum.at", "category": "culture", "search": "Museum & Kultur, Museum, Papiergeschichte", "werbering": true },
-    { "name": "PAYRHUBER Elektro GmbH", "location": "4655 Vorchdorf", "link": "https://www.elektro-payrhuber.at", "category": "construction", "search": "Elektroinstallation, Elektroinstallation", "werbering": true },
-    { "name": "PEARLE Optik Vorchdorf", "location": "4655 Vorchdorf", "link": "https://www.pearle.at", "category": "healthcare", "search": "Optik & Hörgeräte, Brillen, Kontaktlinsen", "werbering": true },
-    { "name": "PFATSCHBACHER Florian", "location": "4810 Gschwandt", "link": "https://www.pfatschbacher-photography.at", "category": "photo", "search": "Fotografie, Fotografie", "werbering": true },
-    { "name": "PICHELSBERGER Autohaus GmbH", "location": "4655 Vorchdorf", "link": "https://www.pichelsberger.at", "category": "cars", "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service", "werbering": true },
-    { "name": "PLAICHINGER Karl GesmbH", "location": "4663 Laakirchen", "link": "", "category": "food", "search": "Industrie, Industrieprodukte", "werbering": true },
-    { "name": "POHN - LOHNFERTIGUNG", "location": "Einsiedling 43, 4655 Vorchdorf", "link": "http://www.pohn-lohnfertigung.at", "category": "industry", "search": "Industrie, Lohnfertigung", "werbering": false },
-    { "name": "POWER Networks GmbH", "location": "4655 Vorchdorf", "link": "https://www.powernetworks.at", "category": "it", "search": "IT & EDV, Netzwerke, IT-Service", "werbering": true },
-    { "name": "Praschma - Texter", "location": "Am Riedlbach 3, 4650 Vorchdorf", "link": "https://praschma.com", "category": "advertising", "search": "Dienstleistung, Texter", "werbering": false },
-    { "name": "PRIELINGER ELECTRONIC SYSTEMS", "location": "Point 5, 4655 Vorchdorf", "link": "http://www.prisy.at", "category": "construction", "search": "Elektrotechnik, Elektromaschinenbauer, Bürokommunikationstechniker", "werbering": false },
-    { "name": "PROCONSULT", "location": "4655 Vorchdorf", "link": "https://www.proconsult-wt.at", "category": "accounting", "search": "Steuerberatung, Wirtschaftsprüfung, Steuerberatung", "werbering": true },
-    { "name": "proUmwelt - Dienstleistungen für eine gesunde Erde", "location": "Lambacherstraße 42, 4655 Vorchdorf", "link": "https://www.proumwelt.at", "category": "services", "search": "Entsorgung, Abfallsammlung, Containerdienst", "werbering": true },
-    { "name": "Pöll Friedrich, Fleischhauerei - Schlachthof", "location": "Bahnhofstrasse 27, 4655 Vorchdorf", "link": "https://www.poell-vorchdorf.at", "category": "food", "search": "Fleischerei, Frischfleisch, Wurst, Schlachthof", "werbering": true },
-    { "name": "Radner Bernhard", "location": "Schulstraße 18, 4655 Vorchdorf", "link": "http://www.bestattung-vorchdorf.at", "category": "construction", "search": "Tischlerei, Tischlerei, Möbel", "werbering": false },
-    { "name": "Raiffeisenbank Salzkammergut", "location": "Schlossplatz 3, 4655 Vorchdorf", "link": "https://www.raiffeisen-ooe.at/salzkammergut", "category": "banks", "search": "Bank, Konten, Kredite, Beratung", "werbering": true },
-    { "name": "RAUCH Armin, Werbeagentur", "location": "4655 Vorchdorf", "link": "https://www.ungleich.at", "category": "advertising", "search": "Werbeagentur, Werbung, Grafik, Marketing", "werbering": true },
-    { "name": "Rechtsanwalt Dr. Horst MAYR", "location": "4655 Vorchdorf", "link": "https://www.ra-mayr.at", "category": "legal", "search": "Rechtsanwalt, Rechtsberatung, Vertretung", "werbering": true },
-    { "name": "Rechtsanwälte Mag. Daniela AIGNER, Mag. Georg LAMPL", "location": "4655 Vorchdorf", "link": "https://www.kanzlei-vorchdorf.at", "category": "legal", "search": "Rechtsanwalt, Rechtsberatung, Vertretung", "werbering": true },
-    { "name": "REGIO INTAKT Beratung", "location": "4655 Vorchdorf", "link": "https://www.regiointakt.at", "category": "services", "search": "Unternehmensberatung, Beratung, Coaching", "werbering": true },
-    { "name": "REINIGUNG: GLAS-STEIN-PKW-BOOTE UVM....", "location": "Falkenohren 16, 4655 Vorchdorf", "link": "http://www.nano-power.at", "category": "services", "search": "Reinigung, Reinigung, Versiegelung", "werbering": false },
-    { "name": "Reisen FRÖCH", "location": "4663 Laakirchen", "link": "https://www.froech-reisen.at", "category": "culture", "search": "Reisebüro, Reisen, Busreisen", "werbering": true },
-    { "name": "ReVital Shop Vorchdorf", "location": "4655 Vorchdorf", "link": "", "category": "fashion", "search": "Secondhand, Secondhand, Gebrauchtwaren", "werbering": true },
-    { "name": "s'GSCHÄFT UMS ECK", "location": "4653 Eberstalzell", "link": "", "category": "food", "search": "Lebensmittelhandel, Lebensmittel", "werbering": true },
-    { "name": "Sattler Hans-Peter Techn. Zeichenbüro", "location": "Bahnweg 5, 4655 Vorchdorf", "link": "", "category": "services", "search": "Dienstleistung, 3D-Pläne, Einreichpläne", "werbering": false },
-    { "name": "SCHATZL .ONLINE", "location": "4655 Vorchdorf", "link": "https://www.schatzl.online", "category": "it", "search": "IT & EDV, Webdesign, Online-Marketing", "werbering": true },
-    { "name": "Scherleithner Josef Grubenservice", "location": "Schart 17, 4655 Vorchdorf", "link": "", "category": "services", "search": "Landwirtschaft, Abfallsammlung", "werbering": false },
-    { "name": "Scherleitner Manfred, Dr. MBA", "location": "Adlhaming 5, 4655 Vorchdorf", "link": "https://www.agrismartprotect.com/", "category": "services", "search": "Unternehmensberatung, Agrarschutz, Beratung", "werbering": false },
-    { "name": "SCHIESSL Kältetechnik m.b.H.", "location": "4655 Vorchdorf", "link": "https://www.schiessl.at", "category": "industry", "search": "Kältetechnik, Kälteanlagen, Klimatechnik", "werbering": true },
-    { "name": "SCHIRMFABRIK marketing solutions.", "location": "Moos 22, 4655 Vorchdorf", "link": "http://www.schirmfabrik.at", "category": "advertising", "search": "Werbeagentur, Marketing, Werbung", "werbering": false },
-    { "name": "SCHMALWIESER Bastel-, Schul- und Nähbedarf", "location": "4655 Vorchdorf", "link": "", "category": "construction", "search": "Bastel & Nähbedarf, Bastelbedarf, Stoffe, Nähzubehör", "werbering": true },
-    { "name": "Schneeberger Günter", "location": "Theuerwang 17, 4655 Vorchdorf", "link": "", "category": "services", "search": "Entsorgung, Entsorgung, Containerdienst", "werbering": false },
-    { "name": "SCHNEEBERGER Karl, Schwimmbad-Montage-Technik", "location": "4655 Vorchdorf", "link": "https://www.schwimmbad1a.at", "category": "construction", "search": "Schwimmbadtechnik, Schwimmbad, Poolbau", "werbering": true },
-    { "name": "SCHNITT VISION Lisa Thalinger", "location": "4655 Vorchdorf", "link": "https://www.schnittvision.at", "category": "beauty", "search": "Friseur, Damen- und Herrenfriseur", "werbering": true },
-    { "name": "SCHWABEGGER Optik, Hörgeräte, Contactlinsen", "location": "4655 Vorchdorf", "link": "https://www.schwabegger.at", "category": "healthcare", "search": "Optik & Hörgeräte, Brillen, Hörgeräte, Kontaktlinsen", "werbering": true },
-    { "name": "Schweinehandel Oppeneder Gerhard", "location": "Mühltal 86, 4655 Vorchdorf", "link": "", "category": "food", "search": "Landwirtschaft, Schweinehandel", "werbering": false },
-    { "name": "SECONDHAND FARBENFROH", "location": "4662 Steyrermühl", "link": "", "category": "fashion", "search": "Secondhand, Secondhand-Mode", "werbering": true },
-    { "name": "Seyr - Dachdeckerei & Spenglerei", "location": "Neue Landstraße 70, 4655 Vorchdorf", "link": "https://www.seyr.org", "category": "construction", "search": "Dachdecker, Dachdeckerarbeiten, Spenglerei", "werbering": true },
-    { "name": "SFK GmbH", "location": "4656 Kirchham", "link": "https://www.sfk.at", "category": "construction", "search": "Tischlerei, Industrieprodukte, Küchen, Wohnen, CNC, Bestatter", "werbering": true },
-    { "name": "SHELL Tankstelle", "location": "4662 Steyrermühl", "link": "", "category": "gas", "search": "Tankstelle, Kraftstoffe, Shop", "werbering": true },
-    { "name": "SHIATSU MASSAGE Carmen Adamsmair", "location": "4655 Vorchdorf", "link": "https://www.massagecarmen.at", "category": "healthcare", "search": "Massage & Wellness, Shiatsu, Massage", "werbering": true },
-    { "name": "Sleddog-Shop", "location": "Waldstrasse 1, 4655 Vorchdorf", "link": "https://sleddog-Shop.at", "category": "services", "search": "Tierbedarf, Schlittenhunde, Zubehör", "werbering": false },
-    { "name": "SODIAN Immobilien", "location": "4655 Vorchdorf", "link": "https://www.sodian-immobilien.at", "category": "construction", "search": "Immobilien, Immobilienvermittlung", "werbering": true },
-    { "name": "Sodian Industriereinigung GmbH", "location": "Fischböckau 48, 4655 Vorchdorf", "link": "http://www.sodian.at", "category": "services", "search": "Reinigung, Industriereinigung, Hochdruck", "werbering": false },
-    { "name": "sooonah GmbH", "location": "Kapellenweg 8, 4655 Vorchdorf", "link": "https://www.sooonah.com", "category": "it", "search": "Onlineshop, Onlineshop", "werbering": false },
-    { "name": "SPAR Markt Hessenberger", "location": "4663 Laakirchen", "link": "", "category": "food", "search": "Lebensmittelhandel, Lebensmittel", "werbering": true },
-    { "name": "SPAR Österr. Warenhandels AG", "location": "4655 Vorchdorf", "link": "https://www.spar.at", "category": "food", "search": "Lebensmittelhandel, Lebensmittel", "werbering": true },
-    { "name": "SPARKASSE Laakirchen", "location": "4663 Laakirchen", "link": "https://www.sparkasse.at", "category": "banks", "search": "Bank, Konten, Kredite, Beratung", "werbering": true },
-    { "name": "Sparkasse Vorchdorf", "location": "Bahnhofstr. 21, 4655 Vorchdorf", "link": "", "category": "banks", "search": "Bank, Konten, Kredite, Beratung", "werbering": true },
-    { "name": "SPC Gebäudetechnik", "location": "4656 Kirchham", "link": "https://www.spc-technik.at", "category": "construction", "search": "Installateur, Gebäudetechnik, Installation", "werbering": true },
-    { "name": "SPITZBART Paulus - Tischlerei", "location": "4663 Laakirchen", "link": "https://www.floorcover.at", "category": "construction", "search": "Tischlerei, Tischlerei, Bodenbeläge", "werbering": true },
-    { "name": "SPS Bruderhofer", "location": "4655 Vorchdorf", "link": "https://www.sps-bruderhofer.at", "category": "construction", "search": "Schwimmbadtechnik, Poolbau, Sanierung", "werbering": true },
-    { "name": "STADT Apotheke", "location": "4663 Laakirchen", "link": "https://www.stadtapo-laakirchen.at", "category": "healthcare", "search": "Apotheke, Medikamente, Beratung, Kosmetik", "werbering": true },
-    { "name": "STADTGEMEINDE Laakirchen", "location": "4663 Laakirchen", "link": "https://www.laakirchen.at", "category": "services", "search": "Gemeinde, Gemeindeverwaltung", "werbering": true },
-    { "name": "STEINER'S Fiaker", "location": "4663 Laakirchen", "link": "https://www.fiaker.steiners-restaurants.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "Steinmetzmeister LITTRINGER", "location": "4663 Laakirchen", "link": "https://www.littringer-stein.at", "category": "construction", "search": "Steinmetz, Steinmetzarbeiten, Grabsteine", "werbering": true },
-    { "name": "Stenz Johannes, HIF&TV", "location": "Kapellenweg 2, 4655 Vorchdorf", "link": "http://www.stenz.at", "category": "construction", "search": "Elektro & Haushalt, HiFi, TV, Audio", "werbering": false },
-    { "name": "Stern & Hafferl Verkehrsgesellschaft m.b.H.", "location": "Bahnhof, 4655 Vorchdorf", "link": "https://www.stern-verkehr.at", "category": "transport", "search": "Verkehr, Öffentlicher Verkehr, Lokalbahn", "werbering": true },
-    { "name": "Stil & more", "location": "Lederau 17, 4655 Vorchdorf", "link": "http://www.shop-stilandmore.com", "category": "fashion", "search": "Einzelhandel, Geschenkartikel, Dekoration", "werbering": false },
-    { "name": "Stuco GmbH", "location": "Lambacher Straße 41a, 4655 Vorchdorf", "link": "https://www.stuco.com", "category": "wholesale", "search": "Sicherheitsschuhe, Schuhe", "werbering": true },
-    { "name": "STÖTTINGER Immobilien", "location": "4655 Vorchdorf", "link": "https://www.stoettinger-immobilien.at", "category": "construction", "search": "Immobilien, Immobilienvermittlung", "werbering": true },
-    { "name": "SUSANNE.ANZIEHEND", "location": "4655 Vorchdorf", "link": "https://susanne-anziehend.at/", "category": "fashion", "search": "Mode & Bekleidung, Mode, Bekleidung", "werbering": true },
-    { "name": "T&H Sound Systems Ges.n.b.R", "location": "Theuerwang 22, 4655 Vorchdorf", "link": "", "category": "construction", "search": "Elektro & Haushalt, Soundsysteme, Audio", "werbering": false },
-    { "name": "Team DOGTRAINING, Dominik Söllradl", "location": "4655 Vorchdorf", "link": "https://www.dogtraining.at", "category": "services", "search": "Hundesalon & Tierpflege, Hundetraining", "werbering": true },
-    { "name": "Thomas GÖTSCHHOFER GesmbH", "location": "4655 Vorchdorf", "link": "https://www.gut-durchdacht.at", "category": "construction", "search": "Dachdecker, Dachdeckerei, Spenglerei, Kranarbeiten", "werbering": true },
-    { "name": "Tinkahof", "location": "Feldham 13, 4655 Vorchdorf", "link": "http://www.tinkahof.at", "category": "gastro", "search": "Bauernhof, Pferde", "werbering": false },
-    { "name": "TISCHLEREI Bernhard Radner", "location": "4655 Vorchdorf", "link": "", "category": "construction", "search": "Tischlerei, Tischlerei, Möbel", "werbering": true },
-    { "name": "Tischlerei STELZHAMMER GmbH", "location": "4663 Laakirchen", "link": "", "category": "construction", "search": "Tischlerei, Tischlerei, Möbel", "werbering": true },
-    { "name": "Traunseeschifffahrt Karlheinz Eder", "location": "4810 Gmunden", "link": "https://www.traunseeschifffahrt.at", "category": "transport", "search": "Schifffahrt, Schifffahrt, Ausflugsfahrten", "werbering": true },
-    { "name": "TRAUNSTEIN Reinigung Tamara Huemer", "location": "4655 Vorchdorf", "link": "https://www.textilreinigung-traunstein.at", "category": "services", "search": "Textilreinigung, Textilreinigung", "werbering": true },
-    { "name": "TVM-Pühringer Peter Versicherungsmakler", "location": "Lederau 138, 4655 Vorchdorf", "link": "https://www.tvm.at", "category": "banks", "search": "Versicherung, Versicherungsberatung", "werbering": true },
-    { "name": "Urkornhof Kammerleithner", "location": "Point 11, 4655 Vorchdorf", "link": "http://www.urkorn.at", "category": "food", "search": "Bauernhof, Bauernhof, Urkorn", "werbering": false },
-    { "name": "VBV Vorchdorf OG", "location": "Lambacherstraße 16, 4655 Vorchdorf", "link": "", "category": "banks", "search": "Versicherung, Versicherungsberatung", "werbering": false },
-    { "name": "VINOLINO, Laszl Gerhard", "location": "4655 Vorchdorf", "link": "", "category": "gastro", "search": "Bar, Weinhandel, Bar, Weinhandel", "werbering": true },
-    { "name": "VKB-Bank Vorchdorf", "location": "Bahnhofstraße 7, 4655 Vorchdorf", "link": "http://www.vorchdorf.vkb-bank.at", "category": "banks", "search": "Bank, Konten, Kredite, Beratung", "werbering": false },
-    { "name": "VMB Laakirchen", "location": "4663 Laakirchen", "link": "https://www.vmb-laakirchen.at", "category": "banks", "search": "Versicherung, Versicherungsberatung", "werbering": true },
-    { "name": "VOGELHUBERGUT Fam. Scherleithner", "location": "4655 Vorchdorf", "link": "https://www.vogelhubergut.at", "category": "gastro", "search": "Bauernhof, Pension, Pension, Zimmervermietung, Veranstaltungen", "werbering": true },
-    { "name": "VOLKSKREDITBANK AG", "location": "4655 Vorchdorf", "link": "https://www.vkb-bank.at", "category": "banks", "search": "Bank, Konten, Kredite, Beratung", "werbering": true },
-    { "name": "vorchdorfmedia e.U.", "location": "Oberhörbach 18, 4655 Vorchdorf", "link": "https://www.vorchdorfmedia.at", "category": "advertising", "search": "Werbeagentur, Werbung, Medien", "werbering": true },
-    { "name": "Wagenhaus GmbH", "location": "Feldhamer Straße 41, 4655 Vorchdorf", "link": "https://www.wagenhaus.at/", "category": "cars", "search": "Autohaus, Kfz-Werkstatt, Autoverkauf", "werbering": true },
-    { "name": "Waldl Martin", "location": "Berg 4, 4655 Vorchdorf", "link": "", "category": "food", "search": "Landwirtschaft, Landwirtschaft", "werbering": false },
-    { "name": "WELTLADEN", "location": "4655 Vorchdorf", "link": "https://www.weltladenvorchdorf.at", "category": "food", "search": "Weltladen, Fair Trade Produkte", "werbering": true },
-    { "name": "Wiedl´s Taxi GmbH", "location": "Brunnmühlstraße 8, 4655 Vorchdorf", "link": "https://www.taxi-wiedl.at", "category": "transport", "search": "Taxi & Mietwagen, Taxi, 24h Service", "werbering": true },
-    { "name": "Wiener F., Stapler-u. Baumaschinenservice", "location": "Neue Landstrasse 70, 4655 Vorchdorf", "link": "http://www.stapler-wiener.at", "category": "construction", "search": "Baumaschinen, Stapler, Baumaschinen, Service", "werbering": false },
-    { "name": "WIRT in der Edt, Fam. Radner", "location": "4655 Vorchdorf", "link": "https://www.wirt-edt.at", "category": "gastro", "search": "Gastronomie, Speisen und Getränke", "werbering": true },
-    { "name": "WohnPlanerin RAFFELSBERGER Eva", "location": "4655 Vorchdorf", "link": "https://www.wohnplanerin.at", "category": "construction", "search": "Möbel & Einrichtung, Wohnplanung, Einrichtungsberatung", "werbering": true },
-    { "name": "Wohnstudio Johannes HUTTERER", "location": "4663 Laakirchen", "link": "https://www.moderne-kuechen.at", "category": "construction", "search": "Möbel & Einrichtung, Küchen, Möbel", "werbering": true },
-    { "name": "ZAMBELLI Industrieprodukte KG", "location": "4655 Vorchdorf", "link": "https://www.zambelli-ip.at", "category": "services", "search": "Industrie, Industrieprodukte", "werbering": true },
-    { "name": "Zauner Berthold Werbe- und Handelsagentur", "location": "Seyrkam 35, 4655 Vorchdorf", "link": "http://www.webtools.at", "category": "advertising", "search": "Werbeagentur, Werbung", "werbering": false },
-    { "name": "ZOPF Schmuck, Uhren, Optik", "location": "4663 Laakirchen", "link": "https://www.zopf-optik.at", "category": "healthcare", "search": "Schmuck, Uhren, Optik, Schmuck, Uhren, Optik", "werbering": true },
-    { "name": "ZUMBA Andrea", "location": "4655 Vorchdorf", "link": "", "category": "beauty", "search": "Fitness, Zumba-Kurse", "werbering": true },
-    { "name": "ZWIRN - Café Bar Osteria", "location": "4655 Vorchdorf", "link": "https://www.cafezwirn.at", "category": "gastro", "search": "Gastronomie, Café, Bar, italienische Küche", "werbering": true }
+    {
+        "name": "A-TEAM die Fahrschule",
+        "location": "4650 Lambach",
+        "link": "https://www.ateam-fahrschule.at",
+        "category": "services",
+        "search": "Fahrschule, Führerscheinausbildung alle Klassen",
+        "werbering": true
+    },
+    {
+        "name": "A1 Autobahnapotheke",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.a1apotheke.at",
+        "category": "healthcare",
+        "search": "Apotheke, Medikamente, Beratung, Kosmetik",
+        "werbering": true
+    },
+    {
+        "name": "ABIES Austria GmbH",
+        "location": "4664 Laakirchen",
+        "link": "https://www.abies-austria.at",
+        "category": "industry",
+        "search": "Holzverarbeitung, Holzprodukte, Holzverarbeitung",
+        "werbering": false
+    },
+    {
+        "name": "AHTEL Hochleithner Telekommunikation",
+        "location": "4654 Bad Wimsbach",
+        "link": "https://www.ahtel.at",
+        "category": "it",
+        "search": "Telekommunikation, Telefon, Internet, Netzwerke",
+        "werbering": false
+    },
+    {
+        "name": "Aigner Bus GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.mietwagen-aigner.at",
+        "category": "transport",
+        "search": "Taxi & Mietwagen, Mietwagen, Bus, Taxi, Transporte",
+        "werbering": true
+    },
+    {
+        "name": "Aigner Raumausstatter",
+        "location": "Bahnhofstr. 17, 4655 Vorchdorf",
+        "link": "https://www.aigner-raum.at",
+        "category": "construction",
+        "search": "Raumausstatter, Vorhänge, Bettwaren, Bodenbeläge, Tapeten",
+        "werbering": true
+    },
+    {
+        "name": "Aitzetmüller Gerhard",
+        "location": "Bahnhofstrasse 1, 4655 Vorchdorf",
+        "link": "http://www.VBVorchdorf.at",
+        "category": "banks",
+        "search": "Versicherung, Versicherungsberatung, alle Sparten",
+        "werbering": false
+    },
+    {
+        "name": "Aitzetmüller Markus - Massagepraxis",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "healthcare",
+        "search": "Massage & Wellness, Massage, Entspannung",
+        "werbering": true
+    },
+    {
+        "name": "Alfred Schnellnberger GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schnellnberger.at",
+        "category": "construction",
+        "search": "Fliesen & Natursteine, Fliesen",
+        "werbering": true
+    },
+    {
+        "name": "Almtal Camp",
+        "location": "4643 Pettenbach",
+        "link": "https://www.almtal-camp.at",
+        "category": "gastro",
+        "search": "Camping, Campingplatz, Stellplätze",
+        "werbering": true
+    },
+    {
+        "name": "Almtal Apotheke",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.almtalapotheke.at",
+        "category": "healthcare",
+        "search": "Apotheke, Medikamente, Beratung, Kosmetik",
+        "werbering": true
+    },
+    {
+        "name": "Amering Franz GmbH tipp-topp Installationen",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.amering.at",
+        "category": "construction",
+        "search": "Installateur, Badgestaltung, Wassertechnik, Heiztechnik, Solartechnik",
+        "werbering": true
+    },
+    {
+        "name": "Anytime Fitness Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.af-austria.at",
+        "category": "beauty",
+        "search": "Fitness, Fitnesstraining, 24h geöffnet",
+        "werbering": true
+    },
+    {
+        "name": "ARTINA GmbH",
+        "location": "4663 Laakirchen",
+        "link": "https://www.artina.at",
+        "category": "industry",
+        "search": "Industrie, Künstlerbedarf, Staffeleien",
+        "werbering": false
+    },
+    {
+        "name": "Asamer Kies- und Betonwerke GmbH",
+        "location": "4694 Ohlsdorf",
+        "link": "https://www.asamer.at",
+        "category": "construction",
+        "search": "Kies & Beton, Kies, Beton, Baustoffe",
+        "werbering": true
+    },
+    {
+        "name": "Attwenger Taxi",
+        "location": "Mühlenstraße 4, 4655 Vorchdorf",
+        "link": "https://www.taxi-attwenger.at",
+        "category": "transport",
+        "search": "Taxi & Mietwagen, Taxi, Mietwagen, Botendienst, 24h",
+        "werbering": true
+    },
+    {
+        "name": "Auto Gundendorfer GesmbH",
+        "location": "Mühltal 12, 4655 Vorchdorf",
+        "link": "https://www.auto-gundendorfer.at",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": true
+    },
+    {
+        "name": "Autohaus Schweiger",
+        "location": "4643 Pettenbach",
+        "link": "https://www.kfz-schweiger.at",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": true
+    },
+    {
+        "name": "Automobile MAIRHUBER GmbH",
+        "location": "4664 Oberweis",
+        "link": "https://www.autohausmairhuber.at",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": false
+    },
+    {
+        "name": "Automobile SCHUSTER GmbH",
+        "location": "4663 Laakirchen",
+        "link": "https://www.auto-schuster.at",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": false
+    },
+    {
+        "name": "Automobile SWOBODA GmbH",
+        "location": "4664 Oberweis",
+        "link": "https://www.automobileswoboda.at",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": false
+    },
+    {
+        "name": "BAM.wohnen GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.bam-wohnen.at",
+        "category": "construction",
+        "search": "Möbel & Einrichtung, Möbel, Einrichtung, Wohndesign",
+        "werbering": true
+    },
+    {
+        "name": "Barber Shop - Erkan Abi",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.erkanabibarbershop.at",
+        "category": "beauty",
+        "search": "Friseur, Herrenfriseur, Barber, Bartpflege",
+        "werbering": true
+    },
+    {
+        "name": "Bauelemente ZIEGELBÄCK KG",
+        "location": "4664 Oberweis",
+        "link": "https://www.ziegelbaeck.at",
+        "category": "construction",
+        "search": "Fenster & Sonnenschutz, Fenster, Türen, Sonnenschutz",
+        "werbering": false
+    },
+    {
+        "name": "Baumgartner Tischlerei & Raumplanung",
+        "location": "Mühltal 44, 4655 Vorchdorf",
+        "link": "https://www.tischlerelbaumgartner.com",
+        "category": "construction",
+        "search": "Tischlerei, Möbel nach Maß, Türen, Innenausbau",
+        "werbering": true
+    },
+    {
+        "name": "Baumwerk GmbH",
+        "location": "Hötzelsdorf 10, 4655 Vorchdorf",
+        "link": "https://www.baumwerk.at/",
+        "category": "services",
+        "search": "Landschaftspflege, Baumpflege, Gartengestaltung",
+        "werbering": true
+    },
+    {
+        "name": "Beiskammer Bernhard - PV und Solar Montage GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.pv-beiskammer.at",
+        "category": "construction",
+        "search": "Solar & PV, Photovoltaik, Solarmontage",
+        "werbering": true
+    },
+    {
+        "name": "Bestattung Radner",
+        "location": "Schulstraße 18, 4655 Vorchdorf",
+        "link": "http://www.bestattung-vorchdorf.at",
+        "category": "services",
+        "search": "Bestattung, Bestattungen, Trauerbegleitung",
+        "werbering": false
+    },
+    {
+        "name": "Bierhotel Ranklleiten",
+        "location": "4643 Pettenbach",
+        "link": "https://www.ranklleiten.com",
+        "category": "gastro",
+        "search": "Hotel, Pension, Gastronomie, Übernachtung, Bierverkostung, Restaurant",
+        "werbering": true
+    },
+    {
+        "name": "Institut Huemer - Fachwerk für Stressprävention, Familien- und Erwachsenenbildung",
+        "location": "4663 Laakirchen",
+        "link": "https://www.instituthuemer.at",
+        "category": "healthcare",
+        "search": "Bildung, Seminare, Bildungsveranstaltungen",
+        "werbering": true
+    },
+    {
+        "name": "Blumen Krenmayr GmbH",
+        "location": "Schlossplatz 1, 4655 Vorchdorf",
+        "link": "http://www.grosz.at/ausstellungen/details.php?id=427&gem=37",
+        "category": "flowers",
+        "search": "Blumen & Gärtnerei, Blumen, Floristik",
+        "werbering": true
+    },
+    {
+        "name": "Blumen MUSCARI",
+        "location": "4663 Laakirchen",
+        "link": "https://www.muscari.at",
+        "category": "flowers",
+        "search": "Blumen & Gärtnerei, Blumen, Floristik",
+        "werbering": false
+    },
+    {
+        "name": "BNP Wirtschaftstreuhand und Steuerberatungs GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.bnp.at",
+        "category": "accounting",
+        "search": "Steuerberatung, Buchhaltung, Steuererklärung, Bilanzierung",
+        "werbering": true
+    },
+    {
+        "name": "BP Tankstelle",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "gas",
+        "search": "Tankstelle, Kraftstoffe, Shop",
+        "werbering": true
+    },
+    {
+        "name": "Brauerei Eggenberg Stöhr & Co KG",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schloss-eggenberg.at",
+        "category": "food",
+        "search": "Brauerei, Bier, Brauereiführungen",
+        "werbering": true
+    },
+    {
+        "name": "Buchegger Johann - Fenster - Sonnenschutz",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Fenster & Sonnenschutz, Fenster, Türen, Sonnenschutz",
+        "werbering": true
+    },
+    {
+        "name": "Bäckerei Café im Gwölb",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.im-gwoelb.at",
+        "category": "gastro",
+        "search": "Bäckerei, Brot, Gebäck, Café",
+        "werbering": true
+    },
+    {
+        "name": "Bäckerei Probst GmbH - Bäckerei Konditorei Café",
+        "location": "Lambacherstraße 15, 4655 Vorchdorf",
+        "link": "https://www.baeckerei-probst.at",
+        "category": "gastro",
+        "search": "Bäckerei, Brot, Gebäck, Torten",
+        "werbering": true
+    },
+    {
+        "name": "Resch & Frisch Café und Bäckerei",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.resch-frisch.com",
+        "category": "gastro",
+        "search": "Bäckerei, Brot, Gebäck",
+        "werbering": true
+    },
+    {
+        "name": "Café Bäckerei ZACH",
+        "location": "4663 Laakirchen",
+        "link": "https://www.zach.baecker.at",
+        "category": "gastro",
+        "search": "Bäckerei, Brot, Gebäck, Café",
+        "werbering": false
+    },
+    {
+        "name": "Creativ Optik - Plakolm",
+        "location": "Kapellenweg 2, 4655 Vorchdorf",
+        "link": "https://www.plakolm.at",
+        "category": "healthcare",
+        "search": "Optik & Hörgeräte, Brillen, Kontaktlinsen, Hörgeräte",
+        "werbering": true
+    },
+    {
+        "name": "CRW-Sports",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.crw-sports.net",
+        "category": "cars",
+        "search": "Sport & Freizeit, Rad",
+        "werbering": true
+    },
+    {
+        "name": "Gasthaus Denk",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.hoteldenk.at",
+        "category": "gastro",
+        "search": "Hotel & Pension, Übernachtung, Frühstück",
+        "werbering": true
+    },
+    {
+        "name": "Dickinger Agrarhandel GmbH",
+        "location": "Stampfstrasse 3, 4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Agrarhandel, Futtermittel, Landwirtschaftsbedarf",
+        "werbering": true
+    },
+    {
+        "name": "Die Stöttingers I Stefanie & Christoph Stöttinger",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.diestoettingers.at",
+        "category": "healthcare",
+        "search": "Handel, Kindersitze, Radanhänger, Alpaka",
+        "werbering": true
+    },
+    {
+        "name": "DOLCE Eiscafé",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "gastro",
+        "search": "Gastronomie, Eis, Kaffee",
+        "werbering": true
+    },
+    {
+        "name": "DROGERIE GRÄFINGER",
+        "location": "4663 Laakirchen",
+        "link": "https://www.drogerie-graefinger.at",
+        "category": "beauty",
+        "search": "Drogerie, Drogerieartikel, Kosmetik, Humanenergetik",
+        "werbering": false
+    },
+    {
+        "name": "ECKMANN Friseursalon",
+        "location": "4663 Laakirchen",
+        "link": "",
+        "category": "beauty",
+        "search": "Friseur, Damen- und Herrenfriseur",
+        "werbering": false
+    },
+    {
+        "name": "EDV Kickinger",
+        "location": "Schloßplatz 15, 4655 Vorchdorf",
+        "link": "http://www.EDVKICKI.at",
+        "category": "it",
+        "search": "IT & EDV, EDV-Service, Verkauf",
+        "werbering": false
+    },
+    {
+        "name": "EGRU - Unternehmensberatung",
+        "location": "Kapellenweg 8, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Unternehmensberatung, Unternehmensberatung",
+        "werbering": false
+    },
+    {
+        "name": "Elektro STEINSCHADEN GmbH",
+        "location": "4663 Laakirchen",
+        "link": "https://www.elektro-steinschaden.at",
+        "category": "construction",
+        "search": "Elektroinstallation, Elektroinstallation",
+        "werbering": false
+    },
+    {
+        "name": "Elektro-Payrhuber GmbH",
+        "location": "Bahnhofstraße 29, 4655 Vorchdorf",
+        "link": "http://www.elektropayrhuber.at",
+        "category": "construction",
+        "search": "Elektroinstallation, Elektroinstallation",
+        "werbering": false
+    },
+    {
+        "name": "Energiefreund - Ing. Stefan Brunner",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.bzr-controls.at",
+        "category": "construction",
+        "search": "Energie, Energieberatung, Energietechnik",
+        "werbering": true
+    },
+    {
+        "name": "Eni Tankstelle",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "gas",
+        "search": "Tankstelle, Kraftstoffe, Shop",
+        "werbering": true
+    },
+    {
+        "name": "EP: Kickinger",
+        "location": "Schloßplatz 15, 4655 Vorchdorf",
+        "link": "https://www.ep.at/kickinger/",
+        "category": "it",
+        "search": "IT & EDV, Elektrogeräte, EDV",
+        "werbering": false
+    },
+    {
+        "name": "Auto Esthofer Team GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.esthofer.com",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": true
+    },
+    {
+        "name": "ETZI-Haus Ö-Baumanagement GmbH",
+        "location": "4551 Ried/Trkr.",
+        "link": "https://www.etzi-haus.com",
+        "category": "construction",
+        "search": "Holzbau, Holzhäuser, Fertighäuser",
+        "werbering": true
+    },
+    {
+        "name": "eurowheel GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.eurowheel.eu",
+        "category": "cars",
+        "search": "Industrie, Felgen, Räder",
+        "werbering": true
+    },
+    {
+        "name": "FDM Danner Metalltechnik GmbH",
+        "location": "4663 Laakirchen",
+        "link": "https://www.fdm-metalltechnik.at",
+        "category": "construction",
+        "search": "Metallbau, Metallverarbeitung",
+        "werbering": false
+    },
+    {
+        "name": "FEINE WEINE",
+        "location": "4663 Laakirchen",
+        "link": "https://www.feine-weine.at",
+        "category": "food",
+        "search": "Weinhandel, Weine, Weinberatung",
+        "werbering": false
+    },
+    {
+        "name": "Tabak Trafik Martin Fischer",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "tobacco",
+        "search": "Trafik, Tabakwaren, Zeitschriften, Lotto, Bücher, Schulartikel, Büroartikel, Konzertkarten",
+        "werbering": true
+    },
+    {
+        "name": "Fix Fax Bürotechnik HandelsgmbH.",
+        "location": "Neue Landstraße 70, 4655 Vorchdorf",
+        "link": "https://www.fixfax.at",
+        "category": "it",
+        "search": "Bürotechnik, Drucker, Kopierer, Faxgeräte, PC",
+        "werbering": true
+    },
+    {
+        "name": "Fleischhauerei Kinast GmbH",
+        "location": "4662 Steyrermühl",
+        "link": "https://www.fleischhauerei-kinast.at",
+        "category": "food",
+        "search": "Fleischerei, Frischfleisch, Wurst",
+        "werbering": true
+    },
+    {
+        "name": "fotoart - Fotostudio",
+        "location": "4663 Laakirchen",
+        "link": "https://www.fotoart.at",
+        "category": "photo",
+        "search": "Fotografie, Fotografie, Bildbearbeitung",
+        "werbering": true
+    },
+    {
+        "name": "Foxxy Dance-Bar",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.foxxy.at",
+        "category": "gastro",
+        "search": "Gastronomie, Bar, Events",
+        "werbering": true
+    },
+    {
+        "name": "Franz ATTWENGER u. Söhne GmbH",
+        "location": "4656 Kirchham",
+        "link": "https://www.attwenger.co.at",
+        "category": "construction",
+        "search": "Tischlerei, Möbel, Innenarchitektur, Türen",
+        "werbering": false
+    },
+    {
+        "name": "Franz Zotter Innenarchitektur und Online Möbelshop",
+        "location": "Feldham 6, 4655 Vorchdorf",
+        "link": "http://www.franzzotter.at",
+        "category": "construction",
+        "search": "Möbel & Einrichtung, Möbel, Innenarchitektur",
+        "werbering": false
+    },
+    {
+        "name": "FREIBAD Laakirchen",
+        "location": "4663 Laakirchen",
+        "link": "https://www.laakirchen.at",
+        "category": "culture",
+        "search": "Freibad, Schwimmen, Baden, Erholung",
+        "werbering": false
+    },
+    {
+        "name": "FREIBAD Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.vorchdorf.at",
+        "category": "culture",
+        "search": "Freibad, Schwimmen, Baden, Erholung",
+        "werbering": false
+    },
+    {
+        "name": "Fundgrube-Vorchdorf",
+        "location": "Bahnhofstraße 34, 4655 Vorchdorf",
+        "link": "http://www.fundgrube-vorchdorf.com",
+        "category": "fashion",
+        "search": "Secondhand, Secondhand, Gebrauchtwaren",
+        "werbering": false
+    },
+    {
+        "name": "FUSSL Modestraße Mayr GesmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.fussl.at",
+        "category": "fashion",
+        "search": "Mode & Bekleidung, Mode, Bekleidung",
+        "werbering": true
+    },
+    {
+        "name": "FUZO - Coffee & Kitchen",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.fuzo-vorchdorf.at",
+        "category": "gastro",
+        "search": "Gastronomie, Kaffee, Speisen, Frühstück",
+        "werbering": true
+    },
+    {
+        "name": "Foxxy Dance-Bar",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.fuzzybar.at",
+        "category": "gastro",
+        "search": "Gastronomie, Bar, Events",
+        "werbering": true
+    },
+    {
+        "name": "FÜRTBAUER GmbH & Co KG",
+        "location": "4663 Laakirchen",
+        "link": "https://www.fuertbauer.at",
+        "category": "construction",
+        "search": "Installateur, Badgestaltung, Wassertechnik, Heiztechnik, Solartechnik",
+        "werbering": false
+    },
+    {
+        "name": "FÜRTBAUER-Bilanzbuchhaltung",
+        "location": "4664 Oberweis",
+        "link": "",
+        "category": "accounting",
+        "search": "Steuerberatung, Buchhaltung, Bilanzierung",
+        "werbering": false
+    },
+    {
+        "name": "Galerie im Gewölbe",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "culture",
+        "search": "Kunst, Kunst",
+        "werbering": false
+    },
+    {
+        "name": "Garten Haselberger",
+        "location": "Albenedt 14, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Landschaftspflege, Gartengestaltung",
+        "werbering": false
+    },
+    {
+        "name": "Elektrotechnik Gasperlmayr GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.etga.at",
+        "category": "construction",
+        "search": "Elektroinstallation, Elektroinstallation",
+        "werbering": true
+    },
+    {
+        "name": "Gasthaus Hinterreitner Rainer",
+        "location": "Eggenberg 11, 4655 Vorchdorf",
+        "link": "https://www.ghhinterreitner.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": true
+    },
+    {
+        "name": "Gasthaus THALSTUBE",
+        "location": "4663 Laakirchen",
+        "link": "https://www.thalstube.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": false
+    },
+    {
+        "name": "Gasthof BADER",
+        "location": "4663 Laakirchen",
+        "link": "https://www.gasthofbader.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": false
+    },
+    {
+        "name": "Gasthof Pöll, Kirchham",
+        "location": "4656 Kirchham",
+        "link": "https://www.gasthauspoell.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": true
+    },
+    {
+        "name": "Gasthof WIRT AM BACH",
+        "location": "4664 Oberweis",
+        "link": "https://www.wirtambach.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": false
+    },
+    {
+        "name": "GATSBY - Ihr Platz an der Bar",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.gatsby.at",
+        "category": "gastro",
+        "search": "Gastronomie, Bar, Cocktails",
+        "werbering": true
+    },
+    {
+        "name": "GemeinsamLeben - Pflege & Betreuung für ältere Menschen",
+        "location": "Haidstraße 8/1, 4655 Vorchdorf",
+        "link": "http://www.gemeinsam-leben-ooe.at/",
+        "category": "healthcare",
+        "search": "Pflege & Betreuung, Pflege, Betreuung älterer Menschen",
+        "werbering": false
+    },
+    {
+        "name": "Geschäftsvermittlung",
+        "location": "Falkenohren 29, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Dienstleistung, Geschäftsvermittlung, Homepageerstellung",
+        "werbering": false
+    },
+    {
+        "name": "Getränkegroßhandel WAGNER KG",
+        "location": "4664 Laakirchen",
+        "link": "https://www.wagnerweb.at",
+        "category": "food",
+        "search": "Getränkehandel, Getränke, Großhandel",
+        "werbering": false
+    },
+    {
+        "name": "Gollinger Taxi-Mietwagen-Ausflugsfahrten",
+        "location": "Pettenbacherstraße 12, 4655 Vorchdorf",
+        "link": "https://www.gollinger.net",
+        "category": "transport",
+        "search": "Taxi & Mietwagen, Mietwagen, Krankenbeförderung",
+        "werbering": true
+    },
+    {
+        "name": "GRAROCK Günter, LITO",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.lito.at",
+        "category": "catering",
+        "search": "Veranstaltungstechnik, Veranstaltungstechnik, Ton",
+        "werbering": false
+    },
+    {
+        "name": "GRUBER GmbH Landtechnik & Zweiräder",
+        "location": "4652 Steinerkirchen",
+        "link": "https://www.teamgruber.at",
+        "category": "cars",
+        "search": "Landtechnik, Landmaschinen, Zweiräder, Microcars",
+        "werbering": false
+    },
+    {
+        "name": "Grundner Solarmontagen GmbH",
+        "location": "Berg 8, 4655 Vorchdorf",
+        "link": "https://www.grundner-solarmontagen.at",
+        "category": "construction",
+        "search": "Solar & PV, Solarmontage",
+        "werbering": true
+    },
+    {
+        "name": "H.AUStaller GmbH - Haustüren, Fenster & Sonnenschutz",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.h-aus.at",
+        "category": "construction",
+        "search": "Fenster & Sonnenschutz, Haustüren, Fenster, Sonnenschutz",
+        "werbering": true
+    },
+    {
+        "name": "Haan Stefan, Kunstschmiede",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.stefan-haan.at",
+        "category": "construction",
+        "search": "Metallbau, Kunstschmiede, Metallarbeiten",
+        "werbering": true
+    },
+    {
+        "name": "HAARGENAU Helga Lohninger",
+        "location": "Bahnhofstraße 19, 4655 Vorchdorf",
+        "link": "https://www.haargenau.at",
+        "category": "beauty",
+        "search": "Friseur, Damen- und Herrenfriseur",
+        "werbering": true
+    },
+    {
+        "name": "Haarstudio Bettina Staudinger",
+        "location": "Bärnthal 17, 4655 Vorchdorf",
+        "link": "https://www.bettina-haarstudio.at/index.php/kontakt",
+        "category": "beauty",
+        "search": "Friseur, Damen- und Herrenfriseur",
+        "werbering": true
+    },
+    {
+        "name": "Harry Sports",
+        "location": "Weidenstraße 38, 4655 Vorchdorf",
+        "link": "",
+        "category": "fashion",
+        "search": "Sport & Freizeit, Sportartikel, Teamsportausrüstung",
+        "werbering": false
+    },
+    {
+        "name": "Hartner Aggregate und Industrietechnik GmbH",
+        "location": "4643 Pettenbach",
+        "link": "https://www.erich-hartner.at",
+        "category": "wholesale",
+        "search": "Industrie, Aggregate, Industrietechnik",
+        "werbering": true
+    },
+    {
+        "name": "Haustechnik Pühringer GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.ht-puehringer.at",
+        "category": "construction",
+        "search": "Installateur, Heizung, Sanitär, Lüftung",
+        "werbering": true
+    },
+    {
+        "name": "HEINZEL STEYRERMÜHL GmbH",
+        "location": "4662 Steyrermühl",
+        "link": "https://www.heinzelpaper.com",
+        "category": "industry",
+        "search": "Papier, Papierherstellung",
+        "werbering": false
+    },
+    {
+        "name": "HELIOS-Apotheke",
+        "location": "4663 Laakirchen",
+        "link": "https://www.heliosapotheke.at",
+        "category": "healthcare",
+        "search": "Apotheke, Medikamente, Beratung, Kosmetik",
+        "werbering": false
+    },
+    {
+        "name": "Hellein Personalverrechnung e.U.",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.hellein.net",
+        "category": "accounting",
+        "search": "Personalverrechnung, Personalverrechnung",
+        "werbering": true
+    },
+    {
+        "name": "Trafik Hermanseder Bernhard",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "tobacco",
+        "search": "Trafik, Tabakwaren, Zeitschriften",
+        "werbering": true
+    },
+    {
+        "name": "HerWeinspaziert - Weinhandel",
+        "location": "4654 Bad Wimsbach",
+        "link": "",
+        "category": "gastro",
+        "search": "Weinhandel, Weine, Weinverkostung",
+        "werbering": true
+    },
+    {
+        "name": "Heson Metall- u. Kunststofftechnik GmbH",
+        "location": "Pettenbacherstrasse 66, 4655 Vorchdorf",
+        "link": "https://www.heson.com",
+        "category": "industry",
+        "search": "Industrie, Metall- und Kunststofftechnik",
+        "werbering": true
+    },
+    {
+        "name": "Hessenberger Computertechnik Ges.m.b.H.",
+        "location": "Pettenbacherstraße 61a, 4655 Vorchdorf",
+        "link": "http://www.hessenberger.at",
+        "category": "it",
+        "search": "IT & EDV, Computer, Netzwerke, Warenwirtschaft",
+        "werbering": false
+    },
+    {
+        "name": "HIFI Studio Stenz e.U.",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.hifi-studio.at",
+        "category": "construction",
+        "search": "HIFI & AUDIO, HiFi, TV, Audio",
+        "werbering": true
+    },
+    {
+        "name": "Schimpl Maria - Hilfe im Alltag",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.hilfe-im-alltag.at",
+        "category": "services",
+        "search": "Pflege & Betreuung, Alltagshilfe, Betreuung",
+        "werbering": true
+    },
+    {
+        "name": "HIP Holzbau GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.hip-holzbau.at",
+        "category": "construction",
+        "search": "Holzbau, Holzbau, Zimmerei",
+        "werbering": true
+    },
+    {
+        "name": "Hochleitner Sport, Schuhe und Mode",
+        "location": "4656 Bad Wimsbach",
+        "link": "https://www.hochleithner.net",
+        "category": "fashion",
+        "search": "Mode & Bekleidung, Schuhe, Sport, Mode",
+        "werbering": true
+    },
+    {
+        "name": "Hochreiter KFZ GmbH",
+        "location": "4656 Kirchham",
+        "link": "https://www.toyota-hochreiter.at",
+        "category": "cars",
+        "search": "Autohaus, Toyota, Neuwagen, Service",
+        "werbering": true
+    },
+    {
+        "name": "HOFER - Technisches Zeichenbüro",
+        "location": "Thalbachweg 38, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Dienstleistung, 3D-Pläne, Einreichpläne",
+        "werbering": false
+    },
+    {
+        "name": "Hoftaverne Ziegelböck",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.hoftaverne.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": true
+    },
+    {
+        "name": "HOIDINGER'S Mostschenke",
+        "location": "4663 Laakirchen",
+        "link": "https://www.hoidinger.at",
+        "category": "gastro",
+        "search": "Gastronomie, Most, regionale Küche",
+        "werbering": false
+    },
+    {
+        "name": "Humanenergetik PRANAOM",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.pranaom.at",
+        "category": "healthcare",
+        "search": "Massage & Wellness, Humanenergetik, Energiearbeit",
+        "werbering": true
+    },
+    {
+        "name": "HUTTERER Harald J, Elektro",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Elektroinstallation, Elektroinstallation",
+        "werbering": false
+    },
+    {
+        "name": "ib Rauscher",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.ibr.co.at",
+        "category": "construction",
+        "search": "Elektroinstallation, Elektroinstallation, Photovoltaik",
+        "werbering": true
+    },
+    {
+        "name": "id Werkstatt",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.id-werkstatt.at",
+        "category": "construction",
+        "search": "Gastronomieeinrichtungen, Einrichtung, Design",
+        "werbering": true
+    },
+    {
+        "name": "Ihr INSTALLATEUR mit Feinschliff",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.badwerkstatt.at",
+        "category": "construction",
+        "search": "Installateur, Bad, Heizung, Sanitär",
+        "werbering": true
+    },
+    {
+        "name": "IMMOWERT - Leitner e.U.",
+        "location": "4656 Kirchham",
+        "link": "https://www.immowert-leitner.at",
+        "category": "construction",
+        "search": "Immobilien, Immobilienbewertung",
+        "werbering": true
+    },
+    {
+        "name": "IMPERA Immobilien GmbH",
+        "location": "4055 Pucking",
+        "link": "https://www.impera-immobilien.at",
+        "category": "construction",
+        "search": "Immobilien, Immobilienvermittlung",
+        "werbering": true
+    },
+    {
+        "name": "INFRAROTHEIZUNG Stefan Viechtbauer",
+        "location": "4655 Vorchdorf",
+        "link": "http://www.v-infrarot.at/hp/",
+        "category": "construction",
+        "search": "Wärmetechnik, Infrarotheizung",
+        "werbering": true
+    },
+    {
+        "name": "INNOCENTE GesmbH, Dachdecker",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.innocente.at",
+        "category": "construction",
+        "search": "Dachdecker, Dachdeckerarbeiten",
+        "werbering": true
+    },
+    {
+        "name": "JO's Restaurant, Partyservice und Eventcatering",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.jos-restaurant.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": true
+    },
+    {
+        "name": "Jura GmbH - Beschichtung, Abdichtung, Betonsanierung",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.jura-beschichtung.at",
+        "category": "construction",
+        "search": "Industrie, Beschichtungen",
+        "werbering": true
+    },
+    {
+        "name": "Juwelier Gassenbauer",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.juwelier-gassenbauer.at",
+        "category": "jewelry",
+        "search": "Schmuck & Uhren, Schmuck, Uhren, Reparaturen",
+        "werbering": true
+    },
+    {
+        "name": "K.u.F. Drack GmbH & Co KG - Strom, Holzbau, Elektrotechnik, Metall",
+        "location": "4643 Pettenbach",
+        "link": "https://www.kfd.at",
+        "category": "construction",
+        "search": "Industrie, Holz, Elektro, Metall",
+        "werbering": true
+    },
+    {
+        "name": "KALKI'S Hausfleischerei u. Catering",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.kalkishausfleischerei.at",
+        "category": "gastro",
+        "search": "Fleischerei, Fleisch, Wurst, Catering",
+        "werbering": true
+    },
+    {
+        "name": "KARMA LOUNGE Cocktails & Kitchen",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "gastro",
+        "search": "Gastronomie, Bar, Cocktails, Speisen",
+        "werbering": true
+    },
+    {
+        "name": "KFZ-Bogner GmbH.",
+        "location": "Lambacherstraße 41a, 4655 Vorchdorf",
+        "link": "http://www.kfz-bogner.at",
+        "category": "cars",
+        "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen",
+        "werbering": false
+    },
+    {
+        "name": "KIENINGER JESSICA, Hunde- und Katzensalon",
+        "location": "4663 Laakirchen",
+        "link": "https://www.hundekatzensalon.com",
+        "category": "services",
+        "search": "Hundesalon & Tierpflege, Hundepflege, Katzenpflege",
+        "werbering": false
+    },
+    {
+        "name": "KITZMANTELFABRIK",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.kitzmantelfabrik.at",
+        "category": "culture",
+        "search": "Museum & Kultur, Museum, Veranstaltungen, Kultur",
+        "werbering": false
+    },
+    {
+        "name": "kmb Metalltechnik",
+        "location": "Feldhamer Straße 39, 4655 Vorchdorf",
+        "link": "http://www.kmb-technik.at",
+        "category": "industry",
+        "search": "Industrie, Metalltechnik",
+        "werbering": false
+    },
+    {
+        "name": "Kohler - Intercoiffeur - Damen- u. Herrenfriseur",
+        "location": "Schloßplatz 9, 4655 Vorchdorf",
+        "link": "http://www.salon-kohler.at",
+        "category": "beauty",
+        "search": "Friseur, Damen- und Herrenfriseur",
+        "werbering": false
+    },
+    {
+        "name": "KREATIVE BLUMEREI",
+        "location": "4664 Oberweis",
+        "link": "https://www.kreative-blumerei.at",
+        "category": "flowers",
+        "search": "Blumen & Gärtnerei, Blumen, Floristik",
+        "werbering": false
+    },
+    {
+        "name": "KRENMAYR KG, Thomas Krenmayr",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.blumen-krenmayr.at",
+        "category": "flowers",
+        "search": "Blumen & Gärtnerei, Blumen, Floristik",
+        "werbering": true
+    },
+    {
+        "name": "Kreuzeder Säge- & Hobelwerk",
+        "location": "Lederau 46, 4655 Vorchdorf",
+        "link": "",
+        "category": "industry",
+        "search": "Holzverarbeitung, Sägewerk, Hobelwerk, Bauholz",
+        "werbering": false
+    },
+    {
+        "name": "Autohaus Kronberger GmbH",
+        "location": "4656 Kirchham",
+        "link": "https://www.ford-kronberger.at",
+        "category": "cars",
+        "search": "Autohaus, Ford, Neuwagen, Service",
+        "werbering": true
+    },
+    {
+        "name": "Königswieser Gerätetechnik GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.koenigswieser.com",
+        "category": "industry",
+        "search": "Landtechnik, Forsttechnik, Seilwinden",
+        "werbering": true
+    },
+    {
+        "name": "LAAKIRCHEN PAPIER AG",
+        "location": "4663 Laakirchen",
+        "link": "https://www.heinzelpaper.com",
+        "category": "industry",
+        "search": "Papier, Papierherstellung",
+        "werbering": false
+    },
+    {
+        "name": "Lagerhaus Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.lagerhaus.at",
+        "category": "construction",
+        "search": "Agrarhandel, Baustoffe, Gartenbedarf, Landwirtschaft",
+        "werbering": true
+    },
+    {
+        "name": "Landschaftspflege Preinstorfer",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.landschaftspflege-preinstorfer.at",
+        "category": "services",
+        "search": "Landschaftspflege, Landschaftspflege, Kommunaldienst",
+        "werbering": true
+    },
+    {
+        "name": "LANG Schuhmode",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.fmzvorchdorf.at",
+        "category": "fashion",
+        "search": "Mode & Bekleidung, Schuhe, Mode",
+        "werbering": true
+    },
+    {
+        "name": "LCA - Agentur für Rationalisierungs- u. Sicherheitstechnik",
+        "location": "Messenbacherstrasse 24, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Unternehmensberatung, Rationalisierung, Sicherheitstechnik",
+        "werbering": false
+    },
+    {
+        "name": "LEATHER ROSE, Rosemarie Spitzbart",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.leatherrose.at",
+        "category": "jewelry",
+        "search": "Lederwaren, Lederwaren, Handwerk",
+        "werbering": true
+    },
+    {
+        "name": "LEISS Kfz",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.kfz-leiss.at",
+        "category": "cars",
+        "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen",
+        "werbering": true
+    },
+    {
+        "name": "Leithinger Gärtnerei und Blumen",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.gaertnerei-leithinger.at",
+        "category": "flowers",
+        "search": "Blumen & Gärtnerei, Gärtnerei, Blumen, Pflanzen",
+        "werbering": true
+    },
+    {
+        "name": "LG-Tiefbau GmbH",
+        "location": "4652 Steinerkirchen",
+        "link": "https://www.lg-tiefbau.at",
+        "category": "construction",
+        "search": "Bau & Tiefbau, Tiefbau, Erdbewegungen",
+        "werbering": true
+    },
+    {
+        "name": "Lichtland RITTENSCHOBER KG",
+        "location": "4816 Gschwandt",
+        "link": "https://www.lichtland.at",
+        "category": "construction",
+        "search": "Licht & Lampen, Lampen, Beleuchtung",
+        "werbering": false
+    },
+    {
+        "name": "Lohninger Erdbau GmbH",
+        "location": "Adlhaming 30, 4655 Vorchdorf",
+        "link": "https://www.erdbau-lohninger.at",
+        "category": "construction",
+        "search": "Bau & Tiefbau, Erdbau, Baggerarbeiten",
+        "werbering": true
+    },
+    {
+        "name": "LOIDL Michael, Tabak Trafik",
+        "location": "4663 Laakirchen",
+        "link": "",
+        "category": "tobacco",
+        "search": "Trafik, Tabakwaren, Zeitschriften",
+        "werbering": false
+    },
+    {
+        "name": "floral elements - Elke Lumetsberger",
+        "location": "Waldstraße 10, 4655 Vorchdorf",
+        "link": "http://www.elke-lumetsberger.at",
+        "category": "flowers",
+        "search": "Blumen & Gärtnerei, Blumen, Floristik",
+        "werbering": true
+    },
+    {
+        "name": "Lüftinger Bau GmbH",
+        "location": "4654 Bad Wimsbach",
+        "link": "https://www.lueftingerbau.at",
+        "category": "construction",
+        "search": "Bau & Tiefbau, Bau, Tiefbau",
+        "werbering": true
+    },
+    {
+        "name": "Maier Dach GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.maier-dach.at",
+        "category": "construction",
+        "search": "Dachdecker, Dachdeckerarbeiten",
+        "werbering": true
+    },
+    {
+        "name": "Malerei Jürgen Prielinger",
+        "location": "Burgstraße 12, 4655 Vorchdorf",
+        "link": "http://www.malerei-prielinger.at",
+        "category": "construction",
+        "search": "Malerei, Malerarbeiten, Fassade",
+        "werbering": false
+    },
+    {
+        "name": "Marktgemeinde Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.vorchdorf.at",
+        "category": "services",
+        "search": "Gemeinde, Gemeindeverwaltung",
+        "werbering": true
+    },
+    {
+        "name": "MARMORSTEIN, Arkan Bülent",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.marmorstein.at",
+        "category": "construction",
+        "search": "Steinmetz, Marmor, Steinarbeiten",
+        "werbering": false
+    },
+    {
+        "name": "Martetschläger GmbH",
+        "location": "Dr. Mitterbauerstraße 5, 4655 Vorchdorf",
+        "link": "https://www.martetschlaeger.net",
+        "category": "construction",
+        "search": "Fliesen & Öfen, Kachelöfen, Fliesen",
+        "werbering": true
+    },
+    {
+        "name": "Massmöbel Individuell",
+        "location": "Eggenberg 13, 4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Möbel & Einrichtung, Möbel nach Maß",
+        "werbering": false
+    },
+    {
+        "name": "Mayr Horst, Dr. Rechtsanwalt",
+        "location": "Bahnhofstraße 1, 4655 Vorchdorf",
+        "link": "",
+        "category": "legal",
+        "search": "Rechtsanwalt, Rechtsberatung, Vertretung",
+        "werbering": false
+    },
+    {
+        "name": "McDonald's Vorchdorf mit McCafe",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "gastro",
+        "search": "Gastronomie, Fast Food",
+        "werbering": true
+    },
+    {
+        "name": "Mein Training - Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.mein-training.at",
+        "category": "beauty",
+        "search": "Fitness, Fitnesstraining",
+        "werbering": true
+    },
+    {
+        "name": "MBP Metallbau Prielinger GmbH",
+        "location": "Josef Haas-Straße 10, 4655 Vorchdorf",
+        "link": "https://www.prielinger.com/",
+        "category": "construction",
+        "search": "Metallbau, Metallbau, Schlosserei",
+        "werbering": true
+    },
+    {
+        "name": "Meyer Logistik GmbH & Co. KG",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.meyer-logistik.at",
+        "category": "industry",
+        "search": "Transport & Logistik, Logistik, Transport",
+        "werbering": true
+    },
+    {
+        "name": "Miba Sinter Austria GmbH",
+        "location": "Dr. Mitterbauerstraße 1, 4655 Vorchdorf",
+        "link": "http://www.miba.com",
+        "category": "industry",
+        "search": "Industrie, Sinterteile, Automobilzulieferer",
+        "werbering": false
+    },
+    {
+        "name": "MICHLHOF zu Haitzing",
+        "location": "4663 Laakirchen",
+        "link": "https://www.michlhof-haitzing.at",
+        "category": "gastro",
+        "search": "Bauernhof, Bauernhof, Direktvermarktung",
+        "werbering": false
+    },
+    {
+        "name": "Mobile Pflege - Marina Nußbaumer",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.mobilepflegenussbaumer.at",
+        "category": "services",
+        "search": "Pflege & Betreuung, Mobile Pflege, Betreuung",
+        "werbering": true
+    },
+    {
+        "name": "Mobiles Sägewerk FÜRTBAUER",
+        "location": "4694 Ohlsdorf",
+        "link": "",
+        "category": "services",
+        "search": "Holzverarbeitung, Mobiles Sägewerk",
+        "werbering": false
+    },
+    {
+        "name": "Moden BAUMGARTNER",
+        "location": "4663 Laakirchen",
+        "link": "",
+        "category": "fashion",
+        "search": "Mode & Bekleidung, Mode, Bekleidung",
+        "werbering": false
+    },
+    {
+        "name": "Moorbad Gmös",
+        "location": "4663 Laakirchen",
+        "link": "https://www.moorbad-gmoes.at",
+        "category": "healthcare",
+        "search": "Massage & Wellness, Moorbad, Wellness",
+        "werbering": true
+    },
+    {
+        "name": "Musikinstrumente Hemetsberger",
+        "location": "Schloßplatz 9, 4655 Vorchdorf",
+        "link": "http://www.musik-hemetsberger.at",
+        "category": "culture",
+        "search": "Musik, Musikinstrumente",
+        "werbering": false
+    },
+    {
+        "name": "Mühle Bäckerei Bachinger GmbH",
+        "location": "Lindacherstraße 7, 4655 Vorchdorf",
+        "link": "",
+        "category": "food",
+        "search": "Bäckerei, Brot, Gebäck, 100% Roggenbrot",
+        "werbering": false
+    },
+    {
+        "name": "Müller Kraftfahrzeug GesmbH",
+        "location": "4654 Bad Wimsbach",
+        "link": "https://www.kfz-mueller.at",
+        "category": "cars",
+        "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen, Neuwagen, Gebrauchtwagen",
+        "werbering": true
+    },
+    {
+        "name": "MÜLLER Tankstellen GesmbH",
+        "location": "4812 St. Konrad",
+        "link": "",
+        "category": "gas",
+        "search": "Tankstelle, Kraftstoffe, Shop",
+        "werbering": true
+    },
+    {
+        "name": "Nahwärme Vorchdorf e.G.",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.nahwaermevorchdorf.at",
+        "category": "services",
+        "search": "Energie, Fernwärme, Nahwärme",
+        "werbering": true
+    },
+    {
+        "name": "NKD Österreich GmbH",
+        "location": "Bahnhofstraße 16, 4655 Vorchdorf",
+        "link": "https://www.nkd.at",
+        "category": "fashion",
+        "search": "Mode & Bekleidung, Mode, Textilien",
+        "werbering": true
+    },
+    {
+        "name": "Notariat Wilthoner",
+        "location": "Bahnhofstraße 21, 4655 Vorchdorf",
+        "link": "https://www.notar-wilthoner.at",
+        "category": "legal",
+        "search": "Notar, Beglaubigungen, Verträge, Grundbuch",
+        "werbering": true
+    },
+    {
+        "name": "OBERBANK Laakirchen",
+        "location": "4663 Laakirchen",
+        "link": "https://www.oberbank.at",
+        "category": "banks",
+        "search": "Bank, Konten, Kredite, Beratung",
+        "werbering": false
+    },
+    {
+        "name": "OBERÖSTERREICH.TV",
+        "location": "4650 Lambach",
+        "link": "https://www.oberoesterreich.tv",
+        "category": "advertising",
+        "search": "Medien, TV, Nachrichten",
+        "werbering": true
+    },
+    {
+        "name": "PALMAN Oliver, Meistermaler",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.palman.co.at",
+        "category": "construction",
+        "search": "Malerei, Malerarbeiten, Fassade",
+        "werbering": true
+    },
+    {
+        "name": "PAPIERWELT MUSEUM und ALFA",
+        "location": "4662 Steyrermühl",
+        "link": "https://www.papiermuseum.at",
+        "category": "culture",
+        "search": "Museum & Kultur, Museum, Papiergeschichte",
+        "werbering": false
+    },
+    {
+        "name": "PAYRHUBER Elektro GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.elektro-payrhuber.at",
+        "category": "construction",
+        "search": "Elektroinstallation, Elektroinstallation",
+        "werbering": false
+    },
+    {
+        "name": "PEARLE Optik Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.pearle.at",
+        "category": "healthcare",
+        "search": "Optik & Hörgeräte, Brillen, Kontaktlinsen",
+        "werbering": true
+    },
+    {
+        "name": "Pfatschbacher Photography",
+        "location": "4810 Gschwandt",
+        "link": "https://www.pfatschbacher-photography.at",
+        "category": "photo",
+        "search": "Fotografie, Fotografie",
+        "werbering": true
+    },
+    {
+        "name": "PICHELSBERGER Autohaus GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.pichelsberger.at",
+        "category": "cars",
+        "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
+        "werbering": true
+    },
+    {
+        "name": "Plaichinger Karl GesmbH",
+        "location": "4663 Laakirchen",
+        "link": "",
+        "category": "food",
+        "search": "Industrie, Industrieprodukte",
+        "werbering": true
+    },
+    {
+        "name": "POHN - LOHNFERTIGUNG",
+        "location": "Einsiedling 43, 4655 Vorchdorf",
+        "link": "http://www.pohn-lohnfertigung.at",
+        "category": "industry",
+        "search": "Industrie, Lohnfertigung",
+        "werbering": false
+    },
+    {
+        "name": "Power Networks GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.powernetworks.at",
+        "category": "it",
+        "search": "IT & EDV, Netzwerke, IT-Service",
+        "werbering": true
+    },
+    {
+        "name": "Praschma - Texter",
+        "location": "Am Riedlbach 3, 4650 Vorchdorf",
+        "link": "https://praschma.com",
+        "category": "advertising",
+        "search": "Dienstleistung, Texter",
+        "werbering": false
+    },
+    {
+        "name": "PRIELINGER ELECTRONIC SYSTEMS",
+        "location": "Point 5, 4655 Vorchdorf",
+        "link": "http://www.prisy.at",
+        "category": "construction",
+        "search": "Elektrotechnik, Elektromaschinenbauer, Bürokommunikationstechniker",
+        "werbering": false
+    },
+    {
+        "name": "PROCONSULT Vorchdorf Wirtschaftsprüfung und Steuerberatung GmbH & Co KG",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.proconsult-wt.at",
+        "category": "accounting",
+        "search": "Steuerberatung, Wirtschaftsprüfung, Steuerberatung",
+        "werbering": true
+    },
+    {
+        "name": "proUmwelt GmbH Limberger",
+        "location": "Lambacherstraße 42, 4655 Vorchdorf",
+        "link": "https://www.proumwelt.at",
+        "category": "services",
+        "search": "Entsorgung, Abfallsammlung, Containerdienst",
+        "werbering": true
+    },
+    {
+        "name": "Pöll GesmbH & CoKG",
+        "location": "Bahnhofstrasse 27, 4655 Vorchdorf",
+        "link": "https://www.poell-vorchdorf.at",
+        "category": "food",
+        "search": "Fleischerei, Frischfleisch, Wurst, Schlachthof",
+        "werbering": true
+    },
+    {
+        "name": "Radner Bernhard",
+        "location": "Schulstraße 18, 4655 Vorchdorf",
+        "link": "http://www.bestattung-vorchdorf.at",
+        "category": "construction",
+        "search": "Tischlerei, Tischlerei, Möbel",
+        "werbering": false
+    },
+    {
+        "name": "Raiffeisenbank Salzkammergut eGen",
+        "location": "Schlossplatz 3, 4655 Vorchdorf",
+        "link": "https://www.raiffeisen-ooe.at/salzkammergut",
+        "category": "banks",
+        "search": "Bank, Konten, Kredite, Beratung",
+        "werbering": true
+    },
+    {
+        "name": "Armin Rauch Werbeagentur UNGLEICH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.ungleich.at",
+        "category": "advertising",
+        "search": "Werbeagentur, Werbung, Grafik, Marketing",
+        "werbering": true
+    },
+    {
+        "name": "Die Vorchdorfer Anwälte - Dr. Horst Mayr",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.ra-mayr.at",
+        "category": "legal",
+        "search": "Rechtsanwalt, Rechtsberatung, Vertretung",
+        "werbering": true
+    },
+    {
+        "name": "Die Vorchdorfer Anwälte - Mag. Aigner - Mag. Lampl",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.kanzlei-vorchdorf.at",
+        "category": "legal",
+        "search": "Rechtsanwalt, Rechtsberatung, Vertretung",
+        "werbering": true
+    },
+    {
+        "name": "REGIO INTAKT Beratung",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.regiointakt.at",
+        "category": "services",
+        "search": "Unternehmensberatung, Beratung, Coaching",
+        "werbering": false
+    },
+    {
+        "name": "REINIGUNG: GLAS-STEIN-PKW-BOOTE UVM....",
+        "location": "Falkenohren 16, 4655 Vorchdorf",
+        "link": "http://www.nano-power.at",
+        "category": "services",
+        "search": "Reinigung, Reinigung, Versiegelung",
+        "werbering": false
+    },
+    {
+        "name": "Reisen Fröch",
+        "location": "4663 Laakirchen",
+        "link": "https://www.froech-reisen.at",
+        "category": "culture",
+        "search": "Reisebüro, Reisen, Busreisen",
+        "werbering": true
+    },
+    {
+        "name": "ReVital-Shop Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "fashion",
+        "search": "Secondhand, Secondhand, Gebrauchtwaren",
+        "werbering": true
+    },
+    {
+        "name": "s`Gschäft ums Eck e.U.",
+        "location": "4653 Eberstalzell",
+        "link": "",
+        "category": "food",
+        "search": "Lebensmittelhandel, Lebensmittel",
+        "werbering": true
+    },
+    {
+        "name": "Sattler Hans-Peter Techn. Zeichenbüro",
+        "location": "Bahnweg 5, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Dienstleistung, 3D-Pläne, Einreichpläne",
+        "werbering": false
+    },
+    {
+        "name": "schatzl .online",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schatzl.online",
+        "category": "it",
+        "search": "IT & EDV, Webdesign, Online-Marketing",
+        "werbering": true
+    },
+    {
+        "name": "Scherleithner Josef Grubenservice",
+        "location": "Schart 17, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Landwirtschaft, Abfallsammlung",
+        "werbering": false
+    },
+    {
+        "name": "Scherleitner Manfred, Dr. MBA",
+        "location": "Adlhaming 5, 4655 Vorchdorf",
+        "link": "https://www.agrismartprotect.com/",
+        "category": "services",
+        "search": "Unternehmensberatung, Agrarschutz, Beratung",
+        "werbering": false
+    },
+    {
+        "name": "SCHIESSL Kältegesellschaft m.b.H",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schiessl.at",
+        "category": "industry",
+        "search": "Kältetechnik, Kälteanlagen, Klimatechnik",
+        "werbering": true
+    },
+    {
+        "name": "SCHIRMFABRIK marketing solutions.",
+        "location": "Moos 22, 4655 Vorchdorf",
+        "link": "http://www.schirmfabrik.at",
+        "category": "advertising",
+        "search": "Werbeagentur, Marketing, Werbung",
+        "werbering": false
+    },
+    {
+        "name": "SCHMALWIESER - Bastel-, Schul- und Nähbedarf, Stoffe",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Bastel & Nähbedarf, Bastelbedarf, Stoffe, Nähzubehör",
+        "werbering": true
+    },
+    {
+        "name": "Schneeberger Günter",
+        "location": "Theuerwang 17, 4655 Vorchdorf",
+        "link": "",
+        "category": "services",
+        "search": "Entsorgung, Entsorgung, Containerdienst",
+        "werbering": false
+    },
+    {
+        "name": "Schneeberger Karl - Schwimmbad-Montage-Technik e.U.",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schwimmbad1a.at",
+        "category": "construction",
+        "search": "Schwimmbadtechnik, Schwimmbad, Poolbau",
+        "werbering": true
+    },
+    {
+        "name": "Schnitt Vision, Lisa Thalinger",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schnittvision.at",
+        "category": "beauty",
+        "search": "Friseur, Damen- und Herrenfriseur",
+        "werbering": true
+    },
+    {
+        "name": "Schwabegger Optik - Hörgeräte - Contactlinsen",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.schwabegger.at",
+        "category": "healthcare",
+        "search": "Optik & Hörgeräte, Brillen, Hörgeräte, Kontaktlinsen",
+        "werbering": true
+    },
+    {
+        "name": "Schweinehandel Oppeneder Gerhard",
+        "location": "Mühltal 86, 4655 Vorchdorf",
+        "link": "",
+        "category": "food",
+        "search": "Landwirtschaft, Schweinehandel",
+        "werbering": false
+    },
+    {
+        "name": "SECONDHAND FARBENFROH",
+        "location": "4662 Steyrermühl",
+        "link": "",
+        "category": "fashion",
+        "search": "Secondhand, Secondhand-Mode",
+        "werbering": false
+    },
+    {
+        "name": "Seyr Harald, Dachdeckerei",
+        "location": "Neue Landstraße 70, 4655 Vorchdorf",
+        "link": "https://www.seyr.org",
+        "category": "construction",
+        "search": "Dachdecker, Dachdeckerarbeiten, Spenglerei",
+        "werbering": true
+    },
+    {
+        "name": "SFK GmbH",
+        "location": "4656 Kirchham",
+        "link": "https://www.sfk.at",
+        "category": "construction",
+        "search": "Tischlerei, Industrieprodukte, Küchen, Wohnen, CNC, Bestatter",
+        "werbering": true
+    },
+    {
+        "name": "SHELL Tankstelle",
+        "location": "4662 Steyrermühl",
+        "link": "",
+        "category": "gas",
+        "search": "Tankstelle, Kraftstoffe, Shop",
+        "werbering": false
+    },
+    {
+        "name": "Shiatsu Massage Carmen",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.massagecarmen.at",
+        "category": "healthcare",
+        "search": "Massage & Wellness, Shiatsu, Massage",
+        "werbering": true
+    },
+    {
+        "name": "Sleddog-Shop",
+        "location": "Waldstrasse 1, 4655 Vorchdorf",
+        "link": "https://sleddog-Shop.at",
+        "category": "services",
+        "search": "Tierbedarf, Schlittenhunde, Zubehör",
+        "werbering": false
+    },
+    {
+        "name": "Sodian Immobilien",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.sodian-immobilien.at",
+        "category": "construction",
+        "search": "Immobilien, Immobilienvermittlung",
+        "werbering": true
+    },
+    {
+        "name": "Sodian Industriereinigung GmbH",
+        "location": "Fischböckau 48, 4655 Vorchdorf",
+        "link": "http://www.sodian.at",
+        "category": "services",
+        "search": "Reinigung, Industriereinigung, Hochdruck",
+        "werbering": false
+    },
+    {
+        "name": "sooonah GmbH",
+        "location": "Kapellenweg 8, 4655 Vorchdorf",
+        "link": "https://www.sooonah.com",
+        "category": "it",
+        "search": "Onlineshop, Onlineshop",
+        "werbering": false
+    },
+    {
+        "name": "Spar Hessenberger",
+        "location": "4663 Laakirchen",
+        "link": "",
+        "category": "food",
+        "search": "Lebensmittelhandel, Lebensmittel",
+        "werbering": true
+    },
+    {
+        "name": "Spar Österreichische Warenhandels AG",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.spar.at",
+        "category": "food",
+        "search": "Lebensmittelhandel, Lebensmittel",
+        "werbering": true
+    },
+    {
+        "name": "SPARKASSE Laakirchen",
+        "location": "4663 Laakirchen",
+        "link": "https://www.sparkasse.at",
+        "category": "banks",
+        "search": "Bank, Konten, Kredite, Beratung",
+        "werbering": false
+    },
+    {
+        "name": "Sparkasse Vorchdorf",
+        "location": "Bahnhofstr. 21, 4655 Vorchdorf",
+        "link": "",
+        "category": "banks",
+        "search": "Bank, Konten, Kredite, Beratung",
+        "werbering": true
+    },
+    {
+        "name": "SPC Gebäudetechnik",
+        "location": "4656 Kirchham",
+        "link": "https://www.spc-technik.at",
+        "category": "construction",
+        "search": "Installateur, Gebäudetechnik, Installation",
+        "werbering": true
+    },
+    {
+        "name": "Tischlerei - Paulus Spitzbart",
+        "location": "4663 Laakirchen",
+        "link": "https://www.floorcover.at",
+        "category": "construction",
+        "search": "Tischlerei, Tischlerei, Bodenbeläge",
+        "werbering": true
+    },
+    {
+        "name": "SPS Bruderhofer",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.sps-bruderhofer.at",
+        "category": "construction",
+        "search": "Schwimmbadtechnik, Poolbau, Sanierung",
+        "werbering": true
+    },
+    {
+        "name": "STADT Apotheke",
+        "location": "4663 Laakirchen",
+        "link": "https://www.stadtapo-laakirchen.at",
+        "category": "healthcare",
+        "search": "Apotheke, Medikamente, Beratung, Kosmetik",
+        "werbering": false
+    },
+    {
+        "name": "STADTGEMEINDE Laakirchen",
+        "location": "4663 Laakirchen",
+        "link": "https://www.laakirchen.at",
+        "category": "services",
+        "search": "Gemeinde, Gemeindeverwaltung",
+        "werbering": false
+    },
+    {
+        "name": "STEINER'S Fiaker",
+        "location": "4663 Laakirchen",
+        "link": "https://www.fiaker.steiners-restaurants.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": false
+    },
+    {
+        "name": "Steinmetzmeister LITTRINGER",
+        "location": "4663 Laakirchen",
+        "link": "https://www.littringer-stein.at",
+        "category": "construction",
+        "search": "Steinmetz, Steinmetzarbeiten, Grabsteine",
+        "werbering": false
+    },
+    {
+        "name": "Stenz Johannes, HIF&TV",
+        "location": "Kapellenweg 2, 4655 Vorchdorf",
+        "link": "http://www.stenz.at",
+        "category": "construction",
+        "search": "Elektro & Haushalt, HiFi, TV, Audio",
+        "werbering": false
+    },
+    {
+        "name": "Stern & Hafferl GesmbH",
+        "location": "Bahnhof, 4655 Vorchdorf",
+        "link": "https://www.stern-verkehr.at",
+        "category": "transport",
+        "search": "Verkehr, Öffentlicher Verkehr, Lokalbahn",
+        "werbering": true
+    },
+    {
+        "name": "Stil & more",
+        "location": "Lederau 17, 4655 Vorchdorf",
+        "link": "http://www.shop-stilandmore.com",
+        "category": "fashion",
+        "search": "Einzelhandel, Geschenkartikel, Dekoration",
+        "werbering": false
+    },
+    {
+        "name": "Stuco GmbH",
+        "location": "Lambacher Straße 41a, 4655 Vorchdorf",
+        "link": "https://www.stuco.com",
+        "category": "wholesale",
+        "search": "Sicherheitsschuhe, Schuhe",
+        "werbering": true
+    },
+    {
+        "name": "Stöttinger Immobilien",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.stoettinger-immobilien.at",
+        "category": "construction",
+        "search": "Immobilien, Immobilienvermittlung",
+        "werbering": true
+    },
+    {
+        "name": "susanne.anziehend",
+        "location": "4655 Vorchdorf",
+        "link": "https://susanne-anziehend.at/",
+        "category": "fashion",
+        "search": "Mode & Bekleidung, Mode, Bekleidung",
+        "werbering": true
+    },
+    {
+        "name": "T&H Sound Systems Ges.n.b.R",
+        "location": "Theuerwang 22, 4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Elektro & Haushalt, Soundsysteme, Audio",
+        "werbering": false
+    },
+    {
+        "name": "Team DogTraining - Dominik Söllradl",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.dogtraining.at",
+        "category": "services",
+        "search": "Hundesalon & Tierpflege, Hundetraining",
+        "werbering": true
+    },
+    {
+        "name": "Götschhofer Thomas GesmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.gut-durchdacht.at",
+        "category": "construction",
+        "search": "Dachdecker, Dachdeckerei, Spenglerei, Kranarbeiten",
+        "werbering": true
+    },
+    {
+        "name": "Tinkahof",
+        "location": "Feldham 13, 4655 Vorchdorf",
+        "link": "http://www.tinkahof.at",
+        "category": "gastro",
+        "search": "Bauernhof, Pferde",
+        "werbering": false
+    },
+    {
+        "name": "Radner Bernhard, Tischlerei",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Tischlerei, Tischlerei, Möbel",
+        "werbering": true
+    },
+    {
+        "name": "Tischlerei STELZHAMMER GmbH",
+        "location": "4663 Laakirchen",
+        "link": "",
+        "category": "construction",
+        "search": "Tischlerei, Tischlerei, Möbel",
+        "werbering": false
+    },
+    {
+        "name": "Traunsee Schifffahrt - Karlheinz Eder GmbH",
+        "location": "4810 Gmunden",
+        "link": "https://www.traunseeschifffahrt.at",
+        "category": "transport",
+        "search": "Schifffahrt, Schifffahrt, Ausflugsfahrten",
+        "werbering": true
+    },
+    {
+        "name": "Textilreinigung Traunstein - bringt's ins Reine",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.textilreinigung-traunstein.at",
+        "category": "services",
+        "search": "Textilreinigung, Textilreinigung",
+        "werbering": true
+    },
+    {
+        "name": "TVM-Pühringer Peter Versicherungsmakler",
+        "location": "Lederau 138, 4655 Vorchdorf",
+        "link": "https://www.tvm.at",
+        "category": "banks",
+        "search": "Versicherung, Versicherungsberatung",
+        "werbering": true
+    },
+    {
+        "name": "Urkornhof Kammerleithner",
+        "location": "Point 11, 4655 Vorchdorf",
+        "link": "http://www.urkorn.at",
+        "category": "food",
+        "search": "Bauernhof, Bauernhof, Urkorn",
+        "werbering": false
+    },
+    {
+        "name": "VBV Vorchdorf OG",
+        "location": "Lambacherstraße 16, 4655 Vorchdorf",
+        "link": "",
+        "category": "banks",
+        "search": "Versicherung, Versicherungsberatung",
+        "werbering": false
+    },
+    {
+        "name": "Vinolino, Laszl Gerhard",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "gastro",
+        "search": "Bar, Weinhandel, Bar, Weinhandel",
+        "werbering": true
+    },
+    {
+        "name": "VKB-Bank Vorchdorf",
+        "location": "Bahnhofstraße 7, 4655 Vorchdorf",
+        "link": "http://www.vorchdorf.vkb-bank.at",
+        "category": "banks",
+        "search": "Bank, Konten, Kredite, Beratung",
+        "werbering": false
+    },
+    {
+        "name": "VMB Laakirchen",
+        "location": "4663 Laakirchen",
+        "link": "https://www.vmb-laakirchen.at",
+        "category": "banks",
+        "search": "Versicherung, Versicherungsberatung",
+        "werbering": false
+    },
+    {
+        "name": "Vogelhubergut - Familie Scherleithner",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.vogelhubergut.at",
+        "category": "gastro",
+        "search": "Bauernhof, Pension, Pension, Zimmervermietung, Veranstaltungen",
+        "werbering": true
+    },
+    {
+        "name": "Volkskreditbank AG",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.vkb-bank.at",
+        "category": "banks",
+        "search": "Bank, Konten, Kredite, Beratung",
+        "werbering": true
+    },
+    {
+        "name": "vorchdorfmedia e.U. - Mag. Gerhard Radner",
+        "location": "Oberhörbach 18, 4655 Vorchdorf",
+        "link": "https://www.vorchdorfmedia.at",
+        "category": "advertising",
+        "search": "Werbeagentur, Werbung, Medien",
+        "werbering": true
+    },
+    {
+        "name": "Wagenhaus GmbH",
+        "location": "Feldhamer Straße 41, 4655 Vorchdorf",
+        "link": "https://www.wagenhaus.at/",
+        "category": "cars",
+        "search": "Autohaus, Kfz-Werkstatt, Autoverkauf",
+        "werbering": true
+    },
+    {
+        "name": "Waldl Martin",
+        "location": "Berg 4, 4655 Vorchdorf",
+        "link": "",
+        "category": "food",
+        "search": "Landwirtschaft, Landwirtschaft",
+        "werbering": false
+    },
+    {
+        "name": "WELTLADEN",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.weltladenvorchdorf.at",
+        "category": "food",
+        "search": "Weltladen, Fair Trade Produkte",
+        "werbering": true
+    },
+    {
+        "name": "Wiedl's Taxi GmbH",
+        "location": "Brunnmühlstraße 8, 4655 Vorchdorf",
+        "link": "https://www.taxi-wiedl.at",
+        "category": "transport",
+        "search": "Taxi & Mietwagen, Taxi, 24h Service",
+        "werbering": true
+    },
+    {
+        "name": "Wiener F., Stapler-u. Baumaschinenservice",
+        "location": "Neue Landstrasse 70, 4655 Vorchdorf",
+        "link": "http://www.stapler-wiener.at",
+        "category": "construction",
+        "search": "Baumaschinen, Stapler, Baumaschinen, Service",
+        "werbering": false
+    },
+    {
+        "name": "Wirt in der Edt",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.wirt-edt.at",
+        "category": "gastro",
+        "search": "Gastronomie, Speisen und Getränke",
+        "werbering": true
+    },
+    {
+        "name": "WohnPlanerin - Eva Raffelsberger",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.wohnplanerin.at",
+        "category": "construction",
+        "search": "Möbel & Einrichtung, Wohnplanung, Einrichtungsberatung",
+        "werbering": true
+    },
+    {
+        "name": "Wohnstudio Johannes HUTTERER",
+        "location": "4663 Laakirchen",
+        "link": "https://www.moderne-kuechen.at",
+        "category": "construction",
+        "search": "Möbel & Einrichtung, Küchen, Möbel",
+        "werbering": false
+    },
+    {
+        "name": "Zambelli Industrieprodukte",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.zambelli-ip.at",
+        "category": "services",
+        "search": "Industrie, Industrieprodukte",
+        "werbering": true
+    },
+    {
+        "name": "Zauner Berthold Werbe- und Handelsagentur",
+        "location": "Seyrkam 35, 4655 Vorchdorf",
+        "link": "http://www.webtools.at",
+        "category": "advertising",
+        "search": "Werbeagentur, Werbung",
+        "werbering": false
+    },
+    {
+        "name": "ZOPF Schmuck, Uhren, Optik",
+        "location": "4663 Laakirchen",
+        "link": "https://www.zopf-optik.at",
+        "category": "healthcare",
+        "search": "Schmuck, Uhren, Optik, Schmuck, Uhren, Optik",
+        "werbering": false
+    },
+    {
+        "name": "ZUMBA®Andrea",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "beauty",
+        "search": "Fitness, Zumba-Kurse",
+        "werbering": true
+    },
+    {
+        "name": "Zwirn - Café Bar Osteria",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.cafezwirn.at",
+        "category": "gastro",
+        "search": "Gastronomie, Café, Bar, italienische Küche",
+        "werbering": true
+    },
+    {
+        "name": "BÄR on TOUR Foodtruck",
+        "location": "Hochbaustraße 9, 4694 Ohlsdorf",
+        "link": "https://baer-on-tour.at",
+        "category": "gastro",
+        "search": "Spitzengastronomie, Street Food, Foodtruck, Events, regional, frisch",
+        "werbering": true
+    },
+    {
+        "name": "Escape House Vorchdorf",
+        "location": "Lambacherstraße 7, 4655 Vorchdorf",
+        "link": "https://www.escape-house.at",
+        "category": "culture",
+        "search": "Escape Room Abenteuer, Themenräume, Zeitreise, Familie, Freunde, Vereinsausflug, Firmenevents",
+        "werbering": true
+    },
+    {
+        "name": "FRUTURA Obst & Gemüse Kompetenzzentrum GmbH",
+        "location": "Asamerstraße 1b, 4655 Vorchdorf",
+        "link": "https://www.frutura.com",
+        "category": "industry",
+        "search": "Obst und Gemüse, Kompetenzzentrum, Landwirtschaftliche Produkte, Frutura",
+        "werbering": true
+    },
+    {
+        "name": "Gut Haberhaide – Hofladen, Mostschenke, Arche-Hof",
+        "location": "Kranabeth 14, 4663 Laakirchen",
+        "link": "https://hoidinger.at",
+        "category": "gastro",
+        "search": "Hofladen, Mostschenke, Arche-Hof, regionale Spezialitäten, Rind, Schwein, Pute, Hühnerfleisch, Direktvermarktung",
+        "werbering": true
+    },
+    {
+        "name": "Job & Personal GmbH",
+        "location": "Reuhartinger Straße 5, 4655 Vorchdorf",
+        "link": "http://www.jobundpersonal.at",
+        "category": "services",
+        "search": "Personalberatung, Arbeitskräfteüberlassung, Personaldienstleistungen, Jobs, Stellenangebote",
+        "werbering": true
+    },
+    {
+        "name": "MY GYM Prime - Fitness",
+        "location": "ÖKOARENA - Solarstraße, 4653 Eberstalzell",
+        "link": "https://www.mygym-prime.at",
+        "category": "beauty",
+        "search": "Fitnessstudio, Fitness, Training, MyGym, Eberstalzell",
+        "werbering": true
+    },
+    {
+        "name": "Selena Grundner, MSc - Psychosoziale Beraterin",
+        "location": "Wiesenstraße 3, 4655 Vorchdorf",
+        "link": "https://www.selena-grundner.at",
+        "category": "healthcare",
+        "search": "Psychosoziale Beratung, Empowerment Coaching, Lebensberatung, Coaching",
+        "werbering": true
+    }
 ]
