@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,23 +11,24 @@
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Willkommen in Vorchdorf - Dein Neustart-Guide</title>
-    
+
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Alle wichtigen Infos zu Vorchdorf: 247 Betriebe, 61 Vereine, Notfallnummern, Bildungseinrichtungen und mehr!">
+    <meta name="description"
+        content="Alle wichtigen Infos zu Vorchdorf: 247 Betriebe, 61 Vereine, Notfallnummern, Bildungseinrichtungen und mehr!">
     <meta name="theme-color" content="#4a90e2">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
-    
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="./manifest.json?v=2.81">
-    
+
     <!-- Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.81">
     <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.81">
     <link rel="apple-touch-icon" href="./icon-192.png?v=2.81">
-    
+
     <style>
         * {
             margin: 0;
@@ -35,18 +37,37 @@
         }
 
         @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+            0% {
+                background-position: -1000px 0;
+            }
+
+            100% {
+                background-position: 1000px 0;
+            }
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
         }
 
         @keyframes glow-pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(244, 185, 35, 0.3), 0 10px 30px rgba(0, 0, 0, 0.1); }
-            50% { box-shadow: 0 0 40px rgba(244, 185, 35, 0.6), 0 10px 30px rgba(0, 0, 0, 0.15); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(244, 185, 35, 0.3), 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(244, 185, 35, 0.6), 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
         }
 
         @keyframes slide-in {
@@ -54,6 +75,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -61,14 +83,27 @@
         }
 
         @keyframes gradient-flow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes rotate-gradient {
-            0% { background-position: 0deg; }
-            360% { background-position: 360deg; }
+            0% {
+                background-position: 0deg;
+            }
+
+            360% {
+                background-position: 360deg;
+            }
         }
 
         :root {
@@ -117,7 +152,7 @@
             padding: 15px 30px;
             border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 
+            box-shadow:
                 0 15px 40px var(--shadow-lg),
                 0 0 1px rgba(0, 0, 0, 0.05),
                 0 0 30px rgba(244, 185, 35, 0.2);
@@ -136,7 +171,7 @@
 
         header:hover {
             transform: translateY(-4px);
-            box-shadow: 
+            box-shadow:
                 0 20px 50px rgba(26, 71, 42, 0.3),
                 0 0 60px rgba(244, 185, 35, 0.4);
         }
@@ -161,9 +196,11 @@
             header {
                 padding: 10px 15px;
             }
+
             header img {
                 height: 40px;
             }
+
             header h1 {
                 font-size: 1.2rem;
             }
@@ -175,7 +212,7 @@
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 30px;
-            box-shadow: 
+            box-shadow:
                 0 8px 25px var(--shadow-md),
                 0 0 20px rgba(244, 185, 35, 0.15);
             backdrop-filter: blur(10px);
@@ -185,7 +222,7 @@
         }
 
         .search-container:hover {
-            box-shadow: 
+            box-shadow:
                 0 12px 35px var(--shadow-lg),
                 0 0 30px rgba(244, 185, 35, 0.3);
             border-color: rgba(244, 185, 35, 0.4);
@@ -338,6 +375,42 @@
             transform: scale(1.06) translateY(0px);
         }
 
+        /* Floating Back Button */
+        .floating-back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .floating-back-button.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .floating-back-button:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(26, 71, 42, 0.4);
+        }
+
         /* Cards Grid for Main Categories */
         .cards-grid {
             display: grid;
@@ -372,7 +445,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: 
+            background:
                 radial-gradient(circle, rgba(244, 185, 35, 0.3) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s;
@@ -384,10 +457,10 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(-45deg, 
-                rgba(26, 71, 42, 0) 0%,
-                rgba(244, 185, 35, 0.1) 50%,
-                rgba(26, 71, 42, 0) 100%);
+            background: linear-gradient(-45deg,
+                    rgba(26, 71, 42, 0) 0%,
+                    rgba(244, 185, 35, 0.1) 50%,
+                    rgba(26, 71, 42, 0) 100%);
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
@@ -395,7 +468,7 @@
 
         .card:hover {
             transform: translateY(-12px) scale(1.04) rotateX(8deg);
-            box-shadow: 
+            box-shadow:
                 0 25px 50px rgba(26, 71, 42, 0.25),
                 0 0 30px rgba(244, 185, 35, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -438,6 +511,7 @@
             letter-spacing: 0.5px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -453,6 +527,7 @@
             line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 4;
+            line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -463,21 +538,29 @@
                 gap: 12px;
                 margin-bottom: 20px;
             }
+
             .card {
                 padding: 12px;
                 min-height: 140px;
             }
+
             .card-icon {
                 font-size: 2rem;
                 margin-bottom: 6px;
             }
+
             .card h3 {
                 font-size: 0.9rem;
             }
+
             .card p {
                 font-size: 0.8rem;
                 line-height: 1.3;
+                display: -webkit-box;
                 -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
         }
 
@@ -570,6 +653,7 @@
             overflow-wrap: break-word;
             display: -webkit-box;
             -webkit-line-clamp: 3;
+            line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -647,7 +731,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: 
+            background:
                 conic-gradient(from 0deg, rgba(244, 185, 35, 0.2), transparent 25%);
             opacity: 0;
             transition: opacity 0.3s;
@@ -676,7 +760,7 @@
         .item-card:hover {
             border-color: var(--secondary);
             transform: translateY(-10px) scale(1.03);
-            box-shadow: 
+            box-shadow:
                 0 18px 40px rgba(26, 71, 42, 0.2),
                 0 0 30px rgba(244, 185, 35, 0.25);
         }
@@ -758,7 +842,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(244, 185, 35, 0.2) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
             opacity: 0;
@@ -866,7 +950,7 @@
 
         .info-item:hover {
             transform: translateX(8px) translateY(-2px);
-            box-shadow: 
+            box-shadow:
                 0 12px 28px rgba(26, 71, 42, 0.15),
                 0 0 25px rgba(244, 185, 35, 0.2);
         }
@@ -1303,7 +1387,7 @@
 
         /* Hide class */
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         /* Loading animation */
@@ -1312,6 +1396,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1321,13 +1406,15 @@
         .fade-in {
             animation: fadeIn 0.5s ease-out;
         }
-    
+
         .business-card:nth-child(odd) {
-            background: #fffef0;  /* Light yellow */
+            background: #fffef0;
+            /* Light yellow */
         }
-        
+
         .business-card:nth-child(even) {
-            background: #f0f8ff;  /* Light blue */
+            background: #f0f8ff;
+            /* Light blue */
         }
 
         /* Flohmarkt Styles */
@@ -1363,7 +1450,7 @@
         }
 
         .flohmarkt-info-btn {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             color: white;
             border: 2px solid white;
             padding: 8px 16px;
@@ -1376,10 +1463,8 @@
         }
 
         .flohmarkt-info-btn:hover {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.5);
             transform: scale(1.05);
-        }
-            opacity: 0.9;
         }
 
         .flohmarkt-action-bar {
@@ -1415,7 +1500,7 @@
             background: var(--card-bg);
             border-radius: 12px;
             padding: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
             display: flex;
             gap: 10px;
@@ -1466,14 +1551,14 @@
             background: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
             cursor: pointer;
         }
 
         .flohmarkt-product-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .flohmarkt-product-image {
@@ -1571,7 +1656,7 @@
             overflow-y: auto;
             position: relative;
             animation: slideUp 0.3s ease;
-            box-shadow: 0 25px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.8);
             z-index: 1000000;
             padding: 0;
         }
@@ -1581,6 +1666,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1594,12 +1680,12 @@
             width: 36px;
             height: 36px;
             border: none;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             font-size: 1.3rem;
             cursor: pointer;
             z-index: 10;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .flohmarkt-modal-close:hover {
@@ -1629,19 +1715,24 @@
             width: 40px;
             height: 40px;
             border: none;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .flohmarkt-modal-image-nav:hover {
             background: white;
         }
 
-        .flohmarkt-modal-image-nav.prev { left: 15px; }
-        .flohmarkt-modal-image-nav.next { right: 15px; }
+        .flohmarkt-modal-image-nav.prev {
+            left: 15px;
+        }
+
+        .flohmarkt-modal-image-nav.next {
+            right: 15px;
+        }
 
         .flohmarkt-modal-image-dots {
             position: absolute;
@@ -1656,7 +1747,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.5);
             border: none;
             cursor: pointer;
         }
@@ -1858,6 +1949,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="app-container">
         <header onclick="goHome()" style="cursor: pointer;">
@@ -1887,6 +1979,11 @@
                 ← Zurück
             </button>
         </div>
+
+        <!-- Floating Back Button -->
+        <button id="floatingBackButton" class="floating-back-button" onclick="goBack()" title="Zurück">
+            ←
+        </button>
 
         <!-- Breadcrumb Navigation -->
         <div id="breadcrumb" class="breadcrumb hidden"></div>
@@ -1998,7 +2095,7 @@
     <script>
         // Flohmarkt Daten
         const FLOHMARKT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1CrRpZwA19JcKfZsfbm9yZ3r_lEup-piI-QL4mY2kHnc/export?format=csv';
-        
+
         let flohmarktAllProducts = [];
         let flohmarktCurrentProduct = null;
         let flohmarktCurrentImageIndex = 0;
@@ -2041,7 +2138,7 @@
             const result = [];
             let current = '';
             let inQuotes = false;
-            
+
             for (let i = 0; i < line.length; i++) {
                 const char = line[i];
                 if (char === '"') {
@@ -2065,10 +2162,10 @@
                 if (mainFooter) {
                     mainFooter.style.display = 'none';
                 }
-                
+
                 const proxyUrl = 'https://api.allorigins.win/raw?url=';
                 let response;
-                
+
                 try {
                     response = await fetch(FLOHMARKT_SHEET_URL);
                 } catch (e) {
@@ -2077,10 +2174,10 @@
 
                 const csv = await response.text();
                 const products = parseCSV(csv);
-                
+
                 // DEBUG: Alle Produkte anzeigen (Filter entfernt zum Debuggen)
                 flohmarktAllProducts = products; // TEMP: Zeige ALLE Produkte
-                
+
                 console.log('DEBUG: Geladen', flohmarktAllProducts.length, 'Produkte');
                 if (flohmarktAllProducts.length > 0) {
                     console.log('DEBUG: Erstes Produkt Status:', flohmarktAllProducts[0].Status);
@@ -2102,12 +2199,12 @@
         // Flohmarkt Produkte rendern
         function cleanImageUrl(url) {
             if (!url || typeof url !== 'string') return '';
-            
+
             let cleaned = url.trim();
-            
+
             // Entferne HTML-Tags und Whitespace
             cleaned = cleaned.replace(/<[^>]*>/g, '').trim();
-            
+
             // Wenn es ein href-Link ist, extrahiere die URL
             if (cleaned.includes('href=')) {
                 const match = cleaned.match(/href=["']([^"']+)["']/i);
@@ -2115,15 +2212,15 @@
                     cleaned = match[1].trim();
                 }
             }
-            
+
             // Entferne führende/nachfolgende Quotes
             cleaned = cleaned.replace(/^["']|["']$/g, '').trim();
-            
+
             // Prüfe ob es eine echte URL ist (muss mit http anfangen)
             if (cleaned && (cleaned.startsWith('http://') || cleaned.startsWith('https://'))) {
                 return cleaned;
             }
-            
+
             return '';
         }
 
@@ -2145,7 +2242,7 @@
             grid.innerHTML = products.map((product, index) => {
                 // WICHTIG: Extrahiere Image-URL direkt OHNE externe Funktion
                 let imageUrl = product['Bild 1 Url von Imgur'] || '';
-                
+
                 // Einfach nur trimmen und checken ob es mit http startet
                 if (imageUrl) {
                     imageUrl = imageUrl.trim();
@@ -2168,7 +2265,7 @@
                         }
                     }
                 }
-                
+
                 const category = product.Kategorie || 'Sonstiges';
                 const icon = flohmarktCategoryIcons[category] || '📦';
                 const price = flohmarktFormatPrice(product['Preis in Euro']);
@@ -2176,10 +2273,10 @@
 
                 return `
                     <article class="flohmarkt-product-card" onclick="openFlohmarktModal(${index})">
-                        ${imageUrl ? 
-                            `<img src="${imageUrl}" alt="${product.Produktname}" class="flohmarkt-product-image" onerror="this.outerHTML='<div class=\\'flohmarkt-product-placeholder\\'>${icon}</div>'">` :
-                            `<div class="flohmarkt-product-placeholder">${icon}</div>`
-                        }
+                        ${imageUrl ?
+                        `<img src="${imageUrl}" alt="${product.Produktname}" class="flohmarkt-product-image" onerror="this.outerHTML='<div class=\\'flohmarkt-product-placeholder\\'>${icon}</div>'">` :
+                        `<div class="flohmarkt-product-placeholder">${icon}</div>`
+                    }
                         <div class="flohmarkt-product-info">
                             <span class="flohmarkt-product-category">${icon} ${category}</span>
                             <h3 class="flohmarkt-product-title">${product.Produktname || 'Ohne Titel'}</h3>
@@ -2206,10 +2303,10 @@
             const verkaeufer = document.getElementById('flohmarktVerkaeifer').value;
 
             const filtered = flohmarktAllProducts.filter(product => {
-                const matchesSearch = !search || 
+                const matchesSearch = !search ||
                     (product.Produktname && product.Produktname.toLowerCase().includes(search)) ||
                     (product.Beschreibung && product.Beschreibung.toLowerCase().includes(search));
-                
+
                 const matchesCategory = !category || product.Kategorie === category;
                 const matchesVerkaeufer = !verkaeufer || product.Firmenname === verkaeufer;
 
@@ -2226,7 +2323,7 @@
             const verkaeufer = document.getElementById('flohmarktVerkaeifer').value;
             // Gefilterte Liste verwenden
             const filtered = flohmarktAllProducts.filter(product => {
-                const matchesSearch = !search || 
+                const matchesSearch = !search ||
                     (product.Produktname && product.Produktname.toLowerCase().includes(search)) ||
                     (product.Beschreibung && product.Beschreibung.toLowerCase().includes(search));
                 const matchesCategory = !category || product.Kategorie === category;
@@ -2270,12 +2367,12 @@
             // Modal befüllen
             const cat = flohmarktCurrentProduct.Kategorie || 'Sonstiges';
             const icon = flohmarktCategoryIcons[cat] || '📦';
-            
+
             document.getElementById('flohmarktModalCategory').textContent = `${icon} ${cat}`;
             document.getElementById('flohmarktModalTitle').textContent = flohmarktCurrentProduct.Produktname || 'Ohne Titel';
             document.getElementById('flohmarktModalPrice').textContent = flohmarktFormatPrice(flohmarktCurrentProduct['Preis in Euro']);
             document.getElementById('flohmarktModalDescription').textContent = flohmarktCurrentProduct.Beschreibung || 'Keine Beschreibung vorhanden.';
-            
+
             const sellerName = flohmarktCurrentProduct.Firmenname || 'Anonym';
             document.getElementById('flohmarktModalSellerName').textContent = sellerName;
             document.getElementById('flohmarktModalAvatar').textContent = sellerName.charAt(0).toUpperCase();
@@ -2293,9 +2390,9 @@
                     imageUrl = '';
                 }
             }
-            
+
             const subject = encodeURIComponent(`Anfrage zu: ${flohmarktCurrentProduct.Produktname}`);
-            
+
             // Baue Email-Body mit allen Infos + Base64-Bild
             let emailBody = `Hallo ${sellerName},
 
@@ -2316,7 +2413,7 @@ Mit freundlichen Grüßen`;
             }
 
             // Click-Handler für Contact-Button - öffne Email-Modal
-            document.getElementById('flohmarktModalContactBtn').onclick = function(e) {
+            document.getElementById('flohmarktModalContactBtn').onclick = function (e) {
                 e.preventDefault();
                 openEmailPreviewModal(email, subject, emailBody, imageUrl, sellerName);
             };
@@ -2339,7 +2436,7 @@ Mit freundlichen Grüßen`;
             const images = flohmarktCurrentProduct.images || [];
             const container = document.getElementById('flohmarktModalImages');
             const img = document.getElementById('flohmarktModalImage');
-            
+
             if (images.length > 0 && images[flohmarktCurrentImageIndex]) {
                 img.src = images[flohmarktCurrentImageIndex];
                 img.style.display = 'block';
@@ -2355,7 +2452,7 @@ Mit freundlichen Grüßen`;
         function updateFlohmarktImageDots() {
             const images = flohmarktCurrentProduct.images || [];
             const dotsContainer = document.getElementById('flohmarktModalDots');
-            
+
             if (images.length <= 1) {
                 dotsContainer.innerHTML = '';
                 return;
@@ -2427,13 +2524,13 @@ Mit freundlichen Grüßen`;
                     </div>
                 </div>
             `;
-            
+
             // Entferne alte Modal wenn existiert
             let oldModal = document.getElementById('flohmarktInfoModal');
             if (oldModal) {
                 oldModal.remove();
             }
-            
+
             // Erstelle neuen Modal mit INLINE STYLES
             const modal = document.createElement('div');
             modal.id = 'flohmarktInfoModal';
@@ -2455,14 +2552,14 @@ Mit freundlichen Grüßen`;
                 justify-content: center !important;
             `;
             document.body.appendChild(modal);
-            
+
             // Click-handler zum schließen
-            modal.addEventListener('click', function(e) {
+            modal.addEventListener('click', function (e) {
                 if (e.target === modal) {
                     closeFlohmarktInfo();
                 }
             });
-            
+
             document.body.style.overflow = 'hidden';
             console.log('Modal created and shown with inline styles');
         }
@@ -2504,7 +2601,7 @@ Mit freundlichen Grüßen`;
                     </div>
                 </div>
             `;
-            
+
             // Erstelle Modal-Container falls nicht vorhanden
             let modal = document.getElementById('emailPreviewModal');
             if (!modal) {
@@ -2517,10 +2614,10 @@ Mit freundlichen Grüßen`;
                 `;
                 document.body.appendChild(modal);
             }
-            
+
             modal.innerHTML = previewHtml;
             modal.style.display = 'flex';
-            
+
             // Style Modal
             const styleTag = document.createElement('style');
             styleTag.textContent = `
@@ -2616,14 +2713,14 @@ Mit freundlichen Grüßen`;
 
         function sendEmailFromPreview(toEmail, subject, encodedBody) {
             let body = atob(encodedBody); // Decode from base64
-            
+
             // Wenn Base64-Bild verfügbar, füge es als eingebettetes Bild hinzu
             if (window.flohmarktEmailImageBase64) {
                 // Füge Bild als HTML-img mit Data-URL ein
                 body += `\n\n---\n[Produktbild wird angehängt]`;
                 // Base64-Bild wird in HTML-Format angehängt (viele Email-Clients unterstützen das)
             }
-            
+
             const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
             window.location.href = mailtoLink;
             setTimeout(() => closeEmailPreviewModal(), 100);
@@ -2646,7 +2743,7 @@ Mit freundlichen Grüßen`;
                 if (e.key === 'ArrowRight') flohmarktNextImage();
             }
         });
-        
+
         // ===== IMMEDIATE CACHE & SERVICE WORKER CLEANUP =====
         // MUST run FIRST before anything else
         if ('serviceWorker' in navigator) {
@@ -2660,14 +2757,14 @@ Mit freundlichen Grüßen`;
         if ('caches' in window) {
             caches.keys().then(names => names.forEach(name => caches.delete(name)));
         }
-        
+
         // App Version - Update this with each release
-        const APP_VERSION = '2.99';
-        
+        const APP_VERSION = '3.2';
+
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
-                const response = await fetch('./index.html?t=' + Date.now(), { 
+                const response = await fetch('./index.html?t=' + Date.now(), {
                     cache: 'no-store',
                     headers: {
                         'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -2693,11 +2790,11 @@ Mit freundlichen Grüßen`;
                         window.location.href = './?t=' + Date.now();
                     }, 2000);
                 }
-            } catch(e) {
+            } catch (e) {
                 console.log('Update-Check fehlgeschlagen:', e);
             }
         })();
-        
+
         // AGGRESSIVE CACHE CLEARING
         // 1. Unregister all service workers
         if ('serviceWorker' in navigator) {
@@ -2705,14 +2802,14 @@ Mit freundlichen Grüßen`;
                 registrations.forEach(reg => reg.unregister());
             });
         }
-        
+
         // 2. Clear all caches
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 cacheNames.forEach(cacheName => caches.delete(cacheName));
             });
         }
-        
+
         // 3. Clear storage if version mismatch
         if (localStorage.getItem('appVersion') !== APP_VERSION) {
             localStorage.clear();
@@ -2722,263 +2819,16 @@ Mit freundlichen Grüßen`;
             // Force hard refresh
             setTimeout(() => location.reload(true), 200);
         }
-        
+
         // App State
         let currentView = 'home';
         let navigationHistory = [];
         let currentCategory = null;
         let currentSubcategory = null;
 
-        // Complete Business Data - Alphabetically sorted
-        const allBusinesses = [
-            { name: 'A-TEAM die Fahrschule', location: '4650 Lambach', link: 'https://www.ateam-fahrschule.at', category: 'services' },
-            { name: 'A1 Apotheke, Mag. Valik', location: '4655 Vorchdorf', link: 'https://www.a1apotheke.at', category: 'healthcare' },
-            { name: 'ABIES Austria GmbH', location: '4664 Laakirchen', link: 'https://www.abies-austria.at', category: 'industry' },
-            { name: 'AHTEL Hochleithner Telekommunikation', location: '4654 Bad Wimsbach', link: 'https://www.ahtel.at', category: 'it' },
-            { name: 'AIGNER - Mietwagen, Bus, Taxi, Transporte aller Art', location: '4655 Vorchdorf', link: 'https://www.mietwagen-aigner.at', category: 'transport' },
-            { name: 'AIGNER Johannes - Raumausstatter, Tapeziermeister', location: '4655 Vorchdorf', link: 'https://www.aigner-raum.at', category: 'construction' },
-            { name: 'AITZETMÜLLER Markus, Massagepraktik', location: '4655 Vorchdorf', category: 'healthcare' },
-            { name: 'Alfred SCHNELLNBERGER GesmbH', location: '4655 Vorchdorf', link: 'https://www.schnellnberger.at', category: 'construction' },
-            { name: 'ALMTAL CAMP', location: '4643 Pettenbach', link: 'https://www.almtal-camp.at', category: 'gastro' },
-            { name: 'ALMTAL-Apotheke, Mag. Falkensammer', location: '4655 Vorchdorf', link: 'https://www.almtalapotheke.at', category: 'healthcare' },
-            { name: 'AMERING Franz GesmbH, tipp topp Installationen', location: '4655 Vorchdorf', link: 'https://www.amering.at', category: 'construction' },
-            { name: 'ANYTIME FITNESS Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.af-austria.at', category: 'beauty' },
-            { name: 'ARTINA GmbH', location: '4663 Laakirchen', link: 'https://www.artina.at', category: 'industry' },
-            { name: 'ASAMER Kies- und Betonwerke', location: '4694 Ohlsdorf', link: 'https://www.asamer.at', category: 'construction' },
-            { name: 'ATTWENGER-Taxi', location: '4655 Vorchdorf', link: 'https://www.taxi-attwenger.at', category: 'transport' },
-            { name: 'Autohaus SCHWEIGER', location: '4643 Pettenbach', link: 'https://www.kfz-schweiger.at', category: 'cars' },
-            { name: 'Automobile MAIRHUBER GmbH', location: '4664 Oberweis', link: 'https://www.autohausmairhuber.at', category: 'cars' },
-            { name: 'Automobile SCHUSTER GmbH', location: '4663 Laakirchen', link: 'https://www.auto-schuster.at', category: 'cars' },
-            { name: 'Automobile SWOBODA GmbH', location: '4664 Oberweis', link: 'https://www.automobileswoboda.at', category: 'cars' },
-            { name: 'BAM.wohnen GmbH', location: '4655 Vorchdorf', link: 'https://www.bam-wohnen.at', category: 'construction' },
-            { name: 'BARBERSHOP Erkan Abi', location: '4655 Vorchdorf', link: 'https://www.erkanabibarbersh op.at', category: 'beauty' },
-            { name: 'Bauelemente ZIEGELBÄCK KG', location: '4664 Oberweis', link: 'https://www.ziegelbaeck.at', category: 'construction' },
-            { name: 'BAUMGARTNER Tischlerei & Raumplanung', location: '4655 Vorchdorf', link: 'https://www.tischlerelbaumgartner.com', category: 'construction' },
-            { name: 'BAUMWERK GmbH', location: '4655 Vorchdorf', link: 'https://www.baumwerk.at', category: 'services' },
-            { name: 'BEISKAMMER PV und Solar Montagen GmbH', location: '4655 Vorchdorf', link: 'https://www.pv-beiskammer.at', category: 'construction' },
-            { name: 'BIERHOTEL Ranklleiten', location: '4643 Pettenbach', link: 'https://www.ranklleiten.com', category: 'gastro' },
-            { name: 'Bildungshaus VILLA ROSENTAL', location: '4663 Laakirchen', link: 'https://www.instituthuemer.at', category: 'healthcare' },
-            { name: 'Blumen MUSCARI', location: '4663 Laakirchen', link: 'https://www.muscari.at', category: 'flowers' },
-            { name: 'BNP Wirtschaftstreuhand und Steuerberatungs GmbH', location: '4655 Vorchdorf', link: 'https://www.bnp.at', category: 'accounting' },
-            { name: 'BP Tankstelle', location: '4655 Vorchdorf', category: 'gas' },
-            { name: 'BP Tankstelle', location: '4662 Steyrermühl', category: 'gas' },
-            { name: 'BRAUEREI Schloss Eggenberg Stöhr GmbH & Co KG', location: '4655 Vorchdorf', link: 'https://www.schloss-eggenberg.at', category: 'food' },
-            { name: 'BUCHEGG ER Johann - Fenster - Sonnenschutz', location: '4655 Vorchdorf', category: 'construction' },
-            { name: 'BÄCKEREI, CAFÉ im Gwölb', location: '4655 Vorchdorf', link: 'https://www.im-gwoelb.at', category: 'gastro' },
-            { name: 'BÄCKEREI, CAFÉ im Gwölb', location: '4655 Vorchdorf', link: 'https://www.im-gwoelb.at', category: 'food' },
-            { name: 'BÄCKEREI, CAFÉ Probst', location: '4655 Vorchdorf', link: 'https://www.baeckerei-probst.at', category: 'gastro' },
-            { name: 'BÄCKEREI, CAFÉ Probst', location: '4655 Vorchdorf', link: 'https://www.baeckerei-probst.at', category: 'food' },
-            { name: 'BÄCKEREI, CAFÉ Resch&Frisch', location: '4655 Vorchdorf', link: 'https://www.resch-frisch.com', category: 'gastro' },
-            { name: 'BÄCKEREI, CAFÉ Resch&Frisch', location: '4655 Vorchdorf', link: 'https://www.resch-frisch.com', category: 'food' },
-            { name: 'Café Bäckerei ZACH', location: '4663 Laakirchen', link: 'https://www.zach.baecker.at', category: 'gastro' },
-            { name: 'CREATIV OPTIK Plakolm', location: '4655 Vorchdorf', link: 'https://www.plakolm.at', category: 'healthcare' },
-            { name: 'CREATIV OPTIK Plakolm', location: '4655 Vorchdorf', link: 'https://www.plakolm.at', category: 'fashion' },
-            { name: 'CRW Sports Zordl Yvonne', location: '4655 Vorchdorf', link: 'https://www.crw-sports.net', category: 'cars' },
-            { name: 'DENK Klaus, Hotel, Bed & Breakfast', location: '4655 Vorchdorf', link: 'https://www.hoteldenk.at', category: 'gastro' },
-            { name: 'DICKINGER Agrarhandel GmbH', location: '4655 Vorchdorf', category: 'construction' },
-            { name: 'DICKINGER Agrarhandel GmbH', location: '4655 Vorchdorf', category: 'gas' },
-            { name: 'Die STÖTTINGERS', location: '4655 Vorchdorf', link: 'https://www.diestoettingers.at', category: 'healthcare' },
-            { name: 'DOLCE Eiscafé', location: '4655 Vorchdorf', category: 'gastro' },
-            { name: 'DROGERIE GRÄFINGER - Druckenthanere u. Humanenergetik', location: '4663 Laakirchen', link: 'https://www.drogerie-graefinger.at', category: 'beauty' },
-            { name: 'ECKMANN Friseursalon', location: '4663 Laakirchen', category: 'beauty' },
-            { name: 'Elektro STEINSCHADEN GmbH', location: '4663 Laakirchen', link: 'https://www.elektro-steinschaden.at', category: 'construction' },
-            { name: 'ENERGIEFREUND, Stefan Brunner', location: '4655 Vorchdorf', link: 'https://www.bzr-controls.at', category: 'construction' },
-            { name: 'ENI Tankstelle', location: '4655 Vorchdorf', category: 'gas' },
-            { name: 'ESTHOFER Auto Team GmbH', location: '4655 Vorchdorf', link: 'https://www.esthofer.com', category: 'cars' },
-            { name: 'ETZI-HAUS', location: '4551 Ried/Trkr.', link: 'https://www.etzi-haus.com', category: 'construction' },
-            { name: 'EUROWHEEL GmbH', location: '4655 Vorchdorf', link: 'https://www.eurowheel.eu', category: 'cars' },
-            { name: 'FDM Danner Metalltechnik GmbH', location: '4663 Laakirchen', link: 'https://www.fdm-metalltechnik.at', category: 'construction' },
-            { name: 'FEINE WEINE', location: '4663 Laakirchen', link: 'https://www.feine-weine.at', category: 'food' },
-            { name: 'FISCHER Martin, Tabak Trafik', location: '4655 Vorchdorf', category: 'tobacco' },
-            { name: 'FIX FAX Bürotechnik HGmbH', location: '4655 Vorchdorf', link: 'https://www.fixfax.at', category: 'it' },
-            { name: 'Fleischhauerei KINAST GmbH', location: '4662 Steyrermühl', link: 'https://www.fleischhauerei-kinast.at', category: 'food' },
-            { name: 'Fleischhauerei KINAST GmbH', location: '4662 Steyrermühl', link: 'https://www.fleischhauerei-kinast.at', category: 'catering' },
-            { name: 'FOTOART', location: '4663 Laakirchen', link: 'https://www.fotoart.at', category: 'photo' },
-            { name: 'Foxxy Dance Bar, Strassmayr Hermann', location: '4655 Vorchdorf', link: 'https://www.foxxy.at', category: 'gastro' },
-            { name: 'Franz ATTWENGER u. Söhne GmbH', location: '4656 Kirchham', link: 'https://www.attwenger.co.at', category: 'construction' },
-            { name: 'FREIBAD Laakirchen', location: '4663 Laakirchen', link: 'https://www.laakirchen.at', category: 'culture' },
-            { name: 'FREIBAD Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.vorchdorf.at', category: 'culture' },
-            { name: 'FUSSL Modestraße, Mayr GmbH', location: '4655 Vorchdorf', link: 'https://www.fussl.at', category: 'fashion' },
-            { name: 'FUZO Coffee & Kitchen', location: '4655 Vorchdorf', link: 'https://www.fuzo-vorchdorf.at', category: 'gastro' },
-            { name: 'Fuzzy Dance Bar, Strassmayr Hermann', location: '4655 Vorchdorf', link: 'https://www.fuzzybar.at', category: 'gastro' },
-            { name: 'FÜRTBAUER GmbH & Co KG', location: '4663 Laakirchen', link: 'https://www.fuertbauer.at', category: 'construction' },
-            { name: 'FÜRTBAUER-Bilanzbuchhaltung', location: '4664 Oberweis', category: 'accounting' },
-            { name: 'GASPERLMAYR Elektrotechnik', location: '4655 Vorchdorf', link: 'https://www.etga.at', category: 'construction' },
-            { name: 'Gasthaus HINTERREITNER', location: '4655 Vorchdorf', link: 'https://www.ghhinterreitner.at', category: 'gastro' },
-            { name: 'Gasthaus THALSTUBE', location: '4663 Laakirchen', link: 'https://www.thalstube.at', category: 'gastro' },
-            { name: 'Gasthof BADER', location: '4663 Laakirchen', link: 'https://www.gasthofbader.at', category: 'gastro' },
-            { name: 'Gasthof PÖLL', location: '4656 Kirchham', link: 'https://www.gasthauspoell.at', category: 'gastro' },
-            { name: 'Gasthof WIRT AM BACH', location: '4664 Oberweis', link: 'https://www.wirtambach.at', category: 'gastro' },
-            { name: 'GATSBY - Ihr Platz an der Bar', location: '4655 Vorchdorf', link: 'https://www.gatsby.at', category: 'gastro' },
-            { name: 'Getränkegroßhandel WAGNER KG', location: '4664 Laakirchen', link: 'https://www.wagnerweb.at', category: 'food' },
-            { name: 'Getränkegroßhandel WAGNER KG', location: '4664 Laakirchen', link: 'https://www.wagnerweb.at', category: 'wholesale' },
-            { name: 'GOLLINGER Personenbeförderung', location: '4655 Vorchdorf', link: 'https://www.gollinger.net', category: 'transport' },
-            { name: 'GRAROCK Günter, LITO', location: '4655 Vorchdorf', link: 'https://www.lito.at', category: 'catering' },
-            { name: 'GRUBER GmbH Landtechnik & Zweiräder/Microcars', location: '4652 Steinerkirchen', link: 'https://www.teamgruber.at', category: 'cars' },
-            { name: 'GRUNDNER Solarmontagen GmbH', location: '4655 Vorchdorf', link: 'https://www.grundner-solarmontagen.at', category: 'construction' },
-            { name: 'GUNDENDORFER GesmbH', location: '4655 Vorchdorf', link: 'https://www.auto-gundendorfer.at', category: 'cars' },
-            { name: 'H.AUStaller GmbH - Haustüren, Fenster, Sonnenschutz', location: '4655 Vorchdorf', link: 'https://www.h-aus.at', category: 'construction' },
-            { name: 'HAAN Stefan, Kunstschmiede', location: '4655 Vorchdorf', link: 'https://www.stefan-haan.at', category: 'construction' },
-            { name: 'HAARGENAU Helga Lohninger', location: '4655 Vorchdorf', link: 'https://www.haargenau.at', category: 'beauty' },
-            { name: 'HAARSTUDIO Bettina Staudinger', location: '4655 Vorchdorf', link: 'https://www.bettina-haarstudio.at', category: 'beauty' },
-            { name: 'HARTNER Aggregate und Industrietechnik GmbH', location: '4643 Pettenbach', link: 'https://www.erich-hartner.at', category: 'wholesale' },
-            { name: 'Haustechnik Pühringer GmbH', location: '4655 Vorchdorf', link: 'https://www.ht-puehringer.at', category: 'construction' },
-            { name: 'HEINZEL STEYRERMÜHL GmbH Heinzel Paper', location: '4662 Steyrermühl', link: 'https://www.heinzelpaper.com', category: 'industry' },
-            { name: 'HELIOS-Apotheke', location: '4663 Laakirchen', link: 'https://www.heliosapotheke.at', category: 'healthcare' },
-            { name: 'HELLEIN Barbara Personalverrechnung', location: '4655 Vorchdorf', link: 'https://www.hellein.net', category: 'accounting' },
-            { name: 'HERMANSEDER Bernhard Trafik', location: '4655 Vorchdorf', category: 'tobacco' },
-            { name: 'HerWeinspaziert - Weinhandel', location: '4654 Bad Wimsbach', link: 'https://office@herweinspaziert.at', category: 'gastro' },
-            { name: 'HerWeinspaziert - Weinhandel', location: '4654 Bad Wimsbach', link: 'https://office@herweinspaziert.at', category: 'food' },
-            { name: 'HESON Metall- u. Kunststofftechnik', location: '4655 Vorchdorf', link: 'https://www.heson.com', category: 'industry' },
-            { name: 'HIFI-Studio STENZ', location: '4655 Vorchdorf', link: 'https://www.hifi-studio.at', category: 'construction' },
-            { name: 'HILFE IM ALLTAG, Maria Schimpl', location: '4655 Vorchdorf', link: 'https://www.hilfe-im-alltag.at', category: 'services' },
-            { name: 'HIP Holzbau GmbH', location: '4655 Vorchdorf', link: 'https://www.hip-holzbau.at', category: 'construction' },
-            { name: 'HOCHLEITHNER Schuhe, Sport, Mode', location: '4656 Bad Wimsbach', link: 'https://www.hochleithner.net', category: 'fashion' },
-            { name: 'HOCHREITER KFZ GMBH', location: '4656 Kirchham', link: 'https://www.toyota-hochreiter.at', category: 'cars' },
-            { name: 'HOFTAVERNE ZIEGELBÖCK', location: '4655 Vorchdorf', link: 'https://www.hoftaverne.at', category: 'gastro' },
-            { name: 'HOIDINGER\'S Mostschenke', location: '4663 Laakirchen', link: 'https://www.hoidinger.at', category: 'gastro' },
-            { name: 'Humanenergetik PRANAOM Dr. Marina Gundendorfer-Schelber', location: '4655 Vorchdorf', link: 'https://www.pranaom.at', category: 'healthcare' },
-            { name: 'HUTTERER Harald J, Elektro', location: '4655 Vorchdorf', category: 'construction' },
-            { name: 'ib RAUSCHER - Strom auf allen Ebenen', location: '4655 Vorchdorf', link: 'https://www.ibr.co.at', category: 'construction' },
-            { name: 'ID WERKSTATT', location: '4655 Vorchdorf', link: 'https://www.id-werkstatt.at', category: 'construction' },
-            { name: 'Ihr INSTALLATEUR mit Feinschliff', location: '4655 Vorchdorf', link: 'https://www.badwerkstatt.at', category: 'construction' },
-            { name: 'IMMOWERT Leitner e.u.', location: '4656 Kirchham', link: 'https://www.immowert-leitner.at', category: 'construction' },
-            { name: 'IMPERA Immobilien GmbH', location: '4055 Pucking', link: 'https://www.impera-immobilien.at', category: 'construction' },
-            { name: 'INFRAROTHEIZUNG Stefan Viechtbauer', location: '4655 Vorchdorf', link: 'https://www.v-infrarot.at', category: 'construction' },
-            { name: 'INNOCENTE GesmbH, Dachdecker', location: '4655 Vorchdorf', link: 'https://www.innocente.at', category: 'construction' },
-            { name: 'JO\'S RESTAURANT', location: '4655 Vorchdorf', link: 'https://www.jos-restaurant.at', category: 'gastro' },
-            { name: 'JO\'S RESTAURANT', location: '4655 Vorchdorf', link: 'https://www.jos-restaurant.at', category: 'catering' },
-            { name: 'JURA GmbH', location: '4655 Vorchdorf', link: 'https://www.jura-beschichtung.at', category: 'construction' },
-            { name: 'Juwelier GASSENBAUER', location: '4655 Vorchdorf', link: 'https://www.juwelier-gassenbauer.at', category: 'jewelry' },
-            { name: 'K.u.F. DRACK GmbH & Co KG', location: '4643 Pettenbach', link: 'https://www.kfd.at', category: 'construction' },
-            { name: 'KALKI\'S Hausfleischerei u. Catering', location: '4655 Vorchdorf', link: 'https://www.kalkishausfleischerei.at', category: 'gastro' },
-            { name: 'KALKI\'S Hausfleischerei u. Catering', location: '4655 Vorchdorf', link: 'https://www.kalkishausfleischerei.at', category: 'food' },
-            { name: 'KALKI\'S Hausfleischerei u. Catering', location: '4655 Vorchdorf', link: 'https://www.kalkishausfleischerei.at', category: 'catering' },
-            { name: 'KARMA LOUNGE Cocktails & Kitchen', location: '4655 Vorchdorf', category: 'gastro' },
-            { name: 'KIENINGER JESSICA, Hunde- und Katzensalon', location: '4663 Laakirchen', link: 'https://www.hundekatzensalon.com', category: 'services' },
-            { name: 'KITZMANTELFABRIK', location: '4655 Vorchdorf', link: 'https://www.kitzmantelfabrik.at', category: 'culture' },
-            { name: 'KREATIVE BLUMEREI', location: '4664 Oberweis', link: 'https://www.kreative-blumerei.at', category: 'flowers' },
-            { name: 'KRENMAYR KG, Thomas Krenmayr', location: '4655 Vorchdorf', link: 'https://www.blumen-krenmayr.at', category: 'flowers' },
-            { name: 'KRONBERGER Autohaus GmbH', location: '4656 Kirchham', link: 'https://www.ford-kronberger.at', category: 'cars' },
-            { name: 'KÖNIGSWIESER Gerätetechnik', location: '4655 Vorchdorf', link: 'https://www.koenigswieser.com', category: 'industry' },
-            { name: 'LAAKIRCHEN PAPIER AG Heinzel Paper', location: '4663 Laakirchen', link: 'https://www.heinzelpaper.com', category: 'industry' },
-            { name: 'LAGERHAUS Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.lagerhaus.at', category: 'construction' },
-            { name: 'LAGERHAUS Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.lagerhaus.at', category: 'construction' },
-            { name: 'Landschaftspflege PREINSTORFER', location: '4655 Vorchdorf', link: 'https://www.landschaftspflege-preinstorfer.at', category: 'services' },
-            { name: 'LANG Schuhmode', location: '4655 Vorchdorf', link: 'https://www.fmzvorchdorf.at', category: 'fashion' },
-            { name: 'LEATHER ROSE, Rosemarie Spitzbart', location: '4655 Vorchdorf', link: 'https://www.leatherrose.at', category: 'jewelry' },
-            { name: 'LEISS Kfz', location: '4655 Vorchdorf', link: 'https://www.kfz-leiss.at', category: 'cars' },
-            { name: 'LEITHINGER, Gärtnerei und Blumen', location: '4655 Vorchdorf', link: 'https://www.gaertnerei-leithinger.at', category: 'flowers' },
-            { name: 'LG-Tiefbau GmbH', location: '4652 Steinerkirchen', link: 'https://www.lg-tiefbau.at', category: 'construction' },
-            { name: 'Lichtland RITTENSCHOBER KG', location: '4816 Gschwandt', link: 'https://www.lichtland.at', category: 'construction' },
-            { name: 'LOHNINGER GmbH, Erdbau', location: '4655 Vorchdorf', link: 'https://www.erdbau-lohninger.at', category: 'construction' },
-            { name: 'LOIDL Michael, Tabak Trafik', location: '4663 Laakirchen', category: 'tobacco' },
-            { name: 'LUMETSBERGER Elke, florale elements', location: '4655 Vorchdorf', link: 'https://www.elke-lumetsberger.at', category: 'flowers' },
-            { name: 'LÜFTINGER Baugesellschaft mbH', location: '4654 Bad Wimsbach', link: 'https://www.lueftingerbau.at', category: 'construction' },
-            { name: 'MAIR DACH GmbH', location: '4655 Vorchdorf', link: 'https://www.maier-dach.at', category: 'construction' },
-            { name: 'MARKTGEMEINDE Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.vorchdorf.at', category: 'services' },
-            { name: 'MARMORSTEIN, Arkan Bülent', location: '4655 Vorchdorf', link: 'https://www.marmorstein.at', category: 'construction' },
-            { name: 'MARTETSCHLÄGER mbH, Kachelofen und Fliesen', location: '4655 Vorchdorf', link: 'https://www.martetschlaeger.net', category: 'construction' },
-            { name: 'McDonald\'s Vorchdorf', location: '4655 Vorchdorf', category: 'gastro' },
-            { name: 'MEIN TRAINING Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.mein-training.at', category: 'beauty' },
-            { name: 'METALLBAU Prielinger GmbH', location: '4655 Vorchdorf', link: 'https://www.st-prielinger.com', category: 'construction' },
-            { name: 'MEYER Logistik', location: '4655 Vorchdorf', link: 'https://www.meyer-logistik.at', category: 'industry' },
-            { name: 'MICHLHOF zu Haitzing', location: '4663 Laakirchen', link: 'https://www.michlhof-haitzing.at', category: 'gastro' },
-            { name: 'MICHLHOF zu Haitzing', location: '4663 Laakirchen', link: 'https://www.michlhof-haitzing.at', category: 'catering' },
-            { name: 'MOBILE PFLEGE Marina Nußbaumer', location: '4655 Vorchdorf', link: 'https://www.mobilepflegenussbaumer.at', category: 'services' },
-            { name: 'Mobiles Sägewerk FÜRTBAUER', location: '4694 Ohlsdorf', link: 'https://mobiles.saegewerk.fuertbauer@gmail.com', category: 'services' },
-            { name: 'Mobiles Sägewerk FÜRTBAUER', location: '4694 Ohlsdorf', link: 'https://mobiles.saegewerk.fuertbauer@gmail.com', category: 'construction' },
-            { name: 'Moden BAUMGARTNER', location: '4663 Laakirchen', category: 'fashion' },
-            { name: 'MOORBAD Gmös', location: '4663 Laakirchen', link: 'https://www.moorbad-gmoes.at', category: 'healthcare' },
-            { name: 'MÜLLER Kraftfahrzeug GesmbH', location: '4654 Bad Wimsbach', link: 'https://www.kfz-mueller.at', category: 'cars' },
-            { name: 'MÜLLER Tankstellen GesmbH', location: '4812 St. Konrad', category: 'gas' },
-            { name: 'NAHWÄRME Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.nahwaermevorchdorf.at', category: 'services' },
-            { name: 'NKD Österreich GmbH', location: '4655 Vorchdorf', link: 'https://www.nkd.at', category: 'fashion' },
-            { name: 'NKD Österreich GmbH', location: '4663 Laakirchen', link: 'https://www.nkd.at', category: 'fashion' },
-            { name: 'NOTARIAT Mag. Thomas Wilthoner', location: '4655 Vorchdorf', link: 'https://www.notar-wilthoner.at', category: 'legal' },
-            { name: 'OBERBANK Laakirchen', location: '4663 Laakirchen', link: 'https://www.oberbank.at', category: 'banks' },
-            { name: 'OBERÖSTERREICH.TV', location: '4650 Lambach', link: 'https://www.oberoesterreich.tv', category: 'advertising' },
-            { name: 'PALMAN Oliver, Meistermaler', location: '4655 Vorchdorf', link: 'https://www.palman.co.at', category: 'construction' },
-            { name: 'PAPIERWELT MUSEUM und ALFA', location: '4662 Steyrermühl', link: 'https://www.papiermuseum.at', category: 'culture' },
-            { name: 'PAYRHUBER Elektro GmbH', location: '4655 Vorchdorf', link: 'https://www.elektro-payrhuber.at', category: 'construction' },
-            { name: 'PEARLE Optik Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.pearle.at', category: 'healthcare' },
-            { name: 'PEARLE Optik Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.pearle.at', category: 'fashion' },
-            { name: 'PFATSCHBACHER Florian', location: '4810 Gschwandt', link: 'https://www.pfatschbacher-photography.at', category: 'photo' },
-            { name: 'PICHELSBERGER Autohaus GmbH', location: '4655 Vorchdorf', link: 'https://www.pichelsberger.at', category: 'cars' },
-            { name: 'PLAICHINGER Karl GesmbH', location: '4663 Laakirchen', category: 'food' },
-            { name: 'PLAICHINGER Karl GesmbH', location: '4655 Vorchdorf', category: 'construction' },
-            { name: 'POWER Networks GmbH', location: '4655 Vorchdorf', link: 'https://www.powernetworks.at', category: 'it' },
-            { name: 'PROCONSULT Wirtschaftsprüfung und Steuerberatung GmbH & Co KG', location: '4655 Vorchdorf', link: 'https://www.proconsult-wt.at', category: 'accounting' },
-            { name: 'proUmwelt GmbH Limberger', location: '4655 Vorchdorf', link: 'https://www.proumwelt.at', category: 'services' },
-            { name: 'PÖLL GesmbH & Co KG Fleisch- und Wurstspezialitäten', location: '4655 Vorchdorf', link: 'https://www.poell-vorchdorf.at', category: 'food' },
-            { name: 'PÖLL GesmbH & Co KG Fleisch- und Wurstspezialitäten', location: '4655 Vorchdorf', link: 'https://www.poell-vorchdorf.at', category: 'catering' },
-            { name: 'RAIFFEISENBANK Salzkammergut', location: '4655 Vorchdorf & 4663 Laakirchen', link: 'https://www.raiffeisen-ooe.at/salzkammergut', category: 'banks' },
-            { name: 'RAUCH Armin, Werbeagentur', location: '4655 Vorchdorf', link: 'https://www.ungleich.at', category: 'advertising' },
-            { name: 'Rechtsanwalt Dr. Horst MAYR', location: '4655 Vorchdorf', link: 'https://www.ra-mayr.at', category: 'legal' },
-            { name: 'Rechtsanwälte Mag. Daniela AIGNER, Mag. Georg LAMPL', location: '4655 Vorchdorf', link: 'https://www.kanzlei-vorchdorf.at', category: 'legal' },
-            { name: 'REGIO INTAKT Beratung', location: '4655 Vorchdorf', link: 'https://www.regiointakt.at', category: 'services' },
-            { name: 'Reisen FRÖCH', location: '4663 Laakirchen', link: 'https://www.froech-reisen.at', category: 'culture' },
-            { name: 'Reisen FRÖCH', location: '4663 Laakirchen', link: 'https://www.froech-reisen.at', category: 'transport' },
-            { name: 'ReVital Shop Vorchdorf', location: '4655 Vorchdorf', category: 'fashion' },
-            { name: 's\'GSCHÄFT UMS ECK', location: '4653 Eberstalzell', category: 'food' },
-            { name: 's\'GSCHÄFT UMS ECK', location: '4653 Eberstalzell', category: 'catering' },
-            { name: 'SCHATZL .ONLINE', location: '4655 Vorchdorf', link: 'https://www.schatzl.online', category: 'it' },
-            { name: 'SCHATZL .ONLINE', location: '4655 Vorchdorf', link: 'https://www.schatzl.online', category: 'advertising' },
-            { name: 'SCHIESSL Kältetechnik m.b.H.', location: '4655 Vorchdorf', link: 'https://www.schiessl.at', category: 'industry' },
-            { name: 'SCHMALWIESER Bastel-, Schul- und Nähbedarf, Stoffe', location: '4655 Vorchdorf', category: 'construction' },
-            { name: 'SCHNEEBERGER Karl, Schwimmbad-Montage-Technik e.U.', location: '4655 Vorchdorf', link: 'https://www.schwimmbad1a.at', category: 'construction' },
-            { name: 'SCHNITT VISION Lisa Thalinger', location: '4655 Vorchdorf', link: 'https://www.schnittvision.at', category: 'beauty' },
-            { name: 'SCHNITT VISION Lisa Thalinger', location: '4662 Steyrermühl', link: 'https://www.schnittvision.at', category: 'beauty' },
-            { name: 'SCHWABEGGER Optik, Hörgeräte, Contactlinsen', location: '4655 Vorchdorf', link: 'https://www.schwabegger.at', category: 'healthcare' },
-            { name: 'SCHWABEGGER Optik, Hörgeräte, Contactlinsen', location: '4655 Vorchdorf', link: 'https://www.schwabegger.at', category: 'fashion' },
-            { name: 'SECONDHAND FARBENFROH', location: '4662 Steyrermühl', category: 'fashion' },
-            { name: 'SEYR Harald GmbH, Dachdecker', location: '4654 Bad Wimsbach', link: 'https://www.seyr.org', category: 'construction' },
-            { name: 'SFK GmbH', location: '4656 Kirchham', link: 'https://www.sfk.at', category: 'construction' },
-            { name: 'SHELL Tankstelle', location: '4662 Steyrermühl', category: 'gas' },
-            { name: 'SHIATSU MASSAGE Carmen Adamsmair', location: '4655 Vorchdorf', link: 'https://www.massagecarmen.at', category: 'healthcare' },
-            { name: 'SODIAN Immobilien', location: '4655 Vorchdorf', link: 'https://www.sodian-immobilien.at', category: 'construction' },
-            { name: 'SPAR Markt Hessenberger', location: '4663 Laakirchen', category: 'food' },
-            { name: 'SPAR Österr. Warenhandels AG', location: '4655 Vorchdorf', link: 'https://www.spar.at', category: 'food' },
-            { name: 'SPARKASSE Laakirchen', location: '4663 Laakirchen', link: 'https://www.sparkasse.at', category: 'banks' },
-            { name: 'SPARKASSE Vorchdorf', location: '4655 Vorchdorf', link: 'https://www.sparkasse.at/lambach', category: 'banks' },
-            { name: 'SPC Gebäudetechnik', location: '4656 Kirchham', link: 'https://www.spc-technik.at', category: 'construction' },
-            { name: 'SPITZBART Paulus - Tischlerei', location: '4663 Laakirchen', link: 'https://www.floorcover.at', category: 'construction' },
-            { name: 'SPS Bruderhofer', location: '4655 Vorchdorf', link: 'https://www.sps-bruderhofer.at', category: 'construction' },
-            { name: 'STADT Apotheke', location: '4663 Laakirchen', link: 'https://www.stadtapo-laakirchen.at', category: 'healthcare' },
-            { name: 'STADTGEMEINDE Laakirchen', location: '4663 Laakirchen', link: 'https://www.laakirchen.at', category: 'services' },
-            { name: 'STEINER\'S Fiaker', location: '4663 Laakirchen', link: 'https://www.fiaker.steiners-restaurants.at', category: 'gastro' },
-            { name: 'Steinmetzmeister LITTRINGER', location: '4663 Laakirchen', link: 'https://www.littringer-stein.at', category: 'construction' },
-            { name: 'STERN & HAFFERL Verkehrs GesmbH', location: '4810 Gmunden', link: 'https://www.stern-verkehr.at', category: 'transport' },
-            { name: 'STUCO GmbH', location: '4655 Vorchdorf', link: 'https://www.stuco.com', category: 'wholesale' },
-            { name: 'STÖTTINGER Immobilien, Michael Stöttinger', location: '4655 Vorchdorf', link: 'https://www.stoettinger-immobilien.at', category: 'construction' },
-            { name: 'SUSANNE.ANZIEHEND', location: '4655 Vorchdorf', link: 'https://www.susanneanzlehend.at', category: 'fashion' },
-            { name: 'Team DOGTRAINING, Dominik Söllradl', location: '4655 Vorchdorf', link: 'https://www.dogtraining.at', category: 'services' },
-            { name: 'Thomas GÖTSCHHOFER GesmbH', location: '4655 Vorchdorf', link: 'https://www.gut-durchdacht.at', category: 'construction' },
-            { name: 'TISCHLEREI Bernhard Radner', location: '4655 Vorchdorf', category: 'construction' },
-            { name: 'Tischlerei STELZHAMMER GmbH', location: '4663 Laakirchen', category: 'construction' },
-            { name: 'Traunseeschifffahrt Karlheinz Eder', location: '4810 Gmunden', link: 'https://www.traunseeschifffahrt.at', category: 'transport' },
-            { name: 'TRAUNSTEIN Reinigung Tamara Huemer', location: '4655 Vorchdorf', link: 'https://www.textilreinigung-traunstein.at', category: 'services' },
-            { name: 'TVM Versicherungsmakler GmbH', location: '4560 Kirchdorf', link: 'https://www.tvm.at', category: 'banks' },
-            { name: 'VINOLINO, Laszl Gerhard', location: '4655 Vorchdorf', category: 'gastro' },
-            { name: 'VMB Laakirchen', location: '4663 Laakirchen', link: 'https://www.vmb-laakirchen.at', category: 'banks' },
-            { name: 'VOGELHUBERGUT Fam. Scherleithner', location: '4655 Vorchdorf', link: 'https://www.vogelhubergut.at', category: 'gastro' },
-            { name: 'VOLKSKREDITBANK AG', location: '4655 Vorchdorf', link: 'https://www.vkb-bank.at', category: 'banks' },
-            { name: 'VORCHDORFMEDIA e.U., Mag. Gerhard Radner', location: '4655 Vorchdorf', link: 'https://www.vorchdorfmedia.at', category: 'advertising' },
-            { name: 'WAGENHAUS GmbH', location: '4655 Vorchdorf', link: 'https://www.wagenhaus.at', category: 'cars' },
-            { name: 'WELTLADEN', location: '4655 Vorchdorf', link: 'https://www.weltladenvorchdorf.at', category: 'food' },
-            { name: 'WELTLADEN', location: '4655 Vorchdorf', link: 'https://www.weltladenvorchdorf.at', category: 'fashion' },
-            { name: 'WESTREICHER, MR Dr. Claudia', location: '4655 Vorchdorf', link: 'https://www.westreicher.at', category: 'healthcare' },
-            { name: 'WIEDL\'S Taxi', location: '4655 Vorchdorf', link: 'https://www.taxi-wiedl.at', category: 'transport' },
-            { name: 'WIRT in der Edt, Fam. Radner', location: '4655 Vorchdorf', link: 'https://www.wirt-edt.at', category: 'gastro' },
-            { name: 'WohnPlanerin RAFFELSBERGER Eva', location: '4655 Vorchdorf', link: 'https://www.wohnplanerin.at', category: 'construction' },
-            { name: 'Wohnstudio Johannes HUTTERER', location: '4663 Laakirchen', link: 'https://www.moderne-kuechen.at', category: 'construction' },
-            { name: 'ZAMBELLI Industrieprodukte KG', location: '4655 Vorchdorf', link: 'https://www.zambelli-ip.at', category: 'services' },
-            { name: 'ZOPF Schmuck, Uhren, Optik', location: '4663 Laakirchen', link: 'https://www.zopf-optik.at', category: 'healthcare' },
-            { name: 'ZOPF Schmuck, Uhren, Optik', location: '4663 Laakirchen', link: 'https://www.zopf-optik.at', category: 'jewelry' },
-            { name: 'ZUMBA Andrea', location: '4655 Vorchdorf', category: 'beauty' },
-            { name: 'ZWIRN - Café Bar Osteria', location: '4655 Vorchdorf', link: 'https://www.cafezwirn.at', category: 'gastro' },
-            { name: 'ZWIRN - Café Bar Osteria', location: '4655 Vorchdorf', link: 'https://www.cafezwirn.at', category: 'catering' },
-        ];
+        // Global Business Data - Loaded from businesses.json
+        let allBusinesses = [];
+        let allClubs = {};
 
         // Data Structure
         const categories = {
@@ -3412,159 +3262,7 @@ Mit freundlichen Grüßen`;
                         id: 'sports_clubs',
                         title: '🏅 Sportvereine',
                         description: '15 Sportvereine in Vorchdorf',
-                        items: [
-                            {
-                                title: 'Almtaler Fischerclub Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Altreiter Roland',
-                                    '☎️ 0681 81 78 70 85',
-                                    '📍 Mühltal 55, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.fischereiverein-almtal.at/Startseite/',
-                                link: 'https://www.vorchdorfonline.at/verein/almtaler-fischerclub'
-                            },
-                            {
-                                title: 'ASKÖ Vorchdorf, Sektion Fußball',
-                                info: [
-                                    '👤 Obmann: Thomas Götschhofer',
-                                    '☎️ 07614 7944',
-                                    '📍 Falkenohren 20, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.askoe-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/askoe-vorchdorf-sektion-fussball'
-                            },
-                            {
-                                title: 'ASKÖ Vorchdorf Stocksport',
-                                info: [
-                                    '👤 Obmann: Siegfried Schatzl',
-                                    '☎️ 0676/3552998',
-                                    '📍 Streininger Str 2C, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.askoe-vorchdorf.com',
-                                link: 'https://www.vorchdorfonline.at/verein/askoe-vorchdorf-sektion-stocksport'
-                            },
-                            {
-                                title: 'Body Strength Vorchdorf',
-                                info: [
-                                    '👤 Obmann: David Ehrengruber',
-                                    '📱 069911066429',
-                                    '✉️ WorkoutParkVorchdorf@gmail.com',
-                                    '📍 Styriastraße 5a, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/BodyStrengthVorchdorf/',
-                                link: 'https://www.vorchdorfonline.at/verein/body-strength-vorchdorf'
-                            },
-                            {
-                                title: 'LASK Fanklub Salzkammergut',
-                                info: [
-                                    '👤 Obmann: Andreas Bruderhofer',
-                                    '📱 0660/1127502',
-                                    '✉️ Lask.Salzkammergut@gmx.at',
-                                    '📍 Brunnmühlstrasse 3/8, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/laskfanklubsalzkammergut/',
-                                link: 'https://www.vorchdorfonline.at/verein/lask-fanklub-salzkammergut'
-                            },
-                            {
-                                title: 'Naturfreunde Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Thomas Haudum',
-                                    '☎️ 0699/10417088',
-                                    '📍 Seyrkam 1, 4655 Vorchdorf'
-                                ],
-                                website: 'https://vorchdorf.naturfreunde.at',
-                                link: 'https://www.vorchdorfonline.at/verein/naturfreunde-vorchdorf'
-                            },
-                            {
-                                title: 'Österreichische Wasserrettung',
-                                info: [
-                                    '👤 Obmann: Johannes Hörtenhuber',
-                                    '☎️ 07614-655580',
-                                    '📱 0664 852 0888',
-                                    '📍 Laudachweg 11, 4655 Vorchdorf'
-                                ],
-                                website: 'https://ooe.owr.at/vorchdorf/ueber-uns/unsere-ortsstelle/',
-                                link: 'https://www.vorchdorfonline.at/verein/oesterreichische-wasserrettung'
-                            },
-                            {
-                                title: 'Schützengesellschaft 1879 Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Gabriel Reiter',
-                                    '✉️ SG1879vorchdorf@gmail.com',
-                                    '📍 Lambacherstraße 15, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/p/Schützengesellschaft-1879-Vorchdorf-100069067790759/',
-                                link: 'https://www.vorchdorfonline.at/verein/schuetzengesellschaft-1879-vorchdorf'
-                            },
-                            {
-                                title: 'Schützenverein Theuerwang',
-                                info: [
-                                    '👤 Obmann: Michael Maier',
-                                    '📱 0650 802 7466',
-                                    '📍 Fischböckauer Straße 10/4, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.sv-theuerwang.eu/',
-                                link: 'https://www.vorchdorfonline.at/verein/schuetzenverein-theuerwang'
-                            },
-                            {
-                                title: 'Union Badminton Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Harald Starl',
-                                    '☎️ 07614/6237',
-                                    '📱 +43 676 5117052'
-                                ],
-                                website: 'https://www.vorchdorf.at/UNION_BC_Vorchdorf',
-                                link: 'https://www.vorchdorfonline.at/verein/union-badminton-vorchdorf'
-                            },
-                            {
-                                title: 'Union Laufgruppe',
-                                info: [
-                                    '👤 Obmann: Petra Laherstorfer',
-                                    '📱 0699/1111 3263',
-                                    '✉️ pfingstlauf.laherstorfer@outlook.com'
-                                ],
-                                website: 'https://www.traunviertler-laufcup.at',
-                                link: 'https://www.vorchdorfonline.at/verein/union-laufgruppe'
-                            },
-                            {
-                                title: 'Union Schiclub Seyr Dach',
-                                info: [
-                                    '👤 Obmann: Brandstötter Gabriele',
-                                    '📱 0664 4148379',
-                                    '📍 Lindacherstrasse 41, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.schiclub-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/union-schiclub-seyr-dach'
-                            },
-                            {
-                                title: 'Union Tennisclub BAM.wohnen Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Anna Söllner',
-                                    '☎️ 07614/7557',
-                                    '📍 Laudachweg 13, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.utc-vorchdorf.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/union-tennisclub-bam-wohnen'
-                            },
-                            {
-                                title: 'Union VKL VIKINGS Vorchdorf',
-                                info: [
-                                    'Basketball Club',
-                                    '📍 Vorchdorf'
-                                ],
-                                website: 'https://www.vikings-basketball.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/union-vkl-vikings-vorchdorf'
-                            },
-                            {
-                                title: 'Union Vorchdorf - Tischtennis',
-                                info: [
-                                    '👤 Obmann: Jürgen Feichtinger',
-                                    '📍 Pettenbacherstraße 2, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.vorchdorf.at/Tischtennis_Union_Vorchdorf',
-                                link: 'https://www.vorchdorfonline.at/verein/union-vorchdorf-tischtennis'
-                            }
-                        ]
+                        items: []
                     }
                 }
             },
@@ -3578,650 +3276,37 @@ Mit freundlichen Grüßen`;
                         id: 'sport',
                         title: '⚽ Sport',
                         description: '15 Sportvereine in Vorchdorf',
-                        items: [
-                            {
-                                title: 'Almtaler Fischerclub Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Altreiter Roland',
-                                    '☎️ 0681 81 78 70 85',
-                                    '📍 Mühltal 55, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.fischereiverein-almtal.at/Startseite/',
-                                link: 'https://www.vorchdorfonline.at/verein/almtaler-fischerclub'
-                            },
-                            {
-                                title: 'ASKÖ Vorchdorf, Sektion Fußball',
-                                info: [
-                                    '👤 Obmann: Thomas Götschhofer',
-                                    '👥 Stellv.: Christian Gründlinger',
-                                    '☎️ 07614 7944',
-                                    '📱 0676 8141 42030',
-                                    '✉️ sektionfussball@askoeVorchdorf.at',
-                                    '📍 Falkenohren 20, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.askoe-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/askoe-vorchdorf-sektion-fussball'
-                            },
-                            {
-                                title: 'ASKÖ Vorchdorf Stocksport',
-                                info: [
-                                    '👤 Obmann: Siegfried Schatzl',
-                                    '☎️ 0676/3552998',
-                                    '📍 Streininger Str 2C, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.askoe-vorchdorf.com',
-                                link: 'https://www.vorchdorfonline.at/verein/askoe-vorchdorf-sektion-stocksport'
-                            },
-                            {
-                                title: 'Body Strength Vorchdorf',
-                                info: [
-                                    '👤 Obmann: David Ehrengruber',
-                                    '📱 069911066429',
-                                    '✉️ WorkoutParkVorchdorf@gmail.com',
-                                    '📍 Styriastraße 5a, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/BodyStrengthVorchdorf/',
-                                link: 'https://www.vorchdorfonline.at/verein/body-strength-vorchdorf'
-                            },
-                            {
-                                title: 'LASK Fanklub Salzkammergut',
-                                info: [
-                                    '👤 Obmann: Andreas Bruderhofer',
-                                    '👥 Stellv.: Andreas Gassenbauer',
-                                    '📱 0660/1127502',
-                                    '✉️ Lask.Salzkammergut@gmx.at',
-                                    '📍 Brunnmühlstrasse 3/8, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/laskfanklubsalzkammergut/',
-                                link: 'https://www.vorchdorfonline.at/verein/lask-fanklub-salzkammergut'
-                            },
-                            {
-                                title: 'Naturfreunde Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Thomas Haudum',
-                                    '☎️ 0699/10417088',
-                                    '📍 Seyrkam 1, 4655 Vorchdorf'
-                                ],
-                                website: 'https://vorchdorf.naturfreunde.at',
-                                link: 'https://www.vorchdorfonline.at/verein/naturfreunde-vorchdorf'
-                            },
-                            {
-                                title: 'Österreichische Wasserrettung',
-                                info: [
-                                    '👤 Obmann: Johannes Hörtenhuber',
-                                    '👥 Stellv.: Daniel Stikler, Mario Kramesberger',
-                                    '☎️ 07614-655580',
-                                    '📱 0664 852 0888',
-                                    '✉️ johannes.hoertenhuber@ooe.owr.at',
-                                    '📍 Laudachweg 11, 4655 Vorchdorf'
-                                ],
-                                website: 'https://ooe.owr.at/vorchdorf/ueber-uns/unsere-ortsstelle/',
-                                link: 'https://www.vorchdorfonline.at/verein/oesterreichische-wasserrettung'
-                            },
-                            {
-                                title: 'Schützengesellschaft 1879 Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Gabriel Reiter',
-                                    '👥 Stellv.: Michael Haas',
-                                    '✉️ SG1879vorchdorf@gmail.com',
-                                    '📍 Lambacherstraße 15, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/p/Schützengesellschaft-1879-Vorchdorf-100069067790759/',
-                                link: 'https://www.vorchdorfonline.at/verein/schuetzengesellschaft-1879-vorchdorf'
-                            },
-                            {
-                                title: 'Schützenverein Theuerwang',
-                                info: [
-                                    '👤 Obmann: Michael Maier',
-                                    '👥 Stellv.: Marko Malesardi, Dominik Maier, Martin Danner',
-                                    '📱 0650 802 7466',
-                                    '✉️ maier.much@gmx.at',
-                                    '📍 Fischböckauer Straße 10/4, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.sv-theuerwang.eu/',
-                                link: 'https://www.vorchdorfonline.at/verein/schuetzenverein-theuerwang'
-                            },
-                            {
-                                title: 'Union Badminton Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Harald Starl',
-                                    '☎️ 07614/6237',
-                                    '📱 +43 676 5117052',
-                                    '✉️ harald.starl@badminton.at'
-                                ],
-                                website: 'https://www.vorchdorf.at/UNION_BC_Vorchdorf',
-                                link: 'https://www.vorchdorfonline.at/verein/union-badminton-vorchdorf'
-                            },
-                            {
-                                title: 'Union Laufgruppe',
-                                info: [
-                                    '👤 Obmann: Petra Laherstorfer',
-                                    '👥 Stellv.: Elfriede Itzenberger',
-                                    '📱 0699/1111 3263',
-                                    '✉️ pfingstlauf.laherstorfer@outlook.com'
-                                ],
-                                website: 'https://www.traunviertler-laufcup.at',
-                                link: 'https://www.vorchdorfonline.at/verein/union-laufgruppe'
-                            },
-                            {
-                                title: 'Union Schiclub Seyr Dach',
-                                info: [
-                                    '👤 Obmann: Brandstötter Gabriele',
-                                    '👥 Stellv.: Wischenbart Günter',
-                                    '📱 0664 4148379',
-                                    '✉️ office@schiclub-vorchdorf.at',
-                                    '📍 Lindacherstrasse 41, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.schiclub-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/union-schiclub-seyr-dach'
-                            },
-                            {
-                                title: 'Union Tennisclub BAM.wohnen Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Anna Söllner',
-                                    '☎️ 07614/7557',
-                                    '📍 Laudachweg 13, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.utc-vorchdorf.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/union-tennisclub-bam-wohnen'
-                            },
-                            {
-                                title: 'Union VKL VIKINGS Vorchdorf',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                website: 'https://www.vikings-basketball.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/union-vkl-vikings-vorchdorf'
-                            },
-                            {
-                                title: 'Union Vorchdorf - Tischtennis',
-                                info: [
-                                    '👤 Obmann: Jürgen Feichtinger',
-                                    '✉️ union@vorchdorf-tischtennis.at',
-                                    '📍 Pettenbacherstraße 2, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.vorchdorf.at/Tischtennis_Union_Vorchdorf',
-                                link: 'https://www.vorchdorfonline.at/verein/union-vorchdorf-tischtennis'
-                            }
-                        ]
+                        items: []
                     },
                     kultur: {
                         id: 'kultur',
                         title: '🎭 Kultur',
                         description: '10 Kulturvereine in Vorchdorf',
-                        items: [
-                            {
-                                title: 'Faschingsgilde "Vori Dori"',
-                                info: [
-                                    '👤 Obmann: Michael Grabner',
-                                    '📱 +43 676 846498215',
-                                    '✉️ kontakt@voridori.at',
-                                    '📍 Römerstraße 16a, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.voridori.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/faschingsgilde-vori-dori'
-                            },
-                            {
-                                title: 'Freundeskreis Kulturverein',
-                                info: [
-                                    '👤 Obmann: Simone Krumphuber',
-                                    '👥 Stellv.: Gabriel Reiter',
-                                    '✉️ freundeskreis.kulturverein@gmail.com',
-                                    '📍 Wehrstraße 16, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/people/Freundeskreis-Kulturverein/61578979960957/',
-                                link: 'https://www.vorchdorfonline.at/verein/freundeskreis-kulturverein'
-                            },
-                            {
-                                title: 'Galerie im Gewölbe',
-                                info: [
-                                    '👤 Obmann: Christine Jarosik'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/verein/galerie-im-gewoelbe'
-                            },
-                            {
-                                title: 'GIV – Gesellschaft für Informationskultur',
-                                info: [
-                                    '👤 Obmann: Florian Sedmak',
-                                    '✉️ postfach@INVO.report'
-                                ],
-                                website: 'https://invo.report/',
-                                link: 'https://www.vorchdorfonline.at/verein/giv-gesellschaft-fuer-informationskultur'
-                            },
-                            {
-                                title: 'Heimat- und Kulturverein Vorchdorf',
-                                info: [
-                                    '👤 Obmann: MR Dr. Claudia Westreicher',
-                                    '👥 Stellv.: Georg Breckner',
-                                    '✉️ dr.claudia@westreicher.at',
-                                    '📍 Bahnhofstraße 9, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.heimatvereinvorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/heimat-und-kulturverein-vorchdorf'
-                            },
-                            {
-                                title: 'Kitzmantel Kulturvilla',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                website: 'https://www.kulturvilla.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/kitzmantel-kulturvilla'
-                            },
-                            {
-                                title: 'Kitzmantelfabrik Vorchdorf',
-                                info: [
-                                    '☎️ +43(0/7614-6555 12',
-                                    '✉️ meine.buehne@kitzmantelfabrik.at',
-                                    '📍 Laudachweg 15, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.kitzmantelfabrik.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/kitzmantelfabrik'
-                            },
-                            {
-                                title: 'Naturfreunde Fotoklub',
-                                info: [
-                                    '👤 Obmann: Hans-Georg Schlossgangl',
-                                    '☎️ 0664/2821469',
-                                    '📱 0699/11097347',
-                                    '📍 Fischböckau 19D, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.fotoklub-vorchdorf.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/naturfreunde-fotoklub'
-                            },
-                            {
-                                title: 'Schnappschüsse',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/verein/schnappschuesse'
-                            },
-                            {
-                                title: 'Theatergruppe Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Hans Aigner',
-                                    '📱 0699 1198 2608'
-                                ],
-                                website: 'http://www.theatergruppe-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/theatergruppe-vorchdorf'
-                            }
-                        ]
+                        items: []
                     },
                     musik: {
                         id: 'musik',
                         title: '🎵 Musik',
                         description: '7 Musikvereine in Vorchdorf',
-                        items: [
-                            {
-                                title: 'Marktmusik Vorchdorf - MMV',
-                                info: [
-                                    '👤 Obmann: Andreas Kramesberger',
-                                    '👥 Stellv.: Christina Meingassner',
-                                    '📱 0664 2139905',
-                                    '✉️ vorchdorfmarktmusik@gmail.com'
-                                ],
-                                website: 'https://www.marktmusik.com/',
-                                link: 'https://www.vorchdorfonline.at/verein/marktmusik-vorchdorf'
-                            },
-                            {
-                                title: 'Musikverein Siebenbürger Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Markus Resch',
-                                    '👥 Stellv.: Hans Dobrezberger & Harald Ohler',
-                                    '📱 0676/35 93 632',
-                                    '✉️ obmann@siebenbuerger-vorchdorf.info',
-                                    '📍 Streiningerstr. 25, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.siebenbuerger-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/musikverein-siebenbuerger-vorchdorf'
-                            },
-                            {
-                                title: 'Sängerbund Frohsinn',
-                                info: [
-                                    '👤 Obmann: Martin Stockhammer',
-                                    '✉️ kontakt@frohsinn.at',
-                                    '📍 Haidholzstrasse 16 a, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.frohsinn.at',
-                                link: 'https://www.vorchdorfonline.at/verein/saengerbund-frohsinn'
-                            },
-                            {
-                                title: 'Singkreis Einsiedling',
-                                info: [
-                                    '👤 Obmann: Monika Moser'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/verein/singkreis-einsiedling'
-                            },
-                            {
-                                title: 'Sunshine Chor',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                website: 'https://www.sunshinechor.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/sunshine-chor'
-                            },
-                            {
-                                title: 'Trinitatis-Chor',
-                                info: [
-                                    '👤 Obmann: Gerhard Wiener',
-                                    '☎️ 07614/7236'
-                                ],
-                                website: 'https://heilandskirche.at/chor/',
-                                link: 'https://www.vorchdorfonline.at/verein/trinitatis-chor'
-                            },
-                            {
-                                title: 'Vorchdorfer Böhmische',
-                                info: [
-                                    '👤 Obmann: Miglbauer Manfred',
-                                    '☎️ 0676/9441460',
-                                    '✉️ vorchdorfer.boehmische@gmx.at'
-                                ],
-                                website: 'https://vorchdorfer-boehmische.jimdofree.com/',
-                                link: 'https://www.vorchdorfonline.at/verein/vorchdorfer-boehmische'
-                            }
-                        ]
+                        items: []
                     },
                     religion: {
                         id: 'religion',
                         title: '⛪ Religion',
                         description: '6 Religionsgemeinschaften',
-                        items: [
-                            {
-                                title: 'Evangelische Kirche',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                website: 'https://heilandskirche.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/evangelische-kirche'
-                            },
-                            {
-                                title: 'IKV Vorchdorf (Islamischer Kulturverein)',
-                                info: [
-                                    '👤 Obmann: Muhammed Karatas',
-                                    '📱 0660 4630471',
-                                    '✉️ ikv.vorchdorf@gmail.com',
-                                    '📍 Europaweg 3, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.instagram.com/ikv_vorchdorf/',
-                                link: 'https://www.vorchdorfonline.at/verein/islamischer-kulturverein'
-                            },
-                            {
-                                title: 'Katholische Jugend',
-                                info: [
-                                    '👤 Obmann: Catharina Hillinger',
-                                    '📍 Pfarrheim Vorchdorf, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.instagram.com/kj_vorchdorf/',
-                                link: 'https://www.vorchdorfonline.at/verein/katholische-jugend'
-                            },
-                            {
-                                title: 'Katholische Jungschar',
-                                info: [
-                                    '👤 Obmann: Maria Aigner',
-                                    '📍 Pfarrheim Vorchdorf, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.facebook.com/JungscharVorchdorf/',
-                                link: 'https://www.vorchdorfonline.at/verein/katholische-jungschar'
-                            },
-                            {
-                                title: 'Katholische Pfarre Vorchdorf',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                website: 'https://www.dioezese-linz.at/vorchdorf',
-                                link: 'https://www.vorchdorfonline.at/verein/katholische-pfarre-vorchdorf'
-                            },
-                            {
-                                title: 'Katholisches Bildungswerk',
-                                info: [
-                                    '👤 Obmann: Annemarie Pramberger'
-                                ],
-                                website: 'https://www.dioezese-linz.at/kbw/home',
-                                link: 'https://www.vorchdorfonline.at/verein/katholisches-bildungswerk'
-                            }
-                        ]
+                        items: []
                     },
                     soziales: {
                         id: 'soziales',
                         title: '🤝 Soziales & Jugend',
                         description: '10 soziale Vereine',
-                        items: [
-                            {
-                                title: 'Elternverein Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Isabella Wimmer-Königstorfer',
-                                    '👥 Stellv.: Viktoria Aitzetmüller',
-                                    '✉️ office@elternverein-vorchdorf.at',
-                                    '📍 Schulstraße 6, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.elternverein-vorchdorf.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/elternverein-vorchdorf'
-                            },
-                            {
-                                title: 'Gesunde Gemeinde Vorchdorf',
-                                info: [
-                                    '👤 Obmann: MR Dr. Claudia Westreicher',
-                                    '☎️ 07614/6555-71'
-                                ],
-                                website: 'https://www.vorchdorf.at/Gesunde_Gemeinde',
-                                link: 'https://www.vorchdorfonline.at/verein/gesunde-gemeinde-vorchdorf'
-                            },
-                            {
-                                title: 'Jugendzentrum Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Christian Rührlinger',
-                                    '👥 Stellv.: Manuela und Oliver',
-                                    '📱 0676-898 655 680',
-                                    '✉️ office@juz4you.at',
-                                    '📍 Laudachweg 14, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.vorchdorf.at/Jugendzentrum_Vorchdorf_Juz4YOU_',
-                                link: 'https://www.vorchdorfonline.at/verein/jugendzentrum-vorchdorf'
-                            },
-                            {
-                                title: 'Landjugend Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Lara Hofbauer und Peter Kriechbaum',
-                                    '👥 Stellv.: Leonie Thanner und Max Schindlauer',
-                                    '✉️ vorchdorf.landjugend@gmail.com',
-                                    '📍 Berg 1, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.vorchdorf.landjugend.at',
-                                link: 'https://www.vorchdorfonline.at/verein/landjugend-vorchdorf'
-                            },
-                            {
-                                title: 'OTELO Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Martin Hollinetz',
-                                    '👥 Stellv.: Bettina Hutterer',
-                                    '☎️ 0650/7031919',
-                                    '✉️ otelovorchdorf@gmail.com',
-                                    '📍 Schulstraße 8, 4655 Vorchdorf'
-                                ],
-                                website: 'https://otelo.or.at/standort/vorchdorf/',
-                                link: 'https://www.vorchdorfonline.at/verein/otelo'
-                            },
-                            {
-                                title: 'Pfadfinder Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Michael Etlinger',
-                                    '✉️ vorchdorf@scout.at',
-                                    '📍 Hummelbrunn 5, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.pfadfinder-vorchdorf.com/',
-                                link: 'https://www.vorchdorfonline.at/verein/pfadfinder-vorchdorf'
-                            },
-                            {
-                                title: 'Rotes Kreuz Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Dr. Christoph Hohn',
-                                    '👥 Stellv.: Mag. Barbara Wilthoner',
-                                    '☎️ 07614/7012',
-                                    '📱 0664/50 70 195',
-                                    '📍 Dr. Mitterbauerstr. 4c, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.roteskreuz.at/ooe/dienststellen/gmunden/die-bezirksstelle/die-ortsstellen/vorchdorf/startseite/',
-                                link: 'https://www.vorchdorfonline.at/verein/rotes-kreuz-vorchdorf'
-                            },
-                            {
-                                title: 'Senioren',
-                                info: [
-                                    '☎️ Kurt Ahrer 07614/8244'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/verein/senioren'
-                            },
-                            {
-                                title: 'Volontariat mit Jugend eine Welt',
-                                info: [
-                                    '👤 Obmann: Anna Kronberger',
-                                    '☎️ 07614/5316'
-                                ],
-                                website: 'https://www.jugendeinewelt.at/engagement/freiwilligeneinsaetze-im-ausland/volontariatbewegt/',
-                                link: 'https://www.vorchdorfonline.at/verein/volontariat-jugend-welt'
-                            },
-                            {
-                                title: 'Weltladen Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Teresa Steinhäusler',
-                                    '👥 Stellv.: Katharina Langeder',
-                                    '☎️ 07614/5322',
-                                    '✉️ office@weltladen-vorchdorf.at',
-                                    '📍 Schlossplatz 2, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.weltladen-vorchdorf.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/weltladen-vorchdorf'
-                            }
-                        ]
+                        items: []
                     },
                     sonstiges: {
                         id: 'sonstiges',
                         title: '📋 Sonstiges',
                         description: '13 weitere Vereine',
-                        items: [
-                            {
-                                title: 'HELLO ENGLISH! English Teaching Academy',
-                                info: [
-                                    '☎️ 07614/21499',
-                                    '📱 0676/9728 458',
-                                    '📍 Bahnhofstraße 13, 4655 Vorchdorf'
-                                ],
-                                website: 'https://helloenglish.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/hello-english'
-                            },
-                            {
-                                title: 'Landesmusikschule',
-                                info: [
-                                    '👤 Obmann: Musikschuldirektor Wilhelm Zelch MA',
-                                    '☎️ 07613 2985',
-                                    '✉️ ms-laakirchen.post@ooe.gv.at',
-                                    '📍 Schulstraße 6, 4655 Vorchdorf'
-                                ],
-                                website: 'http://www.lms-laakirchen.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/landesmusikschule'
-                            },
-                            {
-                                title: 'Laudachtaler Energiegemeinschaft',
-                                info: [
-                                    '👤 Obmann: Christian Hummelbrunner'
-                                ],
-                                website: 'http://www.energiegruppe-vorchdorf.at',
-                                link: 'https://www.vorchdorfonline.at/verein/laudachtaler-energiegemeinschaft'
-                            },
-                            {
-                                title: 'Öffentliche Bibliothek Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Mark Lunabba',
-                                    '☎️ 07614 / 6313-20',
-                                    '📍 Schloßplatz 2, 4655 Vorchdorf'
-                                ],
-                                website: 'https://bibliothek-vorchdorf.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/oeffentliche-bibliothek'
-                            },
-                            {
-                                title: 'Ortsbauernschaft',
-                                info: [
-                                    '👤 Obmann: Josef Scherleithner',
-                                    '👥 Stellv.: Margit Kriechbaum',
-                                    '☎️ 0699 1261 3667'
-                                ],
-                                website: 'https://www.facebook.com/groups/263785608553934/',
-                                link: 'https://www.vorchdorfonline.at/verein/ortsbauernschaft'
-                            },
-                            {
-                                title: 'Siedlerverein Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Felix Lenzeder',
-                                    '👥 Stellv.: Paul Aberl',
-                                    '☎️ 07614 8857',
-                                    '📍 Spitzleithen 2/1, 4655 Vorchdorf'
-                                ],
-                                website: 'https://vorchdorf.siedlerverein.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/siedlerverein-vorchdorf'
-                            },
-                            {
-                                title: 'Tourismus Ortsausschuss Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Jochen Neustifter'
-                                ],
-                                website: 'https://www.salzkammergut.at/',
-                                link: 'https://www.vorchdorfonline.at/verein/tourismus-ortsausschuss'
-                            },
-                            {
-                                title: 'vorchdorf 2027',
-                                info: [
-                                    '👤 Obmann: Christoph Deichsel',
-                                    '👥 Stellv.: Ing. Christian Hummelbrunner',
-                                    '📱 +43 676 844230206',
-                                    '✉️ ch.deixl@gmail.com'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/verein/vorchdorf-2027'
-                            },
-                            {
-                                title: 'Vorchdorfer Gastbenutzer',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/verein/vorchdorfer-gastbenutzer'
-                            },
-                            {
-                                title: 'Werbering Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Ing. Markus Müller',
-                                    '👥 Stellv.: Elfriede Lüftinger',
-                                    '☎️ 0699 15 05 88 57',
-                                    '✉️ office@werbering-vorchdorf.at',
-                                    '📍 Oberhörbach 18, 4655 Vorchdorf'
-                                ],
-                                website: 'https://www.vorchdorfonline.at/verein/werbering',
-                                link: 'https://www.vorchdorfonline.at/verein/werbering'
-                            },
-                            {
-                                title: 'Wirtschaftsbund Vorchdorf',
-                                info: [
-                                    'Weitere Infos auf der Website'
-                                ],
-                                website: 'https://www.ooe-wb.at/bezirk/gmunden/',
-                                link: 'https://www.vorchdorfonline.at/verein/wirtschaftsbund-vorchdorf'
-                            },
-                            {
-                                title: 'Zukunft Fischböckau',
-                                info: [
-                                    '👤 Obmann: Christian Strassmair',
-                                    '📱 0664 965 3 569'
-                                ],
-                                website: 'https://traunsteinregion.at/projekte/projekte-2014-2022.html?view=article&id=168:fischböckau-2020&catid=13',
-                                link: 'https://www.vorchdorfonline.at/verein/zukunft-fischboeckau'
-                            },
-                            {
-                                title: 'Zukunft Vorchdorf',
-                                info: [
-                                    '👤 Obmann: Franz Amering',
-                                    '👥 Stellv.: Felix Lenzeder, Klaus Lohninger',
-                                    '✉️ schimpl@abzlambach.at'
-                                ],
-                                website: 'https://www.liebenswertes-ooe.at/245.htm',
-                                link: 'https://www.vorchdorfonline.at/verein/zukunft-vorchdorf'
-                            }
-                        ]
+                        items: []
                     }
                 }
             },
@@ -4914,14 +3999,41 @@ Mit freundlichen Grüßen`;
             try {
                 const response = await fetch('./businesses.json');
                 const businesses = await response.json();
-                
+
                 // Speichere in allBusinesses globale Variable
-                window.allBusinesses = businesses;
-                
+                allBusinesses = businesses;
+
                 console.log(`✓ ${businesses.length} Betriebe geladen`);
             } catch (error) {
                 console.error('Fehler beim Laden von businesses.json:', error);
-                window.allBusinesses = []; // Fallback zu leerem Array
+                allBusinesses = []; // Fallback zu leerem Array
+            }
+        }
+
+        async function loadClubs() {
+            try {
+                const response = await fetch('./clubs.json');
+                const clubs = await response.json();
+                allClubs = clubs;
+
+                // Populate categories from the loaded data
+                if (categories.clubs && categories.clubs.subcategories) {
+                    Object.keys(clubs).forEach(key => {
+                        if (categories.clubs.subcategories[key]) {
+                            categories.clubs.subcategories[key].items = clubs[key];
+                        }
+                    });
+                }
+
+                // Sync Sport & Fitness subcategory
+                if (categories.sport_fitness && categories.sport_fitness.subcategories && categories.sport_fitness.subcategories.sports_clubs) {
+                    categories.sport_fitness.subcategories.sports_clubs.items = clubs.sport || [];
+                }
+
+                console.log(`✓ Vereine geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von clubs.json:', error);
+                allClubs = {};
             }
         }
 
@@ -4977,16 +4089,18 @@ Mit freundlichen Grüßen`;
             document.getElementById('emergencyBanner').classList.remove('hidden');
             document.getElementById('breadcrumb').classList.add('hidden');
             document.getElementById('backButton').classList.add('hidden');
+            document.getElementById('floatingBackButton').classList.remove('visible');
+            window.scrollTo({ top: 0, behavior: 'instant' });
             document.getElementById('mainContent').style.display = 'block';
             document.getElementById('flohmarktContainer').classList.remove('active');
 
             const mainContent = document.getElementById('mainContent');
             const weatherWidget = document.getElementById('weatherWidget');
-            
+
             // Render categories in custom order
             const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'flohmarkt'];
             const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
-            
+
             mainContent.innerHTML = `
                 <div class="cards-grid fade-in">
                     ${sortedCategories.map(cat => `
@@ -4998,7 +4112,7 @@ Mit freundlichen Grüßen`;
                     `).join('')}
                 </div>
             `;
-            
+
             // Fetch and display weather in dedicated widget below emergency
             fetchWeather().then(weatherData => {
                 if (weatherData && weatherData.time) {
@@ -5007,13 +4121,13 @@ Mit freundlichen Grüßen`;
                             <h3>🌡️ Wetter in Vorchdorf</h3>
                             <div class="weather-content">
                                 ${weatherData.time.slice(0, 3).map((date, idx) => {
-                                    const dateObj = new Date(date);
-                                    const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
-                                    const icon = getWeatherIcon(weatherData.weather_code[idx]);
-                                    const desc = getWeatherDescription(weatherData.weather_code[idx]);
-                                    const tempMax = Math.round(weatherData.temperature_2m_max[idx]);
-                                    const tempMin = Math.round(weatherData.temperature_2m_min[idx]);
-                                    return `
+                        const dateObj = new Date(date);
+                        const dayName = dateObj.toLocaleDateString('de-DE', { weekday: 'short' });
+                        const icon = getWeatherIcon(weatherData.weather_code[idx]);
+                        const desc = getWeatherDescription(weatherData.weather_code[idx]);
+                        const tempMax = Math.round(weatherData.temperature_2m_max[idx]);
+                        const tempMin = Math.round(weatherData.temperature_2m_min[idx]);
+                        return `
                                         <div class="weather-day">
                                             <h4>${dayName}</h4>
                                             <div class="weather-icon">${icon}</div>
@@ -5021,7 +4135,7 @@ Mit freundlichen Grüßen`;
                                             <div class="weather-description">${desc}</div>
                                         </div>
                                     `;
-                                }).join('')}
+                    }).join('')}
                             </div>
                         </div>
                     `;
@@ -5049,6 +4163,7 @@ Mit freundlichen Grüßen`;
                 document.getElementById('emergencyBanner').classList.add('hidden');
                 document.getElementById('weatherWidget').classList.add('hidden');
                 document.getElementById('backButton').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
                 document.getElementById('flohmarktContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
@@ -5071,6 +4186,7 @@ Mit freundlichen Grüßen`;
             document.getElementById('emergencyBanner').classList.add('hidden');
             document.getElementById('weatherWidget').classList.add('hidden');
             document.getElementById('backButton').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
             document.getElementById('flohmarktContainer').classList.remove('active');
             document.getElementById('mainContent').style.display = 'block';
             updateBreadcrumb([{ text: category.title }]);
@@ -5080,7 +4196,7 @@ Mit freundlichen Grüßen`;
             if (category.subcategories) {
                 // Show subcategories in defined order (already alphabetically sorted)
                 const subcategoryList = Object.values(category.subcategories);
-                
+
                 mainContent.innerHTML = `
                     <div class="detail-view fade-in">
                         <h2>${category.icon} ${category.title}</h2>
@@ -5095,13 +4211,13 @@ Mit freundlichen Grüßen`;
                         ` : ''}
                         <div class="subcategory-list">
                             ${subcategoryList.map(sub => {
-                                return `
+                    return `
                                     <div class="subcategory-item" onclick="navigateToSubcategory('${categoryId}', '${sub.id}')">
                                         <h4>${sub.title}</h4>
                                         <p>${sub.description || 'Klicken für Details'}</p>
                                     </div>
                                 `;
-                            }).join('')}
+                }).join('')}
                         </div>
                     </div>
                 `;
@@ -5126,24 +4242,24 @@ Mit freundlichen Grüßen`;
                     </div>
                     <div class="business-grid">
                         ${allBusinesses.map(business => {
-                            // Hole das Icon aus der entsprechenden Subcategory
-                            let categoryIcon = '📁';
-                            for (let catId in categories) {
-                                const cat = categories[catId];
-                                if (cat.subcategories && cat.subcategories[business.category]) {
-                                    const sub = cat.subcategories[business.category];
-                                    categoryIcon = sub.icon || sub.title.charAt(0);
-                                    break;
-                                }
-                            }
-                            return `
+                // Hole das Icon aus der entsprechenden Subcategory
+                let categoryIcon = '📁';
+                for (let catId in categories) {
+                    const cat = categories[catId];
+                    if (cat.subcategories && cat.subcategories[business.category]) {
+                        const sub = cat.subcategories[business.category];
+                        categoryIcon = sub.icon || sub.title.charAt(0);
+                        break;
+                    }
+                }
+                return `
                             <div class="business-card" ${business.link ? `onclick="window.open('${business.link}', '_blank')" style="cursor: pointer;"` : ''}>
                                 <div class="business-name">${business.name}</div>
                                 <div class="business-location">${business.location}</div>
                                 ${business.link ? `<div class="business-link">🌐 Website →</div>` : ''}
                             </div>
                             `;
-                        }).join('')}
+            }).join('')}
                     </div>
                 </div>
             `;
@@ -5166,6 +4282,7 @@ Mit freundlichen Grüßen`;
             navigationHistory.push({ type: 'category', categoryId });
 
             document.getElementById('backButton').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
             document.getElementById('weatherWidget').classList.add('hidden');
             updateBreadcrumb([
                 { text: category.title, action: `navigateToCategory('${categoryId}')` },
@@ -5173,7 +4290,7 @@ Mit freundlichen Grüßen`;
             ]);
 
             const mainContent = document.getElementById('mainContent');
-            
+
             // Special handling for taxi quick call page
             if (categoryId === 'mobility' && subcategoryId === 'taxi_quick') {
                 mainContent.innerHTML = `
@@ -5219,7 +4336,7 @@ Mit freundlichen Grüßen`;
                 if (subcategoryId === 'all_businesses_az') {
                     // Group businesses by category and sort A-Z - NUR WERBERINGMITGLIEDER
                     const categoryMap = {};
-                    
+
                     // Group by category - nur Werberingmitglieder
                     allBusinesses.filter(b => b.werbering === true).forEach(business => {
                         if (!categoryMap[business.category]) {
@@ -5227,12 +4344,12 @@ Mit freundlichen Grüßen`;
                         }
                         categoryMap[business.category].push(business);
                     });
-                    
+
                     // Sort each category alphabetically by business name
                     Object.keys(categoryMap).forEach(cat => {
                         categoryMap[cat].sort((a, b) => a.name.localeCompare(b.name, 'de'));
                     });
-                    
+
                     // Get category titles from categories object and sort them alphabetically by title (without emoji)
                     const sortedCategories = Object.keys(categoryMap)
                         .map(catId => ({
@@ -5246,7 +4363,7 @@ Mit freundlichen Grüßen`;
                             const titleB = b.title.replace(/^[^\w]*/, '').trim();
                             return titleA.localeCompare(titleB, 'de');
                         });
-                    
+
                     mainContent.innerHTML = `
                         <div class="detail-view fade-in">
                             <h2>🎖️ ${subcategory.title}</h2>
@@ -5357,7 +4474,7 @@ Mit freundlichen Grüßen`;
                     </div>
                 `;
             }
-            
+
             // Handle section type (like emergency)
             return `
                 <div class="detail-view fade-in">
@@ -5380,6 +4497,7 @@ Mit freundlichen Grüßen`;
 
         // Go Back
         function goBack() {
+            window.scrollTo({ top: 0, behavior: 'instant' });
             if (navigationHistory.length === 0) {
                 renderHome();
                 return;
@@ -5410,7 +4528,7 @@ Mit freundlichen Grüßen`;
             breadcrumb.classList.remove('hidden');
 
             let html = '<span class="breadcrumb-item" style="cursor: pointer;" onclick="renderHome()">🏠 Start</span>';
-            
+
             items.forEach((item, index) => {
                 html += '<span class="breadcrumb-separator">›</span>';
                 if (item.action) {
@@ -5419,7 +4537,7 @@ Mit freundlichen Grüßen`;
                     html += `<span class="breadcrumb-item">${item.text}</span>`;
                 }
             });
-            
+
             breadcrumb.innerHTML = html;
         }
 
@@ -5431,22 +4549,22 @@ Mit freundlichen Grüßen`;
             'wohnen': ['construction', 'Bauen', 'Wohnen', 'Einrichten'],
             'einrichten': ['construction', 'Bauen', 'Wohnen', 'Einrichten'],
             'handwerker': ['construction', 'Bauen', 'Wohnen'],
-            
+
             'hotel': ['gastro', 'Hotelerie', 'Gastronomie', 'Hotel', 'Pension', 'Bed & Breakfast'],
             'restaurant': ['gastro', 'Gastronomie', 'Restaurant', 'Gasthaus', 'Wirtshaus'],
             'gasthaus': ['gastro', 'Gastronomie', 'Gasthaus', 'Restaurant', 'Wirtshaus'],
             'cafe': ['gastro', 'Café', 'Kaffee', 'Bäckerei'],
             'kaffee': ['gastro', 'Café', 'Kaffee'],
-            
+
             'frisör': ['beauty', 'Friseur', 'Haar', 'SCHNITT', 'HAARGENAU', 'HAARSTUDIO', 'BARBERSHOP'],
             'friseur': ['beauty', 'Friseur', 'Haar', 'SCHNITT', 'HAARGENAU', 'HAARSTUDIO', 'BARBERSHOP'],
             'haar': ['beauty', 'Haar', 'Friseur', 'SCHNITT', 'HAARGENAU', 'HAARSTUDIO'],
             'barbier': ['beauty', 'BARBERSHOP', 'Friseur', 'Haar'],
-            
+
             'bäcker': ['food', 'gastro', 'Bäckerei', 'CAFÉ', 'Probst', 'Gwölb', 'Resch'],
             'bäckerei': ['food', 'gastro', 'Bäckerei', 'CAFÉ', 'Probst', 'Gwölb', 'Resch'],
             'brot': ['food', 'Bäckerei', 'CAFÉ'],
-            
+
             'arzt': ['healthcare', 'Arzt', 'Apotheke', 'Gesundheit', 'Medizin', 'Allgemeinmedizin'],
             'apotheke': ['healthcare', 'Apotheke', 'Medizin', 'Gesundheit'],
             'zahnarzt': ['dentists', 'Zahnarzt', 'Zahnärzte', 'Klinkert', 'Krenmayr', 'Zahn'],
@@ -5456,7 +4574,7 @@ Mit freundlichen Grüßen`;
             'gesundheit': ['healthcare', 'Gesundheit', 'Arzt', 'Apotheke'],
             'sozial': ['social', 'Sozial', 'Hilfe', 'Sozialfonds', 'WIR helfen', 'Beratung'],
             'hilfe': ['social', 'Hilfe', 'Sozialfonds', 'WIR helfen', 'Unterstützung'],
-            
+
             'schule': ['education', 'Schule', 'Volksschule', 'Mittelschule', 'Bildung'],
             'bildung': ['education', 'Bildung', 'Schule', 'Kindergarten', 'Lernen', 'Otelo'],
             'kindergarten': ['education', 'Kindergarten', 'Kinder', 'Bildung'],
@@ -5464,50 +4582,50 @@ Mit freundlichen Grüßen`;
             'otelo': ['education', 'Otelo', 'Offenes Technologielabor', 'Bildung'],
             'fitness': ['beauty', 'FITNESS', 'Sport', 'Training', 'Gym'],
             'sport': ['beauty', 'FITNESS', 'Sport', 'Training'],
-            
+
             'auto': ['cars', 'KFZ', 'Auto', 'Werkstatt', 'Autohaus'],
             'kfz': ['cars', 'KFZ', 'Auto', 'Werkstatt'],
             'werkstatt': ['cars', 'KFZ', 'Werkstatt', 'Auto'],
             'fahrrad': ['cars', 'Fahrrad', 'Rad', 'Bike'],
-            
+
             'bank': ['banks', 'Bank', 'Sparkasse', 'Raiffeisen', 'Geld'],
             'geld': ['banks', 'Bank', 'Sparkasse', 'Versicherung'],
             'versicherung': ['banks', 'Versicherung', 'Bank'],
-            
+
             'anwalt': ['legal', 'Anwalt', 'Rechtsanwalt', 'Notar', 'Recht'],
             'rechtsanwalt': ['legal', 'Rechtsanwalt', 'Anwalt', 'Recht'],
             'notar': ['legal', 'Notar', 'Notariat'],
-            
+
             'steuer': ['accounting', 'Steuer', 'Buchhaltung', 'Steuerberater'],
             'buchhaltung': ['accounting', 'Buchhaltung', 'Steuer'],
-            
+
             'blumen': ['flowers', 'Blumen', 'Florist', 'Gärtnerei'],
             'garten': ['flowers', 'Gärtnerei', 'Garten', 'Blumen'],
-            
+
             'essen': ['food', 'gastro', 'Lebensmittel', 'Essen', 'Restaurant'],
             'lebensmittel': ['food', 'Lebensmittel', 'Essen', 'Supermarkt', 'SPAR'],
             'supermarkt': ['food', 'SPAR', 'Lebensmittel'],
-            
+
             'mode': ['fashion', 'Mode', 'Kleidung', 'Schuhe'],
             'kleidung': ['fashion', 'Mode', 'Kleidung', 'Bekleidung'],
             'schuhe': ['fashion', 'Schuhe', 'Mode'],
-            
+
             'taxi': ['transport', 'Taxi', 'Transport', 'Fahrdienst'],
             'transport': ['transport', 'Transport', 'Taxi', 'Spedition'],
-            
+
             'schmuck': ['jewelry', 'Schmuck', 'Juwelier', 'Uhren'],
             'uhren': ['jewelry', 'Uhren', 'Schmuck', 'Juwelier'],
-            
+
             'tankstelle': ['gas', 'Tankstelle', 'Tanken', 'Benzin'],
             'tanken': ['gas', 'Tankstelle'],
-            
+
             'foto': ['photo', 'Fotografie', 'Foto', 'Fotograf'],
             'fotograf': ['photo', 'Fotografie', 'Fotograf'],
-            
+
             // Vereine
             'verein': ['clubs', 'Verein', 'Sport', 'Kultur', 'Musik'],
             'vereine': ['clubs', 'Vereine', 'Sport', 'Kultur', 'Musik'],
-            
+
             // Sportvereine
             'union': ['clubs', 'sport', 'Union', 'Badminton', 'Laufgruppe', 'Schiclub', 'Tennis', 'Vikings', 'Tischtennis'],
             'askö': ['clubs', 'sport', 'ASKÖ', 'Fußball', 'Stocksport'],
@@ -5529,14 +4647,14 @@ Mit freundlichen Grüßen`;
             'schiessen': ['clubs', 'sport', 'Schießen', 'Schützen'],
             'fitness': ['clubs', 'sport', 'Fitness', 'Body Strength', 'Training'],
             'workout': ['clubs', 'sport', 'Workout', 'Body Strength'],
-            
+
             // Musikvereine
             'musik': ['clubs', 'musik', 'Musik', 'Marktmusik', 'Musikverein', 'Chor'],
             'blasmusik': ['clubs', 'musik', 'Blasmusik', 'Marktmusik', 'Siebenbürger'],
             'chor': ['clubs', 'musik', 'Chor', 'Sängerbund', 'Gesang', 'Sunshine', 'Trinitatis'],
             'singen': ['clubs', 'musik', 'Singen', 'Chor', 'Sängerbund'],
             'marktmusik': ['clubs', 'musik', 'Marktmusik', 'MMV'],
-            
+
             // Kulturvereine
             'kultur': ['clubs', 'kultur', 'Kultur', 'Theater', 'Heimatverein', 'Museum'],
             'theater': ['clubs', 'kultur', 'Theater', 'Theatergruppe'],
@@ -5546,7 +4664,7 @@ Mit freundlichen Grüßen`;
             'foto': ['clubs', 'kultur', 'Foto', 'Fotoklub', 'Naturfreunde'],
             'fotografie': ['clubs', 'kultur', 'Fotografie', 'Fotoklub'],
             'kitzmantelfabrik': ['clubs', 'kultur', 'Kitzmantelfabrik', 'Kulturvilla'],
-            
+
             // Sport & Fitness (neue Kategorie)
             'fitnessstudio': ['sport_fitness', 'fitness', 'Fitnessstudio', 'Training', 'Gym'],
             'gym': ['sport_fitness', 'fitness', 'Fitnessstudio', 'Training'],
@@ -5558,7 +4676,7 @@ Mit freundlichen Grüßen`;
             'schulstraße': ['leisure', 'playgrounds', 'Schulstraße', 'Spielplatz'],
             'krumphuberweg': ['leisure', 'playgrounds', 'Krumphuberweg', 'Spielplatz'],
             'kirchham': ['leisure', 'playgrounds', 'Kirchham', 'Spielplatz'],
-            
+
             // Notfall & Sicherheit
             'polizei': ['emergency', 'Polizei', 'Sicherheit', 'Notfall', 'Vorchdorf'],
             'rettung': ['emergency', 'Rettung', 'Notfall', 'Rettungsdienst', 'Ambulanz'],
@@ -5568,7 +4686,7 @@ Mit freundlichen Grüßen`;
             'defibrillator': ['emergency', 'Defibrillator', 'AED', 'Pfarrhof', 'Rettung'],
             'aed': ['emergency', 'AED', 'Defibrillator'],
             'notfallstandorte': ['emergency', 'Notfall', 'Standorte', 'Polizei', 'Feuerwehr'],
-            
+
             // Sozial & Jugend
             'jugend': ['clubs', 'soziales', 'Jugend', 'Jugendzentrum', 'Pfadfinder', 'Landjugend'],
             'juz': ['clubs', 'soziales', 'JUZ', 'Jugendzentrum'],
@@ -5576,20 +4694,20 @@ Mit freundlichen Grüßen`;
             'landjugend': ['clubs', 'soziales', 'Landjugend', 'Jugend'],
             'otelo': ['clubs', 'soziales', 'OTELO', 'Technologielabor', 'Offenes Labor'],
             'eltern': ['clubs', 'soziales', 'Eltern', 'Elternverein', 'Schule'],
-            
+
             // Rettungsorganisationen
             'wasserrettung': ['clubs', 'sport', 'Wasserrettung', 'ÖWR', 'Rettung'],
             'öwr': ['clubs', 'sport', 'ÖWR', 'Wasserrettung'],
             'rotes kreuz': ['clubs', 'soziales', 'Rotes Kreuz', 'Rettung'],
             'roteskreuz': ['clubs', 'soziales', 'Rotes Kreuz', 'Rettung'],
             'rettung': ['clubs', 'Rettung', 'Wasserrettung', 'Rotes Kreuz'],
-            
+
             // Religion
             'kirche': ['clubs', 'religion', 'Kirche', 'Katholisch', 'Evangelisch'],
             'katholisch': ['clubs', 'religion', 'Katholisch', 'Pfarre', 'Jungschar', 'Jugend'],
             'evangelisch': ['clubs', 'religion', 'Evangelisch', 'Kirche'],
             'jungschar': ['clubs', 'religion', 'Jungschar', 'Katholisch', 'Kinder'],
-            
+
             // Sonstige
             'bibliothek': ['clubs', 'sonstiges', 'Bibliothek', 'Bücherei'],
             'werbering': ['clubs', 'sonstiges', 'Werbering', 'Wirtschaft'],
@@ -5615,14 +4733,14 @@ Mit freundlichen Grüßen`;
                 // Friseur/Friseuse Variationen
                 'frisoe': ['friseur', 'friseurin', 'friseuse', 'haarschnitt', 'frisur', 'barber', 'barbershop', 'haargenau', 'haarstudio', 'schnitt'],
                 'friseur': ['friseuse', 'friseurin', 'haarschnitt', 'barber', 'barbershop', 'haarschneid', 'haargenau', 'haarstudio', 'schnitt'],
-                
+
                 // Tabak/Zigaretten Variationen
                 'zigaretten': ['tabak', 'trafik', 'rauchen', 'rauchwaren', 'smoker'],
                 'tabak': ['zigaretten', 'trafik', 'rauchen', 'rauchwaren'],
                 'trafik': ['tabak', 'zigaretten', 'rauchen', 'rauchwaren'],
                 'rauchen': ['tabak', 'trafik', 'zigaretten', 'rauchwaren'],
                 'rauchwaren': ['tabak', 'trafik', 'zigaretten', 'rauchen'],
-                
+
                 // Handwerker Variationen
                 'handwerker': ['installateur', 'elektro', 'klempner', 'maler'],
                 'installateur': ['installation', 'gas', 'heizung', 'sanitaer'],
@@ -5631,101 +4749,101 @@ Mit freundlichen Grüßen`;
                 'rohre': ['rohrverlegung', 'rohrleitungen', 'installation', 'klempner', 'sanitaer'],
                 'maler': ['anstreicher', 'malermeister', 'malerarbeiten'],
                 'anstreicher': ['maler', 'malermeister', 'malerarbeiten', 'anstrich'],
-                
+
                 // Arzt Variationen
                 'arzt': ['doktor', 'zahnarzt', 'zahndoktor', 'facharzt', 'allgemeinarzt'],
                 'zahnarzt': ['zahndoktor', 'dental', 'zahn', 'zaehnchen'],
                 'zahndoktor': ['zahnarzt', 'dental', 'zahn'],
-                
+
                 // Auto Variationen
                 'auto': ['auto', 'kfz', 'fahrzeug', 'wagen', 'pkw', 'automobile', 'autohaus', 'werkstatt'],
                 'werkstatt': ['auto', 'kfz', 'service', 'reparatur'],
                 'tankstelle': ['benzin', 'diesel', 'zapfsaeule', 'tanken'],
-                
+
                 // Restaurant/Gastro Variationen
                 'restaurant': ['gaststaette', 'gasthof'],
                 'gaststaette': ['gasthof', 'restaurant'],
                 'pizzeria': ['pizza', 'italiener'],
                 'cafe': ['kaffee', 'kaffe', 'baecker', 'baeckerei', 'bakery'],
                 'baecker': ['baeckerei', 'cafe', 'kaffee', 'broetchen'],
-                
+
                 // Apotheke
                 'apotheke': ['pharmazie', 'pharmazeut', 'medikament', 'arznei'],
-                
+
                 // Bank Variationen
                 'bank': ['sparkasse', 'kasse', 'geldautomat', 'geldwechsel'],
                 'sparkasse': ['bank', 'geldautomat', 'kasse'],
-                
+
                 // Fitness/Sport
                 'fitness': ['gym', 'fitnessstudio', 'training', 'krafttraining', 'sport'],
                 'gym': ['fitness', 'fitnessstudio', 'training'],
-                
+
                 // Frisur/Haarpflege
                 'haarschnitt': ['friseur', 'friseurin', 'friseuse', 'schneid'],
                 'haarschneid': ['friseur', 'friseuse', 'haarschnitt'],
-                
+
                 // Kleidung/Mode
                 'mode': ['kleidung', 'kleidungsgschaft', 'boutique', 'fashion'],
                 'kleidung': ['mode', 'boutique', 'fashion', 'garderobe'],
-                
+
                 // Spielzeug/Kinderartikel
                 'spielzeug': ['spielwaren', 'kinderspielzeug', 'babyartikel'],
                 'spielwaren': ['spielzeug', 'kinderspielzeug'],
-                
+
                 // Moebel
                 'moebel': ['einrichtung', 'einrichtungshaus', 'mobilistaer', 'moebelladen'],
                 'einrichtung': ['moebel', 'einrichtungshaus', 'mobilistaer'],
-                
+
                 // Blumen/Florist
                 'blumen': ['florist', 'blumenladen', 'bluemchen', 'straus'],
                 'florist': ['blumen', 'blumenladen', 'straus'],
-                
+
                 // Buecher/Buchhandlung
                 'buecher': ['buchhandlung', 'buchhandel', 'buch', 'buecher', 'lesen'],
                 'buchhandlung': ['buecher', 'buchhandel', 'buch'],
-                
+
                 // Elektro
                 'elektro': ['elektrotechnik', 'elektrogeraete', 'strom'],
                 'elektrotechnik': ['elektro', 'elektrogeraete'],
-                
+
                 // Schluessel/Schlosser
                 'schluessel': ['schlosser', 'schloss', 'schluesseldienst'],
                 'schlosser': ['schluessel', 'schloss', 'schluesseldienst'],
-                
+
                 // Photographie/Fotograf
                 'foto': ['fotograf', 'fotografie', 'fotostudio', 'bilder'],
                 'fotograf': ['foto', 'fotografie', 'fotostudio'],
                 'fotografie': ['fotograf', 'foto', 'fotostudio'],
-                
+
                 // Versicherung
                 'versicherung': ['versicherer', 'versicherungsagent', 'versicherungsmakler'],
                 'versicherungsmakler': ['versicherung', 'versicherer'],
-                
+
                 // Rechtsanwalt
                 'anwalt': ['rechtsanwalt', 'anwaeltin', 'jura', 'legal'],
                 'rechtsanwalt': ['anwalt', 'anwaeltin', 'jura', 'legal'],
-                
+
                 // Zahnarzt Alternative
                 'zaehne': ['zahnarzt', 'zahndoktor', 'dental', 'zahn'],
                 'zahn': ['zahnarzt', 'zahndoktor', 'zaehne', 'dental'],
-                
+
                 // Verein/Club
                 'verein': ['club'],
                 'club': ['verein'],
-                
+
                 // Schule
                 'schule': ['schulen', 'gymnasium', 'gymnasium', 'volksschule', 'unterstufe', 'oberstufe'],
                 'kindergarten': ['vorschule', 'kinderbetreuung', 'vorschulisch'],
-                
+
                 // Kirche/Religion
                 'kirche': ['religion', 'kirchen', 'evangelisch', 'katholisch'],
                 'religion': ['kirche'],
                 'pfarr': ['pfarre', 'pfarrkirche', 'pfarrer'],
             };
-            
+
             // Sammle ALLE möglichen Matches
             const allSynonyms = new Set(); // NICHT mit term starten - nur echte Matches
-            
+
             // Suche in der Map nach Matches
             Object.entries(synonymMap).forEach(([key, synonyms]) => {
                 // NUR wenn der Suchbegriff mit dem Key ANFÄNGT oder der Key ANFÄNGT mit dem Suchbegriff
@@ -5742,10 +4860,10 @@ Mit freundlichen Grüßen`;
                     synonyms.forEach(syn => allSynonyms.add(syn));
                 }
             });
-            
+
             // IMMER den Original-Suchbegriff hinzufügen (für direkte Firmennamen-Matches)
             allSynonyms.add(term);
-            
+
             return Array.from(allSynonyms);
         }
 
@@ -5754,10 +4872,10 @@ Mit freundlichen Grüßen`;
             // text = zu durchsuchender Text
             // searchVariations = Array von Such-Begriffen mit Synonymen
             // normalizedSearchTerm = normalisierte Version (Umlaute ersetzt)
-            
+
             const textLower = text.toLowerCase();
             const textNormalized = normalizeString(text);
-            
+
             // Überprüfe alle Variationen
             return searchVariations.some(variant => {
                 const normalizedVariant = normalizeString(variant);
@@ -5768,24 +4886,24 @@ Mit freundlichen Grüßen`;
         // Live Search Function with Intelligence
         function performSearch() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            
+
             if (searchTerm.length === 0) {
                 renderHome();
                 return;
             }
 
             const results = [];
-            
+
             // Hole alle Synonyme und Variationen
             const searchVariations = getSearchSynonyms(searchTerm);
             const normalizedSearchTerm = normalizeString(searchTerm);
 
             // VOLLTEXTSUCHE - Durchsuche ALLES mit Smart-Search!
-            
+
             // 1. Suche in KATEGORIEN (höchste Priorität)
             Object.values(categories).forEach(category => {
                 const categoryText = `${category.title} ${category.description} ${category.id}`;
-                
+
                 if (performSmartSearch(categoryText, searchVariations, normalizedSearchTerm)) {
                     results.push({
                         type: 'category',
@@ -5801,7 +4919,7 @@ Mit freundlichen Grüßen`;
                 if (category.subcategories) {
                     Object.values(category.subcategories).forEach(sub => {
                         const subText = `${sub.title} ${sub.description || ''} ${sub.id}`;
-                        
+
                         if (performSmartSearch(subText, searchVariations, normalizedSearchTerm)) {
                             results.push({
                                 type: 'subcategory',
@@ -5811,7 +4929,7 @@ Mit freundlichen Grüßen`;
                                 matchText: sub.title
                             });
                         }
-                        
+
                         // Suche auch in den ITEMS der Unterkategorie (z.B. einzelne Vereine)
                         if (sub.items) {
                             sub.items.forEach(item => {
@@ -5824,7 +4942,7 @@ Mit freundlichen Grüßen`;
                                     item.email || '',
                                     item.adresse || ''
                                 ].join(' ');
-                                
+
                                 if (performSmartSearch(itemText, searchVariations, normalizedSearchTerm)) {
                                     results.push({
                                         type: 'item',
@@ -5839,7 +4957,7 @@ Mit freundlichen Grüßen`;
                         }
                     });
                 }
-                
+
                 // Suche auch in CONTENT (z.B. Bildung, Notfälle)
                 if (category.content) {
                     if (category.content.type === 'list') {
@@ -5863,7 +4981,7 @@ Mit freundlichen Grüßen`;
                                     ...(item.info || []),
                                     item.link || ''
                                 ].join(' ');
-                                
+
                                 if (performSmartSearch(itemText, searchVariations, normalizedSearchTerm)) {
                                     results.push({
                                         type: 'content-item',
@@ -5883,13 +5001,13 @@ Mit freundlichen Grüßen`;
             allBusinesses.forEach(business => {
                 const businessText = `${business.name} ${business.location} ${business.category}`.toLowerCase();
                 const businessTextNormalized = normalizeString(`${business.name} ${business.location} ${business.category}`);
-                
+
                 // Überprüfe ob einer der Such-Variationen/Synonyme im Text vorhanden ist
                 const isMatch = searchVariations.some(variant => {
                     const normalizedVariant = normalizeString(variant);
                     return businessText.includes(variant) || businessTextNormalized.includes(normalizedVariant);
                 });
-                
+
                 if (isMatch) {
                     results.push({
                         type: 'business',
@@ -5906,7 +5024,7 @@ Mit freundlichen Grüßen`;
             // Entferne Duplikate
             const uniqueResults = [];
             const seen = new Set();
-            
+
             results.forEach(result => {
                 let key;
                 if (result.type === 'business') {
@@ -5920,7 +5038,7 @@ Mit freundlichen Grüßen`;
                 } else if (result.type === 'content-item') {
                     key = `content-${result.category.id}-${result.item.title}`;
                 }
-                
+
                 if (!seen.has(key)) {
                     seen.add(key);
                     uniqueResults.push(result);
@@ -5929,7 +5047,7 @@ Mit freundlichen Grüßen`;
 
             // Reset navigation history
             navigationHistory = [];
-            
+
             // Display results
             displaySearchResults(searchTerm, uniqueResults);
         }
@@ -5937,6 +5055,7 @@ Mit freundlichen Grüßen`;
         function displaySearchResults(searchTerm, results) {
             const content = document.getElementById('mainContent');
             document.getElementById('backButton').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
             document.getElementById('emergencyBanner').classList.add('hidden');
             document.getElementById('weatherWidget').classList.add('hidden');
             updateBreadcrumb([{ text: `Suchergebnisse für "${searchTerm}"` }]);
@@ -6011,24 +5130,38 @@ Mit freundlichen Grüßen`;
         }
 
         // Enter key for search
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             await loadBusinesses();  // Lade businesses aus JSON
+            await loadClubs();       // Lade vereine aus JSON
+
+            // Scroll-Check für Floating Back Button
+            window.addEventListener('scroll', function () {
+                const floatBtn = document.getElementById('floatingBackButton');
+                const isBackVisible = !document.getElementById('backButton').classList.contains('hidden');
+
+                if (isBackVisible && window.scrollY > 300) {
+                    floatBtn.classList.add('visible');
+                } else {
+                    floatBtn.classList.remove('visible');
+                }
+            });
+
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
             document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
-            
+
             // Live search - triggers as you type
-            document.getElementById('searchInput').addEventListener('input', function(e) {
+            document.getElementById('searchInput').addEventListener('input', function (e) {
                 performSearch();
             });
-            
+
             // Also support Enter key
-            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            document.getElementById('searchInput').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     performSearch();
                 }
             });
-            
+
             // PWA Installation
             let deferredPrompt;
             const installButton = document.getElementById('installButton');
@@ -6076,9 +5209,10 @@ Mit freundlichen Grüßen`;
                 installButton.classList.add('hidden');
                 deferredPrompt = null;
             });
-            
+
             init();
         });
     </script>
 </body>
+
 </html>

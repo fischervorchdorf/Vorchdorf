@@ -1,0 +1,621 @@
+{
+  "sport": [
+    {
+      "title": "Almtaler Fischerclub Vorchdorf",
+      "info": [
+        "👤 Obmann: Altreiter Roland",
+        "☎️ 0681 81 78 70 85",
+        "📍 Mühltal 55, 4655 Vorchdorf"
+      ],
+      "website": "https://www.fischereiverein-almtal.at/Startseite/",
+      "link": "https://www.vorchdorfonline.at/verein/almtaler-fischerclub"
+    },
+    {
+      "title": "ASKÖ Vorchdorf, Sektion Fußball",
+      "info": [
+        "👤 Obmann: Thomas Götschhofer",
+        "👥 Stellv.: Christian Gründlinger",
+        "☎️ 07614 7944",
+        "📱 0676 8141 42030",
+        "✉️ sektionfussball@askoeVorchdorf.at",
+        "📍 Falkenohren 20, 4655 Vorchdorf"
+      ],
+      "website": "http://www.askoe-vorchdorf.at",
+      "link": "https://www.vorchdorfonline.at/verein/askoe-vorchdorf-sektion-fussball"
+    },
+    {
+      "title": "ASKÖ Vorchdorf Stocksport",
+      "info": [
+        "👤 Obmann: Siegfried Schatzl",
+        "☎️ 0676/3552998",
+        "📍 Streininger Str 2C, 4655 Vorchdorf"
+      ],
+      "website": "http://www.askoe-vorchdorf.com",
+      "link": "https://www.vorchdorfonline.at/verein/askoe-vorchdorf-sektion-stocksport"
+    },
+    {
+      "title": "Body Strength Vorchdorf",
+      "info": [
+        "👤 Obmann: David Ehrengruber",
+        "📱 069911066429",
+        "✉️ WorkoutParkVorchdorf@gmail.com",
+        "📍 Styriastraße 5a, 4655 Vorchdorf"
+      ],
+      "website": "https://www.facebook.com/BodyStrengthVorchdorf/",
+      "link": "https://www.vorchdorfonline.at/verein/body-strength-vorchdorf"
+    },
+    {
+      "title": "LASK Fanklub Salzkammergut",
+      "info": [
+        "👤 Obmann: Andreas Bruderhofer",
+        "👥 Stellv.: Andreas Gassenbauer",
+        "📱 0660/1127502",
+        "✉️ Lask.Salzkammergut@gmx.at",
+        "📍 Brunnmühlstrasse 3/8, 4655 Vorchdorf"
+      ],
+      "website": "https://www.facebook.com/laskfanklubsalzkammergut/",
+      "link": "https://www.vorchdorfonline.at/verein/lask-fanklub-salzkammergut"
+    },
+    {
+      "title": "Naturfreunde Vorchdorf",
+      "info": [
+        "👤 Obmann: Thomas Haudum",
+        "☎️ 0699/10417088",
+        "📍 Seyrkam 1, 4655 Vorchdorf"
+      ],
+      "website": "https://vorchdorf.naturfreunde.at",
+      "link": "https://www.vorchdorfonline.at/verein/naturfreunde-vorchdorf"
+    },
+    {
+      "title": "Österreichische Wasserrettung",
+      "info": [
+        "👤 Obmann: Johannes Hörtenhuber",
+        "👥 Stellv.: Daniel Stikler, Mario Kramesberger",
+        "☎️ 07614-655580",
+        "📱 0664 852 0888",
+        "✉️ johannes.hoertenhuber@ooe.owr.at",
+        "📍 Laudachweg 11, 4655 Vorchdorf"
+      ],
+      "website": "https://ooe.owr.at/vorchdorf/ueber-uns/unsere-ortsstelle/",
+      "link": "https://www.vorchdorfonline.at/verein/oesterreichische-wasserrettung"
+    },
+    {
+      "title": "Schützengesellschaft 1879 Vorchdorf",
+      "info": [
+        "👤 Obmann: Gabriel Reiter",
+        "👥 Stellv.: Michael Haas",
+        "✉️ SG1879vorchdorf@gmail.com",
+        "📍 Lambacherstraße 15, 4655 Vorchdorf"
+      ],
+      "website": "https://www.facebook.com/p/Schützengesellschaft-1879-Vorchdorf-100069067790759/",
+      "link": "https://www.vorchdorfonline.at/verein/schuetzengesellschaft-1879-vorchdorf"
+    },
+    {
+      "title": "Schützenverein Theuerwang",
+      "info": [
+        "👤 Obmann: Michael Maier",
+        "👥 Stellv.: Marko Malesardi, Dominik Maier, Martin Danner",
+        "📱 0650 802 7466",
+        "✉️ maier.much@gmx.at",
+        "📍 Fischböckauer Straße 10/4, 4655 Vorchdorf"
+      ],
+      "website": "https://www.sv-theuerwang.eu/",
+      "link": "https://www.vorchdorfonline.at/verein/schuetzenverein-theuerwang"
+    },
+    {
+      "title": "Union Badminton Vorchdorf",
+      "info": [
+        "👤 Obmann: Harald Starl",
+        "☎️ 07614/6237",
+        "📱 +43 676 5117052",
+        "✉️ harald.starl@badminton.at"
+      ],
+      "website": "https://www.vorchdorf.at/UNION_BC_Vorchdorf",
+      "link": "https://www.vorchdorfonline.at/verein/union-badminton-vorchdorf"
+    },
+    {
+      "title": "Union Laufgruppe",
+      "info": [
+        "👤 Obmann: Petra Laherstorfer",
+        "👥 Stellv.: Elfriede Itzenberger",
+        "📱 0699/1111 3263",
+        "✉️ pfingstlauf.laherstorfer@outlook.com"
+      ],
+      "website": "https://www.traunviertler-laufcup.at",
+      "link": "https://www.vorchdorfonline.at/verein/union-laufgruppe"
+    },
+    {
+      "title": "Union Schiclub Seyr Dach",
+      "info": [
+        "👤 Obmann: Brandstötter Gabriele",
+        "👥 Stellv.: Wischenbart Günter",
+        "📱 0664 4148379",
+        "✉️ office@schiclub-vorchdorf.at",
+        "📍 Lindacherstrasse 41, 4655 Vorchdorf"
+      ],
+      "website": "https://www.schiclub-vorchdorf.at",
+      "link": "https://www.vorchdorfonline.at/verein/union-schiclub-seyr-dach"
+    },
+    {
+      "title": "Union Tennisclub BAM.wohnen Vorchdorf",
+      "info": [
+        "👤 Obmann: Anna Söllner",
+        "☎️ 07614/7557",
+        "📍 Laudachweg 13, 4655 Vorchdorf"
+      ],
+      "website": "https://www.utc-vorchdorf.at/",
+      "link": "https://www.vorchdorfonline.at/verein/union-tennisclub-bam-wohnen"
+    },
+    {
+      "title": "Union VKL VIKINGS Vorchdorf",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "website": "https://www.vikings-basketball.at/",
+      "link": "https://www.vorchdorfonline.at/verein/union-vkl-vikings-vorchdorf"
+    },
+    {
+      "title": "Union Vorchdorf - Tischtennis",
+      "info": [
+        "👤 Obmann: Jürgen Feichtinger",
+        "✉️ union@vorchdorf-tischtennis.at",
+        "📍 Pettenbacherstraße 2, 4655 Vorchdorf"
+      ],
+      "website": "https://www.vorchdorf.at/Tischtennis_Union_Vorchdorf",
+      "link": "https://www.vorchdorfonline.at/verein/union-vorchdorf-tischtennis"
+    }
+  ],
+  "kultur": [
+    {
+      "title": "Faschingsgilde \"Vori Dori\"",
+      "info": [
+        "👤 Obmann: Michael Grabner",
+        "📱 +43 676 846498215",
+        "✉️ kontakt@voridori.at",
+        "📍 Römerstraße 16a, 4655 Vorchdorf"
+      ],
+      "website": "https://www.voridori.at/",
+      "link": "https://www.vorchdorfonline.at/verein/faschingsgilde-vori-dori"
+    },
+    {
+      "title": "Freundeskreis Kulturverein",
+      "info": [
+        "👤 Obmann: Simone Krumphuber",
+        "👥 Stellv.: Gabriel Reiter",
+        "✉️ freundeskreis.kulturverein@gmail.com",
+        "📍 Wehrstraße 16, 4655 Vorchdorf"
+      ],
+      "website": "https://www.facebook.com/people/Freundeskreis-Kulturverein/61578979960957/",
+      "link": "https://www.vorchdorfonline.at/verein/freundeskreis-kulturverein"
+    },
+    {
+      "title": "Galerie im Gewölbe",
+      "info": [
+        "👤 Obmann: Christine Jarosik"
+      ],
+      "link": "https://www.vorchdorfonline.at/verein/galerie-im-gewoelbe"
+    },
+    {
+      "title": "GIV – Gesellschaft für Informationskultur",
+      "info": [
+        "👤 Obmann: Florian Sedmak",
+        "✉️ postfach@INVO.report"
+      ],
+      "website": "https://invo.report/",
+      "link": "https://www.vorchdorfonline.at/verein/giv-gesellschaft-fuer-informationskultur"
+    },
+    {
+      "title": "Heimat- und Kulturverein Vorchdorf",
+      "info": [
+        "👤 Obmann: MR Dr. Claudia Westreicher",
+        "👥 Stellv.: Georg Breckner",
+        "✉️ dr.claudia@westreicher.at",
+        "📍 Bahnhofstraße 9, 4655 Vorchdorf"
+      ],
+      "website": "http://www.heimatvereinvorchdorf.at",
+      "link": "https://www.vorchdorfonline.at/verein/heimat-und-kulturverein-vorchdorf"
+    },
+    {
+      "title": "Kitzmantel Kulturvilla",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "website": "https://www.kulturvilla.at/",
+      "link": "https://www.vorchdorfonline.at/verein/kitzmantel-kulturvilla"
+    },
+    {
+      "title": "Kitzmantelfabrik Vorchdorf",
+      "info": [
+        "☎️ +43(0/7614-6555 12",
+        "✉️ meine.buehne@kitzmantelfabrik.at",
+        "📍 Laudachweg 15, 4655 Vorchdorf"
+      ],
+      "website": "https://www.kitzmantelfabrik.at/",
+      "link": "https://www.vorchdorfonline.at/verein/kitzmantelfabrik"
+    },
+    {
+      "title": "Naturfreunde Fotoklub",
+      "info": [
+        "👤 Obmann: Hans-Georg Schlossgangl",
+        "☎️ 0664/2821469",
+        "📱 0699/11097347",
+        "📍 Fischböckau 19D, 4655 Vorchdorf"
+      ],
+      "website": "https://www.fotoklub-vorchdorf.at/",
+      "link": "https://www.vorchdorfonline.at/verein/naturfreunde-fotoklub"
+    },
+    {
+      "title": "Schnappschüsse",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "link": "https://www.vorchdorfonline.at/verein/schnappschuesse"
+    },
+    {
+      "title": "Theatergruppe Vorchdorf",
+      "info": [
+        "👤 Obmann: Hans Aigner",
+        "📱 0699 1198 2608"
+      ],
+      "website": "http://www.theatergruppe-vorchdorf.at",
+      "link": "https://www.vorchdorfonline.at/verein/theatergruppe-vorchdorf"
+    }
+  ],
+  "musik": [
+    {
+      "title": "Marktmusik Vorchdorf - MMV",
+      "info": [
+        "👤 Obmann: Andreas Kramesberger",
+        "👥 Stellv.: Christina Meingassner",
+        "📱 0664 2139905",
+        "✉️ vorchdorfmarktmusik@gmail.com"
+      ],
+      "website": "https://www.marktmusik.com/",
+      "link": "https://www.vorchdorfonline.at/verein/marktmusik-vorchdorf"
+    },
+    {
+      "title": "Musikverein Siebenbürger Vorchdorf",
+      "info": [
+        "👤 Obmann: Markus Resch",
+        "👥 Stellv.: Hans Dobrezberger & Harald Ohler",
+        "📱 0676/35 93 632",
+        "✉️ obmann@siebenbuerger-vorchdorf.info",
+        "📍 Streiningerstr. 25, 4655 Vorchdorf"
+      ],
+      "website": "http://www.siebenbuerger-vorchdorf.at",
+      "link": "https://www.vorchdorfonline.at/verein/musikverein-siebenbuerger-vorchdorf"
+    },
+    {
+      "title": "Sängerbund Frohsinn",
+      "info": [
+        "👤 Obmann: Martin Stockhammer",
+        "✉️ kontakt@frohsinn.at",
+        "📍 Haidholzstrasse 16 a, 4655 Vorchdorf"
+      ],
+      "website": "http://www.frohsinn.at",
+      "link": "https://www.vorchdorfonline.at/verein/saengerbund-frohsinn"
+    },
+    {
+      "title": "Singkreis Einsiedling",
+      "info": [
+        "👤 Obmann: Monika Moser"
+      ],
+      "link": "https://www.vorchdorfonline.at/verein/singkreis-einsiedling"
+    },
+    {
+      "title": "Sunshine Chor",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "website": "https://www.sunshinechor.at/",
+      "link": "https://www.vorchdorfonline.at/verein/sunshine-chor"
+    },
+    {
+      "title": "Trinitatis-Chor",
+      "info": [
+        "👤 Obmann: Gerhard Wiener",
+        "☎️ 07614/7236"
+      ],
+      "website": "https://heilandskirche.at/chor/",
+      "link": "https://www.vorchdorfonline.at/verein/trinitatis-chor"
+    },
+    {
+      "title": "Vorchdorfer Böhmische",
+      "info": [
+        "👤 Obmann: Miglbauer Manfred",
+        "☎️ 0676/9441460",
+        "✉️ vorchdorfer.boehmische@gmx.at"
+      ],
+      "website": "https://vorchdorfer-boehmische.jimdofree.com/",
+      "link": "https://www.vorchdorfonline.at/verein/vorchdorfer-boehmische"
+    }
+  ],
+  "religion": [
+    {
+      "title": "Evangelische Kirche",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "website": "https://heilandskirche.at/",
+      "link": "https://www.vorchdorfonline.at/verein/evangelische-kirche"
+    },
+    {
+      "title": "IKV Vorchdorf (Islamischer Kulturverein)",
+      "info": [
+        "👤 Obmann: Muhammed Karatas",
+        "📱 0660 4630471",
+        "✉️ ikv.vorchdorf@gmail.com",
+        "📍 Europaweg 3, 4655 Vorchdorf"
+      ],
+      "website": "https://www.instagram.com/ikv_vorchdorf/",
+      "link": "https://www.vorchdorfonline.at/verein/islamischer-kulturverein"
+    },
+    {
+      "title": "Katholische Jugend",
+      "info": [
+        "👤 Obmann: Catharina Hillinger",
+        "📍 Pfarrheim Vorchdorf, 4655 Vorchdorf"
+      ],
+      "website": "https://www.instagram.com/kj_vorchdorf/",
+      "link": "https://www.vorchdorfonline.at/verein/katholische-jugend"
+    },
+    {
+      "title": "Katholische Jungschar",
+      "info": [
+        "👤 Obmann: Maria Aigner",
+        "📍 Pfarrheim Vorchdorf, 4655 Vorchdorf"
+      ],
+      "website": "https://www.facebook.com/JungscharVorchdorf/",
+      "link": "https://www.vorchdorfonline.at/verein/katholische-jungschar"
+    },
+    {
+      "title": "Katholische Pfarre Vorchdorf",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "website": "https://www.dioezese-linz.at/vorchdorf",
+      "link": "https://www.vorchdorfonline.at/verein/katholische-pfarre-vorchdorf"
+    },
+    {
+      "title": "Katholisches Bildungswerk",
+      "info": [
+        "👤 Obmann: Annemarie Pramberger"
+      ],
+      "website": "https://www.dioezese-linz.at/kbw/home",
+      "link": "https://www.vorchdorfonline.at/verein/katholisches-bildungswerk"
+    }
+  ],
+  "soziales": [
+    {
+      "title": "Elternverein Vorchdorf",
+      "info": [
+        "👤 Obmann: Isabella Wimmer-Königstorfer",
+        "👥 Stellv.: Viktoria Aitzetmüller",
+        "✉️ office@elternverein-vorchdorf.at",
+        "📍 Schulstraße 6, 4655 Vorchdorf"
+      ],
+      "website": "https://www.elternverein-vorchdorf.at/",
+      "link": "https://www.vorchdorfonline.at/verein/elternverein-vorchdorf"
+    },
+    {
+      "title": "Gesunde Gemeinde Vorchdorf",
+      "info": [
+        "👤 Obmann: MR Dr. Claudia Westreicher",
+        "☎️ 07614/6555-71"
+      ],
+      "website": "https://www.vorchdorf.at/Gesunde_Gemeinde",
+      "link": "https://www.vorchdorfonline.at/verein/gesunde-gemeinde-vorchdorf"
+    },
+    {
+      "title": "Jugendzentrum Vorchdorf",
+      "info": [
+        "👤 Obmann: Christian Rührlinger",
+        "👥 Stellv.: Manuela und Oliver",
+        "📱 0676-898 655 680",
+        "✉️ office@juz4you.at",
+        "📍 Laudachweg 14, 4655 Vorchdorf"
+      ],
+      "website": "https://www.vorchdorf.at/Jugendzentrum_Vorchdorf_Juz4YOU_",
+      "link": "https://www.vorchdorfonline.at/verein/jugendzentrum-vorchdorf"
+    },
+    {
+      "title": "Landjugend Vorchdorf",
+      "info": [
+        "👤 Obmann: Lara Hofbauer und Peter Kriechbaum",
+        "👥 Stellv.: Leonie Thanner und Max Schindlauer",
+        "✉️ vorchdorf.landjugend@gmail.com",
+        "📍 Berg 1, 4655 Vorchdorf"
+      ],
+      "website": "http://www.vorchdorf.landjugend.at",
+      "link": "https://www.vorchdorfonline.at/verein/landjugend-vorchdorf"
+    },
+    {
+      "title": "OTELO Vorchdorf",
+      "info": [
+        "👤 Obmann: Martin Hollinetz",
+        "👥 Stellv.: Bettina Hutterer",
+        "☎️ 0650/7031919",
+        "✉️ otelovorchdorf@gmail.com",
+        "📍 Schulstraße 8, 4655 Vorchdorf"
+      ],
+      "website": "https://otelo.or.at/standort/vorchdorf/",
+      "link": "https://www.vorchdorfonline.at/verein/otelo"
+    },
+    {
+      "title": "Pfadfinder Vorchdorf",
+      "info": [
+        "👤 Obmann: Michael Etlinger",
+        "✉️ vorchdorf@scout.at",
+        "📍 Hummelbrunn 5, 4655 Vorchdorf"
+      ],
+      "website": "https://www.pfadfinder-vorchdorf.com/",
+      "link": "https://www.vorchdorfonline.at/verein/pfadfinder-vorchdorf"
+    },
+    {
+      "title": "Rotes Kreuz Vorchdorf",
+      "info": [
+        "👤 Obmann: Dr. Christoph Hohn",
+        "👥 Stellv.: Mag. Barbara Wilthoner",
+        "☎️ 07614/7012",
+        "📱 0664/50 70 195",
+        "📍 Dr. Mitterbauerstr. 4c, 4655 Vorchdorf"
+      ],
+      "website": "https://www.roteskreuz.at/ooe/dienststellen/gmunden/die-bezirksstelle/die-ortsstellen/vorchdorf/startseite/",
+      "link": "https://www.vorchdorfonline.at/verein/rotes-kreuz-vorchdorf"
+    },
+    {
+      "title": "Senioren",
+      "info": [
+        "☎️ Kurt Ahrer 07614/8244"
+      ],
+      "link": "https://www.vorchdorfonline.at/verein/senioren"
+    },
+    {
+      "title": "Volontariat mit Jugend eine Welt",
+      "info": [
+        "👤 Obmann: Anna Kronberger",
+        "☎️ 07614/5316"
+      ],
+      "website": "https://www.jugendeinewelt.at/engagement/freiwilligeneinsaetze-im-ausland/volontariatbewegt/",
+      "link": "https://www.vorchdorfonline.at/verein/volontariat-jugend-welt"
+    },
+    {
+      "title": "Weltladen Vorchdorf",
+      "info": [
+        "👤 Obmann: Teresa Steinhäusler",
+        "👥 Stellv.: Katharina Langeder",
+        "☎️ 07614/5322",
+        "✉️ office@weltladen-vorchdorf.at",
+        "📍 Schlossplatz 2, 4655 Vorchdorf"
+      ],
+      "website": "https://www.weltladen-vorchdorf.at/",
+      "link": "https://www.vorchdorfonline.at/verein/weltladen-vorchdorf"
+    }
+  ],
+  "sonstiges": [
+    {
+      "title": "HELLO ENGLISH! English Teaching Academy",
+      "info": [
+        "☎️ 07614/21499",
+        "📱 0676/9728 458",
+        "📍 Bahnhofstraße 13, 4655 Vorchdorf"
+      ],
+      "website": "https://helloenglish.at/",
+      "link": "https://www.vorchdorfonline.at/verein/hello-english"
+    },
+    {
+      "title": "Landesmusikschule",
+      "info": [
+        "👤 Obmann: Musikschuldirektor Wilhelm Zelch MA",
+        "☎️ 07613 2985",
+        "✉️ ms-laakirchen.post@ooe.gv.at",
+        "📍 Schulstraße 6, 4655 Vorchdorf"
+      ],
+      "website": "http://www.lms-laakirchen.at/",
+      "link": "https://www.vorchdorfonline.at/verein/landesmusikschule"
+    },
+    {
+      "title": "Laudachtaler Energiegemeinschaft",
+      "info": [
+        "👤 Obmann: Christian Hummelbrunner"
+      ],
+      "website": "http://www.energiegruppe-vorchdorf.at",
+      "link": "https://www.vorchdorfonline.at/verein/laudachtaler-energiegemeinschaft"
+    },
+    {
+      "title": "Öffentliche Bibliothek Vorchdorf",
+      "info": [
+        "👤 Obmann: Mark Lunabba",
+        "☎️ 07614 / 6313-20",
+        "📍 Schloßplatz 2, 4655 Vorchdorf"
+      ],
+      "website": "https://bibliothek-vorchdorf.at/",
+      "link": "https://www.vorchdorfonline.at/verein/oeffentliche-bibliothek"
+    },
+    {
+      "title": "Ortsbauernschaft",
+      "info": [
+        "👤 Obmann: Josef Scherleithner",
+        "👥 Stellv.: Margit Kriechbaum",
+        "☎️ 0699 1261 3667"
+      ],
+      "website": "https://www.facebook.com/groups/263785608553934/",
+      "link": "https://www.vorchdorfonline.at/verein/ortsbauernschaft"
+    },
+    {
+      "title": "Siedlerverein Vorchdorf",
+      "info": [
+        "👤 Obmann: Felix Lenzeder",
+        "👥 Stellv.: Paul Aberl",
+        "☎️ 07614 8857",
+        "📍 Spitzleithen 2/1, 4655 Vorchdorf"
+      ],
+      "website": "https://vorchdorf.siedlerverein.at/",
+      "link": "https://www.vorchdorfonline.at/verein/siedlerverein-vorchdorf"
+    },
+    {
+      "title": "Tourismus Ortsausschuss Vorchdorf",
+      "info": [
+        "👤 Obmann: Jochen Neustifter"
+      ],
+      "website": "https://www.salzkammergut.at/",
+      "link": "https://www.vorchdorfonline.at/verein/tourismus-ortsausschuss"
+    },
+    {
+      "title": "vorchdorf 2027",
+      "info": [
+        "👤 Obmann: Christoph Deichsel",
+        "👥 Stellv.: Ing. Christian Hummelbrunner",
+        "📱 +43 676 844230206",
+        "✉️ ch.deixl@gmail.com"
+      ],
+      "link": "https://www.vorchdorfonline.at/verein/vorchdorf-2027"
+    },
+    {
+      "title": "Vorchdorfer Gastbenutzer",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "link": "https://www.vorchdorfonline.at/verein/vorchdorfer-gastbenutzer"
+    },
+    {
+      "title": "Werbering Vorchdorf",
+      "info": [
+        "👤 Obmann: Ing. Markus Müller",
+        "👥 Stellv.: Elfriede Lüftinger",
+        "☎️ 0699 15 05 88 57",
+        "✉️ office@werbering-vorchdorf.at",
+        "📍 Oberhörbach 18, 4655 Vorchdorf"
+      ],
+      "website": "https://www.vorchdorfonline.at/verein/werbering",
+      "link": "https://www.vorchdorfonline.at/verein/werbering"
+    },
+    {
+      "title": "Wirtschaftsbund Vorchdorf",
+      "info": [
+        "Weitere Infos auf der Website"
+      ],
+      "website": "https://www.ooe-wb.at/bezirk/gmunden/",
+      "link": "https://www.vorchdorfonline.at/verein/wirtschaftsbund-vorchdorf"
+    },
+    {
+      "title": "Zukunft Fischböckau",
+      "info": [
+        "👤 Obmann: Christian Strassmair",
+        "📱 0664 965 3 569"
+      ],
+      "website": "https://traunsteinregion.at/projekte/projekte-2014-2022.html?view=article&id=168:fischböckau-2020&catid=13",
+      "link": "https://www.vorchdorfonline.at/verein/zukunft-fischboeckau"
+    },
+    {
+      "title": "Zukunft Vorchdorf",
+      "info": [
+        "👤 Obmann: Franz Amering",
+        "👥 Stellv.: Felix Lenzeder, Klaus Lohninger",
+        "✉️ schimpl@abzlambach.at"
+      ],
+      "website": "https://www.liebenswertes-ooe.at/245.htm",
+      "link": "https://www.vorchdorfonline.at/verein/zukunft-vorchdorf"
+    }
+  ]
+}
