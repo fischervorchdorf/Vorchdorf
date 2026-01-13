@@ -1254,6 +1254,18 @@
             line-height: 1.4;
         }
 
+        .sub-count {
+            display: inline-block;
+            background: rgba(244, 185, 35, 0.1);
+            color: var(--secondary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: auto;
+            border: 1px solid rgba(244, 185, 35, 0.2);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -2773,7 +2785,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '3.3'; // Aktuelle Version der App
+        const APP_VERSION = '3.4'; // Aktuelle Version der App
 
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4255,10 +4267,24 @@ Mit freundlichen Grüßen`;
                         ` : ''}
                         <div class="subcategory-list">
                             ${subcategoryList.map(sub => {
+                    let subCount = 0;
+                    if (categoryId === 'shopping') {
+                        if (sub.id === 'all_businesses_az') {
+                            subCount = allBusinesses.filter(b => b.werbering === true).length;
+                        } else {
+                            subCount = allBusinesses.filter(b => b.category === sub.id && b.werbering === true).length;
+                        }
+                    } else if (categoryId === 'clubs') {
+                        subCount = (allClubs[sub.id] || []).length;
+                    } else {
+                        subCount = (sub.items || []).length;
+                    }
+
                     return `
                                     <div class="subcategory-item" onclick="navigateToSubcategory('${categoryId}', '${sub.id}')">
                                         <h4>${sub.title}</h4>
                                         <p>${sub.description || 'Klicken für Details'}</p>
+                                        ${subCount > 0 ? `<div class="sub-count">${subCount} Einträge</div>` : ''}
                                     </div>
                                 `;
                 }).join('')}
