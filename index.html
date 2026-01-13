@@ -516,6 +516,20 @@
             overflow: hidden;
         }
 
+        .card-count {
+            display: inline-block;
+            background: rgba(244, 185, 35, 0.1);
+            color: var(--secondary);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(244, 185, 35, 0.2);
+        }
+
         .card:hover h3 {
             color: var(--secondary);
             text-shadow: 0 0 10px rgba(244, 185, 35, 0.3);
@@ -2824,6 +2838,32 @@ Mit freundlichen Grüßen`;
         let navigationHistory = [];
         let currentCategory = null;
         let currentSubcategory = null;
+        let categoryCounts = {};
+
+        // Hilfsfunktion: Zählt Einträge pro Kategorie
+        function getCategoryItemCount(catId) {
+            if (catId === 'shopping') {
+                return allBusinesses.filter(b => b.werbering === true).length;
+            }
+            if (catId === 'clubs') {
+                return Object.values(allClubs).reduce((acc, list) => acc + list.length, 0);
+            }
+            const cat = categories[catId];
+            if (!cat) return 0;
+
+            let count = 0;
+            if (cat.items) count += cat.items.length;
+            if (cat.subcategories) {
+                Object.values(cat.subcategories).forEach(sub => {
+                    if (sub.items) count += sub.items.length;
+                });
+            }
+            if (cat.content && cat.content.items) count += cat.content.items.length;
+            if (cat.content && cat.content.sections) {
+                cat.content.sections.forEach(s => count += s.items.length);
+            }
+            return count;
+        }
 
         // Global Business Data - Loaded from businesses.json
         let allBusinesses = [];
@@ -4102,13 +4142,17 @@ Mit freundlichen Grüßen`;
 
             mainContent.innerHTML = `
                 <div class="cards-grid fade-in">
-                    ${sortedCategories.map(cat => `
-                        <div class="card" onclick="navigateToCategory('${cat.id}')">
-                            <span class="card-icon">${cat.icon}</span>
-                            <h3>${cat.title}</h3>
-                            <p>${cat.description}</p>
-                        </div>
-                    `).join('')}
+                    ${sortedCategories.map(cat => {
+                const count = getCategoryItemCount(cat.id);
+                return `
+                            <div class="card" onclick="navigateToCategory('${cat.id}')">
+                                <span class="card-icon">${cat.icon}</span>
+                                <h3>${cat.title}</h3>
+                                <p>${cat.description}</p>
+                                ${count > 0 ? `<div class="card-count">${count} Einträge</div>` : ''}
+                            </div>
+                        `;
+            }).join('')}
                 </div>
             `;
 
@@ -4996,21 +5040,60 @@ Mit freundlichen Grüßen`;
                 }
             });
 
-            // 3. Suche in BUSINESSES (Werbering) - mit Fuzzy Matching und Synonymen
+            // 3. Suche in BUSINESSES (Werbering) - mit verbesserter Priorisierung
             allBusinesses.forEach(business => {
-                const businessText = `${business.name} ${business.location} ${business.category}`.toLowerCase();
-                const businessTextNormalized = normalizeString(`${business.name} ${business.location} ${business.category}`);
+                const name = business.name || '';
+                const search = business.search || '';
+                const location = business.location || '';
+                const cat = business.category || '';
 
-                // Überprüfe ob einer der Such-Variationen/Synonyme im Text vorhanden ist
-                const isMatch = searchVariations.some(variant => {
+                const coreText = `${name} ${search} ${cat}`.toLowerCase();
+                const coreTextNormalized = normalizeString(coreText);
+                const fullText = `${coreText} ${location}`.toLowerCase();
+                const fullTextNormalized = normalizeString(fullText);
+
+                let priority = 4;
+                let match = false;
+
+                // Check variations
+                for (const variant of searchVariations) {
                     const normalizedVariant = normalizeString(variant);
-                    return businessText.includes(variant) || businessTextNormalized.includes(normalizedVariant);
-                });
 
-                if (isMatch) {
+                    // Höchste Priorität: Wort-Treffer im Namen oder Suchbegriffen
+                    const wordRegex = new RegExp('\\b' + variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+                    const normalizedWordRegex = new RegExp('\\b' + normalizedVariant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+
+                    if (wordRegex.test(name) || normalizedWordRegex.test(normalizeString(name))) {
+                        priority = 4; // Eigentlich 4.0, aber innerhalb der Businesses
+                        match = true;
+                        break;
+                    }
+
+                    if (wordRegex.test(search) || normalizedWordRegex.test(normalizeString(search))) {
+                        priority = 4.1;
+                        match = true;
+                        break;
+                    }
+
+                    // Mittlere Priorität: Teil-Treffer im Namen oder Suchbegriffen
+                    if (coreText.includes(variant) || coreTextNormalized.includes(normalizedVariant)) {
+                        priority = 4.2;
+                        match = true;
+                        break;
+                    }
+
+                    // Niedrige Priorität: Treffer irgendwo (z.B. Adresse)
+                    if (fullText.includes(variant) || fullTextNormalized.includes(normalizedVariant)) {
+                        priority = 4.5;
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
                     results.push({
                         type: 'business',
-                        priority: 4,
+                        priority: priority,
                         business: business,
                         matchText: business.name
                     });
