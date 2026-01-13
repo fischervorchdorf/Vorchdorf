@@ -2266,28 +2266,54 @@
             stats.textContent = `${products.length} Produkt${products.length !== 1 ? 'e' : ''} gefunden`;
 
             grid.innerHTML = products.map((product, index) => {
-                // WICHTIG: Extrahiere Image-URL direkt OHNE externe Funktion
-                let imageUrl = product['Bild 1 Url von Imgur'] || '';
+                // EXTREM ROBUSTE BILD-EXTRAKTION
+                let imageUrl = '';
 
-                // Einfach nur trimmen und checken ob es mit http startet
+                // 1. Suche in bekannten Spalten
+                const knownFields = ['Bild 1 Url von Imgur', 'Bild 1', 'Bild', 'Bild 2', 'Bild 3', 'Bild 4'];
+                for (const field of knownFields) {
+                    if (product[field] && String(product[field]).trim().startsWith('http')) {
+                        imageUrl = String(product[field]).trim();
+                        break;
+                    }
+                }
+
+                // 2. Fallback: Suche in ALLEN Feldern nach einer URL (falls Spalten verschoben)
+                if (!imageUrl) {
+                    for (let key in product) {
+                        const val = String(product[key]).trim();
+                        if (val.startsWith('http') && (val.includes('imgur.com') || val.match(/\.(jpg|jpeg|png|gif|webp)$/i))) {
+                            imageUrl = val;
+                            break;
+                        }
+                    }
+                }
+
                 if (imageUrl) {
-                    imageUrl = imageUrl.trim();
-                    // Falls es HTML enthält, nur die echte URL nehmen
+                    // Falls es HTML enthält, extrahiere reine URL
                     if (imageUrl.includes('href=')) {
                         const m = imageUrl.match(/href=["']([^"']+)["']/);
-                        imageUrl = m ? m[1] : '';
+                        if (m) imageUrl = m[1];
                     }
-                    // Nur wenn es mit http startet, verwenden
-                    if (!imageUrl.startsWith('http')) {
-                        imageUrl = '';
-                    } else {
-                        // Repariere unvollständige imgur.com URLs (ohne Dateiendung)
-                        if (imageUrl.includes('imgur.com/') && !imageUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-                            // Konvertiere imgur.com/ID zu i.imgur.com/ID.jpg
-                            const match = imageUrl.match(/imgur\.com\/([a-zA-Z0-9]+)$/);
-                            if (match) {
-                                imageUrl = `https://i.imgur.com/${match[1]}.jpg`;
+
+                    // Imgur-Optimierung
+                    if (imageUrl.includes('imgur.com/')) {
+                        // Bereinige Album/Gallery-Links
+                        imageUrl = imageUrl.replace(/\/(a|gallery)\//, '/');
+
+                        // Stelle sicher dass es i.imgur.com ist und eine Endung hat
+                        if (!imageUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                            // Extrahiere ID (letzter Teil der URL)
+                            const parts = imageUrl.trim().split('/');
+                            let lastPart = parts[parts.length - 1];
+                            if (lastPart === '') lastPart = parts[parts.length - 2];
+                            let id = lastPart.split(/[?#.]/)[0];
+                            if (id) {
+                                imageUrl = `https://i.imgur.com/${id}.jpg`;
                             }
+                        } else {
+                            // Nur Domain anpassen falls Endung schon da
+                            imageUrl = imageUrl.replace('//imgur.com', '//i.imgur.com');
                         }
                     }
                 }
@@ -2785,7 +2811,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '3.4'; // Aktuelle Version der App
+        const APP_VERSION = '3.6'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -4154,17 +4180,13 @@ Mit freundlichen Grüßen`;
 
             mainContent.innerHTML = `
                 <div class="cards-grid fade-in">
-                    ${sortedCategories.map(cat => {
-                const count = getCategoryItemCount(cat.id);
-                return `
-                            <div class="card" onclick="navigateToCategory('${cat.id}')">
-                                <span class="card-icon">${cat.icon}</span>
-                                <h3>${cat.title}</h3>
-                                <p>${cat.description}</p>
-                                ${count > 0 ? `<div class="card-count">${count} Einträge</div>` : ''}
-                            </div>
-                        `;
-            }).join('')}
+                    ${sortedCategories.map(cat => `
+                        <div class="card" onclick="navigateToCategory('${cat.id}')">
+                            <span class="card-icon">${cat.icon}</span>
+                            <h3>${cat.title}</h3>
+                            <p>${cat.description}</p>
+                        </div>
+                    `).join('')}
                 </div>
             `;
 
