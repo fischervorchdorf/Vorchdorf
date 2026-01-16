@@ -653,40 +653,56 @@
             container.innerHTML = '';
 
             const now = new Date();
-            // Test override if user wants to see specific date data
-            // now = new Date('2026-01-13'); 
+            let daysShown = 0;
+            const maxDaysToShow = 5; // Zeige maximal 5 Tage mit Inhalt oder Fehlermeldungen
 
-            // Show today + next 3 days
-            for (let i = 0; i < 4; i++) {
+            // Show Today + Next 6 Days (Preview one full week)
+            for (let i = 0; i < 7; i++) {
+                if (daysShown >= maxDaysToShow) break;
+
                 const current = new Date(now);
                 current.setDate(now.getDate() + i);
                 const ds = current.toISOString().split('T')[0];
                 const dayName = DAYS[current.getDay()];
 
-                if (current.getDay() === 0 || current.getDay() === 6) {
-                    // Skip weekends in main view unless specifically desired
-                    if (i === 0) { /* Show today even if weekend */ }
-                    else continue;
+                // Skip weekends ONLY if we are not looking at "Today"
+                if (i > 0 && (current.getDay() === 0 || current.getDay() === 6)) {
+                    continue;
                 }
 
+                // Check if we have items for this day
                 const dayItems = parsedItems.filter(item => item.dateStr === ds);
 
-                const header = document.createElement('div');
-                header.className = 'section-header';
-                const label = i === 0 ? "Heute" : (i === 1 ? "Morgen" : dayName);
-                header.innerHTML = `<h3 class="section-title">${label}</h3><span class="date-badge">${current.toLocaleDateString('de-AT')}</span>`;
-                container.appendChild(header);
+                // Logic: Always show "Today". For future days, ONLY show if there is content 
+                // OR if it is the immediate next weekday (Morgen).
+                // This prevents showing 5 empty "Keine Menüpläne" boxes for next week.
+                const isToday = (i === 0);
+                const isTomorrow = (i === 1);
 
-                if (dayItems.length === 0) {
-                    const empty = document.createElement('div');
-                    empty.className = 'empty-state';
-                    empty.style.padding = '2rem';
-                    empty.innerHTML = `<p>Keine Menüpläne für diesen Tag verfügbar.</p>`;
-                    container.appendChild(empty);
-                } else {
-                    dayItems.forEach(item => {
-                        container.appendChild(createMenuCard(item));
-                    });
+                if (dayItems.length > 0 || isToday || isTomorrow) {
+                    const header = document.createElement('div');
+                    header.className = 'section-header';
+
+                    let label = dayName;
+                    if (isToday) label = "Heute";
+                    else if (isTomorrow) label = "Morgen";
+
+                    header.innerHTML = `<h3 class="section-title">${label}</h3><span class="date-badge">${current.toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' })}</span>`;
+                    container.appendChild(header);
+
+                    if (dayItems.length === 0) {
+                        const empty = document.createElement('div');
+                        empty.className = 'empty-state';
+                        empty.style.padding = '1.5rem';
+                        empty.style.marginBottom = '2rem';
+                        empty.innerHTML = `<p style="font-size: 0.9rem">Keine Menüpläne verfügbar.</p>`;
+                        container.appendChild(empty);
+                    } else {
+                        dayItems.forEach(item => {
+                            container.appendChild(createMenuCard(item));
+                        });
+                    }
+                    daysShown++;
                 }
             }
         }
