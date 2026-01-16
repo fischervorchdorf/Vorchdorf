@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müllkalender Vorchdorf 2026</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .input-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .autocomplete-wrapper {
+            position: relative;
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .autocomplete-list.active {
+            display: block;
+        }
+
+        .autocomplete-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .autocomplete-item:hover {
+            background: #f5f5f5;
+        }
+
+        .gebiet-info {
+            background: #e8f5e9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .gebiet-info.active {
+            display: block;
+        }
+
+        .gebiet-info h2 {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .gebiet-info p {
+            color: #666;
+        }
+
+        .sterngebiet-hinweis {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
+        .termine-section {
+            display: none;
+        }
+
+        .termine-section.active {
+            display: block;
+        }
+
+        .termin-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .termin-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .termin-icon.gelb {
+            background: #FFF176;
+        }
+
+        .termin-icon.rot {
+            background: #ef5350;
+            color: white;
+        }
+
+        .termin-icon.gruen {
+            background: #66BB6A;
+            color: white;
+        }
+
+        .termin-icon.schwarz {
+            background: #424242;
+            color: white;
+        }
+
+        .termin-content {
+            flex: 1;
+        }
+
+        .termin-typ {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .termin-datum {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .termin-countdown {
+            text-align: right;
+            min-width: 60px;
+        }
+
+        .countdown-zahl {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .termin-heute {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+        }
+
+        .termin-morgen {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .alle-termine-btn {
+            background: #f5f5f5;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h3 {
+            font-size: 1.2rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .monat-gruppe {
+            margin-bottom: 25px;
+        }
+
+        .monat-titel {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .termin-mini {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 10px;
+        }
+
+        .termin-mini-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .termin-mini-icon.gelb {
+            background: #FFF176;
+            border: 1px solid #FBC02D;
+        }
+
+        .termin-mini-icon.rot {
+            background: #ef5350;
+        }
+
+        .termin-mini-icon.gruen {
+            background: #66BB6A;
+        }
+
+        .termin-mini-icon.schwarz {
+            background: #424242;
+        }
+
+        .termin-mini-datum {
+            min-width: 100px;
+            font-weight: 500;
+        }
+
+        .termin-mini-typ {
+            color: #666;
+        }
+
+        .hinweis {
+            background: #fff8e1;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #6d4c00;
+        }
+
+        .hinweis strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .back-btn {
+            background: #4CAF50;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="btn back-btn" onclick="window.location.href='./index.html'">
+            ← Zurück zur Vorchdorf App
+        </button>
+
+        <h1>🗑️ Müllkalender Vorchdorf 2026</h1>
+
+        <div class="input-section">
+            <div class="autocomplete-wrapper">
+                <label for="strasse">Straße auswählen:</label>
+                <input type="text" id="strasse" placeholder="Straßenname eingeben..." autocomplete="off">
+                <div class="autocomplete-list" id="autocomplete-list"></div>
+            </div>
+        </div>
+
+        <div class="gebiet-info" id="gebiet-info">
+            <h2 id="gebiet-name">Gebiet 1</h2>
+            <p id="gebiet-strasse">Ihre Straße: Hauptstraße</p>
+            <div class="sterngebiet-hinweis" id="sterngebiet-hinweis" style="display:none;">
+                ⭐ Sondergebiet für Bioabfall (häufigere Abholung)
+            </div>
+        </div>
+
+        <div class="termine-section" id="termine-section">
+            <div id="naechste-termine"></div>
+            <button class="btn alle-termine-btn" onclick="zeigeAlleTermine()">
+                📅 Alle Termine anzeigen
+            </button>
+        </div>
+
+        <div class="hinweis">
+            <strong>📌 Hinweis:</strong>
+            Bereitstellung der Abfallbehälter zur Abfuhr ab 6 Uhr morgens!
+            Fällt die Abfuhr auf einen Feiertag, erfolgt sie am nächsten Tag.
+        </div>
+    </div>
+
+    <div class="modal" id="alle-termine-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Alle Termine 2026</h3>
+                <button class="modal-close" onclick="schliesseModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="alle-termine-liste"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // DATEN - Straßen nach Gebieten
+        // ============================================
+        const GEBIETE_STRASSEN = {
+            "1": [
+                "Aggsbach", "Am Riedlbach", "Aubichl", "Burggrabenstraße", "Danzlauer Straße",
+                "Einsiedlinger Straße", "Eichham", "Forst", "Heitzing", "Holzbachweg",
+                "Hopfenweg", "Huttermühlweg", "Lederauer Straße", "Mitterfeld", "Moos",
+                "Mühlenstraße", "Oberlederau", "Obere Pappelleiten", "Pametstraße", "Radhaming",
+                "Schmiedweg", "Seyrkam", "Tachlau", "Talbachweg", "Traunsteinblick",
+                "Untere Pappelleiten", "Wasserweg"
+            ],
+            "2": [
+                "Adlhaming", "Albenedt", "Almstraße", "Almweg", "Auweg", "Binderweg",
+                "Brunnmühlstraße", "Fichtenweg", "Fischböckauer Straße", "Knittelweg",
+                "Mautstraße", "Panoramaweg", "Pettenbacherstraße ab Tankstelle", "Römerstraße",
+                "Sagstraße", "Schönfeld", "Stefan Fadingerstraße", "Styriastraße",
+                "Theuerwang", "Vogelsangweg", "Wiesenstraße"
+            ],
+            "3": [
+                "Bachweg", "Feldgasse", "Getreidegasse", "Herrengasse", "Hummelbrunn",
+                "Klampfermühlweg", "Lindenweg", "Mühltaler Straße", "Point",
+                "Reuhartinger Straße", "Rundweg", "Schart", "Streiningerstraße nach Almbrücke",
+                "Uferweg", "Waldweg", "Zinkstraße"
+            ],
+            "4": [
+                "Alte Gmundnerstraße", "Bahnhofstraße", "Bahnweg", "Blumenweg",
+                "Brauereistraße", "Brodwinkel", "Buchenstraße", "Burgstraße",
+                "C. Forstingerstraße", "Eggenberg", "Falkenohren", "Falkenweg",
+                "Fernbergerstraße", "Gmundner Straße 13 und ab Nr. 26", "Hausfeld",
+                "Im Kellerfeld", "J. Wagnerstraße", "Kirschnerfeld", "Koglstraße",
+                "Laudachweg", "Ledererweg", "Loisnweg", "M. Kitzmantelstraße",
+                "Messenbacherstraße", "Peintal", "Rösslbauerweg", "Schmiedgasse",
+                "Sonnenweg", "Spitzleithen", "Teichweg", "Weidach", "Weidenstraße"
+            ],
+            "5": [
+                "Alter Schiffweg", "Am Kirchenbühel", "Berntalerstraße",
+                "Europaweg Gmundner Straße bis Nr. 22 außer Nr. 13", "Grießstraße",
+                "Haidholzstraße", "Kapellenweg", "Kirchengasse", "Krumphuberweg",
+                "Lambacherstraße", "Lindacher Straße", "Neue Landstraße",
+                "Pettenbacherstraße bis Tankstelle", "Reitweg", "Schloßplatz",
+                "Schulstraße", "Siebenbürgerstraße", "Stampfstraße", "Steingartenweg",
+                "Streiningerstraße bis Almbrücke", "Tanglweg", "Wehrstraße"
+            ],
+            "6": [
+                "Asamerstraße", "Bärnthal", "Berg", "Brückenweg", "Dr. Mitterbauerstraße",
+                "Feldhamer Straße", "Gewerbestraße", "Haidstraße", "Haresauer Straße",
+                "Hötzelsdorf", "Josef-Haas-Straße", "Kösslwanger Straße", "Kramerstraße",
+                "Logistikstraße", "Oberhörbach", "Steinhuberstraße", "Unterhörbach",
+                "Ursprung", "Waldstraße", "Wickstraße"
+            ]
+        };
+
+        // Sterngebiete für Bioabfall (häufigere Abholung)
+        const STERNGEBIET_4 = ["Eggenberg", "Im Kellerfeld"];
+        const STERNGEBIET_5 = ["Haidholzstraße", "Kirchengasse", "Lindacher Straße", "Reitweg",
+            "Siebenbürgerstraße", "Streiningerstraße bis Almbrücke", "Wehrstraße"];
+
+        // ============================================
+        // TERMINE 2026 - Aus der Numbers-Datei
+        // ============================================
+        const TERMINE_2026 = {
+            // GELBE TONNE
+            "gelb": [
+                { datum: "2026-01-12", gebiete: ["1"] },
+                { datum: "2026-01-13", gebiete: ["2", "4"] },
+                { datum: "2026-01-14", gebiete: ["3"] },
+                { datum: "2026-01-15", gebiete: ["5"] },
+                { datum: "2026-01-16", gebiete: ["6"] },
+                { datum: "2026-02-09", gebiete: ["1"] },
+                { datum: "2026-02-10", gebiete: ["2", "4"] },
+                { datum: "2026-02-11", gebiete: ["3"] },
+                { datum: "2026-02-12", gebiete: ["5"] },
+                { datum: "2026-02-13", gebiete: ["6"] },
+                { datum: "2026-03-09", gebiete: ["1"] },
+                { datum: "2026-03-10", gebiete: ["2", "4"] },
+                { datum: "2026-03-11", gebiete: ["3"] },
+                { datum: "2026-03-12", gebiete: ["5"] },
+                { datum: "2026-03-13", gebiete: ["6"] },
+                { datum: "2026-04-07", gebiete: ["1"] },
+                { datum: "2026-04-08", gebiete: ["2", "4"] },
+                { datum: "2026-04-09", gebiete: ["3"] },
+                { datum: "2026-04-10", gebiete: ["5"] },
+                { datum: "2026-04-11", gebiete: ["6"] },
+                { datum: "2026-05-04", gebiete: ["1"] },
+                { datum: "2026-05-05", gebiete: ["2", "4"] },
+                { datum: "2026-05-06", gebiete: ["3"] },
+                { datum: "2026-05-07", gebiete: ["5"] },
+                { datum: "2026-05-08", gebiete: ["6"] },
+                { datum: "2026-06-01", gebiete: ["1"] },
+                { datum: "2026-06-02", gebiete: ["2", "4"] },
+                { datum: "2026-06-03", gebiete: ["3"] },
+                { datum: "2026-06-05", gebiete: ["5", "6"] },
+                { datum: "2026-06-29", gebiete: ["1"] },
+                { datum: "2026-06-30", gebiete: ["2", "4"] },
+                { datum: "2026-07-01", gebiete: ["3"] },
+                { datum: "2026-07-02", gebiete: ["5"] },
+                { datum: "2026-07-03", gebiete: ["6"] },
+                { datum: "2026-07-27", gebiete: ["1"] },
+                { datum: "2026-07-28", gebiete: ["2", "4"] },
+                { datum: "2026-07-29", gebiete: ["3"] },
+                { datum: "2026-07-30", gebiete: ["5"] },
+                { datum: "2026-07-31", gebiete: ["6"] },
+                { datum: "2026-08-24", gebiete: ["1"] },
+                { datum: "2026-08-25", gebiete: ["2", "4"] },
+                { datum: "2026-08-26", gebiete: ["3"] },
+                { datum: "2026-08-27", gebiete: ["5"] },
+                { datum: "2026-08-28", gebiete: ["6"] },
+                { datum: "2026-09-21", gebiete: ["1"] },
+                { datum: "2026-09-22", gebiete: ["2", "4"] },
+                { datum: "2026-09-23", gebiete: ["3"] },
+                { datum: "2026-09-24", gebiete: ["5"] },
+                { datum: "2026-09-25", gebiete: ["6"] },
+                { datum: "2026-10-19", gebiete: ["1"] },
+                { datum: "2026-10-20", gebiete: ["2", "4"] },
+                { datum: "2026-10-21", gebiete: ["3"] },
+                { datum: "2026-10-22", gebiete: ["5"] },
+                { datum: "2026-10-23", gebiete: ["6"] },
+                { datum: "2026-11-16", gebiete: ["1"] },
+                { datum: "2026-11-17", gebiete: ["2", "4"] },
+                { datum: "2026-11-18", gebiete: ["3"] },
+                { datum: "2026-11-19", gebiete: ["5"] },
+                { datum: "2026-11-20", gebiete: ["6"] },
+                { datum: "2026-12-14", gebiete: ["1"] },
+                { datum: "2026-12-15", gebiete: ["2", "4"] },
+                { datum: "2026-12-16", gebiete: ["3"] },
+                { datum: "2026-12-17", gebiete: ["5"] },
+                { datum: "2026-12-18", gebiete: ["6"] }
+            ],
+
+            // ROTE TONNE (Altpapier)
+            "rot": [
+                { datum: "2026-01-20", gebiete: ["4"] },
+                { datum: "2026-01-21", gebiete: ["5"] },
+                { datum: "2026-01-22", gebiete: ["6"] },
+                { datum: "2026-02-03", gebiete: ["1"] },
+                { datum: "2026-02-04", gebiete: ["2"] },
+                { datum: "2026-02-05", gebiete: ["3"] },
+                { datum: "2026-02-17", gebiete: ["4"] },
+                { datum: "2026-02-18", gebiete: ["5"] },
+                { datum: "2026-02-19", gebiete: ["6"] },
+                { datum: "2026-03-03", gebiete: ["1"] },
+                { datum: "2026-03-04", gebiete: ["2"] },
+                { datum: "2026-03-05", gebiete: ["3"] },
+                { datum: "2026-03-17", gebiete: ["4"] },
+                { datum: "2026-03-18", gebiete: ["5"] },
+                { datum: "2026-03-19", gebiete: ["6"] },
+                { datum: "2026-03-31", gebiete: ["1"] },
+                { datum: "2026-04-01", gebiete: ["2"] },
+                { datum: "2026-04-02", gebiete: ["3"] },
+                { datum: "2026-04-14", gebiete: ["4"] },
+                { datum: "2026-04-15", gebiete: ["5"] },
+                { datum: "2026-04-16", gebiete: ["6"] },
+                { datum: "2026-04-28", gebiete: ["1"] },
+                { datum: "2026-04-29", gebiete: ["2"] },
+                { datum: "2026-04-30", gebiete: ["3"] },
+                { datum: "2026-05-12", gebiete: ["4"] },
+                { datum: "2026-05-13", gebiete: ["5"] },
+                { datum: "2026-05-15", gebiete: ["6"] },
+                { datum: "2026-05-26", gebiete: ["1"] },
+                { datum: "2026-05-27", gebiete: ["2"] },
+                { datum: "2026-05-28", gebiete: ["3"] },
+                { datum: "2026-06-09", gebiete: ["4"] },
+                { datum: "2026-06-10", gebiete: ["5"] },
+                { datum: "2026-06-11", gebiete: ["6"] },
+                { datum: "2026-06-23", gebiete: ["1"] },
+                { datum: "2026-06-24", gebiete: ["2"] },
+                { datum: "2026-06-25", gebiete: ["3"] },
+                { datum: "2026-07-07", gebiete: ["4"] },
+                { datum: "2026-07-08", gebiete: ["5"] },
+                { datum: "2026-07-09", gebiete: ["6"] },
+                { datum: "2026-07-21", gebiete: ["1"] },
+                { datum: "2026-07-22", gebiete: ["2"] },
+                { datum: "2026-07-23", gebiete: ["3"] },
+                { datum: "2026-08-04", gebiete: ["4"] },
+                { datum: "2026-08-05", gebiete: ["5"] },
+                { datum: "2026-08-06", gebiete: ["6"] },
+                { datum: "2026-08-18", gebiete: ["1"] },
+                { datum: "2026-08-19", gebiete: ["2"] },
+                { datum: "2026-08-20", gebiete: ["3"] },
+                { datum: "2026-09-01", gebiete: ["4"] },
+                { datum: "2026-09-02", gebiete: ["5"] },
+                { datum: "2026-09-03", gebiete: ["6"] },
+                { datum: "2026-09-15", gebiete: ["1"] },
+                { datum: "2026-09-16", gebiete: ["2"] },
+                { datum: "2026-09-17", gebiete: ["3"] },
+                { datum: "2026-09-29", gebiete: ["4"] },
+                { datum: "2026-09-30", gebiete: ["5"] },
+                { datum: "2026-10-01", gebiete: ["6"] },
+                { datum: "2026-10-13", gebiete: ["1"] },
+                { datum: "2026-10-14", gebiete: ["2"] },
+                { datum: "2026-10-15", gebiete: ["3"] },
+                { datum: "2026-10-27", gebiete: ["4"] },
+                { datum: "2026-10-28", gebiete: ["5"] },
+                { datum: "2026-10-29", gebiete: ["6"] },
+                { datum: "2026-11-10", gebiete: ["1"] },
+                { datum: "2026-11-11", gebiete: ["2"] },
+                { datum: "2026-11-12", gebiete: ["3"] },
+                { datum: "2026-11-24", gebiete: ["4"] },
+                { datum: "2026-11-25", gebiete: ["5"] },
+                { datum: "2026-11-26", gebiete: ["6"] },
+                { datum: "2026-12-09", gebiete: ["1", "2"] },
+                { datum: "2026-12-10", gebiete: ["3"] },
+                { datum: "2026-12-22", gebiete: ["4"] },
+                { datum: "2026-12-23", gebiete: ["5"] },
+                { datum: "2026-12-24", gebiete: ["6"] }
+            ],
+
+            // GRÜNE TONNE (Bioabfall) - Normale Gebiete
+            "gruen": [
+                { datum: "2026-01-19", gebiete: ["1"] },
+                { datum: "2026-01-20", gebiete: ["2", "3"] },
+                { datum: "2026-01-21", gebiete: ["4", "5"] },
+                { datum: "2026-01-22", gebiete: ["6"] },
+                { datum: "2026-02-02", gebiete: ["1"] },
+                { datum: "2026-02-03", gebiete: ["2", "3"] },
+                { datum: "2026-02-04", gebiete: ["4", "5"] },
+                { datum: "2026-02-05", gebiete: ["6"] },
+                { datum: "2026-02-16", gebiete: ["1"] },
+                { datum: "2026-02-17", gebiete: ["2", "3"] },
+                { datum: "2026-02-18", gebiete: ["4", "5"] },
+                { datum: "2026-02-19", gebiete: ["6"] },
+                { datum: "2026-03-02", gebiete: ["1"] },
+                { datum: "2026-03-03", gebiete: ["2", "3"] },
+                { datum: "2026-03-04", gebiete: ["4", "5"] },
+                { datum: "2026-03-05", gebiete: ["6"] },
+                { datum: "2026-03-16", gebiete: ["1"] },
+                { datum: "2026-03-17", gebiete: ["2", "3"] },
+                { datum: "2026-03-18", gebiete: ["4", "5"] },
+                { datum: "2026-03-19", gebiete: ["6"] },
+                { datum: "2026-03-30", gebiete: ["1"] },
+                { datum: "2026-03-31", gebiete: ["2", "3"] },
+                { datum: "2026-04-01", gebiete: ["4", "5"] },
+                { datum: "2026-04-02", gebiete: ["6"] },
+                { datum: "2026-04-13", gebiete: ["1"] },
+                { datum: "2026-04-14", gebiete: ["2", "3"] },
+                { datum: "2026-04-15", gebiete: ["4", "5"] },
+                { datum: "2026-04-16", gebiete: ["6"] },
+                { datum: "2026-04-27", gebiete: ["1"] },
+                { datum: "2026-04-28", gebiete: ["2", "3"] },
+                { datum: "2026-04-29", gebiete: ["4", "5"] },
+                { datum: "2026-04-30", gebiete: ["6"] },
+                { datum: "2026-05-11", gebiete: ["1"] },
+                { datum: "2026-05-12", gebiete: ["2", "3"] },
+                { datum: "2026-05-13", gebiete: ["4", "5"] },
+                { datum: "2026-05-15", gebiete: ["6"] },
+                { datum: "2026-05-26", gebiete: ["1", "2", "3"] },
+                { datum: "2026-05-27", gebiete: ["4", "5"] },
+                { datum: "2026-05-28", gebiete: ["6"] },
+                { datum: "2026-06-08", gebiete: ["1"] },
+                { datum: "2026-06-09", gebiete: ["2", "3"] },
+                { datum: "2026-06-10", gebiete: ["4", "5"] },
+                { datum: "2026-06-11", gebiete: ["6"] },
+                { datum: "2026-06-22", gebiete: ["1"] },
+                { datum: "2026-06-23", gebiete: ["2", "3"] },
+                { datum: "2026-06-24", gebiete: ["4", "5"] },
+                { datum: "2026-06-25", gebiete: ["6"] },
+                { datum: "2026-07-06", gebiete: ["1"] },
+                { datum: "2026-07-07", gebiete: ["2", "3"] },
+                { datum: "2026-07-08", gebiete: ["4", "5"] },
+                { datum: "2026-07-09", gebiete: ["6"] },
+                { datum: "2026-07-20", gebiete: ["1"] },
+                { datum: "2026-07-21", gebiete: ["2", "3"] },
+                { datum: "2026-07-22", gebiete: ["4", "5"] },
+                { datum: "2026-07-23", gebiete: ["6"] },
+                { datum: "2026-08-03", gebiete: ["1"] },
+                { datum: "2026-08-04", gebiete: ["2", "3"] },
+                { datum: "2026-08-05", gebiete: ["4", "5"] },
+                { datum: "2026-08-06", gebiete: ["6"] },
+                { datum: "2026-08-17", gebiete: ["1"] },
+                { datum: "2026-08-18", gebiete: ["2", "3"] },
+                { datum: "2026-08-19", gebiete: ["4", "5"] },
+                { datum: "2026-08-20", gebiete: ["6"] },
+                { datum: "2026-08-31", gebiete: ["1"] },
+                { datum: "2026-09-01", gebiete: ["2", "3"] },
+                { datum: "2026-09-02", gebiete: ["4", "5"] },
+                { datum: "2026-09-03", gebiete: ["6"] },
+                { datum: "2026-09-14", gebiete: ["1"] },
+                { datum: "2026-09-15", gebiete: ["2", "3"] },
+                { datum: "2026-09-16", gebiete: ["4", "5"] },
+                { datum: "2026-09-17", gebiete: ["6"] },
+                { datum: "2026-09-28", gebiete: ["1"] },
+                { datum: "2026-09-29", gebiete: ["2", "3"] },
+                { datum: "2026-09-30", gebiete: ["4", "5"] },
+                { datum: "2026-10-01", gebiete: ["6"] },
+                { datum: "2026-10-12", gebiete: ["1"] },
+                { datum: "2026-10-13", gebiete: ["2", "3"] },
+                { datum: "2026-10-14", gebiete: ["4", "5"] },
+                { datum: "2026-10-15", gebiete: ["6"] },
+                { datum: "2026-10-27", gebiete: ["1", "2", "3"] },
+                { datum: "2026-10-28", gebiete: ["4", "5"] },
+                { datum: "2026-10-29", gebiete: ["6"] },
+                { datum: "2026-11-09", gebiete: ["1"] },
+                { datum: "2026-11-10", gebiete: ["2", "3"] },
+                { datum: "2026-11-11", gebiete: ["4", "5"] },
+                { datum: "2026-11-12", gebiete: ["6"] },
+                { datum: "2026-11-23", gebiete: ["1"] },
+                { datum: "2026-11-24", gebiete: ["2", "3"] },
+                { datum: "2026-11-25", gebiete: ["4", "5"] },
+                { datum: "2026-11-26", gebiete: ["6"] },
+                { datum: "2026-12-07", gebiete: ["1"] },
+                { datum: "2026-12-09", gebiete: ["2", "3", "4", "5"] },
+                { datum: "2026-12-10", gebiete: ["6"] },
+                { datum: "2026-12-21", gebiete: ["1"] },
+                { datum: "2026-12-22", gebiete: ["2", "3"] },
+                { datum: "2026-12-23", gebiete: ["4", "5"] },
+                { datum: "2026-12-24", gebiete: ["6"] }
+            ],
+
+            // GRÜNE TONNE - Sterngebiet 4* (Eggenberg, Im Kellerfeld)
+            "gruen_stern4": [
+                { datum: "2026-01-19", gebiete: ["4*"] },
+                { datum: "2026-02-02", gebiete: ["4*"] },
+                { datum: "2026-02-16", gebiete: ["4*"] },
+                { datum: "2026-03-02", gebiete: ["4*"] },
+                { datum: "2026-03-16", gebiete: ["4*"] },
+                { datum: "2026-03-30", gebiete: ["4*"] },
+                { datum: "2026-04-13", gebiete: ["4*"] },
+                { datum: "2026-04-27", gebiete: ["4*"] },
+                { datum: "2026-05-11", gebiete: ["4*"] },
+                { datum: "2026-05-26", gebiete: ["4*"] },
+                { datum: "2026-06-08", gebiete: ["4*"] },
+                { datum: "2026-06-22", gebiete: ["4*"] },
+                { datum: "2026-07-06", gebiete: ["4*"] },
+                { datum: "2026-07-20", gebiete: ["4*"] },
+                { datum: "2026-08-03", gebiete: ["4*"] },
+                { datum: "2026-08-17", gebiete: ["4*"] },
+                { datum: "2026-08-31", gebiete: ["4*"] },
+                { datum: "2026-09-14", gebiete: ["4*"] },
+                { datum: "2026-09-28", gebiete: ["4*"] },
+                { datum: "2026-10-12", gebiete: ["4*"] },
+                { datum: "2026-10-27", gebiete: ["4*"] },
+                { datum: "2026-11-09", gebiete: ["4*"] },
+                { datum: "2026-11-23", gebiete: ["4*"] },
+                { datum: "2026-12-07", gebiete: ["4*"] },
+                { datum: "2026-12-21", gebiete: ["4*"] }
+            ],
+
+            // GRÜNE TONNE - Sterngebiet 5*
+            "gruen_stern5": [
+                { datum: "2026-01-22", gebiete: ["5*"] },
+                { datum: "2026-02-05", gebiete: ["5*"] },
+                { datum: "2026-02-19", gebiete: ["5*"] },
+                { datum: "2026-03-05", gebiete: ["5*"] },
+                { datum: "2026-03-19", gebiete: ["5*"] },
+                { datum: "2026-04-02", gebiete: ["5*"] },
+                { datum: "2026-04-16", gebiete: ["5*"] },
+                { datum: "2026-04-30", gebiete: ["5*"] },
+                { datum: "2026-05-15", gebiete: ["5*"] },
+                { datum: "2026-05-28", gebiete: ["5*"] },
+                { datum: "2026-06-11", gebiete: ["5*"] },
+                { datum: "2026-06-25", gebiete: ["5*"] },
+                { datum: "2026-07-09", gebiete: ["5*"] },
+                { datum: "2026-07-23", gebiete: ["5*"] },
+                { datum: "2026-08-06", gebiete: ["5*"] },
+                { datum: "2026-08-20", gebiete: ["5*"] },
+                { datum: "2026-09-03", gebiete: ["5*"] },
+                { datum: "2026-09-17", gebiete: ["5*"] },
+                { datum: "2026-10-01", gebiete: ["5*"] },
+                { datum: "2026-10-15", gebiete: ["5*"] },
+                { datum: "2026-10-29", gebiete: ["5*"] },
+                { datum: "2026-11-12", gebiete: ["5*"] },
+                { datum: "2026-11-26", gebiete: ["5*"] },
+                { datum: "2026-12-10", gebiete: ["5*"] },
+                { datum: "2026-12-24", gebiete: ["5*"] }
+            ],
+
+            // RESTMÜLL (Schwarze Tonne)
+            "schwarz": [
+                { datum: "2026-01-27", gebiete: ["1"] },
+                { datum: "2026-01-28", gebiete: ["2"] },
+                { datum: "2026-01-29", gebiete: ["3"] },
+                { datum: "2026-02-10", gebiete: ["4"] },
+                { datum: "2026-02-11", gebiete: ["5"] },
+                { datum: "2026-02-12", gebiete: ["6"] },
+                { datum: "2026-02-24", gebiete: ["1"] },
+                { datum: "2026-02-25", gebiete: ["2"] },
+                { datum: "2026-02-26", gebiete: ["3"] },
+                { datum: "2026-03-10", gebiete: ["4"] },
+                { datum: "2026-03-11", gebiete: ["5"] },
+                { datum: "2026-03-12", gebiete: ["6"] },
+                { datum: "2026-03-24", gebiete: ["1"] },
+                { datum: "2026-03-25", gebiete: ["2"] },
+                { datum: "2026-03-26", gebiete: ["3"] },
+                { datum: "2026-04-07", gebiete: ["4"] },
+                { datum: "2026-04-08", gebiete: ["5"] },
+                { datum: "2026-04-09", gebiete: ["6"] },
+                { datum: "2026-04-21", gebiete: ["1"] },
+                { datum: "2026-04-22", gebiete: ["2"] },
+                { datum: "2026-04-23", gebiete: ["3"] },
+                { datum: "2026-05-05", gebiete: ["4"] },
+                { datum: "2026-05-06", gebiete: ["5"] },
+                { datum: "2026-05-07", gebiete: ["6"] },
+                { datum: "2026-05-19", gebiete: ["1"] },
+                { datum: "2026-05-20", gebiete: ["2"] },
+                { datum: "2026-05-21", gebiete: ["3"] },
+                { datum: "2026-06-02", gebiete: ["4"] },
+                { datum: "2026-06-03", gebiete: ["5"] },
+                { datum: "2026-06-05", gebiete: ["6"] },
+                { datum: "2026-06-16", gebiete: ["1"] },
+                { datum: "2026-06-17", gebiete: ["2"] },
+                { datum: "2026-06-18", gebiete: ["3"] },
+                { datum: "2026-06-30", gebiete: ["4"] },
+                { datum: "2026-07-01", gebiete: ["5"] },
+                { datum: "2026-07-02", gebiete: ["6"] },
+                { datum: "2026-07-14", gebiete: ["1"] },
+                { datum: "2026-07-15", gebiete: ["2"] },
+                { datum: "2026-07-16", gebiete: ["3"] },
+                { datum: "2026-07-28", gebiete: ["4"] },
+                { datum: "2026-07-29", gebiete: ["5"] },
+                { datum: "2026-07-30", gebiete: ["6"] },
+                { datum: "2026-08-11", gebiete: ["1"] },
+                { datum: "2026-08-12", gebiete: ["2"] },
+                { datum: "2026-08-13", gebiete: ["3"] },
+                { datum: "2026-08-25", gebiete: ["4"] },
+                { datum: "2026-08-26", gebiete: ["5"] },
+                { datum: "2026-08-27", gebiete: ["6"] },
+                { datum: "2026-09-08", gebiete: ["1"] },
+                { datum: "2026-09-09", gebiete: ["2"] },
+                { datum: "2026-09-10", gebiete: ["3"] },
+                { datum: "2026-09-22", gebiete: ["4"] },
+                { datum: "2026-09-23", gebiete: ["5"] },
+                { datum: "2026-09-24", gebiete: ["6"] },
+                { datum: "2026-10-06", gebiete: ["1"] },
+                { datum: "2026-10-07", gebiete: ["2"] },
+                { datum: "2026-10-08", gebiete: ["3"] },
+                { datum: "2026-10-20", gebiete: ["4"] },
+                { datum: "2026-10-21", gebiete: ["5"] },
+                { datum: "2026-10-22", gebiete: ["6"] },
+                { datum: "2026-11-03", gebiete: ["1"] },
+                { datum: "2026-11-04", gebiete: ["2"] },
+                { datum: "2026-11-05", gebiete: ["3"] },
+                { datum: "2026-11-17", gebiete: ["4"] },
+                { datum: "2026-11-18", gebiete: ["5"] },
+                { datum: "2026-11-19", gebiete: ["6"] },
+                { datum: "2026-12-01", gebiete: ["1"] },
+                { datum: "2026-12-02", gebiete: ["2"] },
+                { datum: "2026-12-03", gebiete: ["3"] },
+                { datum: "2026-12-15", gebiete: ["4"] },
+                { datum: "2026-12-16", gebiete: ["5"] },
+                { datum: "2026-12-17", gebiete: ["6"] },
+                { datum: "2026-12-29", gebiete: ["1"] },
+                { datum: "2026-12-30", gebiete: ["2"] },
+                { datum: "2026-12-31", gebiete: ["3"] }
+            ]
+        };
+
+        // Mülltyp-Konfiguration
+        const MUELL_TYPEN = {
+            "gelb": { name: "Gelbe Tonne", icon: "📦", farbe: "gelb", beschreibung: "Verpackungen" },
+            "rot": { name: "Rote Tonne", icon: "📰", farbe: "rot", beschreibung: "Altpapier" },
+            "gruen": { name: "Grüne Tonne", icon: "🥬", farbe: "gruen", beschreibung: "Bioabfall" },
+            "schwarz": { name: "Restmüll", icon: "🗑️", farbe: "schwarz", beschreibung: "Restmüll" }
+        };
+
+        const MONATSNAMEN = ["Jänner", "Februar", "März", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Dezember"];
+
+        let aktuellesGebiet = null;
+        let aktuelleStrasse = null;
+        let istSterngebiet4 = false;
+        let istSterngebiet5 = false;
+        let alleStraßenFlach = [];
+
+        function init() {
+            for (const [gebiet, strassen] of Object.entries(GEBIETE_STRASSEN)) {
+                for (const strasse of strassen) {
+                    alleStraßenFlach.push({
+                        strasse: strasse,
+                        gebiet: gebiet,
+                        suchtext: strasse.toLowerCase()
+                    });
+                }
+            }
+
+            alleStraßenFlach.sort((a, b) => a.strasse.localeCompare(b.strasse, 'de'));
+
+            const input = document.getElementById('strasse');
+            input.addEventListener('input', onStrasseInput);
+            input.addEventListener('focus', () => {
+                if (input.value.length >= 1) {
+                    zeigeAutocomplete(input.value);
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.autocomplete-wrapper')) {
+                    document.getElementById('autocomplete-list').classList.remove('active');
+                }
+            });
+
+            document.getElementById('alle-termine-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'alle-termine-modal') {
+                    schliesseModal();
+                }
+            });
+        }
+
+        function onStrasseInput(e) {
+            const value = e.target.value;
+            if (value.length >= 1) {
+                zeigeAutocomplete(value);
+            } else {
+                document.getElementById('autocomplete-list').classList.remove('active');
+            }
+        }
+
+        function zeigeAutocomplete(suchtext) {
+            const liste = document.getElementById('autocomplete-list');
+            const suche = suchtext.toLowerCase();
+
+            const treffer = alleStraßenFlach.filter(s => s.suchtext.includes(suche)).slice(0, 10);
+
+            if (treffer.length === 0) {
+                liste.classList.remove('active');
+                return;
+            }
+
+            liste.innerHTML = treffer.map((t) => `
+            <div class="autocomplete-item" onclick="waehleStrasse('${t.strasse.replace(/'/g, "\\'")}', '${t.gebiet}')">
+                ${t.strasse} <small style="color:#888">(Gebiet ${t.gebiet})</small>
+            </div>
+        `).join('');
+
+            liste.classList.add('active');
+        }
+
+        function waehleStrasse(strasse, gebiet) {
+            document.getElementById('strasse').value = strasse;
+            document.getElementById('autocomplete-list').classList.remove('active');
+
+            aktuelleStrasse = strasse;
+            aktuellesGebiet = gebiet;
+
+            // Prüfen ob Sterngebiet
+            istSterngebiet4 = STERNGEBIET_4.some(s => s.toLowerCase() === strasse.toLowerCase());
+            istSterngebiet5 = STERNGEBIET_5.some(s => s.toLowerCase() === strasse.toLowerCase());
+
+            zeigeGebiet(strasse, gebiet);
+            zeigeNaechsteTermine(gebiet);
+        }
+
+        function getTermineFuerGebiet(gebiet) {
+            const termine = [];
+            const heute = new Date();
+            heute.setHours(0, 0, 0, 0);
+
+            // Gelb, Rot, Schwarz - normal
+            for (const typ of ["gelb", "rot", "schwarz"]) {
+                const typTermine = TERMINE_2026[typ] || [];
+                for (const eintrag of typTermine) {
+                    if (eintrag.gebiete.includes(gebiet)) {
+                        const datum = new Date(eintrag.datum);
+                        if (datum >= heute) {
+                            termine.push({
+                                datum: datum,
+                                typ: typ,
+                                config: MUELL_TYPEN[typ]
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Grün - je nach Sterngebiet
+            let gruenTermine;
+            if (istSterngebiet4) {
+                gruenTermine = TERMINE_2026.gruen_stern4;
+            } else if (istSterngebiet5) {
+                gruenTermine = TERMINE_2026.gruen_stern5;
+            } else {
+                gruenTermine = TERMINE_2026.gruen.filter(e => e.gebiete.includes(gebiet));
+            }
+
+            for (const eintrag of gruenTermine) {
+                const datum = new Date(eintrag.datum);
+                if (datum >= heute) {
+                    termine.push({
+                        datum: datum,
+                        typ: "gruen",
+                        config: MUELL_TYPEN["gruen"]
+                    });
+                }
+            }
+
+            termine.sort((a, b) => a.datum - b.datum);
+            return termine;
+        }
+
+        function zeigeGebiet(strasse, gebiet) {
+            const info = document.getElementById('gebiet-info');
+            info.classList.add('active');
+            document.getElementById('gebiet-name').textContent = `Gebiet ${gebiet}`;
+            document.getElementById('gebiet-strasse').textContent = `Ihre Straße: ${strasse}`;
+
+            const sternHinweis = document.getElementById('sterngebiet-hinweis');
+            if (istSterngebiet4 || istSterngebiet5) {
+                sternHinweis.style.display = 'block';
+                sternHinweis.textContent = `⭐ Sondergebiet ${istSterngebiet4 ? '4*' : '5*'} für Bioabfall`;
+            } else {
+                sternHinweis.style.display = 'none';
+            }
+        }
+
+        function zeigeNaechsteTermine(gebiet) {
+            const container = document.getElementById('naechste-termine');
+            const section = document.getElementById('termine-section');
+            section.classList.add('active');
+
+            const heute = new Date();
+            heute.setHours(0, 0, 0, 0);
+
+            const termine = getTermineFuerGebiet(gebiet);
+            const naechste = termine.slice(0, 5);
+
+            container.innerHTML = naechste.map(t => {
+                const tage = Math.round((t.datum - heute) / (1000 * 60 * 60 * 24));
+                let extraClass = '';
+
+                if (tage === 0) {
+                    extraClass = 'termin-heute';
+                } else if (tage === 1) {
+                    extraClass = 'termin-morgen';
+                }
+
+                return `
+                <div class="termin-card ${extraClass}">
+                    <div class="termin-icon ${t.config.farbe}">${t.config.icon}</div>
+                    <div class="termin-content">
+                        <div class="termin-typ">${t.config.name}</div>
+                        <div class="termin-datum">${formatiereDatum(t.datum)}</div>
+                    </div>
+                    <div class="termin-countdown">
+                        <div class="countdown-zahl">${tage === 0 ? '!' : tage}</div>
+                        <div class="countdown-label">${tage === 0 ? 'Heute' : (tage === 1 ? 'Tag' : 'Tage')}</div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function zeigeAlleTermine() {
+            if (!aktuellesGebiet) return;
+
+            const modal = document.getElementById('alle-termine-modal');
+            const liste = document.getElementById('alle-termine-liste');
+
+            const termine = getTermineFuerGebiet(aktuellesGebiet);
+
+            const termineNachMonat = {};
+            for (const t of termine) {
+                const monat = t.datum.getMonth();
+                if (!termineNachMonat[monat]) {
+                    termineNachMonat[monat] = [];
+                }
+                termineNachMonat[monat].push(t);
+            }
+
+            let html = '';
+            for (let monat = 0; monat < 12; monat++) {
+                if (!termineNachMonat[monat]) continue;
+
+                html += `
+                <div class="monat-gruppe">
+                    <div class="monat-titel">${MONATSNAMEN[monat]} 2026</div>
+                    ${termineNachMonat[monat].map(t => `
+                        <div class="termin-mini">
+                            <div class="termin-mini-icon ${t.config.farbe}"></div>
+                            <div class="termin-mini-datum">${formatiereDatumKurz(t.datum)}</div>
+                            <div class="termin-mini-typ">${t.config.name}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            }
+
+            liste.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        function schliesseModal() {
+            document.getElementById('alle-termine-modal').classList.remove('active');
+        }
+
+        function formatiereDatum(datum) {
+            const wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+            return `${wochentage[datum.getDay()]}, ${datum.getDate()}. ${MONATSNAMEN[datum.getMonth()]}`;
+        }
+
+        function formatiereDatumKurz(datum) {
+            const wochentage = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+            return `${wochentage[datum.getDay()]}, ${datum.getDate().toString().padStart(2, '0')}.${(datum.getMonth() + 1).toString().padStart(2, '0')}.`;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>

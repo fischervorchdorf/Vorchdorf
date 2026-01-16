@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorchdorfer Mittagstisch | Menüpläne</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --primary-dark: #065f46;
+            --secondary: #ecfdf5;
+            --accent: #f59e0b;
+            --text-dark: #064e3b;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #f1f5f9 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --radius: 24px;
+            --radius-sm: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 3rem;
+        }
+
+        /* --- Header --- */
+        .header {
+            background: var(--white);
+            padding: 1rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
+            background: var(--secondary);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-3px);
+            background: #d1fae5;
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-align: center;
+            flex: 1;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            padding-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* --- Tabs --- */
+        .tabs {
+            display: flex;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2.5rem;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 18px;
+            background: transparent;
+            font-weight: 700;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transform: scale(1.02);
+        }
+
+        /* --- Content Modules --- */
+        .view-module {
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .view-module.active {
+            display: block;
+        }
+
+        /* --- Section Styling --- */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .date-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+        }
+
+        /* --- Menu Cards --- */
+        .menu-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.12);
+        }
+
+        .wirt-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .wirt-logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #d1fae5 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .wirt-info h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 0.15rem;
+        }
+
+        .wirt-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .menu-content {
+            background: #fff;
+            border-radius: 18px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            line-height: 1.6;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .menu-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .price-tag {
+            display: inline-block;
+            margin-top: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            background: #d1fae5;
+            padding: 0.4rem 1rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.1);
+        }
+
+        /* --- Selector --- */
+        .wirt-selector {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23059669'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.25rem center;
+            background-size: 1.5rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
+
+        .wirt-selector:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+
+        /* --- Day Detail for Wirte Selection --- */
+        .day-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 2rem 0 1rem 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .day-title::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #d1fae5 0%, transparent 100%);
+        }
+
+        /* --- Empty state & loader --- */
+        #loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 1rem;
+        }
+
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 5px solid var(--secondary);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            margin-top: 2rem;
+            color: var(--text-light);
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: grayscale(0.5);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-note a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px solid transparent;
+            transition: border 0.2s;
+        }
+
+        .footer-note a:hover {
+            border-bottom-color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                margin-bottom: 2rem;
+                padding: 0.4rem;
+            }
+
+            .tab-btn {
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
+
+            .menu-card {
+                padding: 1.4rem;
+            }
+
+            .menu-content {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Zur App
+            </a>
+            <div class="logo-text">Vorchdorf Mittags</div>
+            <div style="width: 80px;" class="desktop-spacer"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Mahlzeit Vorchdorf! 🥘</h2>
+            <p>Leckere Menüs aus Ihrer Region auf einen Blick.</p>
+        </div>
+
+        <div id="loader">
+            <div class="spinner"></div>
+            <p style="font-weight: 600; color: var(--text-light)">Aktuelle Pläne werden geladen...</p>
+        </div>
+
+        <div id="main-content" style="display: none;">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchView('today')">Tagesansicht</button>
+                <button class="tab-btn" onclick="switchView('host')">Alle Wirte</button>
+            </div>
+
+            <!-- Tagesansicht -->
+            <div id="view-today" class="view-module active">
+                <div id="today-container"></div>
+            </div>
+
+            <!-- Wirte-Auswahl -->
+            <div id="view-host" class="view-module">
+                <select id="wirt-select" class="wirt-selector" onchange="renderHostDetail()">
+                    <option value="">🏠 Wirt auswählen...</option>
+                </select>
+                <div id="host-content">
+                    <div class="empty-state">
+                        <span class="empty-icon">🍽️</span>
+                        <p style="font-weight: 600">Wählen Sie einen Wirt aus,<br>um den Wochenplan zu sehen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            🚀 Daten bereitgestellt vom <a
+                href="https://docs.google.com/spreadsheets/d/16oJAdKlUthvoQBdOiFbI-1OXYnspNc3Yn8cRuqILNsw/edit"
+                target="_blank">Werbering Vorchdorf</a>.<br>
+            Änderungen vorbehalten. © 2026
+        </div>
+    </div>
+
+    <script>
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/16oJAdKlUthvoQBdOiFbI-1OXYnspNc3Yn8cRuqILNsw/export?format=csv';
+        const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+
+        // State
+        let rawEntries = [];
+        let parsedItems = []; // List of {gasthaus, menu, price, date, day, ...}
+        let uniqueHosts = [];
+
+        async function init() {
+            try {
+                const response = await fetch(CSV_URL + '&cache=' + Date.now());
+                const csvText = await response.text();
+                rawEntries = parseCSV(csvText);
+
+                // Parse all entries into daily items
+                parsedItems = [];
+                rawEntries.forEach(entry => {
+                    const items = processEntry(entry);
+                    parsedItems.push(...items);
+                });
+
+                // Get unique hosts from latest data
+                const hostSet = new Set();
+                parsedItems.forEach(item => hostSet.add(item.gasthaus));
+                uniqueHosts = Array.from(hostSet).sort();
+
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+
+                populateSelector();
+                renderToday();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loader').innerHTML = '<p style="color:red; font-weight:700">⚠️ Fehler beim Laden der Daten. Bitte Seite neu laden.</p>';
+            }
+        }
+
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            const headers = lines[0].split(',').map(h => normalizeHeader(h));
+            const result = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i];
+                if (!line.trim()) continue;
+
+                const cells = [];
+                let current = '';
+                let inQuotes = false;
+                for (let char of line) {
+                    if (char === '"') inQuotes = !inQuotes;
+                    else if (char === ',' && !inQuotes) {
+                        cells.push(current);
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                cells.push(current);
+
+                const obj = {};
+                headers.forEach((h, idx) => {
+                    obj[h] = cells[idx] ? cells[idx].trim().replace(/^"|"$/g, '') : '';
+                });
+                result.push(obj);
+            }
+            return result;
+        }
+
+        function normalizeHeader(h) {
+            return h.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+
+        /**
+         * Logic matching the Python Parser (Relative Weeks & Day Extraction)
+         */
+        function processEntry(entry) {
+            const gasthaus = entry.gasthausname;
+            const email = entry.email;
+            const selection = entry.woche;
+            const freitext = entry.menuplanfreitext || "";
+            const preis = entry.preis || "";
+            const anmerkung = entry.anmerkung || "";
+
+            // 1. Calculate the target date (Monday of the selected week)
+            const timestamp = parseDate(entry.zeitstempel);
+            const mondayCurrent = new Date(timestamp);
+            mondayCurrent.setDate(timestamp.getDate() - (timestamp.getDay() === 0 ? 6 : timestamp.getDay() - 1));
+            mondayCurrent.setHours(0, 0, 0, 0);
+
+            let targetMonday = new Date(mondayCurrent);
+            if (selection.includes("Nächste")) {
+                targetMonday.setDate(mondayCurrent.getDate() + 7);
+            } else if (selection.includes("Übernächste")) {
+                targetMonday.setDate(mondayCurrent.getDate() + 14);
+            }
+
+            // 2. Extract menus for each day
+            const extracted = extractFromFreitext(freitext);
+            const items = [];
+
+            ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'].forEach((day, idx) => {
+                const dayKey = day.toLowerCase();
+                let menu = entry[dayKey] || extracted[dayKey] || "";
+
+                if (menu.trim().length > 2) {
+                    const menuDate = new Date(targetMonday);
+                    menuDate.setDate(targetMonday.getDate() + idx);
+
+                    items.append = items.push({
+                        gasthaus,
+                        email,
+                        menu: menu.trim(),
+                        preis,
+                        anmerkung,
+                        date: menuDate,
+                        dayName: day,
+                        dateStr: menuDate.toISOString().split('T')[0]
+                    });
+                }
+            });
+
+            return items;
+        }
+
+        function extractFromFreitext(text) {
+            const days = { montag: ['montag', 'mo'], dienstag: ['dienstag', 'di'], mittwoch: ['mittwoch', 'mi'], donnerstag: ['donnerstag', 'do'], freitag: ['freitag', 'fr'], samstag: ['samstag', 'sa'], sonntag: ['sonntag', 'so'] };
+            const result = {};
+            const lines = text.split('\n');
+            let currentDay = null;
+
+            lines.forEach(line => {
+                const clean = line.trim();
+                if (!clean) return;
+
+                let foundHeader = false;
+                for (let day in days) {
+                    const pattern = new RegExp('^(' + days[day].join('|') + ')[:\\s,\\.]', 'i');
+                    if (pattern.test(clean)) {
+                        currentDay = day;
+                        result[currentDay] = clean.replace(pattern, '').trim();
+                        foundHeader = true;
+                        break;
+                    }
+                }
+
+                if (!foundHeader && currentDay) {
+                    result[currentDay] = (result[currentDay] ? result[currentDay] + '\n' : '') + clean;
+                }
+            });
+            return result;
+        }
+
+        function parseDate(str) {
+            if (!str) return new Date();
+            const parts = str.split(' ');
+            const dParts = parts[0].split('.');
+            if (dParts.length < 3) return new Date();
+            return new Date(dParts[2], dParts[1] - 1, dParts[0]);
+        }
+
+        function populateSelector() {
+            const select = document.getElementById('wirt-select');
+            uniqueHosts.forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = "🏠 " + name;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderToday() {
+            const container = document.getElementById('today-container');
+            container.innerHTML = '';
+
+            const now = new Date();
+            // Test override if user wants to see specific date data
+            // now = new Date('2026-01-13'); 
+
+            // Show today + next 3 days
+            for (let i = 0; i < 4; i++) {
+                const current = new Date(now);
+                current.setDate(now.getDate() + i);
+                const ds = current.toISOString().split('T')[0];
+                const dayName = DAYS[current.getDay()];
+
+                if (current.getDay() === 0 || current.getDay() === 6) {
+                    // Skip weekends in main view unless specifically desired
+                    if (i === 0) { /* Show today even if weekend */ }
+                    else continue;
+                }
+
+                const dayItems = parsedItems.filter(item => item.dateStr === ds);
+
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                const label = i === 0 ? "Heute" : (i === 1 ? "Morgen" : dayName);
+                header.innerHTML = `<h3 class="section-title">${label}</h3><span class="date-badge">${current.toLocaleDateString('de-AT')}</span>`;
+                container.appendChild(header);
+
+                if (dayItems.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty-state';
+                    empty.style.padding = '2rem';
+                    empty.innerHTML = `<p>Keine Menüpläne für diesen Tag verfügbar.</p>`;
+                    container.appendChild(empty);
+                } else {
+                    dayItems.forEach(item => {
+                        container.appendChild(createMenuCard(item));
+                    });
+                }
+            }
+        }
+
+        function createMenuCard(item) {
+            const div = document.createElement('div');
+            div.className = 'menu-card';
+
+            const menuLines = item.menu.split('\n').map(l => `<div class="menu-line">${l}</div>`).join('');
+            const price = item.preis ? `<div class="price-tag">€ ${item.preis}</div>` : '';
+
+            div.innerHTML = `
+                <div class="wirt-header">
+                    <div class="wirt-logo">🍽️</div>
+                    <div class="wirt-info">
+                        <h3>${item.gasthaus}</h3>
+                        <p>${item.anmerkung || 'Herzlich willkommen!'}</p>
+                    </div>
+                </div>
+                <div class="menu-content">
+                    ${menuLines}
+                    ${price}
+                </div>
+            `;
+            return div;
+        }
+
+        function renderHostDetail() {
+            const hostName = document.getElementById('wirt-select').value;
+            const container = document.getElementById('host-content');
+            if (!hostName) return;
+
+            // Get all unique future/current items for this host
+            const hostItems = parsedItems
+                .filter(item => item.gasthaus === hostName)
+                .sort((a, b) => a.date - b.date);
+
+            container.innerHTML = '';
+
+            if (hostItems.length === 0) {
+                container.innerHTML = '<div class="empty-state">Noch keine Menüpläne für diesen Wirt hinterlegt.</div>';
+                return;
+            }
+
+            // Group by week
+            const weeks = {};
+            hostItems.forEach(item => {
+                const monday = new Date(item.date);
+                monday.setDate(monday.getDate() - (monday.getDay() === 0 ? 6 : monday.getDay() - 1));
+                const ws = monday.toLocaleDateString('de-AT');
+                if (!weeks[ws]) weeks[ws] = [];
+                weeks[ws].push(item);
+            });
+
+            Object.keys(weeks).forEach(ws => {
+                const weekHeader = document.createElement('h2');
+                weekHeader.style.margin = '2.5rem 0 1rem';
+                weekHeader.style.fontSize = '1.1rem';
+                weekHeader.style.color = 'var(--text-light)';
+                weekHeader.textContent = `Woche ab dem ${ws}`;
+                container.appendChild(weekHeader);
+
+                weeks[ws].forEach(item => {
+                    const dayH = document.createElement('div');
+                    dayH.className = 'day-title';
+                    dayH.innerHTML = `<span>${item.dayName}</span>`;
+                    container.appendChild(dayH);
+                    container.appendChild(createMenuCard(item));
+                });
+            });
+        }
+
+        function switchView(view) {
+            document.querySelectorAll('.view-module').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById('view-' + view).classList.add('active');
+            const btn = document.querySelector(`.tab-btn[onclick="switchView('${view}')"]`);
+            if (btn) btn.classList.add('active');
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

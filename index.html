@@ -2811,7 +2811,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '3.6'; // Aktuelle Version der App
+        const APP_VERSION = '3.8'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -2922,6 +2922,13 @@ Mit freundlichen Grüßen`;
                 icon: '📸',
                 description: 'Bilder und Fotos von Vorchdorf',
                 externalLink: 'http://www.vorchdorfer.at/'
+            },
+            mittagstisch: {
+                id: 'mittagstisch',
+                title: 'Mittagstisch',
+                icon: '🍽️',
+                description: 'Aktuelle Menüpläne der Wirte',
+                externalLink: 'mittagstisch.html'
             },
             welcome: {
                 id: 'welcome',
@@ -3891,13 +3898,13 @@ Mit freundlichen Grüßen`;
                             title: '⭐ Müllkalender & Altstoffe',
                             items: [
                                 {
-                                    title: 'Müllabfuhr-Termine 2025',
+                                    title: 'Müllabfuhr-Termine 2026',
                                     info: [
-                                        '♻️ Abfuhrtermine für alle Ortstteile',
+                                        '♻️ Abfuhrtermine für alle Ortsteile',
                                         'Bio-, Rest- und Papiertonnen',
-                                        'Sperrmüll & Grünschnitt'
+                                        'Gelbe Tonne & Restmüll'
                                     ],
-                                    link: 'https://www.vorchdorf.at/system/web/kalender.aspx?sprache=1&menuonr=227703103&typids=227719859,227719865'
+                                    wasteCalendar: true
                                 },
                                 {
                                     title: 'ASZ Altstoffsammelzentrum',
@@ -3933,6 +3940,13 @@ Mit freundlichen Grüßen`;
                         }
                     ]
                 }
+            },
+            waste_calendar: {
+                id: 'waste_calendar',
+                title: 'Müllkalender',
+                icon: '🗑️',
+                description: 'Abfuhrtermine für Ihre Straße',
+                wasteCalendar: true
             },
             emergency: {
                 id: 'emergency',
@@ -4175,7 +4189,7 @@ Mit freundlichen Grüßen`;
             const weatherWidget = document.getElementById('weatherWidget');
 
             // Render categories in custom order
-            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'flohmarkt'];
+            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'waste_calendar', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'flohmarkt'];
             const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
 
             mainContent.innerHTML = `
@@ -4242,10 +4256,16 @@ Mit freundlichen Grüßen`;
                 document.getElementById('backButton').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
-                document.getElementById('flohmarktContainer').classList.add('active');
+                document.getElementById('flohmarktContainer').classList.remove('active');
                 updateBreadcrumb([{ text: category.title }]);
 
                 loadFlohmarktProducts();
+                return;
+            }
+
+            // Handle Waste Calendar
+            if (category.wasteCalendar) {
+                openWasteCalendar();
                 return;
             }
 
@@ -4577,7 +4597,7 @@ Mit freundlichen Grüßen`;
                                 <div class="info-item">
                                     <h4>${item.title}</h4>
                                     ${item.info.map(info => `<p>${info}</p>`).join('')}
-                                    ${item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
+                                    ${item.wasteCalendar ? `<p><a href="#" onclick="event.preventDefault(); openWasteCalendar();">→ Müllkalender öffnen</a></p>` : item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
                                 </div>
                             `).join('')}
                         </div>
@@ -4611,6 +4631,11 @@ Mit freundlichen Grüßen`;
                 mainFooter.style.display = 'block';
             }
             renderHome();
+        }
+
+        // Open Waste Calendar
+        function openWasteCalendar() {
+            window.location.href = './muellkalender-vorchdorf-final.html';
         }
 
         // Update Breadcrumb
@@ -5275,6 +5300,44 @@ Mit freundlichen Grüßen`;
                     floatBtn.classList.remove('visible');
                 }
             });
+
+            // Browser History Handler für Android Zurück-Taste
+            // Füge initial State hinzu
+            if (!window.history.state) {
+                window.history.replaceState({ page: 'home' }, '', '');
+            }
+
+            // Handle Browser Back Button (Android Zurück-Taste)
+            window.addEventListener('popstate', function (event) {
+                // Wenn wir auf der Home-Seite sind, lassen wir den Browser die Navigation durchführen
+                if (currentView === 'home') {
+                    // Lasse den Browser navigieren (aus der App raus)
+                    return;
+                }
+
+                // Ansonsten navigieren wir intern zurück
+                event.preventDefault();
+                goBack();
+
+                // Stelle sicher, dass es immer einen History-Eintrag gibt
+                if (currentView !== 'home') {
+                    window.history.pushState({ page: currentView }, '', '');
+                }
+            });
+
+            // Bei Navigation neuen History-Eintrag erstellen
+            const originalNavigateToCategory = window.navigateToCategory;
+            window.navigateToCategory = function (categoryId) {
+                originalNavigateToCategory(categoryId);
+                window.history.pushState({ page: 'category', categoryId: categoryId }, '', '');
+            };
+
+            const originalNavigateToSubcategory = window.navigateToSubcategory;
+            window.navigateToSubcategory = function (categoryId, subcategoryId) {
+                originalNavigateToSubcategory(categoryId, subcategoryId);
+                window.history.pushState({ page: 'subcategory', categoryId: categoryId, subcategoryId: subcategoryId }, '', '');
+            };
+
 
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
