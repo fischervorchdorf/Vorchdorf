@@ -362,8 +362,22 @@
             const now = new Date();
             now.setHours(12, 0, 0, 0);
 
-            // Show next 7 days (including weekends)
-            for (let i = 0; i < 7; i++) {
+            // Find maximum date in our data
+            let maxDate = new Date(now);
+            allItems.forEach(item => {
+                const d = new Date(item.dateStr);
+                d.setHours(12, 0, 0, 0);
+                if (d > maxDate) maxDate = d;
+            });
+
+            // Calculate days diff (cap at 28 days to avoid infinite loops on bad data)
+            const diffTime = Math.abs(maxDate - now);
+            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays < 1) diffDays = 1; // Show at least today/tomorrow logic
+            if (diffDays > 28) diffDays = 28;
+
+            // Show timeline up to the last available data
+            for (let i = 0; i <= diffDays; i++) {
                 const date = new Date(now);
                 date.setDate(now.getDate() + i);
                 const dateStr = date.toISOString().split('T')[0];
