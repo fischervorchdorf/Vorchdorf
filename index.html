@@ -2142,8 +2142,12 @@
             'Sonstiges': '📦'
         };
 
-        // Robuster CSV Parser (ignoriert Zeilenumbrüche in Anführungszeichen)
+        // Robuster CSV Parser mit Trennzeichen-Erkennung und Fallback
         function parseCSV(text) {
+            // Detect delimiter based on first line
+            const firstLine = text.split('\n')[0];
+            const delimiter = firstLine.includes(';') ? ';' : ',';
+
             const arr = [];
             let quote = false;
             let col = 0, row = 0;
@@ -2164,23 +2168,39 @@
                         quote = !quote;
                     }
                 }
-                else if (cc == ',' && !quote) { ++col; }
+                else if (cc == delimiter && !quote) { ++col; }
                 else if (cc == '\n' && !quote) { ++row; col = 0; }
                 else { arr[row][col] += cc; }
             }
 
-
+            // Clean headers
             const headers = arr[0].map(h => h.trim().replace(/^[\uFEFF\u200B]/, ''));
             const result = [];
 
             for (let i = 1; i < arr.length; i++) {
                 const rowData = arr[i];
-                if (rowData.length < 2) continue; // Skip empty rows, allow short rows
+                if (rowData.length < 2) continue;
 
                 const obj = {};
+
+                // Strategy 1: Standard Map
                 headers.forEach((h, idx) => {
                     obj[h] = rowData[idx] ? rowData[idx].trim() : '';
                 });
+
+                // Strategy 2: Fallback for critical fields if empty (using fixed indices based on Google Sheet structure)
+                // 0:Timestamp, 1:Status, 2:Name, 3:Category, 4:Price, 5:Desc, 6:Firm, 7:Email, 8:Img1
+                if (!obj['Produktname'] && rowData[2]) obj['Produktname'] = rowData[2];
+                if (!obj['Kategorie'] && rowData[3]) obj['Kategorie'] = rowData[3];
+                if (!obj['Preis in Euro'] && rowData[4]) obj['Preis in Euro'] = rowData[4];
+                if (!obj['Firmenname'] && rowData[6]) obj['Firmenname'] = rowData[6];
+
+                // Flexible Image Search
+                if (!obj['Bild 1 Url von Imgur']) {
+                    // Try column 8 or find any http link
+                    if (rowData[8] && rowData[8].startsWith('http')) obj['Bild 1 Url von Imgur'] = rowData[8];
+                }
+
                 result.push(obj);
             }
             return result;
@@ -2188,11 +2208,7 @@
 
         async function loadFlohmarktProducts() {
             try {
-                // Verstecke Footer wenn Flohmarkt aktiv
-                const mainFooter = document.getElementById('mainFooter');
-                if (mainFooter) {
-                    mainFooter.style.display = 'none';
-                }
+                // Footer nicht mehr verstecken!
 
                 // const proxyUrl = 'https://api.allorigins.win/raw?url=';
                 // let response;
