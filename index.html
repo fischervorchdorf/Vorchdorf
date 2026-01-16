@@ -2142,41 +2142,46 @@
             'Sonstiges': '📦'
         };
 
-        // CSV Parser für Flohmarkt
-        function parseCSV(csv) {
-            const lines = csv.split('\n');
-            const headers = parseCSVLine(lines[0]);
-            const products = [];
+        // Robuster CSV Parser (ignoriert Zeilenumbrüche in Anführungszeichen)
+        function parseCSV(text) {
+            const arr = [];
+            let quote = false;
+            let col = 0, row = 0;
 
-            for (let i = 1; i < lines.length; i++) {
-                if (lines[i].trim() === '') continue;
-                const values = parseCSVLine(lines[i]);
-                const product = {};
-                headers.forEach((header, index) => {
-                    product[header.trim()] = values[index] ? values[index].trim() : '';
-                });
-                products.push(product);
-            }
-            return products;
-        }
+            // Normalize line endings
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-        function parseCSVLine(line) {
-            const result = [];
-            let current = '';
-            let inQuotes = false;
+            for (let c = 0; c < text.length; c++) {
+                let cc = text[c];
+                let nc = text[c + 1];
+                arr[row] = arr[row] || [];
+                arr[row][col] = arr[row][col] || '';
 
-            for (let i = 0; i < line.length; i++) {
-                const char = line[i];
-                if (char === '"') {
-                    inQuotes = !inQuotes;
-                } else if (char === ',' && !inQuotes) {
-                    result.push(current);
-                    current = '';
-                } else {
-                    current += char;
+                if (cc == '"') {
+                    if (quote && nc == '"') {
+                        arr[row][col] += cc; ++c;
+                    } else {
+                        quote = !quote;
+                    }
                 }
+                else if (cc == ',' && !quote) { ++col; }
+                else if (cc == '\n' && !quote) { ++row; col = 0; }
+                else { arr[row][col] += cc; }
             }
-            result.push(current);
+
+            const headers = arr[0].map(h => h.trim());
+            const result = [];
+
+            for (let i = 1; i < arr.length; i++) {
+                const rowData = arr[i];
+                if (rowData.length < headers.length) continue; // Skip incomplete
+
+                const obj = {};
+                headers.forEach((h, idx) => {
+                    obj[h] = rowData[idx] ? rowData[idx].trim() : '';
+                });
+                result.push(obj);
+            }
             return result;
         }
 
