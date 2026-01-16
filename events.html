@@ -20,6 +20,26 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
+        .back-button-container {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -251,6 +271,10 @@
 </head>
 <body>
     <div class="container">
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">← Zurück zur Startseite</a>
+        </div>
+
         <header>
             <h1>🎉 Veranstaltungen in Vorchdorf</h1>
             <p>Entdecke die nächsten Events in deiner Gemeinde</p>
