@@ -2835,7 +2835,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '3.8'; // Aktuelle Version der App
+        const APP_VERSION = '3.9'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -2949,7 +2949,7 @@ Mit freundlichen Grüßen`;
             },
             mittagstisch: {
                 id: 'mittagstisch',
-                title: 'Mittagstisch',
+                title: 'Mittagsmenü',
                 icon: '🍽️',
                 description: 'Aktuelle Menüpläne der Wirte',
                 externalLink: 'mittagstisch.html'
@@ -4213,7 +4213,7 @@ Mit freundlichen Grüßen`;
             const weatherWidget = document.getElementById('weatherWidget');
 
             // Render categories in custom order
-            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'waste_calendar', 'mobility', 'education', 'shopping', 'mittagstisch', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'flohmarkt'];
+            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'mittagstisch', 'waste_calendar', 'flohmarkt'];
             const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
 
             mainContent.innerHTML = `

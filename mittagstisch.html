@@ -109,8 +109,9 @@
 
         .day-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: baseline;
+            gap: 10px;
             margin-bottom: 10px;
             padding: 0 4px;
             border-bottom: 2px solid #e2e8f0;
@@ -125,13 +126,13 @@
         }
 
         .day-date {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-sec);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
         .menu-row {
-            background: var(--surface);
+            background: #f9f9f9;
             border-radius: var(--radius);
             padding: 12px;
             margin-bottom: 8px;
@@ -397,8 +398,7 @@
 
                 const headerHTML = `
                     <div class="day-header">
-                        <span class="day-name">${label}</span>
-                        <span class="day-date">${prettyDate}</span>
+                        <span class="day-name">${label}, ${prettyDate}.</span>
                     </div>
                 `;
 
@@ -454,9 +454,8 @@
             }
 
             planContainer.innerHTML = items.map(item => `
-                <div class="day-header" style="margin-top:16px; border-bottom:1px dashed #ccc">
-                     <span class="day-name" style="font-size:0.9rem">${item.dayName}</span>
-                     <span class="day-date">${new Date(item.date).toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' })}</span>
+                <div class="day-header" style="margin-top:16px; border-bottom:1px dashed #ccc; justify-content: flex-start; gap: 10px;">
+                     <span class="day-name" style="font-size:1rem">${item.dayName}, ${new Date(item.date).toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' })}.</span>
                 </div>
                 <div class="menu-row" style="box-shadow:none; border:1px solid #eee; margin-top:8px">
                     <div class="menu-details">
