@@ -71,6 +71,21 @@
         <div class="cal-month" id="calMonth"></div>
         <div class="cal-nav">
           <button id="prevMonth">‹ Zurück</button>
+          <button id="today">Heute</button>
+          <button id="nextMonth">Weiter ›</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+    
+    <div id="list" class="list"></div>
+    <div id="empty" class="empty" style="display:none;">Keine Veranstaltungen gefunden.</div>
+    <div id="loading" class="empty" style="display:block;">📅 Lade Veranstaltungen...</div>
+  </main>
+
+  <script>
+    const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Pi8u-l21PXA8Qls1zBJK1Y5XWDmdwr5TLgioOuWSRhhoToDG1tmHt8NBR7S7jqn10WdHIk1zhK7g/pub?output=csv';
+
     const listEl = document.getElementById('list');
     const emptyEl = document.getElementById('empty');
     const searchEl = document.getElementById('search');
@@ -82,30 +97,15 @@
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
     const todayBtn = document.getElementById('today');
+    const loadingEl = document.getElementById('loading');
     
     let events = [];
     let currentView = 'calendar';
     let currentDate = new Date();
-      <div class="cal-grid" id="calGrid"></div>
-    </div>
-    
-    <div id="list" class="list"></div>
-    <div id="empty" class="empty" style="display:none;">Keine Veranstaltungen gefunden.</div>
-  </main>
-
-  <script>
-    // Google Sheets CSV Endpoint (bereits veröffentlicht)
-    const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Pi8u-l21PXA8Qls1zBJK1Y5XWDmdwr5TLgioOuWSRhhoToDG1tmHt8NBR7S7jqn10WdHIk1zhK7g/pub?output=csv';
-
-    const listEl = document.getElementById('list');
-    const emptyEl = document.getElementById('empty');
-    const searchEl = document.getElementById('search');
-    let events = [];
 
     function normalizeDate(val) {
       if (!val) return null;
       if (typeof val === 'string') {
-        // Try DD.MM.YYYY format
         const match = val.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
         if (match) {
           return new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
@@ -152,6 +152,72 @@
       });
     }
 
+    function renderCalendar(filteredEvents = null) {
+      const eventsToShow = filteredEvents || events;
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      
+      calMonthEl.textContent = currentDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'long' });
+      
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const prevLastDay = new Date(year, month, 0);
+      
+      const firstDayWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
+      const lastDayDate = lastDay.getDate();
+      const prevLastDayDate = prevLastDay.getDate();
+      
+      const days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+      let html = days.map(d => `<div class="cal-day-header">${d}</div>`).join('');
+      
+      const today = new Date();
+      const isToday = (d, m, y) => d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
+      
+      for (let i = firstDayWeek - 1; i >= 0; i--) {
+        const day = prevLastDayDate - i;
+        html += `<div class="cal-day other-month"><div class="cal-day-num">${day}</div></div>`;
+      }
+      
+      for (let day = 1; day <= lastDayDate; day++) {
+        const date = new Date(year, month, day);
+        const dateStr = date.toISOString().split('T')[0];
+        const dayEvents = eventsToShow.filter(e => e.date && e.date.toISOString().split('T')[0] === dateStr);
+        const todayClass = isToday(day, month, year) ? ' today' : '';
+        
+        html += `<div class="cal-day${todayClass}" data-date="${dateStr}">
+          <div class="cal-day-num">${day}</div>`;
+        
+        dayEvents.slice(0, 3).forEach(ev => {
+          html += `<div class="cal-event" title="${ev.title}">${ev.title}</div>`;
+        });
+        
+        if (dayEvents.length > 3) {
+          html += `<div class="cal-event">+${dayEvents.length - 3} mehr</div>`;
+        }
+        
+        html += `</div>`;
+      }
+      
+      const remainingDays = 42 - (firstDayWeek + lastDayDate);
+      for (let day = 1; day <= remainingDays; day++) {
+        html += `<div class="cal-day other-month"><div class="cal-day-num">${day}</div></div>`;
+      }
+      
+      calGridEl.innerHTML = html;
+      
+      document.querySelectorAll('.cal-day:not(.other-month)').forEach(dayEl => {
+        dayEl.addEventListener('click', (e) => {
+          const dateStr = dayEl.dataset.date;
+          const dayEvents = events.filter(ev => ev.date && ev.date.toISOString().split('T')[0] === dateStr);
+          if (dayEvents.length > 0) {
+            switchToList();
+            searchEl.value = dayEvents[0].date.toLocaleDateString('de-AT');
+            applySearch();
+          }
+        });
+      });
+    }
+
     function render(list) {
       listEl.innerHTML = '';
       if (!list || list.length === 0) {
@@ -186,87 +252,20 @@
           card.appendChild(a);
         }
         listEl.appendChild(card);
-    async function init() {
-      try {
-        const res = await fetch(SHEETS_CSV_URL);
-        const text = await res.text();
-        events = parseCSV(text);
-        renderCalendar();
-      } catch (e) {
-        console.error('Fehler beim Laden der Veranstaltungen:', e);
-        emptyEl.style.display = 'block';
-        emptyEl.textContent = 'Fehler beim Laden der Daten.';
-      }
-    }sync function init() {
-      try {
-    function renderCalendar(filteredEvents = null) {
-      const eventsToShow = filteredEvents || events;
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-      
-      calMonthEl.textContent = currentDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'long' });
-      
-      const firstDay = new Date(year, month, 1);
-      const lastDay = new Date(year, month + 1, 0);
-      const prevLastDay = new Date(year, month, 0);
-      
-      const firstDayWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
-      const lastDayDate = lastDay.getDate();
-      const prevLastDayDate = prevLastDay.getDate();
-      
-      const days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
-      let html = days.map(d => `<div class="cal-day-header">${d}</div>`).join('');
-      
-      const today = new Date();
-      const isToday = (d, m, y) => d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-      
-      // Previous month days
-      for (let i = firstDayWeek - 1; i >= 0; i--) {
-        const day = prevLastDayDate - i;
-        html += `<div class="cal-day other-month"><div class="cal-day-num">${day}</div></div>`;
-      }
-      
-      // Current month days
-      for (let day = 1; day <= lastDayDate; day++) {
-        const date = new Date(year, month, day);
-        const dateStr = date.toISOString().split('T')[0];
-        const dayEvents = eventsToShow.filter(e => e.date && e.date.toISOString().split('T')[0] === dateStr);
-        const todayClass = isToday(day, month, year) ? ' today' : '';
-        
-        html += `<div class="cal-day${todayClass}" data-date="${dateStr}">
-          <div class="cal-day-num">${day}</div>`;
-        
-        dayEvents.slice(0, 3).forEach(ev => {
-          html += `<div class="cal-event" title="${ev.title}">${ev.title}</div>`;
-        });
-        
-        if (dayEvents.length > 3) {
-          html += `<div class="cal-event">+${dayEvents.length - 3} mehr</div>`;
-        }
-        
-        html += `</div>`;
-      }
-      
-      // Next month days
-      const remainingDays = 42 - (firstDayWeek + lastDayDate);
-      for (let day = 1; day <= remainingDays; day++) {
-        html += `<div class="cal-day other-month"><div class="cal-day-num">${day}</div></div>`;
-      }
-      
-      calGridEl.innerHTML = html;
-      
-      // Add click handlers
-      document.querySelectorAll('.cal-day:not(.other-month)').forEach(dayEl => {
-        dayEl.addEventListener('click', (e) => {
-          const dateStr = dayEl.dataset.date;
-          const dayEvents = events.filter(ev => ev.date && ev.date.toISOString().split('T')[0] === dateStr);
-          if (dayEvents.length > 0) {
-            switchToList();
-            searchEl.value = dayEvents[0].date.toLocaleDateString('de-AT');
-            applySearch();
-          }
-        });
       });
+    }
+
+    function applySearch() {
+      const q = (searchEl.value || '').toLowerCase();
+      const filtered = events.filter(ev => {
+        return [ev.title, ev.location, ev.description, formatDate(ev.date)].some(x => (x || '').toLowerCase().includes(q));
+      });
+      
+      if (currentView === 'calendar') {
+        renderCalendar(filtered);
+      } else {
+        render(filtered);
+      }
     }
     
     function switchToCalendar() {
@@ -306,18 +305,34 @@
     });
     
     searchEl.addEventListener('input', applySearch);
-    
-    init();st text = await res.text();
-        events = parseCSV(text);
-        render(events);
+    async function init() {
+      try {
+        loadingEl.style.display = 'block';
+        // Cache-Buster: Füge Timestamp an URL an
+        const cacheBuster = '?t=' + Date.now();
+        const res = await fetch(SHEETS_CSV_URL + cacheBuster);
+        const text = await res.text();
+        const allEvents = parseCSV(text);
+        
+        // Filter: Nur Events von heute und in der Zukunft anzeigen
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Auf Mitternacht setzen für Vergleich
+        events = allEvents.filter(ev => {
+          if (!ev.date) return true; // Events ohne Datum behalten
+          return ev.date >= today; // Nur heute oder zukünftige Events
+        });
+        
+        loadingEl.style.display = 'none';
+        renderCalendar();
       } catch (e) {
         console.error('Fehler beim Laden der Veranstaltungen:', e);
+        loadingEl.style.display = 'none';
         emptyEl.style.display = 'block';
-        emptyEl.textContent = 'Fehler beim Laden der Daten.';
+        emptyEl.textContent = 'Fehler beim Laden der Daten: ' + e.message;
       }
+    } }
     }
-
-    searchEl.addEventListener('input', applySearch);
+    
     init();
   </script>
 </body>
