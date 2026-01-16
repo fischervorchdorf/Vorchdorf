@@ -2226,6 +2226,9 @@
                 const csv = await response.text();
                 const products = parseCSV(csv);
 
+                // Neueste zuerst
+                products.reverse();
+
                 flohmarktAllProducts = products;
 
                 renderFlohmarktProducts(flohmarktAllProducts);
