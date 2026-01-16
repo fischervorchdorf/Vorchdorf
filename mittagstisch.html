@@ -578,7 +578,12 @@
         }
 
         function normalizeHeader(h) {
-            return h.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            return h.trim().toLowerCase()
+                .replace(/ä/g, 'ae')
+                .replace(/ö/g, 'oe')
+                .replace(/ü/g, 'ue')
+                .replace(/ß/g, 'ss')
+                .replace(/[^a-z0-9]/g, '');
         }
 
         /**
@@ -588,7 +593,8 @@
             const gasthaus = entry.gasthausname;
             const email = entry.email;
             const selection = entry.woche;
-            const freitext = entry.menuplanfreitext || "";
+            // Note: Header normalization converts 'ü' to 'ue', so 'Menüplan' becomes 'menueplan'
+            const freitext = entry.menueplanfreitext || entry.menuplanfreitext || "";
             const preis = entry.preis || "";
             const anmerkung = entry.anmerkung || "";
 
