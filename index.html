@@ -2211,6 +2211,17 @@
                 const products = parseCSV(csv);
 
                 flohmarktAllProducts = products;
+
+                // DIAGNOSE
+                const statsEl = document.getElementById('flohmarktStats');
+                if (statsEl) {
+                    let msg = `Loaded: ${products.length} Items. `;
+                    if (products.length > 0) {
+                        msg += `Keys: ${Object.keys(products[0]).join('|')}`;
+                    }
+                    statsEl.innerHTML = `<small style="color:red">${msg}</small>`;
+                }
+
                 renderFlohmarktProducts(flohmarktAllProducts);
             } catch (error) {
                 console.error('Fehler beim Laden des Flohmarkts:', error);
