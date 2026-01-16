@@ -2201,28 +2201,19 @@
                 try {
                     response = await fetch(FLOHMARKT_SHEET_URL);
                 } catch (e) {
-                    alert('Fetch Error: ' + e.message);
-                    throw e;
+                    console.error('Fetch error:', e);
                 }
 
-                if (!response.ok) {
-                    alert('Response not OK: ' + response.status);
+                if (!response || !response.ok) {
                     throw new Error('Network response was not ok');
                 }
 
                 const csv = await response.text();
-                alert('CSV loaded! Length: ' + csv.length);
                 const products = parseCSV(csv);
 
-                // DEBUG: Alle Produkte anzeigen (Filter entfernt zum Debuggen)
-                flohmarktAllProducts = products; // TEMP: Zeige ALLE Produkte
+                flohmarktAllProducts = products;
 
-                console.log('DEBUG: Geladen', flohmarktAllProducts.length, 'Produkte');
-                if (flohmarktAllProducts.length > 0) {
-                    console.log('DEBUG: Erstes Produkt Status:', flohmarktAllProducts[0].Status);
-                }
-
-                // TEMP DEBUG
+                renderFlohmarktProducts(flohmarktAllProducts);
                 document.getElementById('flohmarktStats').innerHTML = `DEBUG: CSV Length ${csv.length}, Products: ${products.length}`;
 
                 renderFlohmarktProducts(flohmarktAllProducts);
