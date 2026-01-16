@@ -2187,7 +2187,6 @@
         }
 
         async function loadFlohmarktProducts() {
-            alert('Debug: Start Loading Flohmarkt');
             try {
                 // Verstecke Footer wenn Flohmarkt aktiv
                 const mainFooter = document.getElementById('mainFooter');
@@ -2212,10 +2211,6 @@
                 const products = parseCSV(csv);
 
                 flohmarktAllProducts = products;
-
-                renderFlohmarktProducts(flohmarktAllProducts);
-                document.getElementById('flohmarktStats').innerHTML = `DEBUG: CSV Length ${csv.length}, Products: ${products.length}`;
-
                 renderFlohmarktProducts(flohmarktAllProducts);
             } catch (error) {
                 console.error('Fehler beim Laden des Flohmarkts:', error);
