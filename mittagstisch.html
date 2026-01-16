@@ -600,9 +600,11 @@
 
             // 1. Calculate the target date (Monday of the selected week)
             const timestamp = parseDate(entry.zeitstempel);
+            // Set to NOON to avoid UTC toggling to previous day (00:00 Local -> 23:00 Prev Day UTC)
+            timestamp.setHours(12, 0, 0, 0);
+
             const mondayCurrent = new Date(timestamp);
             mondayCurrent.setDate(timestamp.getDate() - (timestamp.getDay() === 0 ? 6 : timestamp.getDay() - 1));
-            mondayCurrent.setHours(0, 0, 0, 0);
 
             let targetMonday = new Date(mondayCurrent);
             if (selection.includes("Nächste")) {
@@ -623,7 +625,7 @@
                     const menuDate = new Date(targetMonday);
                     menuDate.setDate(targetMonday.getDate() + idx);
 
-                    items.append = items.push({
+                    items.push({
                         gasthaus,
                         email,
                         menu: menu.trim(),
@@ -690,6 +692,7 @@
             container.innerHTML = '';
 
             const now = new Date();
+            now.setHours(12, 0, 0, 0); // Safety: Noon
             let daysShown = 0;
             const maxDaysToShow = 5; // Zeige maximal 5 Tage mit Inhalt oder Fehlermeldungen
 
