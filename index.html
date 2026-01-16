@@ -2212,15 +2212,7 @@
 
                 flohmarktAllProducts = products;
 
-                // DIAGNOSE
-                const statsEl = document.getElementById('flohmarktStats');
-                if (statsEl) {
-                    let msg = `Loaded: ${products.length} Items. `;
-                    if (products.length > 0) {
-                        msg += `Keys: ${Object.keys(products[0]).join('|')}`;
-                    }
-                    statsEl.innerHTML = `<small style="color:red">${msg}</small>`;
-                }
+                renderFlohmarktProducts(flohmarktAllProducts);
 
                 renderFlohmarktProducts(flohmarktAllProducts);
             } catch (error) {
@@ -4269,7 +4261,7 @@ Mit freundlichen Grüßen`;
                 document.getElementById('backButton').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
-                document.getElementById('flohmarktContainer').classList.remove('active');
+                document.getElementById('flohmarktContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 
                 loadFlohmarktProducts();
