@@ -2174,7 +2174,7 @@
 
             for (let i = 1; i < arr.length; i++) {
                 const rowData = arr[i];
-                if (rowData.length < headers.length) continue; // Skip incomplete
+                if (rowData.length < 2) continue; // Skip empty rows, allow short rows
 
                 const obj = {};
                 headers.forEach((h, idx) => {
