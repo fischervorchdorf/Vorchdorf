@@ -2169,7 +2169,8 @@
                 else { arr[row][col] += cc; }
             }
 
-            const headers = arr[0].map(h => h.trim());
+
+            const headers = arr[0].map(h => h.trim().replace(/^[\uFEFF\u200B]/, ''));
             const result = [];
 
             for (let i = 1; i < arr.length; i++) {
@@ -2185,8 +2186,8 @@
             return result;
         }
 
-        // Flohmarkt Produkte laden
         async function loadFlohmarktProducts() {
+            alert('Debug: Start Loading Flohmarkt');
             try {
                 // Verstecke Footer wenn Flohmarkt aktiv
                 const mainFooter = document.getElementById('mainFooter');
@@ -2194,16 +2195,23 @@
                     mainFooter.style.display = 'none';
                 }
 
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                let response;
+                // const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                // let response;
 
                 try {
                     response = await fetch(FLOHMARKT_SHEET_URL);
                 } catch (e) {
-                    response = await fetch(proxyUrl + encodeURIComponent(FLOHMARKT_SHEET_URL));
+                    alert('Fetch Error: ' + e.message);
+                    throw e;
+                }
+
+                if (!response.ok) {
+                    alert('Response not OK: ' + response.status);
+                    throw new Error('Network response was not ok');
                 }
 
                 const csv = await response.text();
+                alert('CSV loaded! Length: ' + csv.length);
                 const products = parseCSV(csv);
 
                 // DEBUG: Alle Produkte anzeigen (Filter entfernt zum Debuggen)
@@ -2213,6 +2221,9 @@
                 if (flohmarktAllProducts.length > 0) {
                     console.log('DEBUG: Erstes Produkt Status:', flohmarktAllProducts[0].Status);
                 }
+
+                // TEMP DEBUG
+                document.getElementById('flohmarktStats').innerHTML = `DEBUG: CSV Length ${csv.length}, Products: ${products.length}`;
 
                 renderFlohmarktProducts(flohmarktAllProducts);
             } catch (error) {
