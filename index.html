@@ -3882,87 +3882,91 @@ Mit freundlichen Grüßen`;
                 title: 'Gemeinde & Verwaltung',
                 icon: '🏛️',
                 description: 'Gemeindeamt & wichtige Kontakte',
-                content: {
-                    type: 'info',
-                    sections: [
-                        {
-                            title: 'Gemeindeamt',
-                            items: [
-                                {
-                                    title: 'Kontakt',
-                                    info: [
-                                        '📍 Schloßplatz 7, 4655 Vorchdorf',
-                                        '☎️ +43 7614 6555 500',
-                                        '📧 gemeinde@vorchdorf.ooe.gv.at',
-                                        '🌐 www.vorchdorf.at'
-                                    ],
-                                    link: 'https://www.vorchdorf.at'
-                                },
-                                {
-                                    title: 'Öffnungszeiten',
-                                    info: [
-                                        'Mo, Mi, Do, Fr: 07:00 - 12:00 Uhr',
-                                        'Di: 07:00 - 18:00 Uhr'
-                                    ]
-                                },
-                                {
-                                    title: 'Wichtige Abteilungen',
-                                    info: [
-                                        'Bürgerservice',
-                                        'Meldewesen',
-                                        'Bauamt',
-                                        'Standesamt',
-                                        'Infos: www.vorchdorf.at/Gemeindeamt'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Gemeindeamt'
-                                }
-                            ]
-                        },
-                        {
-                            title: '⭐ Müllkalender & Altstoffe',
-                            items: [
-                                {
-                                    title: 'Müllabfuhr-Termine 2026',
-                                    info: [
-                                        '♻️ Abfuhrtermine für alle Ortsteile',
-                                        'Bio-, Rest- und Papiertonnen',
-                                        'Gelbe Tonne & Restmüll'
-                                    ],
-                                    wasteCalendar: true
-                                },
-                                {
-                                    title: 'ASZ Altstoffsammelzentrum',
-                                    info: [
-                                        '♻️ Altstoffe richtig entsorgen',
-                                        'Infos zu Öffnungszeiten & Standort',
-                                        'Was wird angenommen?'
-                                    ],
-                                    link: 'https://www.altstoffsammelzentrum.at/wo_wann_was/asz/show/Asz/vorchdorf.html'
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Weitere Anlaufstellen',
-                            items: [
-                                {
-                                    title: 'Formulare & Downloads',
-                                    info: [
-                                        'Online-Formulare verfügbar',
-                                        'www.vorchdorf.at/Formulare'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Buergerservice/Formulare'
-                                },
-                                {
-                                    title: 'Digitaler Ortsplan',
-                                    info: [
-                                        'Interaktive Karte von Vorchdorf',
-                                        'Alle wichtigen Adressen'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Buergerservice/Digitaler_Ortsplan'
-                                }
-                            ]
-                        }
-                    ]
+                subcategories: {
+                    formulare: {
+                        id: 'formulare',
+                        title: '📋 Formulare & Anträge',
+                        description: '28 Online-Formulare für Bürgerservice',
+                        externalLink: './gemeinde-verwaltung/formulare.html'
+                    },
+                    abteilungen: {
+                        id: 'abteilungen',
+                        title: '🏢 Ämter & Abteilungen',
+                        description: '13 Abteilungen mit Ansprechpartnern',
+                        externalLink: './gemeinde-verwaltung/abteilungen.html'
+                    },
+                    mitarbeiter: {
+                        id: 'mitarbeiter',
+                        title: '👥 Mitarbeiter-Verzeichnis',
+                        description: '41 Mitarbeiter mit Kontaktdaten',
+                        externalLink: './gemeinde-verwaltung/mitarbeiter.html'
+                    },
+                    gemeindebetriebe: {
+                        id: 'gemeindebetriebe',
+                        title: '🏭 Gemeindebetriebe',
+                        description: 'Betriebe der Gemeinde Vorchdorf',
+                        externalLink: './gemeinde-verwaltung/gemeindebetriebe.html'
+                    },
+                    muell: {
+                        id: 'muell',
+                        title: '♻️ Müllkalender & ASZ',
+                        description: 'Abfuhrtermine & Altstoffsammelzentrum',
+                        items: [
+                            {
+                                title: 'Müllabfuhr-Termine 2026',
+                                info: [
+                                    '♻️ Abfuhrtermine für alle Ortsteile',
+                                    'Bio-, Rest- und Papiertonnen',
+                                    'Gelbe Tonne & Restmüll'
+                                ],
+                                wasteCalendar: true
+                            },
+                            {
+                                title: 'ASZ Altstoffsammelzentrum',
+                                info: [
+                                    '♻️ Altstoffe richtig entsorgen',
+                                    'Infos zu Öffnungszeiten & Standort',
+                                    'Was wird angenommen?'
+                                ],
+                                link: 'https://www.altstoffsammelzentrum.at/wo_wann_was/asz/show/Asz/vorchdorf.html'
+                            }
+                        ]
+                    },
+                    kontakt: {
+                        id: 'kontakt',
+                        title: 'ℹ️ Kontakt & Öffnungszeiten',
+                        description: 'Gemeindeamt Vorchdorf',
+                        items: [
+                            {
+                                title: 'Marktgemeinde Vorchdorf',
+                                info: [
+                                    '📍 Schloßplatz 7, 4655 Vorchdorf',
+                                    '☎️ +43 7614 6555 500',
+                                    '📧 gemeinde@vorchdorf.ooe.gv.at',
+                                    '🌐 www.vorchdorf.at'
+                                ],
+                                link: 'https://www.vorchdorf.at'
+                            },
+                            {
+                                title: 'Öffnungszeiten Bürgerservice',
+                                info: [
+                                    'Montag: 07:00 - 12:00 Uhr',
+                                    'Dienstag: 07:00 - 12:00 & 14:00 - 18:00 Uhr',
+                                    'Mittwoch: kein Parteienverkehr',
+                                    'Donnerstag: 07:00 - 12:00 & 14:00 - 17:00 Uhr',
+                                    'Freitag: 07:00 - 12:00 Uhr'
+                                ]
+                            },
+                            {
+                                title: 'Digitaler Ortsplan',
+                                info: [
+                                    '🗺️ Interaktive Karte von Vorchdorf',
+                                    'Alle wichtigen Adressen'
+                                ],
+                                link: 'https://www.vorchdorf.at/Buergerservice/Digitaler_Ortsplan'
+                            }
+                        ]
+                    }
                 }
             },
             waste_calendar: {

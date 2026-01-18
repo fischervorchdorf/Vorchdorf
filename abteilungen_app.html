@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abteilungen - Vorchdorf App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .abteilungen-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .abteilung-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .abteilung-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .abteilung-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .abteilung-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .abteilung-arrow {
+            color: #c7c7cc;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .abteilung-card.expanded .abteilung-arrow {
+            transform: rotate(90deg);
+        }
+
+        .abteilung-info {
+            font-size: 14px;
+            color: #86868b;
+            margin-bottom: 10px;
+        }
+
+        .abteilung-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .abteilung-card.expanded .abteilung-details {
+            display: block;
+        }
+
+        .leitung-section, .mitarbeiter-section, .formulare-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 15px;
+        }
+
+        .person-card {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: #f9f9fb;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .person-foto {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .person-foto.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .person-info {
+            flex: 1;
+        }
+
+        .person-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .person-funktion {
+            font-size: 13px;
+            color: #86868b;
+            margin-bottom: 8px;
+        }
+
+        .person-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .formular-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f9f9fb;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 8px;
+            transition: background 0.2s;
+        }
+
+        .formular-link:hover {
+            background: #f0f0f2;
+        }
+
+        .formular-icon {
+            font-size: 20px;
+        }
+
+        .formular-title {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .no-data {
+            color: #86868b;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: #86868b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Abteilungen</h1>
+        <p id="count">Lade Abteilungen...</p>
+    </div>
+
+    <div class="abteilungen-list" id="abteilungenList">
+        <div style="text-align: center; padding: 40px; color: #86868b;">Lade Abteilungen...</div>
+    </div>
+
+    <script>
+        let abteilungenData = null;
+
+        async function loadAbteilungen() {
+            try {
+                const response = await fetch('abteilungen.json');
+                const data = await response.json();
+                abteilungenData = data;
+                
+                document.getElementById('count').textContent = 
+                    `${data.count} Abteilungen • ${countTotal(data, 'leitung')} Leitungen • ${countTotal(data, 'mitarbeiter')} Mitarbeiter`;
+                
+                renderAbteilungen(data.abteilungen);
+            } catch (error) {
+                console.error('Fehler beim Laden:', error);
+                document.getElementById('abteilungenList').innerHTML = 
+                    '<div style="text-align: center; padding: 40px; color: #86868b;">❌ Fehler beim Laden der Abteilungen</div>';
+            }
+        }
+
+        function countTotal(data, type) {
+            if (type === 'leitung') {
+                return data.abteilungen.filter(a => a.leitung).length;
+            } else if (type === 'mitarbeiter') {
+                return data.abteilungen.reduce((sum, a) => sum + a.mitarbeiter.length, 0);
+            }
+        }
+
+        function renderAbteilungen(abteilungen) {
+            const listElement = document.getElementById('abteilungenList');
+            
+            const html = abteilungen.map(abt => `
+                <div class="abteilung-card" onclick="toggleAbteilung(this)">
+                    <div class="abteilung-header">
+                        <div>
+                            <div class="abteilung-name">${escapeHtml(abt.name)}</div>
+                            <div class="stats">
+                                ${abt.leitung ? '<span class="stat-item">👤 Leitung</span>' : ''}
+                                ${abt.mitarbeiter.length > 0 ? `<span class="stat-item">👥 ${abt.mitarbeiter.length} Mitarbeiter</span>` : ''}
+                                ${abt.formulare.length > 0 ? `<span class="stat-item">📄 ${abt.formulare.length} Formulare</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="abteilung-arrow">›</div>
+                    </div>
+                    
+                    <div class="abteilung-details">
+                        ${renderKontakt(abt.kontakt)}
+                        ${renderLeitung(abt.leitung)}
+                        ${renderMitarbeiter(abt.mitarbeiter)}
+                        ${renderFormulare(abt.formulare)}
+                    </div>
+                </div>
+            `).join('');
+            
+            listElement.innerHTML = html;
+        }
+
+        function renderKontakt(kontakt) {
+            if (!kontakt || Object.keys(kontakt).length === 0) return '';
+            
+            const items = Object.entries(kontakt).map(([key, value]) => 
+                `<div><strong>${key}:</strong> ${value}</div>`
+            ).join('');
+            
+            return `
+                <div class="section-info" style="margin-bottom: 20px; padding: 12px; background: #f9f9fb; border-radius: 8px; font-size: 14px;">
+                    ${items}
+                </div>
+            `;
+        }
+
+        function renderLeitung(leitung) {
+            if (!leitung) return '';
+            
+            return `
+                <div class="leitung-section">
+                    <div class="section-title">👤 Leitung</div>
+                    ${renderPerson(leitung)}
+                </div>
+            `;
+        }
+
+        function renderMitarbeiter(mitarbeiter) {
+            if (!mitarbeiter || mitarbeiter.length === 0) return '';
+            
+            const personen = mitarbeiter.map(m => renderPerson(m)).join('');
+            
+            return `
+                <div class="mitarbeiter-section">
+                    <div class="section-title">👥 Mitarbeiter (${mitarbeiter.length})</div>
+                    ${personen}
+                </div>
+            `;
+        }
+
+        function renderPerson(person) {
+            const foto = person.foto ? 
+                `<img src="${person.foto}" class="person-foto" alt="${person.name}">` :
+                `<div class="person-foto placeholder">👤</div>`;
+            
+            return `
+                <div class="person-card">
+                    ${foto}
+                    <div class="person-info">
+                        <div class="person-name">${escapeHtml(person.name)}</div>
+                        ${person.funktion ? `<div class="person-funktion">${escapeHtml(person.funktion)}</div>` : ''}
+                        <div class="person-contacts">
+                            ${person.email ? `<a href="mailto:${person.email}" class="contact-link">📧 ${person.email}</a>` : ''}
+                            ${person.telefon ? `<a href="tel:${person.telefon.replace(/\s/g, '')}" class="contact-link">📞 ${person.telefon}</a>` : ''}
+                            ${person.buero ? `<div class="contact-link" style="color: #86868b;">🚪 ${person.buero}</div>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFormulare(formulare) {
+            if (!formulare || formulare.length === 0) return '';
+            
+            const links = formulare.map(f => `
+                <a href="${f.url}" class="formular-link" target="_blank" rel="noopener noreferrer">
+                    <span class="formular-icon">📄</span>
+                    <span class="formular-title">${escapeHtml(f.title)}</span>
+                    <span style="color: #c7c7cc;">›</span>
+                </a>
+            `).join('');
+            
+            return `
+                <div class="formulare-section">
+                    <div class="section-title">📄 Formulare (${formulare.length})</div>
+                    ${links}
+                </div>
+            `;
+        }
+
+        function toggleAbteilung(card) {
+            card.classList.toggle('expanded');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        loadAbteilungen();
+    </script>
+</body>
+</html>

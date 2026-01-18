@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulare - Vorchdorf App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e5ea;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .formulare-list {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .formular-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .formular-item:last-child {
+            border-bottom: none;
+        }
+
+        .formular-item:hover,
+        .formular-item:active {
+            background: #f9f9fb;
+        }
+
+        .formular-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .formular-icon::before {
+            content: '📄';
+            font-size: 20px;
+        }
+
+        .formular-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .formular-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1d1d1f;
+        }
+
+        .formular-arrow {
+            color: #c7c7cc;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #86868b;
+        }
+
+        .stats {
+            text-align: center;
+            padding: 10px;
+            color: #86868b;
+            font-size: 13px;
+            background: #f9f9fb;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #86868b;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(3, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        .alphabet-index {
+            position: fixed;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            z-index: 100;
+        }
+
+        .alphabet-index a {
+            text-decoration: none;
+            color: #667eea;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .alphabet-index a:active {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Formulare</h1>
+        <p id="count">Lade Formulare...</p>
+    </div>
+
+    <div class="search-box">
+        <input type="search" id="searchInput" placeholder="🔍 Formular suchen...">
+    </div>
+
+    <div class="formulare-list" id="formulareList">
+        <div class="loading">Lade Formulare</div>
+    </div>
+
+    <div class="alphabet-index" id="alphabetIndex"></div>
+
+    <script>
+        let allFormulare = [];
+        let currentFilter = '';
+
+        async function loadFormulare() {
+            try {
+                const response = await fetch('formulare.json');
+                const data = await response.json();
+                allFormulare = data.formulare;
+                
+                document.getElementById('count').textContent = 
+                    `${allFormulare.length} Formulare verfügbar`;
+                
+                renderFormulare(allFormulare);
+                createAlphabetIndex();
+            } catch (error) {
+                console.error('Fehler beim Laden:', error);
+                document.getElementById('formulareList').innerHTML = 
+                    '<div class="no-results">❌ Fehler beim Laden der Formulare</div>';
+            }
+        }
+
+        function renderFormulare(formulare) {
+            const listElement = document.getElementById('formulareList');
+            
+            if (formulare.length === 0) {
+                listElement.innerHTML = 
+                    '<div class="no-results">🔍 Keine Formulare gefunden</div>';
+                return;
+            }
+
+            let lastLetter = '';
+            let html = '';
+
+            formulare.forEach(formular => {
+                const firstLetter = formular.title.charAt(0).toUpperCase();
+                
+                if (firstLetter !== lastLetter) {
+                    if (lastLetter !== '') {
+                        html += '</div>';
+                    }
+                    html += `<div class="stats" data-letter="${firstLetter}">${firstLetter}</div><div>`;
+                    lastLetter = firstLetter;
+                }
+
+                html += `
+                    <a href="${formular.url}" 
+                       class="formular-item" 
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <div class="formular-icon"></div>
+                        <div class="formular-content">
+                            <div class="formular-title">${escapeHtml(formular.title)}</div>
+                        </div>
+                        <div class="formular-arrow">›</div>
+                    </a>
+                `;
+            });
+
+            html += '</div>';
+            listElement.innerHTML = html;
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentFilter = e.target.value.toLowerCase();
+            
+            const filtered = allFormulare.filter(f => 
+                f.title.toLowerCase().includes(currentFilter)
+            );
+            
+            renderFormulare(filtered);
+        });
+
+        function createAlphabetIndex() {
+            const letters = new Set();
+            allFormulare.forEach(f => {
+                letters.add(f.title.charAt(0).toUpperCase());
+            });
+
+            const sortedLetters = Array.from(letters).sort();
+            const indexHtml = sortedLetters.map(letter => 
+                `<a href="#" data-letter="${letter}">${letter}</a>`
+            ).join('');
+
+            document.getElementById('alphabetIndex').innerHTML = indexHtml;
+
+            document.querySelectorAll('.alphabet-index a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const letter = e.target.dataset.letter;
+                    const section = document.querySelector(`.stats[data-letter="${letter}"]`);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        loadFormulare();
+    </script>
+</body>
+</html>

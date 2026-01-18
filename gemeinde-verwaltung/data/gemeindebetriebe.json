@@ -1,0 +1,649 @@
+{
+  "count": 7,
+  "betriebe": [
+    {
+      "name": "Almtalbad Vorchdorf",
+      "url": "https://www.vorchdorf.at/Almtalbad_Vorchdorf",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "Laudachweg 114655 Vorchdorf",
+        "Web": "https://www.vorchdorf.at/Almtalbad_Vorchdorf_1"
+      },
+      "mitarbeiter": []
+    },
+    {
+      "name": "Bauhof",
+      "url": "https://www.vorchdorf.at/Bauhof",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "Lindacherstraße 22a4655 Vorchdorf",
+        "Telefon": "+43 676 898 655 600",
+        "E-Mail-Adresse": "bauhof.vorchdorf@aon.at"
+      },
+      "mitarbeiter": [
+        {
+          "name": "Martin Huemer",
+          "funktion": "Wassermeister",
+          "telefon": "+43 676 898 655 610",
+          "email": "h2o.vorchdorf@aon.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Daniel Kalkhofer",
+          "funktion": "Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Hubert Stadlhuber",
+          "funktion": "Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Radoslav Haulik",
+          "funktion": "Badewart/Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Janosch Schveigert",
+          "funktion": "Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Dominik Krötzl",
+          "funktion": "Elektriker",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Fahrudin Rekic",
+          "funktion": "Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Tobias Hüthmair",
+          "funktion": "Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Mick Baldinger",
+          "funktion": "Badewart/Bauhofarbeiter",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        }
+      ]
+    },
+    {
+      "name": "Kindergarten Fischböckau",
+      "url": "https://www.vorchdorf.at/Kindergarten_Fischboeckau",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "Fischböckauer Straße 104655 Vorchdorf",
+        "Telefon 1": "+43 0676 898 655 653",
+        "Telefon 2": "+43 7614 6555 653",
+        "E-Mail-Adresse": "kiga.fischboeckau@aon.at",
+        "Web": "Link zum Menüpunkt Kindergarten Fischböckau"
+      },
+      "mitarbeiter": [
+        {
+          "name": "Leitung",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Julia Pramberger",
+          "funktion": "Pädagogin",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Lisa Minichmair",
+          "funktion": "Pädagogin",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        }
+      ]
+    },
+    {
+      "name": "Kindergarten Kapellenweg - Kindergarten Kunterbunt",
+      "url": "https://www.vorchdorf.at/Kindergarten_Kapellenweg_-_Kindergarten_Kunterbunt",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "Kapellenweg 54655 Vorchdorf",
+        "Telefon": "+43 7614 51535",
+        "E-Mail-Adresse": "kiga.vorchdorf@aon.at"
+      },
+      "mitarbeiter": [
+        {
+          "name": "Elke Buchegger",
+          "funktion": "",
+          "telefon": "",
+          "email": "KiGa.Kapellenweg@gmx.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2296776&mode=T&width=150&height=180&cropping=BYH&cts=1571136276",
+          "ist_leitung": false
+        },
+        {
+          "name": "Bettina Aigner",
+          "funktion": "",
+          "telefon": "",
+          "email": "kiga.vorchdorf@aon.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2296733&mode=T&width=150&height=180&cropping=BYH&cts=1571135030",
+          "ist_leitung": false
+        },
+        {
+          "name": "Sprachförderin",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Stützassistentin Eulengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "kiga.fischboeckau@aon.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Silke Bauer",
+          "funktion": "Pädagogin Löwengruppe (Integrationsgruppe)",
+          "telefon": "+43 676 898 655 650",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Löwengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Michaela Kamesberger",
+          "funktion": "Pädagogin Eulengruppe",
+          "telefon": "+43 676 898 655 656",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Spatzengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Barbara Ziegelbäck",
+          "funktion": "Pädagogin Raupengruppe",
+          "telefon": "+43 676 898 655 657",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Raupengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Julia Nagl",
+          "funktion": "Pädagogin Fuchsgruppe",
+          "telefon": "+43 676 898 655 647",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Stützassistentin Löwengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Fuchsgruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Springerin",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Eulengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Christina Eder",
+          "funktion": "Pädagogin Spatzengruppe",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Carina Lebersorger",
+          "funktion": "Pädagogin Spatzengruppe",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Reinigungskraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        }
+      ]
+    },
+    {
+      "name": "Kindergarten Kitzmantelstraße - Farbenfroh",
+      "url": "https://www.vorchdorf.at/Kindergarten_Kitzmantelstrasse_-_Farbenfroh",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "M. Kitzmantelstraße 164655 Vorchdorf",
+        "E-Mail-Adresse": "kiga.vorchdorf@aon.at"
+      },
+      "mitarbeiter": [
+        {
+          "name": "Bettina Aigner",
+          "funktion": "",
+          "telefon": "",
+          "email": "kiga.vorchdorf@aon.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2296733&mode=T&width=150&height=180&cropping=BYH&cts=1571135030",
+          "ist_leitung": false
+        },
+        {
+          "name": "Elke Buchegger",
+          "funktion": "",
+          "telefon": "",
+          "email": "KiGa.Kapellenweg@gmx.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2296776&mode=T&width=150&height=180&cropping=BYH&cts=1571136276",
+          "ist_leitung": false
+        },
+        {
+          "name": "Sprachförderin",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Hasengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Magdalena Danner",
+          "funktion": "Pädagogin Hasengruppe",
+          "telefon": "+43 676 898 655 649",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Mona Peterstorfer-Aigner",
+          "funktion": "Pädagogin Bienengruppe",
+          "telefon": "+43 676 898 655 646",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Bienengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Stützassistentin Bienengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Lisa Kendlbacher",
+          "funktion": "Pädagogin Tigerentengruppe",
+          "telefon": "+43 676 898 655 655",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Tigerentengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Katrin Waldl",
+          "funktion": "Pädagogin",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Katharina Hutterer",
+          "funktion": "Pädagogin Mäusegruppe",
+          "telefon": "+43 676 898 655 644",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Kerstin Fellinger",
+          "funktion": "Stützpädagogin Mäusegruppe",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Mäusegruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Angelika Kubista",
+          "funktion": "Pädagogin Marienkäfergruppe",
+          "telefon": "+43 676 898 655 645",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Marienkäfergruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Christine Malesardi",
+          "funktion": "Pädagogin Regenbogengruppe",
+          "telefon": "+43 676 898 655 648",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Regenbogengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Springerin",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Reinigungskraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Reinigungskraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Bienengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Pädagogische Assistenzkraft Tigerentengruppe",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        }
+      ]
+    },
+    {
+      "name": "Kläranlage",
+      "url": "https://www.vorchdorf.at/Klaeranlage",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "Feldhamer Straße 154655 Vorchdorf",
+        "Telefon": "+43 7614 7474",
+        "E-Mail-Adresse": "vorchdorf@aon.at"
+      },
+      "mitarbeiter": [
+        {
+          "name": "Wolfgang Krumphuber",
+          "funktion": "Facharbeiter",
+          "telefon": "+43 7614 7474 640",
+          "email": "vorchdorf@aon.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Markus Mayr",
+          "funktion": "Facharbeiter",
+          "telefon": "+43 7614 6555 639",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Stefan Spitzbart",
+          "funktion": "Facharbeiter",
+          "telefon": "+43 7614 7474 641",
+          "email": "vorchdorf@aon.at",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        }
+      ]
+    },
+    {
+      "name": "Krabbelstube Fischböckau",
+      "url": "https://www.vorchdorf.at/Krabbelstube_Fischboeckau",
+      "beschreibung": "",
+      "kontakt": {
+        "Ort": "Fischböckauer Straße 104655 Vorchdorf",
+        "Telefon 1": "+43 676 898655653",
+        "Telefon 2": "+43 7614 6555 653",
+        "E-Mail-Adresse": "krabbelstube.vorchdorf@aon.at"
+      },
+      "mitarbeiter": [
+        {
+          "name": "Leitung",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Magdalena Lenzeder",
+          "funktion": "Pädagogin",
+          "telefon": "+43 676 898 655 653",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft Gruppe 5",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Leonie Baumgartner",
+          "funktion": "Pädagogin Gruppe 1",
+          "telefon": "+43 676 898 655 653",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Lisa Ruschak",
+          "funktion": "Pädagogin Gruppe 2",
+          "telefon": "+43 676 898 655 653",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft mit Gruppenführung Gruppe 4",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft Gruppe 4",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "Katrin Edlinger",
+          "funktion": "Pädagogin Gruppe 5",
+          "telefon": "+43 676 898 655 653",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        },
+        {
+          "name": "pädagogische Assistenzkraft Gruppe 5",
+          "funktion": "",
+          "telefon": "",
+          "email": "",
+          "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139",
+          "ist_leitung": false
+        }
+      ]
+    }
+  ]
+}

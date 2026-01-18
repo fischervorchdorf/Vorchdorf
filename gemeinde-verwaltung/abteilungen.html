@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abteilungen - Vorchdorf App</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; padding: 20px; padding-bottom: 80px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 24px; margin-bottom: 5px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .abteilungen-list { display: flex; flex-direction: column; gap: 15px; }
+        .abteilung-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.3s; }
+        .abteilung-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .abteilung-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .abteilung-name { font-size: 18px; font-weight: 600; color: #1d1d1f; }
+        .abteilung-arrow { color: #c7c7cc; font-size: 20px; transition: transform 0.3s; }
+        .abteilung-card.expanded .abteilung-arrow { transform: rotate(90deg); }
+        .abteilung-details { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #f0f0f0; }
+        .abteilung-card.expanded .abteilung-details { display: block; }
+        .mitarbeiter-section, .formulare-section { margin-bottom: 25px; }
+        .section-title { font-size: 16px; font-weight: 600; color: #1d1d1f; margin-bottom: 15px; }
+        .person-card { display: flex; gap: 15px; padding: 15px; background: #f9f9fb; border-radius: 10px; margin-bottom: 10px; }
+        .person-foto { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .person-foto.placeholder { display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        .person-info { flex: 1; }
+        .person-name { font-weight: 600; font-size: 16px; color: #1d1d1f; margin-bottom: 4px; }
+        .person-funktion { font-size: 13px; color: #86868b; margin-bottom: 8px; }
+        .person-contacts { display: flex; flex-direction: column; gap: 5px; }
+        .contact-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #667eea; text-decoration: none; }
+        .contact-link:hover { text-decoration: underline; }
+        .formular-link { display: flex; align-items: center; gap: 10px; padding: 12px; background: #f9f9fb; border-radius: 8px; text-decoration: none; color: inherit; margin-bottom: 8px; transition: background 0.2s; }
+        .formular-link:hover { background: #f0f0f2; }
+        .formular-icon { font-size: 20px; }
+        .formular-title { flex: 1; font-size: 14px; }
+        .stats { display: flex; gap: 15px; margin-top: 10px; }
+        .stat-item { display: flex; align-items: center; gap: 5px; font-size: 13px; color: #86868b; }
+        .leitung-badge { background: #667eea; color: white; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+            .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid #e5e5ea;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #1d1d1f;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            border-color: #667eea;
+            background: #f9f9fb;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Abteilungen</h1>
+        <p id="count"></p>
+    </div>
+    <div class="abteilungen-list" id="abteilungenList"></div>
+    <script>
+        const data = {"count": 13, "abteilungen": [{"name": "Allgemeine Verwaltung", "url": "https://www.vorchdorf.at/Allgemeine_Verwaltung", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Zimmer": "Erdgeschoss"}, "mitarbeiter": [{"name": "Sandra Mayr", "funktion": "Leitung der Allgemeinen Verwaltung", "telefon": "+43 7614 6555 571", "telefon_mobil": "+43 676 898 655 571", "email": "s.mayr@vorchdorf.ooe.gv.at", "buero": "Tür 5", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950219&mode=T&width=150&height=180&cropping=BYH&cts=1749113042", "ist_leitung": true}, {"name": "Nicole Depner", "funktion": "", "telefon": "+43 7614 6555 576", "telefon_mobil": "", "email": "n.depner@vorchdorf.ooe.gv.at", "buero": "Tür 2", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=4002004&mode=T&width=150&height=180&cropping=BYH&cts=1751452337", "ist_leitung": false}, {"name": "Lisa Kronberger", "funktion": "", "telefon": "+43 7614 6555 577", "telefon_mobil": "", "email": "l.kronberger@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452892&mode=T&width=150&height=180&cropping=BYH&cts=1749112366", "ist_leitung": false}, {"name": "Sabine Waltenspiel", "funktion": "", "telefon": "+43 7614 6555 500", "telefon_mobil": "", "email": "s.waltenspiel@vorchdorf.ooe.gv.at", "buero": "Tür 8", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382196&mode=T&width=150&height=180&cropping=BYH&cts=1749119060", "ist_leitung": false}, {"name": "Martina Weingärtner", "funktion": "", "telefon": "+43 7614 6555 574", "telefon_mobil": "", "email": "m.weingaertner@vorchdorf.ooe.gv.at", "buero": "Tür 1", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1901583&mode=T&width=150&height=180&cropping=BYH&cts=1749118315", "ist_leitung": false}, {"name": "Astrid Wimmer", "funktion": "", "telefon": "+43 7614 6555 575", "telefon_mobil": "+43 676 898 655 575", "email": "a.wimmer@vorchdorf.ooe.gv.at", "buero": "Tür 2", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452906&mode=T&width=150&height=180&cropping=BYH&cts=1749112156", "ist_leitung": false}, {"name": "Daniela Schmid", "funktion": "", "telefon": "+43 7614 6555 500", "telefon_mobil": "", "email": "d.schmid@vorchdorf.ooe.gv.at", "buero": "Tür 8", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544708&mode=T&width=150&height=180&cropping=BYH&cts=1749118385", "ist_leitung": false}, {"name": "Constantin Wilde", "funktion": "Lehrling", "telefon": "+43 7614 6555 573", "telefon_mobil": "", "email": "", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3981122&mode=T&width=150&height=180&cropping=BYH&cts=1749117371", "ist_leitung": false}, {"name": "Sandra Melcher", "funktion": "", "telefon": "+43 7614 6555 579", "telefon_mobil": "", "email": "s.melcher@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139", "ist_leitung": false}], "formulare": [{"title": "Aufnahme Alten/Pflegeheim - Vormerkung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1217706&cts=1740768889"}, {"title": "Hundeanmeldung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=2884141&cts=1740769159"}, {"title": "Sozialhilfe - Antrag auf eine Leistung zur Unterstützung des Lebensunterhaltes und des Wohnbedarfes / Bekanntgabe bzw. Änderung von Daten", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=2453691&cts=1740769028"}, {"title": "Sozialhilfe - Beiblatt für minderjährige Personen", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=2453695&cts=1740769028"}, {"title": "Sozialhilfe - Beiblatt für volljährige Personen", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=2453693&cts=1740769028"}, {"title": "Sozialhilfeantrag für Alten-/Pflegeheime Heimentgelt", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1460032&cts=1740768922"}, {"title": "Veranstaltungsmeldung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1578772&cts=1740768948"}, {"title": "Wohnungswerberformular", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1053348&cts=1740768874"}, {"title": "Pflegegeldanträge PVA", "url": "http://service.sozialversicherung.at/eSV/container.nsf/FCNeu_traeger?OpenView&RestrictToCategory=PVA&ExpandView&Start=1&Count=900"}, {"title": "Rezeptgebührenbefreiung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=2593882&cts=1740769049"}, {"title": "Schulveranstaltungsbeihilfe der Marktgemeinde Vorchdorf", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1536013&cts=1763456494"}]}, {"name": "Amtsleitung", "url": "https://www.vorchdorf.at/Amtsleitung", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Telefon": "+43 7614 6555 570", "E-Mail (offiziell)": "amtsleitung@vorchdorf.ooe.gv.at"}, "mitarbeiter": [{"name": "Leonie Streng", "funktion": "Assistentin Bürgermeister", "telefon": "+43 7614 6555 531", "telefon_mobil": "", "email": "l.streng@vorchdorf.ooe.gv.at", "buero": "Tür 9 Sekretariat", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3947877&mode=T&width=150&height=180&cropping=BYH&cts=1753957829", "ist_leitung": false}, {"name": "Celine Stelzer", "funktion": "Assistentin Amtsleitung", "telefon": "+43 7614 6555 530", "telefon_mobil": "", "email": "c.stelzer@vorchdorf.ooe.gv.at", "buero": "Tür 9 Sekretariat", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980928&mode=T&width=150&height=180&cropping=BYH&cts=1749112630", "ist_leitung": false}], "formulare": []}, {"name": "Bauabteilung", "url": "https://www.vorchdorf.at/Bauabteilung", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Zimmer": "Tür 10 u. 11 -  1. Stock, links"}, "mitarbeiter": [{"name": "Stefanie Fölß", "funktion": "Sachbearbeiterin (Karenz)", "telefon": "+43 7614 6555 554", "telefon_mobil": "+43 676 898 655 554", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2886180&mode=T&width=150&height=180&cropping=BYH&cts=1646995107", "ist_leitung": false}, {"name": "Daniela Huemer", "funktion": "Sachbearbeiterin", "telefon": "+43 7614 6555 555", "telefon_mobil": "+43 676 898 655 555", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "Tür 10", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452875&mode=T&width=150&height=180&cropping=BYH&cts=1557472777", "ist_leitung": false}, {"name": "Michael Freilinger", "funktion": "Sachbearbeiter", "telefon": "+43 7614 6555 554", "telefon_mobil": "", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "Tür 10", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1782710&mode=T&width=150&height=180&cropping=BYH&cts=1749113150", "ist_leitung": false}, {"name": "Ingrid Grafinger", "funktion": "Sachbearbeiterin", "telefon": "+43 7614 6555 553", "telefon_mobil": "+43 676 898 655 553", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1121654&mode=T&width=150&height=180&cropping=BYH&cts=1750064697", "ist_leitung": false}, {"name": "Irene Hauser", "funktion": "", "telefon": "+43 7614 6555 558", "telefon_mobil": "", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980910&mode=T&width=150&height=180&cropping=BYH&cts=1749112290", "ist_leitung": false}, {"name": "Anna-Lena Edlinger", "funktion": "Karenz", "telefon": "+43 7614 6555 552", "telefon_mobil": "", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139", "ist_leitung": false}, {"name": "Selina Fischerleitner", "funktion": "", "telefon": "+43 7614 6555 552", "telefon_mobil": "", "email": "bauamt@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3981184&mode=T&width=150&height=180&cropping=BYH&cts=1749118841", "ist_leitung": false}], "formulare": [{"title": "Ansuchen Bauanzeige", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1969967&cts=1740768988"}, {"title": "Ansuchen um Baubewilligung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1969978&cts=1740768988"}, {"title": "Antrag Bauplatzbewilligung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1969975&cts=1740768988"}, {"title": "Formular Baubeschreibung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1969976&cts=1740768988"}, {"title": "Info Luftwärmepumpe", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1969980&cts=1740768988"}, {"title": "Entsorgungsnachweis für Senkgruben", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=2221172&cts=1571060504"}]}, {"name": "Beauftragter f. Energie-, Brand-, Zivil- und Katastrophenschutz/ Einkauf", "url": "https://www.vorchdorf.at/Beauftragter_f_Energie-_Brand-_Zivil-_und_Katastrophenschutz_Einkauf", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf"}, "mitarbeiter": [{"name": "Herbert Repczuk", "funktion": "Betriebe", "telefon": "+43 7614 6555 551", "telefon_mobil": "+43 676 898 655 551", "email": "h.repczuk@vorchdorf.ooe.gv.at", "buero": "Tür 11", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452889&mode=T&width=150&height=180&cropping=BYH&cts=1749111821", "ist_leitung": false}, {"name": "Stefan Gadermaier", "funktion": "", "telefon": "+43 7614 6555 556", "telefon_mobil": "", "email": "s.gadermaier@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980895&mode=T&width=150&height=180&cropping=BYH&cts=1749112088", "ist_leitung": false}], "formulare": []}, {"name": "Betriebe", "url": "https://www.vorchdorf.at/Betriebe_1", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Zimmer": "Tür Nr. 11", "Telefon": "+43 (7614) 6555 - 51", "Faxnummer": "+43 (7614) 6555 - 33"}, "mitarbeiter": [{"name": "Herbert Repczuk", "funktion": "Betriebe", "telefon": "+43 7614 6555 551", "telefon_mobil": "+43 676 898 655 551", "email": "h.repczuk@vorchdorf.ooe.gv.at", "buero": "Tür 11", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452889&mode=T&width=150&height=180&cropping=BYH&cts=1749111821", "ist_leitung": true}], "formulare": []}, {"name": "Bürgerservice", "url": "https://www.vorchdorf.at/Buergerservice_1", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Telefon": "+43 7614 6555 500", "Faxnummer": "+43 7614 65555 -22"}, "mitarbeiter": [{"name": "Sabine Waltenspiel", "funktion": "", "telefon": "+43 7614 6555 500", "telefon_mobil": "", "email": "s.waltenspiel@vorchdorf.ooe.gv.at", "buero": "Tür 8", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382196&mode=T&width=150&height=180&cropping=BYH&cts=1749119060", "ist_leitung": false}, {"name": "Daniela Schmid", "funktion": "", "telefon": "+43 7614 6555 500", "telefon_mobil": "", "email": "d.schmid@vorchdorf.ooe.gv.at", "buero": "Tür 8", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544708&mode=T&width=150&height=180&cropping=BYH&cts=1749118385", "ist_leitung": false}], "formulare": []}, {"name": "Finanzverwaltung", "url": "https://www.vorchdorf.at/Finanzverwaltung", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Telefon": "+43 7614 6555 540"}, "mitarbeiter": [{"name": "Ingeborg Blühweis", "funktion": "Leitung der Finanzverwaltung", "telefon": "+43 7614 6555 540", "telefon_mobil": "+43 676 898 655 540", "email": "i.bluehweis@vorchdorf.ooe.gv.at", "buero": "Tür 14", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452803&mode=T&width=150&height=180&cropping=BYH&cts=1749113396", "ist_leitung": true}, {"name": "Sonja Angleitner", "funktion": "", "telefon": "+43 7614 6555 544", "telefon_mobil": "+43 676 898 655 544", "email": "s.angleitner@vorchdorf.ooe.gv.at", "buero": "Tür 12", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382303&mode=T&width=150&height=180&cropping=BYH&cts=1749114214", "ist_leitung": false}, {"name": "Ingeborg Dickinger", "funktion": "Lohnverrechnung", "telefon": "+43 7614 6555 541", "telefon_mobil": "+43 676 898 655 541", "email": "i.dickinger@vorchdorf.ooe.gv.at", "buero": "Tür 12", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452810&mode=T&width=150&height=180&cropping=BYH&cts=1749118661", "ist_leitung": false}, {"name": "Simone Stürzlinger", "funktion": "", "telefon": "+43 7614 6555 543", "telefon_mobil": "+43 676 898 655 543", "email": "s.stuerzlinger@vorchdorf.ooe.gv.at", "buero": "Tür 13", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2061414&mode=T&width=150&height=180&cropping=BYH&cts=1749111884", "ist_leitung": false}, {"name": "Katharina Obermaier", "funktion": "", "telefon": "+43 7614 6555 545", "telefon_mobil": "+43 676 898 655 545", "email": "k.obermaier@vorchdorf.ooe.gv.at", "buero": "Tür 12", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950222&mode=T&width=150&height=180&cropping=BYH&cts=1756726628", "ist_leitung": false}, {"name": "Eva Heitzendorfer", "funktion": "", "telefon": "+43 7614 6555 542", "telefon_mobil": "", "email": "e.heitzendorfer@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980936&mode=T&width=150&height=180&cropping=BYH&cts=1749112923", "ist_leitung": false}, {"name": "Kerstin Hitzenberger", "funktion": "", "telefon": "+43 7614 6555 547", "telefon_mobil": "", "email": "k.hitzenberger@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139", "ist_leitung": false}], "formulare": [{"title": "Hundeabmeldung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=900915&cts=1740768871"}, {"title": "Lehrlingsförderung 2024- Formular", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=1871972&cts=1741009194"}]}, {"name": "IT Informationstechnik", "url": "https://www.vorchdorf.at/IT", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Telefon": "+43 676 898 655 535", "E-Mail (offiziell)": "edv@vorchdorf.ooe.gv.at"}, "mitarbeiter": [{"name": "Daniel Hartenthaler", "funktion": "IT-Koordinator", "telefon": "+43 7614 6555 500", "telefon_mobil": "+43 676 898 655 535", "email": "d.hartenthaler@vorchdorf.ooe.gv.at", "buero": "Eingang 7a, 1. OG", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1499935&mode=T&width=150&height=180&cropping=BYH&cts=1749111521", "ist_leitung": false}, {"name": "Andreas Viertauer", "funktion": "", "telefon": "", "telefon_mobil": "+43 676 898655536", "email": "a.viertauer@vorchdorf.ooe.gv.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544704&mode=T&width=150&height=180&cropping=BYH&cts=1707141195", "ist_leitung": false}], "formulare": []}, {"name": "Kitzmantelfabrik", "url": "https://www.vorchdorf.at/Kitzmantelfabrik", "kontakt": {"Adresse": "Laudachweg4655 Vorchdorf", "Telefon": "+43 7614 6555 512", "E-Mail (offiziell)": "meine.buehne@kitzmantelfabrik.at"}, "mitarbeiter": [{"name": "Brigitte Spitzbart, Management & Consulting", "funktion": "Leitung Kitzmantelfabrik", "telefon": "+43 7614 6555 512", "telefon_mobil": "+43 676 898 655 512", "email": "management@kitzmantelfabrik.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382201&mode=T&width=150&height=180&cropping=BYH&cts=1749111581", "ist_leitung": true}, {"name": "Mag. Michaela Rachbauer, Social Media & Consulting", "funktion": "", "telefon": "+43 7614 6555 513", "telefon_mobil": "+43 676 898 655 513", "email": "meine.buehne@kitzmantelfabrik.at", "buero": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2966043&mode=T&width=150&height=180&cropping=BYH&cts=1749111666", "ist_leitung": false}], "formulare": [{"title": "Antrag zum Böllerschießen Hochzeitsschießen", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=3719161&cts=1740769470"}, {"title": "Formular Antrag auf Bewilligung eines Gelegenheitsmarktes (1.84 MB)", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=3719154&cts=1740769470"}, {"title": "Formular Veranstaltungsmeldung", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=3719168&cts=1740769471"}, {"title": "Formular_Meldung_Feuerwerk", "url": "https://www.vorchdorf.at/system/web/GetDocument.ashx?fileid=3719155&cts=1740769470"}]}, {"name": "Meldeamt", "url": "https://www.vorchdorf.at/Meldeamt", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Zimmer": "Erdgeschoss", "Faxnummer": "+43 7614 6555 - 522"}, "mitarbeiter": [{"name": "Astrid Wimmer", "funktion": "", "telefon": "+43 7614 6555 575", "telefon_mobil": "+43 676 898 655 575", "email": "a.wimmer@vorchdorf.ooe.gv.at", "buero": "Tür 2", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452906&mode=T&width=150&height=180&cropping=BYH&cts=1749112156", "ist_leitung": false}, {"name": "Nicole Depner", "funktion": "", "telefon": "+43 7614 6555 576", "telefon_mobil": "", "email": "n.depner@vorchdorf.ooe.gv.at", "buero": "Tür 2", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=4002004&mode=T&width=150&height=180&cropping=BYH&cts=1751452337", "ist_leitung": false}], "formulare": []}, {"name": "Personal", "url": "https://www.vorchdorf.at/Personal", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Telefon": "+43 7614 6555 - 70", "Faxnummer": "+43 7614 6555 - 33"}, "mitarbeiter": [{"name": "Paul Aberl", "funktion": "Amtsleiter", "telefon": "+43 7614 6555 570", "telefon_mobil": "+43 676 898 655 570", "email": "p.aberl@vorchdorf.ooe.gv.at", "buero": "Tür 9 Sekretariat, 1. OG", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1453322&mode=T&width=150&height=180&cropping=BYH&cts=1749112418", "ist_leitung": true}, {"name": "Sandra Mayr", "funktion": "Leitung der Allgemeinen Verwaltung", "telefon": "+43 7614 6555 571", "telefon_mobil": "+43 676 898 655 571", "email": "s.mayr@vorchdorf.ooe.gv.at", "buero": "Tür 5", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950219&mode=T&width=150&height=180&cropping=BYH&cts=1749113042", "ist_leitung": false}], "formulare": []}, {"name": "Sekretariat / Gremien", "url": "https://www.vorchdorf.at/Sekretariat_x2F_Gremien", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Zimmer": "1. Stock links - Tür 9", "Telefon": "+43 761 4655531", "Faxnummer": "+43 7614 655533", "E-Mail (offiziell)": "gemeinde@vorchdorf.ooe.gv.at"}, "mitarbeiter": [{"name": "Leonie Streng", "funktion": "Assistentin Bürgermeister", "telefon": "+43 7614 6555 531", "telefon_mobil": "", "email": "l.streng@vorchdorf.ooe.gv.at", "buero": "Tür 9 Sekretariat", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3947877&mode=T&width=150&height=180&cropping=BYH&cts=1753957829", "ist_leitung": false}, {"name": "Celine Stelzer", "funktion": "Assistentin Amtsleitung", "telefon": "+43 7614 6555 530", "telefon_mobil": "", "email": "c.stelzer@vorchdorf.ooe.gv.at", "buero": "Tür 9 Sekretariat", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980928&mode=T&width=150&height=180&cropping=BYH&cts=1749112630", "ist_leitung": false}], "formulare": []}, {"name": "Standesamt", "url": "https://www.vorchdorf.at/Standesamt", "kontakt": {"Adresse": "Schloßplatz 74655 Vorchdorf", "Zimmer": "Tür Nr. 7", "Telefon": "+43 7614 6555 572"}, "mitarbeiter": [{"name": "Daniela Maier", "funktion": "Leitung Standesamt", "telefon": "+43 7614 6555 572", "telefon_mobil": "+43 676 898 655 572", "email": "d.maier@vorchdorf.ooe.gv.at", "buero": "Tür 7", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452882&mode=T&width=150&height=180&cropping=BYH&cts=1751451314", "ist_leitung": true}], "formulare": []}]};
+        
+        document.getElementById('count').textContent = 
+            `${data.count} Abteilungen • ${countLeitungen()} Leitungen • ${countMitarbeiter()} Mitarbeiter`;
+        
+        function countLeitungen() {
+            return data.abteilungen.reduce((sum, a) => 
+                sum + a.mitarbeiter.filter(p => p.ist_leitung).length, 0);
+        }
+        
+        function countMitarbeiter() {
+            return data.abteilungen.reduce((sum, a) => sum + a.mitarbeiter.length, 0);
+        }
+        
+        function renderAbteilungen() {
+            const html = data.abteilungen.map(abt => `
+                <div class="abteilung-card" onclick="this.classList.toggle('expanded')">
+                    <div class="abteilung-header">
+                        <div>
+                            <div class="abteilung-name">${esc(abt.name)}</div>
+                            <div class="stats">
+                                ${abt.mitarbeiter.length > 0 ? 
+                                    '<span class="stat-item">👥 ' + abt.mitarbeiter.length + ' Mitarbeiter</span>' : ''}
+                                ${abt.formulare.length > 0 ? 
+                                    '<span class="stat-item">📄 ' + abt.formulare.length + ' Formulare</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="abteilung-arrow">›</div>
+                    </div>
+                    <div class="abteilung-details">
+                        ${renderKontakt(abt.kontakt)}
+                        ${renderMitarbeiter(abt.mitarbeiter)}
+                        ${renderFormulare(abt.formulare)}
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('abteilungenList').innerHTML = html;
+        }
+        
+        function renderKontakt(kontakt) {
+            if (!kontakt || Object.keys(kontakt).length === 0) return '';
+            const items = Object.entries(kontakt).map(([k, v]) => 
+                `<div><strong>${k}:</strong> ${v}</div>`).join('');
+            return `<div style="margin-bottom: 20px; padding: 12px; background: #f9f9fb; border-radius: 8px; font-size: 14px;">${items}</div>`;
+        }
+        
+        function renderMitarbeiter(mitarbeiter) {
+            if (!mitarbeiter || mitarbeiter.length === 0) return '';
+            const personen = mitarbeiter.map(renderPerson).join('');
+            return `<div class="mitarbeiter-section"><div class="section-title">👥 Team (${mitarbeiter.length})</div>${personen}</div>`;
+        }
+        
+        function renderPerson(p) {
+            const foto = p.foto ? `<img src="${p.foto}" class="person-foto" alt="${p.name}">` : 
+                `<div class="person-foto placeholder">👤</div>`;
+            return `
+                <div class="person-card">
+                    ${foto}
+                    <div class="person-info">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <div class="person-name">${esc(p.name)}</div>
+                            ${p.ist_leitung ? '<span class="leitung-badge">LEITUNG</span>' : ''}
+                        </div>
+                        ${p.funktion ? `<div class="person-funktion">${esc(p.funktion)}</div>` : ''}
+                        <div class="person-contacts">
+                            ${p.email ? `<a href="mailto:${p.email}" class="contact-link">📧 ${p.email}</a>` : ''}
+                            ${p.telefon ? `<a href="tel:${p.telefon.replace(/\s/g, '')}" class="contact-link">📞 ${p.telefon}</a>` : ''}
+                            ${p.buero ? `<div class="contact-link" style="color: #86868b;">🚪 ${p.buero}</div>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+        }
+        
+        function renderFormulare(formulare) {
+            if (!formulare || formulare.length === 0) return '';
+            const links = formulare.map(f => 
+                `<a href="${f.url}" class="formular-link" target="_blank" rel="noopener">
+                    <span class="formular-icon">📄</span>
+                    <span class="formular-title">${esc(f.title)}</span>
+                    <span style="color: #c7c7cc;">›</span>
+                </a>`).join('');
+            return `<div class="formulare-section"><div class="section-title">📄 Formulare (${formulare.length})</div>${links}</div>`;
+        }
+        
+        function esc(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        renderAbteilungen();
+    </script>
+</body>
+</html>
