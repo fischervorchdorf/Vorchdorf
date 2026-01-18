@@ -3882,6 +3882,31 @@ Mit freundlichen Grüßen`;
                 title: 'Gemeinde & Verwaltung',
                 icon: '🏛️',
                 description: 'Gemeindeamt & wichtige Kontakte',
+                content: {
+                    type: 'mixed',
+                    intro: [
+                        {
+                            title: 'Marktgemeinde Vorchdorf',
+                            info: [
+                                '📍 Schloßplatz 7, 4655 Vorchdorf',
+                                '☎️ +43 7614 6555 500',
+                                '📧 gemeinde@vorchdorf.ooe.gv.at',
+                                '🌐 www.vorchdorf.at'
+                            ],
+                            link: 'https://www.vorchdorf.at'
+                        },
+                        {
+                            title: 'Öffnungszeiten Bürgerservice',
+                            info: [
+                                'Montag: 07:00 - 12:00 Uhr',
+                                'Dienstag: 07:00 - 12:00 & 14:00 - 18:00 Uhr',
+                                'Mittwoch: kein Parteienverkehr',
+                                'Donnerstag: 07:00 - 12:00 & 14:00 - 17:00 Uhr',
+                                'Freitag: 07:00 - 12:00 Uhr'
+                            ]
+                        }
+                    ]
+                },
                 subcategories: {
                     formulare: {
                         id: 'formulare',
@@ -3919,7 +3944,7 @@ Mit freundlichen Grüßen`;
                                     'Bio-, Rest- und Papiertonnen',
                                     'Gelbe Tonne & Restmüll'
                                 ],
-                                wasteCalendar: true
+                                link: 'https://www.vorchdorf.at/system/web/kalender.aspx?sprache=1&menuonr=227703103&typids=227719859,227719865'
                             },
                             {
                                 title: 'ASZ Altstoffsammelzentrum',
@@ -3932,40 +3957,11 @@ Mit freundlichen Grüßen`;
                             }
                         ]
                     },
-                    kontakt: {
-                        id: 'kontakt',
-                        title: 'ℹ️ Kontakt & Öffnungszeiten',
-                        description: 'Gemeindeamt Vorchdorf',
-                        items: [
-                            {
-                                title: 'Marktgemeinde Vorchdorf',
-                                info: [
-                                    '📍 Schloßplatz 7, 4655 Vorchdorf',
-                                    '☎️ +43 7614 6555 500',
-                                    '📧 gemeinde@vorchdorf.ooe.gv.at',
-                                    '🌐 www.vorchdorf.at'
-                                ],
-                                link: 'https://www.vorchdorf.at'
-                            },
-                            {
-                                title: 'Öffnungszeiten Bürgerservice',
-                                info: [
-                                    'Montag: 07:00 - 12:00 Uhr',
-                                    'Dienstag: 07:00 - 12:00 & 14:00 - 18:00 Uhr',
-                                    'Mittwoch: kein Parteienverkehr',
-                                    'Donnerstag: 07:00 - 12:00 & 14:00 - 17:00 Uhr',
-                                    'Freitag: 07:00 - 12:00 Uhr'
-                                ]
-                            },
-                            {
-                                title: 'Digitaler Ortsplan',
-                                info: [
-                                    '🗺️ Interaktive Karte von Vorchdorf',
-                                    'Alle wichtigen Adressen'
-                                ],
-                                link: 'https://www.vorchdorf.at/Buergerservice/Digitaler_Ortsplan'
-                            }
-                        ]
+                    ortsplan: {
+                        id: 'ortsplan',
+                        title: '🗺️ Digitaler Ortsplan',
+                        description: 'Interaktive Karte von Vorchdorf',
+                        directLink: 'https://www.vorchdorf.at/Buergerservice/Digitaler_Ortsplan'
                     }
                 }
             },
@@ -4416,6 +4412,12 @@ Mit freundlichen Grüßen`;
                 return;
             }
 
+            // Check for external link - if exists, open in same window
+            if (subcategory.externalLink) {
+                window.location.href = subcategory.externalLink;
+                return;
+            }
+
             currentView = 'subcategory';
             currentSubcategory = subcategoryId;
             navigationHistory.push({ type: 'category', categoryId });
@@ -4595,6 +4597,33 @@ Mit freundlichen Grüßen`;
 
         // Render Content
         function renderContent(category) {
+            // Handle mixed type (like administration with intro + subcategories)
+            if (category.content.type === 'mixed') {
+                return `
+                    <div class="detail-view fade-in">
+                        <h2>${category.icon} ${category.title}</h2>
+                        ${category.content.intro ? category.content.intro.map(item => `
+                            <div class="info-item">
+                                <h4>${item.title}</h4>
+                                ${item.info.map(info => `<p>${info}</p>`).join('')}
+                                ${item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
+                            </div>
+                        `).join('') : ''}
+                        ${category.subcategories ? `
+                            <h3 style="margin-top: 30px;">Bereiche & Services</h3>
+                            <div class="subcategory-list">
+                                ${Object.values(category.subcategories).map(sub => `
+                                    <div class="subcategory-item" onclick="navigateToSubcategory('${category.id}', '${sub.id}')">
+                                        <h4>${sub.title}</h4>
+                                        <p>${sub.description || ''}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
             // Handle list type (like education)
             if (category.content.type === 'list') {
                 return `
