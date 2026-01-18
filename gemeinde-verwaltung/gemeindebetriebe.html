@@ -12,7 +12,7 @@
         .header p { opacity: 0.9; font-size: 14px; }
         .betriebe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 400px));
             gap: 15px;
         }
         
@@ -24,7 +24,9 @@
         .betrieb-arrow { color: #c7c7cc; font-size: 20px; transition: transform 0.3s; }
         .betrieb-card.expanded .betrieb-arrow { transform: rotate(90deg); }
         .betrieb-details { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #f0f0f0; }
-        .betrieb-card.expanded .betrieb-details { display: block; }
+        .betrieb-card.expanded .betrieb-details { display: block; 
+            display: none;
+        }
         .stats { display: flex; gap: 15px; margin-top: 10px; }
         .stat-item { font-size: 13px; color: #86868b; }
         .person-card { display: flex; gap: 15px; padding: 15px; background: #f9f9fb; border-radius: 10px; margin-bottom: 10px; }
@@ -57,6 +59,8 @@
     </style>
 </head>
 <body>
+    <a href="javascript:history.back()" class="back-button">← Zurück</a>
+
     <div class="header">
         <h1>🏭 Gemeindebetriebe</h1>
         <p id="count"></p>

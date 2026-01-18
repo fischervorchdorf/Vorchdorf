@@ -48,7 +48,28 @@
     <div class="header">
         <h1>👥 Mitarbeiter</h1>
         <p id="count"></p>
+        <!-- Zurück zur Hauptseite -->
+    <div style="margin-bottom: 20px;">
+        <button onclick="window.history.back()" style="
+            background: white;
+            border: 2px solid #1a472a;
+            color: #1a472a;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        " onmouseover="this.style.background='#1a472a'; this.style.color='white';" 
+           onmouseout="this.style.background='white'; this.style.color='#1a472a';">
+            ← Zurück
+        </button>
     </div>
+
+</div>
     <div class="search-box">
         <input type="search" id="searchInput" placeholder="🔍 Mitarbeiter suchen...">
     </div>
