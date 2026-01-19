@@ -306,9 +306,26 @@
 
         function renderKontakt(kontakt) {
             if (!kontakt || Object.keys(kontakt).length === 0) return '';
-            const items = Object.entries(kontakt).map(([k, v]) =>
-                `<div class="kontakt-item"><strong>${esc(k)}:</strong> ${esc(v)}</div>`).join('');
-            return '<div class="kontakt-section"><div class="section-title">📞 Kontakt</div>' + items + '</div>';
+            const items = Object.entries(kontakt).map(([k, v]) => {
+                const key = k.toLowerCase();
+                let valueHtml = esc(v);
+                // Telefonnummern klickbar machen
+                if (key.includes('telefon') || key.includes('tel') || key.includes('mobil')) {
+                    const cleanPhone = v.replace(/\s/g, '');
+                    valueHtml = `<a href="tel:${cleanPhone}" onclick="event.stopPropagation()" style="color: #1a472a; text-decoration: none;">${esc(v)}</a>`;
+                }
+                // E-Mail klickbar machen
+                if (key.includes('mail') || key.includes('e-mail')) {
+                    valueHtml = `<a href="mailto:${v}" onclick="event.stopPropagation()" style="color: #1a472a; text-decoration: none;">${esc(v)}</a>`;
+                }
+                // Website klickbar machen
+                if (key.includes('web') || v.startsWith('http') || v.startsWith('www')) {
+                    const url = v.startsWith('http') ? v : 'https://' + v;
+                    valueHtml = `<a href="${url}" target="_blank" onclick="event.stopPropagation()" style="color: #1a472a; text-decoration: none;">${esc(v)}</a>`;
+                }
+                return `<div class="kontakt-item"><strong>${esc(k)}:</strong> ${valueHtml}</div>`;
+            }).join('');
+            return '<div class="kontakt-section" onclick="event.stopPropagation()"><div class="section-title">📞 Kontakt</div>' + items + '</div>';
         }
 
         function renderMitarbeiter(mitarbeiter) {
