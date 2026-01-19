@@ -259,7 +259,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 4.6
+            Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 4.7
         </div>
     </div>
 
@@ -346,8 +346,8 @@
                         </div>
                         ${p.funktion ? '<div class="person-funktion">' + esc(p.funktion) + '</div>' : ''}
                         <div class="person-contacts">
-                            ${p.email ? '<a href="mailto:' + p.email + '" class="contact-link">📧 ' + p.email + '</a>' : ''}
-                            ${p.telefon ? '<a href="tel:' + p.telefon + '" class="contact-link">📞 ' + p.telefon + '</a>' : ''}
+                            ${p.email ? '<a href="mailto:' + p.email + '" class="contact-link" onclick="event.stopPropagation()">📧 ' + p.email + '</a>' : ''}
+                            ${p.telefon ? '<a href="tel:' + p.telefon + '" class="contact-link" onclick="event.stopPropagation()">📞 ' + p.telefon + '</a>' : ''}
                             ${p.buero ? '<span class="contact-link">🚪 ' + esc(p.buero) + '</span>' : ''}
                         </div>
                     </div>
@@ -358,7 +358,7 @@
         function renderFormulare(formulare) {
             if (!formulare || formulare.length === 0) return '';
             const items = formulare.map(f => `
-                <a href="${f.url}" target="_blank" class="formular-link">
+                <a href="${f.url}" target="_blank" class="formular-link" onclick="event.stopPropagation()">
                     <span class="formular-icon">📄</span>
                     <span class="formular-title">${esc(f.title)}</span>
                     <span>→</span>

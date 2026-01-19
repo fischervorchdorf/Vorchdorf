@@ -2798,8 +2798,12 @@ Mit freundlichen Grüßen`;
             }
 
             const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
-            setTimeout(() => closeEmailPreviewModal(), 100);
+            // Schließe zuerst das Modal, dann öffne Email
+            closeEmailPreviewModal();
+            // Kurze Verzögerung damit das Modal geschlossen ist bevor Email öffnet
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 300);
         }
 
         // Event Listeners für Flohmarkt
@@ -2835,7 +2839,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '4.6'; // Aktuelle Version der App
+        const APP_VERSION = '4.7'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
