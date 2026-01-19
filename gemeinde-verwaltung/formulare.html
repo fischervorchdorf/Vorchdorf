@@ -5,198 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulare - Vorchdorf App</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+
+        :root {
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 50%, #1a472a 100%);
+            --shadow-md: rgba(0, 0, 0, 0.15);
+            --shadow-lg: rgba(0, 0, 0, 0.2);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #f5f5f7;
+            min-height: 100vh;
             padding: 20px;
-            padding-bottom: 80px;
         }
 
-        .header {
-            background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header mit Wappen */
+        header {
+            background: var(--gradient-1);
             color: white;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 15px 30px;
+            border-radius: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+        header:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(26, 71, 42, 0.3);
         }
 
-        .header p {
-            opacity: 0.9;
-            font-size: 14px;
+        header img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
         }
 
-        .search-box {
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Search */
+        .search-container {
             background: white;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 25px var(--shadow-md);
+            display: flex;
+            gap: 15px;
         }
 
-        .search-box input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e5ea;
-            border-radius: 8px;
+        .search-container input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 16px;
-            transition: all 0.3s;
         }
 
-        .search-box input:focus {
+        .search-container input:focus {
             outline: none;
             border-color: #1a472a;
         }
 
-        .formulare-grid {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .formular-item {
-            padding: 16px 20px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .formular-item:last-child {
-            border-bottom: none;
-        }
-
-        .formular-item:hover,
-        .formular-item:active {
-            background: #f9f9fb;
-        }
-
-        .formular-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        .formular-icon::before {
-            content: '📄';
-            font-size: 20px;
-        }
-
-        .formular-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .formular-title {
-            font-weight: 600;
-            font-size: 16px;
-            color: #1d1d1f;
-        }
-
-        .formular-arrow {
-            color: #c7c7cc;
-            font-size: 18px;
-            margin-left: 10px;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px 20px;
-            color: #86868b;
-        }
-
-        .stats {
-            text-align: center;
-            padding: 10px;
-            color: #86868b;
-            font-size: 13px;
-            background: #f9f9fb;
-            font-weight: 600;
-        }
-
-        .alphabet-index {
-            position: fixed;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            z-index: 100;
-        }
-
-        .alphabet-index a {
-            text-decoration: none;
-            color: #1a472a;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 6px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .alphabet-index a:active {
-            background: #1a472a;
+        .search-container button {
+            background: var(--gradient-1);
             color: white;
-        }
-            .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: white;
-            border: 2px solid #e5e5ea;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #1d1d1f;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            transition: all 0.3s;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
         }
 
-        .back-button:hover {
-            border-color: #1a472a;
-            background: #f9f9fb;
-        }
-            .back-button-container {
+        /* Back Button */
+        .back-button-container {
             background: white;
-            border-radius: 10px;
             padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
         }
-        
+
         .back-button {
             width: 100%;
             padding: 12px;
             background: white;
             border: 2px solid #333;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -205,138 +119,184 @@
             text-decoration: none;
             color: #333;
         }
-        
+
         .back-button:hover {
             background: #f5f5f5;
         }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #1a472a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow-lg);
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .page-title h2 {
+            font-size: 2rem;
+            color: #1a472a;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #1a472a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header { padding: 10px 15px; }
+            header img { height: 40px; }
+            header h1 { font-size: 1.2rem; }
+            .search-container { flex-direction: column; }
+            .search-container button { width: 100%; }
+            .content-wrapper { padding: 15px; }
+            .page-title h2 { font-size: 1.5rem; }
+        }
+
+
+        /* Formulare specific styles */
+        .formulare-grid { background: #f8f9fa; border-radius: 12px; overflow: hidden; }
+        .formular-item { padding: 16px 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; text-decoration: none; color: inherit; background: white; margin-bottom: 1px; }
+        .formular-item:last-child { border-bottom: none; }
+        .formular-item:hover { background: #f0f7f0; }
+        .formular-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0; font-size: 20px; }
+        .formular-content { flex: 1; min-width: 0; }
+        .formular-title { font-weight: 600; font-size: 15px; color: #1d1d1f; }
+        .formular-arrow { color: #1a472a; font-size: 18px; margin-left: 10px; }
+        .no-results { text-align: center; padding: 40px 20px; color: #86868b; }
+        .search-box { background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .search-box input { width: 100%; padding: 12px; border: 2px solid #e5e5ea; border-radius: 8px; font-size: 16px; }
+        .search-box input:focus { outline: none; border-color: #1a472a; }
+        .count-info { color: #666; font-size: 14px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>📋 Formulare</h1>
-        <p id="count">Lade Formulare...</p>
-        <!-- Zurück zur Hauptseite -->
+    <div class="app-container">
+        <!-- App Header mit Wappen -->
+        <header onclick="window.location.href='../index.html'" style="cursor: pointer;">
+            <img src="../AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+            <h1>Vorchdorf-APP</h1>
+            <img src="../AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+        </header>
+
+        <!-- Suchfeld -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Suche nach Informationen, Vereinen, Betrieben...">
+            <button onclick="performSearch()">🔍 Suchen</button>
+        </div>
+
+        <!-- Zurück Button -->
         <div class="back-button-container">
-        <a href="index.html" class="back-button">← Zurück</a>
+            <a href="index.html" class="back-button">← Zurück</a>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="../index.html">🏠 Start</a> › <a href="index.html">Gemeinde & Verwaltung</a> › Formulare
+        </div>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="page-title">
+                <span style="font-size: 2.5rem;">📄</span>
+                <h2>Formulare</h2>
+            </div>
+            <p class="count-info" id="count"></p>
+            <div class="search-box">
+                <input type="search" id="filterInput" placeholder="🔍 Formular suchen...">
+            </div>
+            <div class="formulare-grid" id="formulareGrid"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 4.7
+        </div>
     </div>
 
-</div>
-
-    <div class="search-box">
-        <input type="search" id="searchInput" placeholder="🔍 Formular suchen...">
-    </div>
-
-    <div class="formulare-grid" id="formulareList"></div>
-
-    <div class="alphabet-index" id="alphabetIndex"></div>
-
     <script>
-        // JSON-Daten werden hier eingefügt - Version 4.7 - 43 Formulare
-        const DATA_PLACEHOLDER = {"lastUpdated":"2026-01-19T12:00:00","count":43,"formulare":[{"title":"Anmeldung für die Flurreinigungsaktion 2025","url":"https://www.vorchdorf.at/system/web/formular.aspx?detailonr=227360392&menuonr=218379637","filename":"Flurreinigungsaktion.html"},{"title":"Ansuchen Bauanzeige","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1969967&cts=1740768988","filename":"Ansuchen Bauanzeige.pdf"},{"title":"Ansuchen um Baubewilligung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1969978&cts=1740768988","filename":"Ansuchen um Baubewilligung.pdf"},{"title":"Ansuchen um Förderung für Wohnraumschaffung (29 KB) - .DOC","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1578742&cts=1535641421","filename":"Ansuchen um Förderung für Wohnraumschaffung (29 KB) - .DOC.pdf"},{"title":"Ansuchen um Studienbeihilfe der Marktgemeinde Vorchdorf","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1000147&cts=1740768873","filename":"Ansuchen um Studienbeihilfe der Marktgemeinde Vorchdorf.pdf"},{"title":"Antrag auf Bewilligung eines Gelegenheitsmarktes (1,84 MB) - .PDF","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719154&cts=1740769470","filename":"Antrag auf Bewilligung eines Gelegenheitsmarktes (1,84 MB) - .PDF.pdf"},{"title":"Antrag Bauplatzbewilligung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1969975&cts=1740768988","filename":"Antrag Bauplatzbewilligung.pdf"},{"title":"Antrag zum Böllerschießen Hochzeitsschießen","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719161&cts=1740769470","filename":"Antrag zum Böllerschießen Hochzeitsschießen.pdf"},{"title":"Aufnahme Alten/Pflegeheim - Vormerkung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1217706&cts=1740768889","filename":"Aufnahme Alten/Pflegeheim - Vormerkung.pdf"},{"title":"Ausstelleranmeldung Osterkirtag am 6. April 2026","url":"https://www.vorchdorf.at/system/web/formular.aspx?detailonr=227345509&menuonr=218379637","filename":"Osterkirtag.html"},{"title":"Baubeschreibung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1969976&cts=1740768988","filename":"Baubeschreibung.pdf"},{"title":"Betriebsanlagen-Coaching – geförderte Beratung","url":"https://www.wko.at/ooe/umwelt-energie/betriebsanlagen-coaching-wkooe","filename":"Betriebsanlagen-Coaching.html"},{"title":"Entsorgungsnachweis für Senkgruben (21 KB) - .XLS","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2221172&cts=1571060504","filename":"Entsorgungsnachweis für Senkgruben (21 KB) - .XLS.pdf"},{"title":"Formular Antrag auf Bewilligung eines Gelegenheitsmarktes","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719154&cts=1740769470","filename":"Formular Antrag auf Bewilligung eines Gelegenheitsmarktes.pdf"},{"title":"Formular Baubeschreibung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1969976&cts=1740768988","filename":"Formular Baubeschreibung.pdf"},{"title":"Formular Veranstaltungsanzeige","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719162&cts=1740769470","filename":"Formular Veranstaltungsanzeige.pdf"},{"title":"Formular Veranstaltungsmeldung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719168&cts=1740769471","filename":"Formular Veranstaltungsmeldung.pdf"},{"title":"Formular_Meldung_Feuerwerk","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719155&cts=1740769470","filename":"Formular_Meldung_Feuerwerk.pdf"},{"title":"Fragebogen für Wohnungswerber","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1053343&cts=1740768874","filename":"Fragebogen für Wohnungswerber.pdf"},{"title":"Hundeabmeldung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=900915&cts=1740768871","filename":"Hundeabmeldung.pdf"},{"title":"Hundeanmeldung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2884141&cts=1740769159","filename":"Hundeanmeldung.pdf"},{"title":"Info Luftwärmepumpe","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1969980&cts=1740768988","filename":"Info Luftwärmepumpe.pdf"},{"title":"Jagdkarte","url":"https://www.land-oberoesterreich.gv.at/15480.htm","filename":"Jagdkarte.html"},{"title":"Kinderbetreuungsbonus","url":"https://www.land-oberoesterreich.gv.at/21201.htm","filename":"Kinderbetreuungsbonus.html"},{"title":"Lehrlingsförderung 2024- (41 KB) - .DOC","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1871972&cts=1741009194","filename":"Lehrlingsförderung 2024- (41 KB) - .DOC.pdf"},{"title":"Online-Checkliste zur Errichtung oder Änderung von Betriebsanlagen","url":"https://www.wko.at/ooe/umwelt-energie/online-checkliste-betriebsanlagen","filename":"Online-Checkliste.html"},{"title":"Pflegegeldanträge PVA","url":"https://www.sozialversicherung.at/cdscontent/load?contentid=10008.555947&version=1598949186","filename":"Pflegegeldantraege.html"},{"title":"Rezeptgebührenbefreiung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2593882&cts=1740769049","filename":"Rezeptgebührenbefreiung.pdf"},{"title":"Richtlinien zur Förderung von Wohnraumschaffung (63 KB) - .DOC","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1578740&cts=1535641421","filename":"Richtlinien zur Förderung von Wohnraumschaffung (63 KB) - .DOC.pdf"},{"title":"Rundfunkgebührenbefreiung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2221173&cts=1740769018","filename":"Rundfunkgebührenbefreiung.pdf"},{"title":"Schulveranstaltungsbeihilfe der Marktgemeinde Vorchdorf","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1536013&cts=1763456494","filename":"Schulveranstaltungsbeihilfe der Marktgemeinde Vorchdorf.pdf"},{"title":"Senkgrubenerhebungsblatt","url":"https://www.vorchdorf.at/system/web/formular.aspx?detailonr=214905996&menuonr=218379637","filename":"Senkgrubenerhebungsblatt.html"},{"title":"Sozialhilfe - Antrag auf eine Leistung zur Unterstützung des Lebensunterhaltes und des Wohnbedarfes / Bekanntgabe bzw. Änderung von Daten","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2453691&cts=1740769028","filename":"Sozialhilfe - Antrag auf eine Leistung zur Unterstützung des Lebensunterhaltes und des Wohnbedarfes / Bekanntgabe bzw. Änderung von Daten.pdf"},{"title":"Sozialhilfe - Beiblatt für minderjährige Personen","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2453695&cts=1740769028","filename":"Sozialhilfe - Beiblatt für minderjährige Personen.pdf"},{"title":"Sozialhilfe - Beiblatt für volljährige Personen","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=2453693&cts=1740769028","filename":"Sozialhilfe - Beiblatt für volljährige Personen.pdf"},{"title":"Sozialhilfeantrag für Alten-/Pflegeheime Heimentgelt","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1460032&cts=1740768922","filename":"Sozialhilfeantrag für Alten-/Pflegeheime Heimentgelt.pdf"},{"title":"Veranstaltungsanzeige","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719162&cts=1740769470","filename":"Veranstaltungsanzeige.pdf"},{"title":"Veranstaltungsmeldung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=3719168&cts=1740769471","filename":"Veranstaltungsmeldung.pdf"},{"title":"Veranstaltungsmeldung","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1578772&cts=1740768948","filename":"Veranstaltungsmeldung.pdf"},{"title":"Wasserzählerablesung","url":"https://www.vorchdorf.at/system/web/formular.aspx?detailonr=129449687&menuonr=218379637","filename":"Wasserzaehlerablesung.html"},{"title":"Wohnungswerberformular","url":"https://www.vorchdorf.at/system/web/GetDocument.ashx?fileId=1053348&cts=1740768874","filename":"Wohnungswerberformular.pdf"}]};
-    </script>
-    
-    <script>
-        let allFormulare = [];
-
-        function loadFormulare() {
-            try {
-                allFormulare = DATA_PLACEHOLDER.formulare;
-                
-                document.getElementById('count').textContent = 
-                    `${allFormulare.length} Formulare verfügbar`;
-                
-                renderFormulare(allFormulare);
-                createAlphabetIndex();
-            } catch (error) {
-                console.error('Fehler beim Laden:', error);
-                document.getElementById('formulareList').innerHTML = 
-                    '<div class="no-results">❌ Fehler beim Laden der Formulare</div>';
-            }
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            window.location.href = `../index.html?search=${encodeURIComponent(searchTerm)}`;
         }
 
-        function renderFormulare(formulare) {
-            const listElement = document.getElementById('formulareList');
-            
-            if (formulare.length === 0) {
-                listElement.innerHTML = 
-                    '<div class="no-results">🔍 Keine Formulare gefunden</div>';
-                return;
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
             }
-
-            let lastLetter = '';
-            let html = '';
-
-            formulare.forEach(formular => {
-                const firstLetter = formular.title.charAt(0).toUpperCase();
-                
-                if (firstLetter !== lastLetter) {
-                    if (lastLetter !== '') {
-                        html += '</div>';
-                    }
-                    html += `<div class="stats" data-letter="${firstLetter}">${firstLetter}</div><div>`;
-                    lastLetter = firstLetter;
-                }
-
-                html += `
-                    <a href="${formular.url}" 
-                       class="formular-item" 
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        <div class="formular-icon"></div>
-                        <div class="formular-content">
-                            <div class="formular-title">${escapeHtml(formular.title)}</div>
-                        </div>
-                        <div class="formular-arrow">›</div>
-                    </a>
-                `;
-            });
-
-            html += '</div>';
-            listElement.innerHTML = html;
-        }
-
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const currentFilter = e.target.value.toLowerCase();
-            
-            const filtered = allFormulare.filter(f => 
-                f.title.toLowerCase().includes(currentFilter)
-            );
-            
-            renderFormulare(filtered);
         });
 
-        function createAlphabetIndex() {
-            const letters = new Set();
-            allFormulare.forEach(f => {
-                letters.add(f.title.charAt(0).toUpperCase());
-            });
+        const data = {"count": 0, "formulare": []};
+        let filtered = data.formulare;
 
-            const sortedLetters = Array.from(letters).sort();
-            const indexHtml = sortedLetters.map(letter => 
-                `<a href="#" data-letter="${letter}">${letter}</a>`
-            ).join('');
+        document.getElementById('count').textContent = `${data.count} Formulare`;
 
-            document.getElementById('alphabetIndex').innerHTML = indexHtml;
-
-            document.querySelectorAll('.alphabet-index a').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const letter = e.target.dataset.letter;
-                    const section = document.querySelector(`.stats[data-letter="${letter}"]`);
-                    if (section) {
-                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
+        function renderFormulare() {
+            if (filtered.length === 0) {
+                document.getElementById('formulareGrid').innerHTML = '<div class="no-results">Keine Formulare gefunden</div>';
+                return;
+            }
+            const html = filtered.map(f => `
+                <a href="${f.url}" target="_blank" class="formular-item">
+                    <div class="formular-icon">📄</div>
+                    <div class="formular-content">
+                        <div class="formular-title">${esc(f.title)}</div>
+                    </div>
+                    <div class="formular-arrow">→</div>
+                </a>
+            `).join('');
+            document.getElementById('formulareGrid').innerHTML = html;
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        function esc(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
-        loadFormulare();
+        document.getElementById('filterInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            filtered = data.formulare.filter(f => f.title.toLowerCase().includes(term));
+            renderFormulare();
+        });
+
+        renderFormulare();
     </script>
 </body>
 </html>
