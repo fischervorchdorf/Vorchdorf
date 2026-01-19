@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulare - Vorchdorf App</title>
+    <title>Müllentsorgung - Vorchdorf App</title>
     <style>
-
         :root {
             --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 50%, #1a472a 100%);
             --shadow-md: rgba(0, 0, 0, 0.15);
@@ -164,6 +163,67 @@
             font-weight: 700;
         }
 
+        /* Tiles */
+        .tiles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tile {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: #1a472a;
+            background: white;
+        }
+
+        .tile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tile-icon {
+            font-size: 2.5rem;
+        }
+
+        .tile h3 {
+            font-size: 1.3rem;
+            color: #1a472a;
+            font-weight: 700;
+        }
+
+        .tile-content {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tile-content p {
+            margin-bottom: 8px;
+        }
+
+        .tile-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #1a472a;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -188,23 +248,8 @@
             .search-container button { width: 100%; }
             .content-wrapper { padding: 15px; }
             .page-title h2 { font-size: 1.5rem; }
+            .tiles-container { grid-template-columns: 1fr; }
         }
-
-
-        /* Formulare specific styles */
-        .formulare-grid { background: #f8f9fa; border-radius: 12px; overflow: hidden; }
-        .formular-item { padding: 16px 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; text-decoration: none; color: inherit; background: white; margin-bottom: 1px; }
-        .formular-item:last-child { border-bottom: none; }
-        .formular-item:hover { background: #f0f7f0; }
-        .formular-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0; font-size: 20px; }
-        .formular-content { flex: 1; min-width: 0; }
-        .formular-title { font-weight: 600; font-size: 15px; color: #1d1d1f; }
-        .formular-arrow { color: #1a472a; font-size: 18px; margin-left: 10px; }
-        .no-results { text-align: center; padding: 40px 20px; color: #86868b; }
-        .search-box { background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
-        .search-box input { width: 100%; padding: 12px; border: 2px solid #e5e5ea; border-radius: 8px; font-size: 16px; }
-        .search-box input:focus { outline: none; border-color: #1a472a; }
-        .count-info { color: #666; font-size: 14px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -229,20 +274,43 @@
 
         <!-- Breadcrumb -->
         <div class="breadcrumb">
-            <a href="../index.html">🏠 Start</a> › <a href="index.html">Gemeinde & Verwaltung</a> › Formulare
+            <a href="../index.html">🏠 Start</a> › <a href="index.html">Gemeinde & Verwaltung</a> › Müllentsorgung
         </div>
 
         <!-- Content -->
         <div class="content-wrapper">
             <div class="page-title">
-                <span style="font-size: 2.5rem;">📄</span>
-                <h2>Formulare</h2>
+                <span style="font-size: 2.5rem;">♻️</span>
+                <h2>Müllentsorgung</h2>
             </div>
-            <p class="count-info" id="count"></p>
-            <div class="search-box">
-                <input type="search" id="filterInput" placeholder="🔍 Formular suchen...">
+
+            <div class="tiles-container">
+                <a href="https://www.vorchdorf.at/Buergerservice/Muellkalender_2026" target="_blank" class="tile">
+                    <div class="tile-header">
+                        <span class="tile-icon">📅</span>
+                        <h3>Müllabfuhr-Termine 2026</h3>
+                    </div>
+                    <div class="tile-content">
+                        <p>♻️ Abfuhrtermine für alle Ortsteile</p>
+                        <p>🗑️ Bio-, Rest- und Papiertonnen</p>
+                        <p>🟡 Gelbe Tonne & Restmüll</p>
+                        <span class="tile-link">→ Müllkalender öffnen</span>
+                    </div>
+                </a>
+
+                <a href="https://www.vorchdorf.at/ASZ_Vorchdorf" target="_blank" class="tile">
+                    <div class="tile-header">
+                        <span class="tile-icon">🏭</span>
+                        <h3>ASZ Altstoffsammelzentrum</h3>
+                    </div>
+                    <div class="tile-content">
+                        <p>♻️ Altstoffe richtig entsorgen</p>
+                        <p>🕐 Infos zu Öffnungszeiten & Standort</p>
+                        <p>📋 Was wird angenommen?</p>
+                        <span class="tile-link">→ Mehr Informationen</span>
+                    </div>
+                </a>
             </div>
-            <div class="formulare-grid" id="formulareGrid"></div>
         </div>
 
         <!-- Footer -->
@@ -262,52 +330,6 @@
                 performSearch();
             }
         });
-
-        // Lade Formulare aus JSON
-        let data = {"count": 0, "formulare": []};
-        fetch('data/formulare.json')
-            .then(response => response.json())
-            .then(jsonData => {
-                data = jsonData;
-                document.getElementById('count').textContent = `${data.count} Formulare`;
-                filtered = data.formulare;
-                renderFormulare();
-            })
-            .catch(error => {
-                console.error('Fehler beim Laden der Formulare:', error);
-                // Fallback: Versuche statische Daten
-            });
-        let filtered = [];
-
-        function renderFormulare() {
-            if (filtered.length === 0) {
-                document.getElementById('formulareGrid').innerHTML = '<div class="no-results">Keine Formulare gefunden</div>';
-                return;
-            }
-            const html = filtered.map(f => `
-                <a href="${f.url}" target="_blank" class="formular-item">
-                    <div class="formular-icon">📄</div>
-                    <div class="formular-content">
-                        <div class="formular-title">${esc(f.title)}</div>
-                    </div>
-                    <div class="formular-arrow">→</div>
-                </a>
-            `).join('');
-            document.getElementById('formulareGrid').innerHTML = html;
-        }
-
-        function esc(str) {
-            if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-
-        document.getElementById('filterInput').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            filtered = data.formulare.filter(f => f.title.toLowerCase().includes(term));
-            renderFormulare();
-        });
-
-        renderFormulare();
     </script>
 </body>
 </html>
