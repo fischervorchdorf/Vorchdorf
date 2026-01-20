@@ -178,7 +178,7 @@
     {
         "name": "Barber Shop - Erkan Abi",
         "location": "4655 Vorchdorf",
-        "link": "https://www.erkanabibarbershop.at",
+        "link": "https://www.erkanabi-barbershop.at/",
         "category": "beauty",
         "search": "Friseur, Herrenfriseur, Barber, Bartpflege",
         "werbering": true
@@ -194,7 +194,7 @@
     {
         "name": "Baumgartner Tischlerei & Raumplanung",
         "location": "Mühltal 44, 4655 Vorchdorf",
-        "link": "https://www.tischlerelbaumgartner.com",
+        "link": "https://www.tischlerei-baumgartner.com/",
         "category": "construction",
         "search": "Tischlerei, Möbel nach Maß, Türen, Innenausbau",
         "werbering": true
@@ -282,7 +282,7 @@
     {
         "name": "Buchegger Johann - Fenster - Sonnenschutz",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://hausbaufuehrer.at/johann-buchegger-fenster-sonnenschutz-in-4655-vorchdorf-18884",
         "category": "construction",
         "search": "Fenster & Sonnenschutz, Fenster, Türen, Sonnenschutz",
         "werbering": true
@@ -346,7 +346,7 @@
     {
         "name": "Dickinger Agrarhandel GmbH",
         "location": "Stampfstrasse 3, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Dickinger_Agrarhandel_GmbH",
         "category": "construction",
         "search": "Agrarhandel, Futtermittel, Landwirtschaftsbedarf",
         "werbering": true
@@ -378,7 +378,7 @@
     {
         "name": "ECKMANN Friseursalon",
         "location": "4663 Laakirchen",
-        "link": "",
+        "link": "https://www.laakirchen.ooe.gv.at/Eckmann_Friseursalon",
         "category": "beauty",
         "search": "Friseur, Damen- und Herrenfriseur",
         "werbering": false
@@ -394,7 +394,7 @@
     {
         "name": "EGRU - Unternehmensberatung",
         "location": "Kapellenweg 8, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/EGRU_-_Unternehmensberatung",
         "category": "services",
         "search": "Unternehmensberatung, Unternehmensberatung",
         "werbering": false
@@ -410,7 +410,7 @@
     {
         "name": "Elektro Payrhuber Installations- und Handels GmbH",
         "location": "Bahnhofstraße 29, 4655 Vorchdorf",
-        "link": "https://www.payrhuber.at",
+        "link": "https://www.elektropayrhuber.at/",
         "category": "construction",
         "search": "Elektroinstallation, Elektroinstallation",
         "werbering": true
@@ -418,7 +418,7 @@
     {
         "name": "Elektrotechnik Hutterer",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.hutterer.biz/",
         "category": "construction",
         "search": "Elektrotechnik, Elektriker, Installation",
         "werbering": true
@@ -470,6 +470,14 @@
         "category": "cars",
         "search": "Industrie, Felgen, Räder",
         "werbering": true
+    },
+    {
+        "name": "FalkenOhr",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.falkenohr.at/",
+        "category": "construction",
+        "search": "HIFI & AUDIO, HiFi, TV, Audio",
+        "werbering": false
     },
     {
         "name": "FDM Danner Metalltechnik GmbH",
@@ -594,7 +602,7 @@
     {
         "name": "FÜRTBAUER-Bilanzbuchhaltung",
         "location": "4664 Oberweis",
-        "link": "",
+        "link": "https://firmen.wko.at/gabriele-f%C3%BCrtbauer-selbst%C3%A4ndige-bilanzbuchhalterin-nach-bibug/ober%C3%B6sterreich/?firmaid=bd834b17-ebc4-4852-936d-e2a3c23b8050",
         "category": "accounting",
         "search": "Steuerberatung, Buchhaltung, Bilanzierung",
         "werbering": false
@@ -610,7 +618,7 @@
     {
         "name": "Garten Haselberger",
         "location": "Albenedt 14, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Garten_Haselberger",
         "category": "services",
         "search": "Landschaftspflege, Gartengestaltung",
         "werbering": false
@@ -701,6 +709,14 @@
         "link": "https://www.gollinger.net",
         "category": "transport",
         "search": "Taxi & Mietwagen, Mietwagen, Krankenbeförderung",
+        "werbering": true
+    },
+    {
+        "name": "Götschhofer Thomas GesmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.vorchdorf.at/Goetschhofer_Thomas_GesmbH_Dachdeckerei_-_Spenglerei_-_Kranarbeiten_-_Flachdaecher_-_Solarmontagen",
+        "category": "construction",
+        "search": "Dachdecker, Dachdeckerei, Spenglerei, Kranarbeiten",
         "werbering": true
     },
     {
@@ -890,7 +906,7 @@
     {
         "name": "HOFER - Technisches Zeichenbüro",
         "location": "Thalbachweg 38, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/HOFER_-_Technisches_Zeichenbuero",
         "category": "services",
         "search": "Dienstleistung, 3D-Pläne, Einreichpläne",
         "werbering": false
@@ -962,7 +978,7 @@
     {
         "name": "Innocente Pflanzgefäße",
         "location": "4655 Vorchdorf",
-        "link": "https://www.innocente-pflanzgefaesse.at",
+        "link": "https://www.innocente.at/pflanzgefaesse/",
         "category": "construction",
         "search": "Pflanzgefäße, Garten, Beton",
         "werbering": true
@@ -1034,7 +1050,7 @@
     {
         "name": "KIENINGER JESSICA, Hunde- und Katzensalon",
         "location": "4663 Laakirchen",
-        "link": "https://www.hundekatzensalon.com",
+        "link": "https://www.hunde-katzensalon.com",
         "category": "services",
         "search": "Hundesalon & Tierpflege, Hundepflege, Katzenpflege",
         "werbering": false
@@ -1130,7 +1146,7 @@
     {
         "name": "LCA - Agentur für Rationalisierungs- u. Sicherheitstechnik",
         "location": "Messenbacherstrasse 24, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/LCA_-_Agentur_fuer_Rationalisierungs-_u_Sicherheitstechnik",
         "category": "services",
         "search": "Unternehmensberatung, Rationalisierung, Sicherheitstechnik",
         "werbering": false
@@ -1226,7 +1242,7 @@
     {
         "name": "Marmor-Stein Handels & Montage GmbH",
         "location": "4655 Vorchdorf",
-        "link": "https://www.marmorstein.at",
+        "link": "https://www.marmor-stein.at",
         "category": "construction",
         "search": "Steinmetz, Marmor, Stein, Naturstein, Montage",
         "werbering": true
@@ -1242,7 +1258,7 @@
     {
         "name": "Massmöbel Individuell",
         "location": "Eggenberg 13, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Massmoebel_Individuell",
         "category": "construction",
         "search": "Möbel & Einrichtung, Möbel nach Maß",
         "werbering": false
@@ -1370,7 +1386,7 @@
     {
         "name": "Nahwärme Vorchdorf e.G.",
         "location": "4655 Vorchdorf",
-        "link": "https://www.nahwaermevorchdorf.at",
+        "link": "https://www.nahwaerme-vorchdorf.at",
         "category": "services",
         "search": "Energie, Fernwärme, Nahwärme",
         "werbering": true
@@ -1410,7 +1426,7 @@
     {
         "name": "Palman Oliver, Maler und Anstreicher",
         "location": "4655 Vorchdorf",
-        "link": "https://www.palman.co.at",
+        "link": "https://www.daibau.at/oliver_palman",
         "category": "construction",
         "search": "Malerei, Malerarbeiten, Fassade",
         "werbering": true
@@ -1458,7 +1474,7 @@
     {
         "name": "Plank Kachelöfen und Fliesen",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.hafnertec.com/vertriebspartner/plank-franz/?utm_term=&utm_campaign=AT_08_2024_SPOK&utm_source=adwords&utm_medium=ppc&hsa_acc=3054782009&hsa_cam=21597681731&hsa_grp=174674059668&hsa_ad=757109534793&hsa_src=g&hsa_tgt=dsa-840263501514&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=21597681731&gbraid=0AAAAA99tfclA5tma6bJaaoYG-f3EjlbAj&gclid=CjwKCAiA7LzLBhAgEiwAjMWzCAPbNI-F7hI68uIxIFRA0SQWg2pANs2nPg2WoeESkfiAOAM24SK0RxoCe-EQAvD_BwE",
         "category": "construction",
         "search": "Kachelofen, Fliesen, Ofenbau",
         "werbering": true
@@ -1522,7 +1538,7 @@
     {
         "name": "Radner Bernhard, Tischlerei",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.bestattung-vorchdorf.at/",
         "category": "construction",
         "search": "Tischlerei, Tischlerei, Möbel",
         "werbering": true
@@ -1562,7 +1578,7 @@
     {
         "name": "regio intakt Unternehmensberatung e.U.",
         "location": "4655 Vorchdorf",
-        "link": "https://www.regiointakt.at",
+        "link": "https://www.vorchdorfonline.at/users/regio-intakt-unternehmensberatung-eu",
         "category": "services",
         "search": "Unternehmensberatung, Beratung, Coaching",
         "werbering": true
@@ -1570,7 +1586,7 @@
     {
         "name": "REINIGUNG: GLAS-STEIN-PKW-BOOTE UVM....",
         "location": "Falkenohren 16, 4655 Vorchdorf",
-        "link": "http://www.nano-power.at",
+        "link": "https://firmen.wko.at/g%C3%BCnter-kubista-nano-power/ober%C3%B6sterreich/?firmaid=5e0b8964-8a32-4556-8f32-94aa011cb7d7",
         "category": "services",
         "search": "Reinigung, Reinigung, Versiegelung",
         "werbering": false
@@ -1602,7 +1618,7 @@
     {
         "name": "Sattler Hans-Peter Techn. Zeichenbüro",
         "location": "Bahnweg 5, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Sattler_Hans-Peter_Techn_Zeichenbuero",
         "category": "services",
         "search": "Dienstleistung, 3D-Pläne, Einreichpläne",
         "werbering": false
@@ -1618,7 +1634,7 @@
     {
         "name": "Scherleithner Josef Grubenservice",
         "location": "Schart 17, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Scherleithner_Josef_Grubenservice",
         "category": "services",
         "search": "Landwirtschaft, Abfallsammlung",
         "werbering": false
@@ -1650,7 +1666,7 @@
     {
         "name": "SCHMALWIESER - Bastel-, Schul- und Nähbedarf, Stoffe",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorfonline.at/users/schmalwieser",
         "category": "construction",
         "search": "Bastel & Nähbedarf, Bastelbedarf, Stoffe, Nähzubehör",
         "werbering": true
@@ -1746,7 +1762,7 @@
     {
         "name": "Sodian Immobilien",
         "location": "4655 Vorchdorf",
-        "link": "https://www.sodian-immobilien.at",
+        "link": "http://www.sodian-immobilien.at/",
         "category": "construction",
         "search": "Immobilien, Immobilienvermittlung",
         "werbering": true
@@ -1810,7 +1826,7 @@
     {
         "name": "Tischlerei - Paulus Spitzbart",
         "location": "4663 Laakirchen",
-        "link": "https://www.floorcover.at",
+        "link": "https://www.tischlerei-spitzbart.at/",
         "category": "construction",
         "search": "Tischlerei, Tischlerei, Bodenbeläge",
         "werbering": true
@@ -1856,14 +1872,6 @@
         "werbering": false
     },
     {
-        "name": "Stenz Johannes, HIF&TV",
-        "location": "Kapellenweg 2, 4655 Vorchdorf",
-        "link": "http://www.stenz.at",
-        "category": "construction",
-        "search": "Elektro & Haushalt, HiFi, TV, Audio",
-        "werbering": false
-    },
-    {
         "name": "Stern & Hafferl GesmbH",
         "location": "Bahnhof, 4655 Vorchdorf",
         "link": "https://www.stern-verkehr.at",
@@ -1906,7 +1914,7 @@
     {
         "name": "T&H Sound Systems Ges.n.b.R",
         "location": "Theuerwang 22, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/T_H_Sound_Systems_Ges_n_b_R",
         "category": "construction",
         "search": "Elektro & Haushalt, Soundsysteme, Audio",
         "werbering": false
@@ -1920,14 +1928,6 @@
         "werbering": true
     },
     {
-        "name": "Götschhofer Thomas GesmbH",
-        "location": "4655 Vorchdorf",
-        "link": "https://www.gut-durchdacht.at",
-        "category": "construction",
-        "search": "Dachdecker, Dachdeckerei, Spenglerei, Kranarbeiten",
-        "werbering": true
-    },
-    {
         "name": "Tinkahof",
         "location": "Feldham 13, 4655 Vorchdorf",
         "link": "http://www.tinkahof.at",
@@ -1938,7 +1938,7 @@
     {
         "name": "Tischlerei STELZHAMMER GmbH",
         "location": "4663 Laakirchen",
-        "link": "",
+        "link": "https://www.firmenabc.at/stelzhammer-gesellschaft-m-b-h_kwX",
         "category": "construction",
         "search": "Tischlerei, Tischlerei, Möbel",
         "werbering": false
@@ -1976,14 +1976,6 @@
         "werbering": false
     },
     {
-        "name": "VBV Vorchdorf OG",
-        "location": "Lambacherstraße 16, 4655 Vorchdorf",
-        "link": "",
-        "category": "banks",
-        "search": "Versicherung, Versicherungsberatung",
-        "werbering": false
-    },
-    {
         "name": "Viechtbauer Stefan Wärmetechnik",
         "location": "4655 Vorchdorf",
         "link": "http://www.v-infrarot.at",
@@ -2002,7 +1994,7 @@
     {
         "name": "VKB-Bank Vorchdorf",
         "location": "Bahnhofstraße 7, 4655 Vorchdorf",
-        "link": "http://www.vorchdorf.vkb-bank.at",
+        "link": "https://www.vkb-bank.at/standorte/vorchdorf",
         "category": "banks",
         "search": "Bank, Konten, Kredite, Beratung",
         "werbering": false
