@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorchdorfer Mittagstisch</title>
+    <title>Mittagsmenü - Vorchdorf App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #059669;
-            /* Smaragdgrün */
-            --bg: #f8fafc;
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 50%, #1a472a 100%);
+            --shadow-md: rgba(0, 0, 0, 0.15);
+            --shadow-lg: rgba(0, 0, 0, 0.2);
+            --primary: #1a472a;
+            --primary-light: #2d7a47;
+            --bg: #f5f5f7;
             --surface: #ffffff;
             --text-main: #0f172a;
             --text-sec: #64748b;
@@ -29,68 +32,176 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text-main);
             font-size: 15px;
             line-height: 1.4;
-            padding-bottom: 2rem;
+            padding: 20px;
         }
 
-        /* Header */
-        .header {
-            background: var(--surface);
-            padding: 12px 16px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            border-bottom: 1px solid var(--border);
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header mit Wappen */
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 40px var(--shadow-lg);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
         }
 
-        .back-link {
+        header:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(26, 71, 42, 0.3);
+        }
+
+        header img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Back Button */
+        .back-button-container {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+        }
+
+        .back-button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .back-button:hover {
+            background: #f5f5f5;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
         }
 
-        .app-title {
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: var(--text-main);
+        /* Main Content */
+        .content-wrapper {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow-lg);
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .page-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header { padding: 10px 15px; }
+            header img { height: 40px; }
+            header h1 { font-size: 1.2rem; }
+            .content-wrapper { padding: 15px; }
+            .page-title h2 { font-size: 1.4rem; }
         }
 
         /* Tabs */
         .tabs {
             display: flex;
             gap: 8px;
-            padding: 12px 16px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            overflow-x: auto;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            background: transparent;
-            border-radius: 8px;
+            padding: 10px 16px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 10px;
             font-weight: 600;
             color: var(--text-sec);
             font-size: 0.9rem;
             white-space: nowrap;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
         }
 
         .tab-btn.active {
-            background: var(--primary);
+            background: var(--gradient-1);
             color: #fff;
             border-color: var(--primary);
         }
@@ -288,17 +399,30 @@
 </head>
 
 <body>
+    <div class="app-container">
+        <!-- App Header mit Wappen -->
+        <header onclick="window.location.href='index.html'">
+            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+            <h1>Vorchdorf-APP</h1>
+            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+        </header>
 
-    <header class="header">
-        <a href="index.html" class="back-link">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            Zurück
-        </a>
-        <div class="app-title">Mittagstisch</div>
-        <div style="width: 60px"></div>
-    </header>
+        <!-- Zurück Button -->
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">← Zurück zur Startseite</a>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">🏠 Start</a> › Mittagsmenü
+        </div>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="page-title">
+                <span style="font-size: 2rem;">🍽️</span>
+                <h2>Vorchdorfer Mittagstisch</h2>
+            </div>
 
     <div class="tabs">
         <button class="tab-btn active" onclick="setMode('today')">📅 Heute + Woche</button>
@@ -583,6 +707,13 @@
 
         init();
     </script>
+        </div> <!-- Ende content-wrapper -->
+
+        <!-- Footer -->
+        <div class="footer">
+            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 4.8
+        </div>
+    </div> <!-- Ende app-container -->
 </body>
 
 </html>

@@ -2839,7 +2839,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '4.7'; // Aktuelle Version der App
+        const APP_VERSION = '4.8'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -2934,6 +2934,12 @@ Mit freundlichen Grüßen`;
         // Global Business Data - Loaded from businesses.json
         let allBusinesses = [];
         let allClubs = {};
+
+        // Gemeinde-Verwaltung Daten - Loaded from JSON
+        let allFormulare = [];
+        let allMitarbeiter = [];
+        let allAbteilungen = [];
+        let allGemeindebetriebe = [];
 
         // Data Structure
         const categories = {
@@ -4075,6 +4081,53 @@ Mit freundlichen Grüßen`;
             }
         }
 
+        // Lade Gemeinde-Verwaltung Daten
+        async function loadGemeindeData() {
+            try {
+                // Lade Formulare
+                const formResponse = await fetch('./gemeinde-verwaltung/data/formulare.json');
+                const formData = await formResponse.json();
+                allFormulare = formData.formulare || [];
+                console.log(`✓ ${allFormulare.length} Formulare geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von formulare.json:', error);
+                allFormulare = [];
+            }
+
+            try {
+                // Lade Mitarbeiter
+                const mitResponse = await fetch('./gemeinde-verwaltung/data/mitarbeiter.json');
+                const mitData = await mitResponse.json();
+                allMitarbeiter = mitData.mitarbeiter || [];
+                console.log(`✓ ${allMitarbeiter.length} Mitarbeiter geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von mitarbeiter.json:', error);
+                allMitarbeiter = [];
+            }
+
+            try {
+                // Lade Abteilungen
+                const abtResponse = await fetch('./gemeinde-verwaltung/data/abteilungen.json');
+                const abtData = await abtResponse.json();
+                allAbteilungen = abtData.abteilungen || [];
+                console.log(`✓ ${allAbteilungen.length} Abteilungen geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von abteilungen.json:', error);
+                allAbteilungen = [];
+            }
+
+            try {
+                // Lade Gemeindebetriebe
+                const betResponse = await fetch('./gemeinde-verwaltung/data/gemeindebetriebe.json');
+                const betData = await betResponse.json();
+                allGemeindebetriebe = betData.betriebe || [];
+                console.log(`✓ ${allGemeindebetriebe.length} Gemeindebetriebe geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von gemeindebetriebe.json:', error);
+                allGemeindebetriebe = [];
+            }
+        }
+
         // Initialize App
         function init() {
             renderHome();
@@ -5153,6 +5206,130 @@ Mit freundlichen Grüßen`;
                 }
             });
 
+            // 4. Suche in FORMULAREN (Gemeinde-Verwaltung)
+            allFormulare.forEach(formular => {
+                const text = (formular.title || '').toLowerCase();
+                const normalizedText = normalizeString(text);
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (text.includes(variant) || normalizedText.includes(normalizedVariant)) {
+                        results.push({
+                            type: 'formular',
+                            priority: 5,
+                            formular: formular,
+                            matchText: formular.title
+                        });
+                        break;
+                    }
+                }
+            });
+
+            // 5. Suche in MITARBEITERN (Gemeinde-Verwaltung)
+            allMitarbeiter.forEach(person => {
+                const text = `${person.name || ''} ${person.email || ''}`.toLowerCase();
+                const normalizedText = normalizeString(text);
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (text.includes(variant) || normalizedText.includes(normalizedVariant)) {
+                        results.push({
+                            type: 'mitarbeiter',
+                            priority: 5.1,
+                            person: person,
+                            matchText: person.name
+                        });
+                        break;
+                    }
+                }
+            });
+
+            // 6. Suche in ABTEILUNGEN (Gemeinde-Verwaltung)
+            allAbteilungen.forEach(abteilung => {
+                const abtText = `${abteilung.name || ''}`.toLowerCase();
+                const normalizedAbtText = normalizeString(abtText);
+                let abtMatch = false;
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (abtText.includes(variant) || normalizedAbtText.includes(normalizedVariant)) {
+                        abtMatch = true;
+                        results.push({
+                            type: 'abteilung',
+                            priority: 5.2,
+                            abteilung: abteilung,
+                            matchText: abteilung.name
+                        });
+                        break;
+                    }
+                }
+
+                // Auch in Mitarbeitern der Abteilung suchen
+                if (!abtMatch && abteilung.mitarbeiter) {
+                    abteilung.mitarbeiter.forEach(person => {
+                        const personText = `${person.name || ''} ${person.funktion || ''} ${person.email || ''}`.toLowerCase();
+                        const normalizedPersonText = normalizeString(personText);
+
+                        for (const variant of searchVariations) {
+                            const normalizedVariant = normalizeString(variant);
+                            if (personText.includes(variant) || normalizedPersonText.includes(normalizedVariant)) {
+                                results.push({
+                                    type: 'abteilung-person',
+                                    priority: 5.3,
+                                    abteilung: abteilung,
+                                    person: person,
+                                    matchText: person.name
+                                });
+                                break;
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 7. Suche in GEMEINDEBETRIEBEN
+            allGemeindebetriebe.forEach(betrieb => {
+                const betText = `${betrieb.name || ''} ${betrieb.beschreibung || ''}`.toLowerCase();
+                const normalizedBetText = normalizeString(betText);
+                let betMatch = false;
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (betText.includes(variant) || normalizedBetText.includes(normalizedVariant)) {
+                        betMatch = true;
+                        results.push({
+                            type: 'gemeindebetrieb',
+                            priority: 5.4,
+                            betrieb: betrieb,
+                            matchText: betrieb.name
+                        });
+                        break;
+                    }
+                }
+
+                // Auch in Mitarbeitern des Betriebs suchen
+                if (!betMatch && betrieb.mitarbeiter) {
+                    betrieb.mitarbeiter.forEach(person => {
+                        const personText = `${person.name || ''} ${person.funktion || ''} ${person.email || ''}`.toLowerCase();
+                        const normalizedPersonText = normalizeString(personText);
+
+                        for (const variant of searchVariations) {
+                            const normalizedVariant = normalizeString(variant);
+                            if (personText.includes(variant) || normalizedPersonText.includes(normalizedVariant)) {
+                                results.push({
+                                    type: 'gemeindebetrieb-person',
+                                    priority: 5.5,
+                                    betrieb: betrieb,
+                                    person: person,
+                                    matchText: person.name
+                                });
+                                break;
+                            }
+                        }
+                    });
+                }
+            });
+
             // Sortiere nach Priorität (Kategorien zuerst, dann Unterkategorien, dann Items, dann Businesses)
             results.sort((a, b) => a.priority - b.priority);
 
@@ -5172,6 +5349,18 @@ Mit freundlichen Grüßen`;
                     key = `item-${result.category.id}-${result.subcategory.id}-${result.item.title}`;
                 } else if (result.type === 'content-item') {
                     key = `content-${result.category.id}-${result.item.title}`;
+                } else if (result.type === 'formular') {
+                    key = `formular-${result.formular.title}`;
+                } else if (result.type === 'mitarbeiter') {
+                    key = `mitarbeiter-${result.person.name}`;
+                } else if (result.type === 'abteilung') {
+                    key = `abteilung-${result.abteilung.name}`;
+                } else if (result.type === 'abteilung-person') {
+                    key = `abteilung-person-${result.abteilung.name}-${result.person.name}`;
+                } else if (result.type === 'gemeindebetrieb') {
+                    key = `gemeindebetrieb-${result.betrieb.name}`;
+                } else if (result.type === 'gemeindebetrieb-person') {
+                    key = `gemeindebetrieb-person-${result.betrieb.name}-${result.person.name}`;
                 }
 
                 if (!seen.has(key)) {
@@ -5257,6 +5446,71 @@ Mit freundlichen Grüßen`;
                             ${b.link ? `<a href="${b.link}" class="business-link" target="_blank">🌐 Website besuchen</a>` : ''}
                         </div>
                     `;
+                } else if (result.type === 'formular') {
+                    // Formulare
+                    const f = result.formular;
+                    html += `
+                        <div class="business-card">
+                            <div class="business-name">📄 ${f.title}</div>
+                            <div class="business-location">🏛️ Gemeinde & Verwaltung → Formulare</div>
+                            <a href="${f.url}" class="business-link" target="_blank">→ Formular öffnen</a>
+                        </div>
+                    `;
+                } else if (result.type === 'mitarbeiter') {
+                    // Mitarbeiter
+                    const p = result.person;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/mitarbeiter.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">👤 ${p.name}</div>
+                            <div class="business-location">🏛️ Gemeindemitarbeiter</div>
+                            ${p.telefon ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">☎️ ${p.telefon}</p>` : ''}
+                            ${p.email ? `<p style="font-size: 0.9em; color: var(--text-light);">📧 ${p.email}</p>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'abteilung') {
+                    // Abteilungen
+                    const a = result.abteilung;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/abteilungen.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">🏛️ ${a.name}</div>
+                            <div class="business-location">Gemeindeamt Vorchdorf</div>
+                            ${a.url ? `<a href="${a.url}" class="business-link" target="_blank" onclick="event.stopPropagation()">→ Mehr Infos</a>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'abteilung-person') {
+                    // Person in Abteilung
+                    const p = result.person;
+                    const a = result.abteilung;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/abteilungen.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">👤 ${p.name}</div>
+                            <div class="business-location">🏛️ ${a.name}</div>
+                            ${p.funktion ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${p.funktion}</p>` : ''}
+                            ${p.telefon ? `<p style="font-size: 0.9em; color: var(--text-light);">☎️ ${p.telefon}</p>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'gemeindebetrieb') {
+                    // Gemeindebetriebe
+                    const b = result.betrieb;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/gemeindebetriebe.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">🏗️ ${b.name}</div>
+                            <div class="business-location">🏛️ Gemeinde & Verwaltung → Gemeindebetriebe</div>
+                            ${b.url ? `<a href="${b.url}" class="business-link" target="_blank" onclick="event.stopPropagation()">→ Mehr Infos</a>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'gemeindebetrieb-person') {
+                    // Person in Gemeindebetrieb
+                    const p = result.person;
+                    const b = result.betrieb;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/gemeindebetriebe.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">👤 ${p.name}</div>
+                            <div class="business-location">🏗️ ${b.name}</div>
+                            ${p.funktion ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${p.funktion}</p>` : ''}
+                            ${p.telefon ? `<p style="font-size: 0.9em; color: var(--text-light);">☎️ ${p.telefon}</p>` : ''}
+                        </div>
+                    `;
                 }
             });
 
@@ -5268,6 +5522,7 @@ Mit freundlichen Grüßen`;
         document.addEventListener('DOMContentLoaded', async function () {
             await loadBusinesses();  // Lade businesses aus JSON
             await loadClubs();       // Lade vereine aus JSON
+            await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
 
             // Scroll-Check für Floating Back Button
             window.addEventListener('scroll', function () {

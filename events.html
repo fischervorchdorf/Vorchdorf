@@ -1,83 +1,167 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veranstaltungen in Vorchdorf</title>
+    <title>Veranstaltungen - Vorchdorf App</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 50%, #1a472a 100%);
+            --shadow-md: rgba(0, 0, 0, 0.15);
+            --shadow-lg: rgba(0, 0, 0, 0.2);
+            --primary: #1a472a;
+            --primary-light: #2d7a47;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f7;
             min-height: 100vh;
             padding: 20px;
         }
 
-        .container {
+        .app-container {
             max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
         }
 
-        .back-button-container {
-            padding: 20px 30px;
-            background: white;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .back-button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 1em;
-        }
-
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
+        /* Header mit Wappen */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-1);
             color: white;
-            padding: 40px;
-            text-align: center;
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 40px var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        header:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(26, 71, 42, 0.3);
+        }
+
+        header img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
         }
 
         header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
         }
 
-        .filters {
+        /* Back Button */
+        .back-button-container {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+        }
+
+        .back-button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .back-button:hover {
+            background: #f5f5f5;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            background: white;
             padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow-lg);
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .page-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .update-info {
+            text-align: center;
+            padding: 10px;
+            background: #e8f5e9;
+            color: var(--primary);
+            font-size: 0.9em;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Filter Section */
+        .filters {
             background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
 
         .filter-section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+        }
+
+        .filter-section:last-child {
+            margin-bottom: 0;
         }
 
         .filter-label {
             display: block;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #495057;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         .time-filter,
@@ -89,66 +173,78 @@
         }
 
         .filter-btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: 2px solid #dee2e6;
             background: white;
             color: #495057;
-            border-radius: 25px;
+            border-radius: 20px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
 
         .filter-btn:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+            border-color: var(--primary);
+            background: #f8fff8;
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-1);
             color: white;
-            border-color: #667eea;
+            border-color: var(--primary);
         }
 
-        .select-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+        .search-input-container {
             margin-top: 15px;
         }
 
-        select,
-        input[type="text"] {
+        .search-input-container input {
             width: 100%;
-            padding: 12px;
+            max-width: 400px;
+            padding: 12px 20px;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             font-size: 15px;
-            background: white;
         }
 
-        select:focus,
-        input:focus {
+        .search-input-container input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
         }
 
-        .events-container {
-            padding: 30px;
+        .clear-filters {
+            text-align: center;
+            margin-top: 15px;
         }
 
+        .clear-btn {
+            padding: 10px 25px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clear-btn:hover {
+            background: #495057;
+        }
+
+        /* Stats */
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-1);
             color: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             text-align: center;
             cursor: pointer;
@@ -156,27 +252,36 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 71, 42, 0.3);
         }
 
         .stat-number {
-            font-size: 3em;
+            font-size: 2.5em;
             font-weight: 700;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 1em;
+            font-size: 0.9em;
             opacity: 0.95;
         }
 
+        /* Event Cards */
+        .event-count {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.1em;
+            color: #495057;
+            font-weight: 600;
+        }
+
         .event-card {
-            background: white;
-            border: 2px solid #f1f3f5;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
@@ -189,69 +294,69 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-1);
             border-radius: 15px 0 0 15px;
         }
 
         .event-card:hover {
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
-            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .event-date {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-1);
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 8px;
             display: inline-block;
             font-weight: 600;
             margin-bottom: 10px;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
 
         .event-title {
-            font-size: 1.6em;
+            font-size: 1.4em;
             color: #212529;
-            margin: 15px 0;
+            margin: 10px 0;
             font-weight: 700;
         }
 
         .event-meta {
             color: #6c757d;
-            margin: 8px 0;
+            margin: 5px 0;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
 
         .category-tag {
-            background: #e7f1ff;
-            color: #0066cc;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            background: #e8f5e9;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
             display: inline-block;
-            margin: 5px 5px 5px 0;
+            margin: 3px 3px 3px 0;
             font-weight: 500;
         }
 
         .age-tag {
             background: #fff3cd;
             color: #856404;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
             display: inline-block;
-            margin: 5px 5px 5px 0;
+            margin: 3px 3px 3px 0;
             font-weight: 500;
         }
 
         .event-details {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 2px solid #f1f3f5;
+            border-top: 2px solid #e9ecef;
             display: none;
         }
 
@@ -261,10 +366,10 @@
 
         .expand-icon {
             position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 1.5em;
-            color: #667eea;
+            top: 20px;
+            right: 20px;
+            font-size: 1.3em;
+            color: var(--primary);
             transition: transform 0.3s;
         }
 
@@ -272,215 +377,124 @@
             transform: rotate(180deg);
         }
 
-        .event-count {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.2em;
-            color: #495057;
-            font-weight: 600;
-        }
-
-        .no-events {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
-        }
-
         .detail-row {
             margin: 10px 0;
             padding: 10px;
-            background: #f8f9fa;
+            background: white;
             border-radius: 8px;
         }
 
         .detail-row strong {
-            color: #667eea;
+            color: var(--primary);
             display: block;
             margin-bottom: 5px;
         }
 
-        .clear-filters {
+        .no-events {
             text-align: center;
-            margin: 20px 0;
+            padding: 50px 20px;
+            color: #6c757d;
         }
 
-        .clear-btn {
-            padding: 12px 30px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 10px;
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .clear-btn:hover {
-            background: #495057;
-            transform: translateY(-2px);
-        }
-
-        .update-info {
-            text-align: center;
-            padding: 10px;
-            background: #e7f1ff;
-            color: #0066cc;
-            font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 25px 15px;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-                margin-bottom: 5px;
-            }
-
-            header p {
-                font-size: 0.95em;
-            }
-
-            .back-button-container {
-                padding: 15px;
-            }
-
-            .back-button {
-                padding: 10px 15px;
-                font-size: 0.9em;
-            }
-
-            .filters {
-                padding: 15px;
-            }
-
-            .filter-section {
-                margin-bottom: 20px;
-            }
-
-            .events-container {
-                padding: 15px;
-            }
-
-            .stat-number {
-                font-size: 2.2em;
-            }
-
-            .stat-card {
-                padding: 15px;
-            }
-
-            /* Compact Event Card for Mobile */
-            .event-card {
-                padding: 15px;
-                margin-bottom: 12px;
-                border-radius: 12px;
-            }
-
-            .event-title {
-                font-size: 1.25em;
-                margin: 8px 0;
-                line-height: 1.3;
-            }
-
-            .event-date {
-                font-size: 0.85em;
-                padding: 4px 10px;
-                margin-bottom: 8px;
-            }
-
-            .event-meta {
-                font-size: 0.9em;
-                margin: 4px 0;
-            }
-
-            .category-tag,
-            .age-tag {
-                padding: 4px 10px;
-                font-size: 0.8em;
-                margin: 3px 3px 3px 0;
-            }
-
-            .expand-icon {
-                top: 15px;
-                right: 15px;
-                font-size: 1.2em;
-            }
-
-            .select-group {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 10px; }
+            header { padding: 10px 15px; }
+            header img { height: 40px; }
+            header h1 { font-size: 1.2rem; }
+            .content-wrapper { padding: 15px; }
+            .page-title h2 { font-size: 1.5rem; }
+            .stat-number { font-size: 2em; }
+            .stat-card { padding: 15px; }
+            .event-card { padding: 15px; }
+            .event-title { font-size: 1.2em; }
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
+    <div class="app-container">
+        <!-- App Header mit Wappen -->
+        <header onclick="window.location.href='index.html'">
+            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+            <h1>Vorchdorf-APP</h1>
+            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+        </header>
+
+        <!-- Zurück Button -->
         <div class="back-button-container">
             <a href="index.html" class="back-button">← Zurück zur Startseite</a>
         </div>
 
-        <header>
-            <h1>🎉 Veranstaltungen in Vorchdorf</h1>
-            <p>Entdecke die nächsten Events in deiner Gemeinde</p>
-        </header>
-
-        <div class="update-info" id="updateInfo">
-            Lädt Veranstaltungen...
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">🏠 Start</a> › Veranstaltungen
         </div>
 
-        <div class="filters">
-            <div class="filter-section">
-                <label class="filter-label">📅 Zeitraum</label>
-                <div class="time-filter">
-                    <button class="filter-btn active" onclick="setTimeFilter('week')">Diese Woche</button>
-                    <button class="filter-btn" onclick="setTimeFilter('month')">Dieser Monat</button>
-                    <button class="filter-btn" onclick="setTimeFilter('all')">Alle Termine</button>
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="page-title">
+                <span style="font-size: 2.5rem;">📅</span>
+                <h2>Veranstaltungen in Vorchdorf</h2>
+            </div>
+
+            <div class="update-info" id="updateInfo">
+                Lädt Veranstaltungen...
+            </div>
+
+            <div class="filters">
+                <div class="filter-section">
+                    <label class="filter-label">📅 Zeitraum</label>
+                    <div class="time-filter">
+                        <button class="filter-btn active" onclick="setTimeFilter('week')">Diese Woche</button>
+                        <button class="filter-btn" onclick="setTimeFilter('month')">Dieser Monat</button>
+                        <button class="filter-btn" onclick="setTimeFilter('all')">Alle Termine</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <label class="filter-label">👥 Für wen? (mehrfach auswählbar)</label>
+                    <div class="age-filter" id="ageButtons"></div>
+                </div>
+
+                <div class="filter-section">
+                    <label class="filter-label">📂 Kategorien (mehrfach auswählbar)</label>
+                    <div class="category-filter" id="categoryButtons"></div>
+                </div>
+
+                <div class="filter-section">
+                    <label class="filter-label">🔍 Suche</label>
+                    <div class="search-input-container">
+                        <input type="text" id="searchInput" placeholder="Nach Veranstaltung suchen..." oninput="filterEvents()">
+                    </div>
+                </div>
+
+                <div class="clear-filters">
+                    <button class="clear-btn" onclick="clearAllFilters()">🔄 Alle Filter zurücksetzen</button>
                 </div>
             </div>
 
-            <div class="filter-section">
-                <label class="filter-label">👥 Für wen? (mehrfach auswählbar)</label>
-                <div class="age-filter" id="ageButtons"></div>
-            </div>
-
-            <div class="filter-section">
-                <label class="filter-label">📂 Kategorien (mehrfach auswählbar)</label>
-                <div class="category-filter" id="categoryButtons"></div>
-            </div>
-
-            <div class="filter-section">
-                <div class="select-group">
-                    <div>
-                        <label class="filter-label">🎯 Veranstaltung auswählen</label>
-                        <select id="eventNameFilter" onchange="filterEvents()">
-                            <option value="">Alle Veranstaltungen</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="filter-label">📍 Veranstaltungsort</label>
-                        <select id="locationFilter" onchange="filterEvents()">
-                            <option value="">Alle Orte</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="filter-label">🔍 Suche</label>
-                        <input type="text" id="searchInput" placeholder="Nach Veranstaltung suchen..."
-                            oninput="filterEvents()">
-                    </div>
-                </div>
-            </div>
-
-            <div class="clear-filters">
-                <button class="clear-btn" onclick="clearAllFilters()">🔄 Alle Filter zurücksetzen</button>
-            </div>
-        </div>
-
-        <div class="events-container">
             <div class="stats" id="stats"></div>
             <div class="event-count" id="eventCount"></div>
             <div id="eventsList">Lade Veranstaltungen...</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 4.8
         </div>
     </div>
 
@@ -547,24 +561,6 @@
             document.getElementById('categoryButtons').innerHTML = Array.from(categories).sort().map(cat =>
                 `<button class="filter-btn" onclick="toggleCategory('${cat}')">${cat}</button>`
             ).join('');
-
-            const eventNames = new Set();
-            allEvents.forEach(e => {
-                if (e['Veranstaltung']) eventNames.add(e['Veranstaltung']);
-            });
-
-            document.getElementById('eventNameFilter').innerHTML =
-                '<option value="">Alle Veranstaltungen</option>' +
-                Array.from(eventNames).sort().map(name =>
-                    `<option value="${name}">${name}</option>`
-                ).join('');
-
-            const locations = new Set(allEvents.map(e => e.Ort).filter(Boolean));
-            document.getElementById('locationFilter').innerHTML =
-                '<option value="">Alle Orte</option>' +
-                Array.from(locations).sort().map(loc =>
-                    `<option value="${loc}">${loc}</option>`
-                ).join('');
         }
 
         function toggleAge(age) {
@@ -609,15 +605,11 @@
             document.querySelectorAll('.category-filter .filter-btn, .age-filter .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            document.getElementById('eventNameFilter').value = '';
-            document.getElementById('locationFilter').value = '';
             document.getElementById('searchInput').value = '';
             filterEvents();
         }
 
         function filterEvents() {
-            const eventName = document.getElementById('eventNameFilter').value;
-            const location = document.getElementById('locationFilter').value;
             const search = document.getElementById('searchInput').value.toLowerCase();
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -636,8 +628,6 @@
                     if (eventDate > monthLater) return false;
                 }
 
-                if (eventName && event.Veranstaltung !== eventName) return false;
-
                 if (selectedAges.size > 0) {
                     const eventAges = (event['Zielgruppe'] || '').split(',').map(a => a.trim());
                     if (!Array.from(selectedAges).some(age => eventAges.includes(age))) return false;
@@ -647,8 +637,6 @@
                     const eventCats = (event['Kategorie (Auto)'] || '').split(',').map(c => c.trim());
                     if (!Array.from(selectedCategories).some(cat => eventCats.includes(cat))) return false;
                 }
-
-                if (location && event.Ort !== location) return false;
 
                 if (search) {
                     const searchText = `${event.Veranstaltung} ${event.Beschreibung || ''} ${event.Ort}`.toLowerCase();
@@ -688,7 +676,7 @@
                             ${event.Beschreibung ? `<p style="margin-bottom:15px;line-height:1.7;color:#495057;">${event.Beschreibung}</p>` : ''}
                             ${event.Veranstalter ? `<div class="detail-row"><strong>Veranstalter</strong>${event.Veranstalter}</div>` : ''}
                             ${event.Kontakt ? `<div class="detail-row"><strong>Kontakt</strong>${event.Kontakt}</div>` : ''}
-                            ${event.URL ? `<div class="detail-row"><strong>Weitere Infos</strong><a href="${event.URL}" target="_blank" style="color:#667eea;">Zur Veranstaltungsseite →</a></div>` : ''}
+                            ${event.URL ? `<div class="detail-row"><strong>Weitere Infos</strong><a href="${event.URL}" target="_blank" style="color:#1a472a;">Zur Veranstaltungsseite →</a></div>` : ''}
                         </div>
                     </div>
                 `;
@@ -740,5 +728,4 @@
         loadEvents();
     </script>
 </body>
-
 </html>
