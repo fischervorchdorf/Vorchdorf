@@ -184,6 +184,14 @@
         "werbering": true
     },
     {
+        "name": "BÄR on TOUR Foodtruck",
+        "location": "Hochbaustraße 9, 4694 Ohlsdorf",
+        "link": "https://baer-on-tour.at",
+        "category": "gastro",
+        "search": "Spitzengastronomie, Street Food, Foodtruck, Events, regional, frisch",
+        "werbering": true
+    },
+    {
         "name": "Bauelemente ZIEGELBÄCK KG",
         "location": "4664 Oberweis",
         "link": "https://www.ziegelbaeck.at",
@@ -448,6 +456,14 @@
         "werbering": false
     },
     {
+        "name": "Escape House Vorchdorf",
+        "location": "Lambacherstraße 7, 4655 Vorchdorf",
+        "link": "https://www.escape-house.at",
+        "category": "culture",
+        "search": "Escape Room Abenteuer, Themenräume, Zeitreise, Familie, Freunde, Vereinsausflug, Firmenevents",
+        "werbering": true
+    },
+    {
         "name": "Auto Esthofer Team GmbH",
         "location": "4655 Vorchdorf",
         "link": "https://www.esthofer.com",
@@ -632,6 +648,14 @@
         "werbering": true
     },
     {
+        "name": "FRUTURA Obst & Gemüse Kompetenzzentrum GmbH",
+        "location": "Asamerstraße 1b, 4655 Vorchdorf",
+        "link": "https://www.frutura.com",
+        "category": "industry",
+        "search": "Obst und Gemüse, Kompetenzzentrum, Landwirtschaftliche Produkte, Frutura",
+        "werbering": true
+    },
+    {
         "name": "Gasthaus Hinterreitner Rainer",
         "location": "Eggenberg 11, 4655 Vorchdorf",
         "link": "https://www.ghhinterreitner.at",
@@ -725,6 +749,14 @@
         "link": "https://www.lito.at",
         "category": "catering",
         "search": "Veranstaltungstechnik, Licht, Ton, Events",
+        "werbering": true
+    },
+    {
+        "name": "Gut Haberhaide – Hofladen, Mostschenke, Arche-Hof",
+        "location": "Kranabeth 14, 4663 Laakirchen",
+        "link": "https://hoidinger.at",
+        "category": "gastro",
+        "search": "Hofladen, Mostschenke, Arche-Hof, regionale Spezialitäten, Rind, Schwein, Pute, Hühnerfleisch, Direktvermarktung",
         "werbering": true
     },
     {
@@ -981,6 +1013,14 @@
         "link": "https://www.innocente.at/pflanzgefaesse/",
         "category": "construction",
         "search": "Pflanzgefäße, Garten, Beton",
+        "werbering": true
+    },
+    {
+        "name": "Job & Personal GmbH",
+        "location": "Reuhartinger Straße 5, 4655 Vorchdorf",
+        "link": "http://www.jobundpersonal.at",
+        "category": "services",
+        "search": "Personalberatung, Arbeitskräfteüberlassung, Personaldienstleistungen, Jobs, Stellenangebote",
         "werbering": true
     },
     {
@@ -1642,7 +1682,7 @@
     {
         "name": "Scherleitner Manfred, Dr. MBA",
         "location": "Adlhaming 5, 4655 Vorchdorf",
-        "link": "https://www.agrismartprotect.com/",
+        "link": "https://www.vorchdorf.at/Scherleitner_Manfred",
         "category": "services",
         "search": "Unternehmensberatung, Agrarschutz, Beratung",
         "werbering": false
@@ -1674,7 +1714,7 @@
     {
         "name": "Schneeberger Günter",
         "location": "Theuerwang 17, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Schneeberger_Guenter",
         "category": "services",
         "search": "Entsorgung, Entsorgung, Containerdienst",
         "werbering": false
@@ -1720,6 +1760,14 @@
         "werbering": false
     },
     {
+        "name": "Selena Grundner, MSc - Psychosoziale Beraterin",
+        "location": "Wiesenstraße 3, 4655 Vorchdorf",
+        "link": "https://www.selena-grundner.at",
+        "category": "healthcare",
+        "search": "Psychosoziale Beratung, Empowerment Coaching, Lebensberatung, Coaching",
+        "werbering": true
+    },
+    {
         "name": "Seyr Harald, Dachdeckerei",
         "location": "Neue Landstraße 70, 4655 Vorchdorf",
         "link": "https://www.seyr.org",
@@ -1754,7 +1802,7 @@
     {
         "name": "Sleddog-Shop",
         "location": "Waldstrasse 1, 4655 Vorchdorf",
-        "link": "https://sleddog-Shop.at",
+        "link": "https://www.vorchdorf.at/Sleddog-Shop",
         "category": "services",
         "search": "Tierbedarf, Schlittenhunde, Zubehör",
         "werbering": false
@@ -2151,52 +2199,4 @@
         "search": "Gastronomie, Café, Bar, italienische Küche",
         "werbering": true
     },
-    {
-        "name": "BÄR on TOUR Foodtruck",
-        "location": "Hochbaustraße 9, 4694 Ohlsdorf",
-        "link": "https://baer-on-tour.at",
-        "category": "gastro",
-        "search": "Spitzengastronomie, Street Food, Foodtruck, Events, regional, frisch",
-        "werbering": true
-    },
-    {
-        "name": "Escape House Vorchdorf",
-        "location": "Lambacherstraße 7, 4655 Vorchdorf",
-        "link": "https://www.escape-house.at",
-        "category": "culture",
-        "search": "Escape Room Abenteuer, Themenräume, Zeitreise, Familie, Freunde, Vereinsausflug, Firmenevents",
-        "werbering": true
-    },
-    {
-        "name": "FRUTURA Obst & Gemüse Kompetenzzentrum GmbH",
-        "location": "Asamerstraße 1b, 4655 Vorchdorf",
-        "link": "https://www.frutura.com",
-        "category": "industry",
-        "search": "Obst und Gemüse, Kompetenzzentrum, Landwirtschaftliche Produkte, Frutura",
-        "werbering": true
-    },
-    {
-        "name": "Gut Haberhaide – Hofladen, Mostschenke, Arche-Hof",
-        "location": "Kranabeth 14, 4663 Laakirchen",
-        "link": "https://hoidinger.at",
-        "category": "gastro",
-        "search": "Hofladen, Mostschenke, Arche-Hof, regionale Spezialitäten, Rind, Schwein, Pute, Hühnerfleisch, Direktvermarktung",
-        "werbering": true
-    },
-    {
-        "name": "Job & Personal GmbH",
-        "location": "Reuhartinger Straße 5, 4655 Vorchdorf",
-        "link": "http://www.jobundpersonal.at",
-        "category": "services",
-        "search": "Personalberatung, Arbeitskräfteüberlassung, Personaldienstleistungen, Jobs, Stellenangebote",
-        "werbering": true
-    },
-    {
-        "name": "Selena Grundner, MSc - Psychosoziale Beraterin",
-        "location": "Wiesenstraße 3, 4655 Vorchdorf",
-        "link": "https://www.selena-grundner.at",
-        "category": "healthcare",
-        "search": "Psychosoziale Beratung, Empowerment Coaching, Lebensberatung, Coaching",
-        "werbering": true
-    }
 ]
