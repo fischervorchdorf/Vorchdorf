@@ -2840,7 +2840,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '5.0'; // Aktuelle Version der App
+        const APP_VERSION = '5.1'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -4042,22 +4042,32 @@ Mit freundlichen Grüßen`;
         // Lade Businesses aus JSON Datei
         async function loadBusinesses() {
             try {
-                const response = await fetch('./businesses.json');
+                // AGGRESSIVE CACHE BUSTING
+                const response = await fetch('./businesses.json?v=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
                 const businesses = await response.json();
 
                 // Speichere in allBusinesses Variable
                 allBusinesses = businesses;
 
                 console.log(`✓ ${businesses.length} Betriebe geladen`);
+
+                if (businesses.length === 0) {
+                    console.warn('Warnung: businesses.json ist leer');
+                }
             } catch (error) {
                 console.error('Fehler beim Laden von businesses.json:', error);
                 allBusinesses = []; // Fallback zu leerem Array
+                showDataError('Betriebe');
             }
         }
 
         async function loadClubs() {
             try {
-                const response = await fetch('./clubs.json');
+                const response = await fetch('./clubs.json?v=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
                 const clubs = await response.json();
                 allClubs = clubs;
 
@@ -4079,14 +4089,17 @@ Mit freundlichen Grüßen`;
             } catch (error) {
                 console.error('Fehler beim Laden von clubs.json:', error);
                 allClubs = {};
+                showDataError('Vereine');
             }
         }
 
         // Lade Gemeinde-Verwaltung Daten
         async function loadGemeindeData() {
+            const ts = Date.now();
             try {
                 // Lade Formulare
-                const formResponse = await fetch('./gemeinde-verwaltung/data/formulare.json');
+                const formResponse = await fetch(`./gemeinde-verwaltung/data/formulare.json?v=${ts}`);
+                if (!formResponse.ok) throw new Error(`HTTP error! status: ${formResponse.status}`);
                 const formData = await formResponse.json();
                 allFormulare = formData.formulare || [];
                 console.log(`✓ ${allFormulare.length} Formulare geladen`);
@@ -4097,7 +4110,8 @@ Mit freundlichen Grüßen`;
 
             try {
                 // Lade Mitarbeiter
-                const mitResponse = await fetch('./gemeinde-verwaltung/data/mitarbeiter.json');
+                const mitResponse = await fetch(`./gemeinde-verwaltung/data/mitarbeiter.json?v=${ts}`);
+                if (!mitResponse.ok) throw new Error(`HTTP error! status: ${mitResponse.status}`);
                 const mitData = await mitResponse.json();
                 allMitarbeiter = mitData.mitarbeiter || [];
                 console.log(`✓ ${allMitarbeiter.length} Mitarbeiter geladen`);
@@ -4108,7 +4122,8 @@ Mit freundlichen Grüßen`;
 
             try {
                 // Lade Abteilungen
-                const abtResponse = await fetch('./gemeinde-verwaltung/data/abteilungen.json');
+                const abtResponse = await fetch(`./gemeinde-verwaltung/data/abteilungen.json?v=${ts}`);
+                if (!abtResponse.ok) throw new Error(`HTTP error! status: ${abtResponse.status}`);
                 const abtData = await abtResponse.json();
                 allAbteilungen = abtData.abteilungen || [];
                 console.log(`✓ ${allAbteilungen.length} Abteilungen geladen`);
@@ -4119,7 +4134,8 @@ Mit freundlichen Grüßen`;
 
             try {
                 // Lade Gemeindebetriebe
-                const betResponse = await fetch('./gemeinde-verwaltung/data/gemeindebetriebe.json');
+                const betResponse = await fetch(`./gemeinde-verwaltung/data/gemeindebetriebe.json?v=${ts}`);
+                if (!betResponse.ok) throw new Error(`HTTP error! status: ${betResponse.status}`);
                 const betData = await betResponse.json();
                 allGemeindebetriebe = betData.betriebe || [];
                 console.log(`✓ ${allGemeindebetriebe.length} Gemeindebetriebe geladen`);
@@ -4127,6 +4143,15 @@ Mit freundlichen Grüßen`;
                 console.error('Fehler beim Laden von gemeindebetriebe.json:', error);
                 allGemeindebetriebe = [];
             }
+        }
+
+        function showDataError(type) {
+            // Zeige eine kleine Warnung in der UI wenn Daten nicht geladen werden können
+            const banner = document.createElement('div');
+            banner.style.cssText = 'background: #ff4d4d; color: white; padding: 10px; text-align: center; font-size: 0.9em; position: sticky; top: 0; z-index: 9999;';
+            banner.innerHTML = `⚠️ <b>Fehler:</b> ${type} konnten nicht geladen werden. Bitte Seite neu laden oder Cache leeren.`;
+            document.body.prepend(banner);
+            setTimeout(() => banner.remove(), 10000);
         }
 
         // Initialize App

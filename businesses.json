@@ -58,7 +58,7 @@
     {
         "name": "Aitzetmüller Markus - Massagepraxis",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorfonline.at/users/markus-aitzetmueller-massagepraxis",
         "category": "healthcare",
         "search": "Massage & Wellness, Massage, Entspannung",
         "werbering": true
@@ -122,7 +122,7 @@
     {
         "name": "Attwenger Taxi",
         "location": "Mühlenstraße 4, 4655 Vorchdorf",
-        "link": "https://www.taxi-attwenger.at",
+        "link": "https://www.vorchdorfonline.at/users/attwenger",
         "category": "transport",
         "search": "Taxi & Mietwagen, Taxi, Mietwagen, Botendienst, 24h",
         "werbering": true
@@ -146,7 +146,7 @@
     {
         "name": "Automobile MAIRHUBER GmbH",
         "location": "4664 Oberweis",
-        "link": "https://www.autohausmairhuber.at",
+        "link": "https://www.autohaus-mairhuber.at",
         "category": "cars",
         "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
         "werbering": false
@@ -162,7 +162,7 @@
     {
         "name": "Automobile SWOBODA GmbH",
         "location": "4664 Oberweis",
-        "link": "https://www.automobileswoboda.at",
+        "link": "https://www.swoboda-mairhuber.com/",
         "category": "cars",
         "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
         "werbering": false
@@ -250,7 +250,7 @@
     {
         "name": "Blumen Krenmayr GmbH",
         "location": "Schlossplatz 1, 4655 Vorchdorf",
-        "link": "http://www.grosz.at/ausstellungen/details.php?id=427&gem=37",
+        "link": "https://www.blumen-krenmayr.at",
         "category": "flowers",
         "search": "Blumen & Gärtnerei, Blumen, Floristik",
         "werbering": true
@@ -389,14 +389,6 @@
         "link": "https://www.laakirchen.ooe.gv.at/Eckmann_Friseursalon",
         "category": "beauty",
         "search": "Friseur, Damen- und Herrenfriseur",
-        "werbering": false
-    },
-    {
-        "name": "EDV Kickinger",
-        "location": "Schloßplatz 15, 4655 Vorchdorf",
-        "link": "http://www.EDVKICKI.at",
-        "category": "it",
-        "search": "IT & EDV, EDV-Service, Verkauf",
         "werbering": false
     },
     {
@@ -570,7 +562,7 @@
     {
         "name": "FREIBAD Laakirchen",
         "location": "4663 Laakirchen",
-        "link": "https://www.laakirchen.at",
+        "link": "https://www.laakirchen.at/freibad",
         "category": "culture",
         "search": "Freibad, Schwimmen, Baden, Erholung",
         "werbering": false
@@ -578,7 +570,7 @@
     {
         "name": "FREIBAD Vorchdorf",
         "location": "4655 Vorchdorf",
-        "link": "https://www.vorchdorf.at",
+        "link": "https://www.vorchdorf.at/Almtalbad_Vorchdorf_1",
         "category": "culture",
         "search": "Freibad, Schwimmen, Baden, Erholung",
         "werbering": false
@@ -586,7 +578,7 @@
     {
         "name": "Fundgrube-Vorchdorf",
         "location": "Bahnhofstraße 34, 4655 Vorchdorf",
-        "link": "http://www.fundgrube-vorchdorf.com",
+        "link": "https://www.vorchdorf.at/Fundgrube-Vorchdorf",
         "category": "fashion",
         "search": "Secondhand, Secondhand, Gebrauchtwaren",
         "werbering": false
@@ -752,7 +744,7 @@
         "werbering": true
     },
     {
-        "name": "Gut Haberhaide – Hofladen, Mostschenke, Arche-Hof",
+        "name": "Gut Haberhaide - Hoidinger",
         "location": "Kranabeth 14, 4663 Laakirchen",
         "link": "https://hoidinger.at",
         "category": "gastro",
@@ -818,7 +810,7 @@
     {
         "name": "Harry Sports",
         "location": "Weidenstraße 38, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Harry_Sports",
         "category": "fashion",
         "search": "Sport & Freizeit, Sportartikel, Teamsportausrüstung",
         "werbering": false
@@ -850,7 +842,7 @@
     {
         "name": "HELIOS-Apotheke",
         "location": "4663 Laakirchen",
-        "link": "https://www.heliosapotheke.at",
+        "link": "https://www.helios-apotheke.at",
         "category": "healthcare",
         "search": "Apotheke, Medikamente, Beratung, Kosmetik",
         "werbering": false
@@ -874,7 +866,7 @@
     {
         "name": "HerWeinspaziert - Weinhandel",
         "location": "4654 Bad Wimsbach",
-        "link": "",
+        "link": "https://www.vorchdorfonline.at/users/herweinspaziert-weinhandel",
         "category": "gastro",
         "search": "Weinhandel, Weine, Weinverkostung",
         "werbering": true
@@ -930,7 +922,7 @@
     {
         "name": "Hochreiter KFZ GmbH",
         "location": "4656 Kirchham",
-        "link": "https://www.toyota-hochreiter.at",
+        "link": "https://www.autohaus-hochreiter.at",
         "category": "cars",
         "search": "Autohaus, Toyota, Neuwagen, Service",
         "werbering": true
@@ -950,14 +942,6 @@
         "category": "gastro",
         "search": "Gastronomie, Speisen und Getränke",
         "werbering": true
-    },
-    {
-        "name": "HOIDINGER'S Mostschenke",
-        "location": "4663 Laakirchen",
-        "link": "https://www.hoidinger.at",
-        "category": "gastro",
-        "search": "Gastronomie, Most, regionale Küche",
-        "werbering": false
     },
     {
         "name": "Humanenergetik PRANAOM",
@@ -1058,7 +1042,7 @@
     {
         "name": "Kalkis Hausfleischerei e.U.",
         "location": "4655 Vorchdorf",
-        "link": "https://www.kalkishausfleischerei.at",
+        "link": "https://www.kalkis-hausfleischerei.at",
         "category": "gastro",
         "search": "Fleischerei, Fleisch, Wurst, Catering",
         "werbering": true
@@ -1130,7 +1114,7 @@
     {
         "name": "Kreuzeder Säge- & Hobelwerk",
         "location": "Lederau 46, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Kreuzeder_Saege-_Hobelwerk",
         "category": "industry",
         "search": "Holzverarbeitung, Sägewerk, Hobelwerk, Bauholz",
         "werbering": false
@@ -1138,7 +1122,7 @@
     {
         "name": "Autohaus Kronberger GmbH",
         "location": "4656 Kirchham",
-        "link": "https://www.ford-kronberger.at",
+        "link": "https://www.ford-kronberger-kirchham.at",
         "category": "cars",
         "search": "Autohaus, Ford, Neuwagen, Service",
         "werbering": true
@@ -1306,7 +1290,7 @@
     {
         "name": "McDonald's Vorchdorf mit McCafe",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.mcdonalds.at/restaurant/asamerstrasse-1-a-4655-vorchdorf",
         "category": "gastro",
         "search": "Gastronomie, Fast Food",
         "werbering": true
@@ -1370,7 +1354,7 @@
     {
         "name": "Moden BAUMGARTNER",
         "location": "4663 Laakirchen",
-        "link": "",
+        "link": "https://www.laakirchen.ooe.gv.at/Moden_Baumgartner",
         "category": "fashion",
         "search": "Mode & Bekleidung, Mode, Bekleidung",
         "werbering": false
@@ -1378,7 +1362,7 @@
     {
         "name": "Moorbad Gmös",
         "location": "4663 Laakirchen",
-        "link": "https://www.moorbad-gmoes.at",
+        "link": "https://www.moorbad.gmoes.at",
         "category": "healthcare",
         "search": "Massage & Wellness, Moorbad, Wellness",
         "werbering": true
@@ -1394,7 +1378,7 @@
     {
         "name": "Mühle Bäckerei Bachinger GmbH",
         "location": "Lindacherstraße 7, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorf.at/Bachinger_Baeckerei_Muehle_GmbH",
         "category": "food",
         "search": "Bäckerei, Brot, Gebäck, 100% Roggenbrot",
         "werbering": false
@@ -1506,7 +1490,7 @@
     {
         "name": "Plaichinger Karl GesmbH",
         "location": "4663 Laakirchen",
-        "link": "",
+        "link": "https://www.vorchdorfonline.at/users/plaichinger",
         "category": "food",
         "search": "Industrie, Industrieprodukte",
         "werbering": true
@@ -1642,15 +1626,15 @@
     {
         "name": "ReVital-Shop Vorchdorf",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.revitalistgenial.at/",
         "category": "fashion",
-        "search": "Secondhand, Secondhand, Gebrauchtwaren",
+        "search": "Secondhand, Secondhand, Gebrauchtwaren, Postpartner",
         "werbering": true
     },
     {
         "name": "s`Gschäft ums Eck e.U.",
         "location": "4653 Eberstalzell",
-        "link": "",
+        "link": "https://www.nahundfrisch.at/de/kaufmann/s-gschaeft-ums-eck",
         "category": "food",
         "search": "Lebensmittelhandel, Lebensmittel",
         "werbering": true
@@ -1698,7 +1682,7 @@
     {
         "name": "SCHIRMFABRIK marketing solutions.",
         "location": "Moos 22, 4655 Vorchdorf",
-        "link": "http://www.schirmfabrik.at",
+        "link": "https://www.vorchdorf.at/SCHIRMFABRIK_marketing_solutions_",
         "category": "advertising",
         "search": "Werbeagentur, Marketing, Werbung",
         "werbering": false
@@ -1746,7 +1730,7 @@
     {
         "name": "Schweinehandel Oppeneder Gerhard",
         "location": "Mühltal 86, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.oppeneder.at",
         "category": "food",
         "search": "Landwirtschaft, Schweinehandel",
         "werbering": false
@@ -1754,7 +1738,7 @@
     {
         "name": "SECONDHAND FARBENFROH",
         "location": "4662 Steyrermühl",
-        "link": "",
+        "link": "https://www.laakirchen.ooe.gv.at/Farbenfroh_2ndhand_fuer_Kinder",
         "category": "fashion",
         "search": "Secondhand, Secondhand-Mode",
         "werbering": false
@@ -1762,7 +1746,7 @@
     {
         "name": "Selena Grundner, MSc - Psychosoziale Beraterin",
         "location": "Wiesenstraße 3, 4655 Vorchdorf",
-        "link": "https://www.selena-grundner.at",
+        "link": "https://www.vorchdorfonline.at/users/selena-empowerment-coaching",
         "category": "healthcare",
         "search": "Psychosoziale Beratung, Empowerment Coaching, Lebensberatung, Coaching",
         "werbering": true
@@ -1834,7 +1818,7 @@
     {
         "name": "Spar Hessenberger",
         "location": "4663 Laakirchen",
-        "link": "",
+        "link": "https://www.spar.at/standorte/spar-laakirchen-4663-gmundner-strasse-35",
         "category": "food",
         "search": "Lebensmittelhandel, Lebensmittel",
         "werbering": true
@@ -1842,7 +1826,7 @@
     {
         "name": "Spar Österreichische Warenhandels AG",
         "location": "4655 Vorchdorf",
-        "link": "https://www.spar.at",
+        "link": "https://www.spar.at/standorte/eurospar-vorchdorf-4655-neue-landstrasse-70",
         "category": "food",
         "search": "Lebensmittelhandel, Lebensmittel",
         "werbering": true
@@ -1930,7 +1914,7 @@
     {
         "name": "Stil & more",
         "location": "Lederau 17, 4655 Vorchdorf",
-        "link": "http://www.shop-stilandmore.com",
+        "link": "https://www.vorchdorf.at/Stil_more",
         "category": "fashion",
         "search": "Einzelhandel, Geschenkartikel, Dekoration",
         "werbering": false
@@ -2034,7 +2018,7 @@
     {
         "name": "Vinolino, Laszl Gerhard",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.vorchdorfonline.at/users/vinolino",
         "category": "gastro",
         "search": "Bar, Weinhandel, Bar, Weinhandel",
         "werbering": true
@@ -2088,17 +2072,9 @@
         "werbering": true
     },
     {
-        "name": "Waldl Martin",
-        "location": "Berg 4, 4655 Vorchdorf",
-        "link": "",
-        "category": "food",
-        "search": "Landwirtschaft, Landwirtschaft",
-        "werbering": false
-    },
-    {
         "name": "Weltladen Vorchdorf",
         "location": "4655 Vorchdorf",
-        "link": "https://www.weltladenvorchdorf.at",
+        "link": "https://www.weltladen-vorchdorf.at",
         "category": "food",
         "search": "Weltladen, Fair Trade Produkte",
         "werbering": true
@@ -2114,7 +2090,7 @@
     {
         "name": "Westreicher, MR Dr. Claudia",
         "location": "4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.westreicher.at/claudia/",
         "category": "healthcare",
         "search": "Arzt, Ärztin, Medizin, Allgemeinmedizin",
         "werbering": true
@@ -2122,7 +2098,7 @@
     {
         "name": "Wiedl's Taxi GmbH",
         "location": "Brunnmühlstraße 8, 4655 Vorchdorf",
-        "link": "https://www.taxi-wiedl.at",
+        "link": "https://to4009.wixsite.com/wiedl",
         "category": "transport",
         "search": "Taxi & Mietwagen, Taxi, 24h Service",
         "werbering": true
