@@ -1248,14 +1248,6 @@
         "werbering": false
     },
     {
-        "name": "Mayr Horst, Dr. Rechtsanwalt",
-        "location": "Bahnhofstraße 1, 4655 Vorchdorf",
-        "link": "",
-        "category": "legal",
-        "search": "Rechtsanwalt, Rechtsberatung, Vertretung",
-        "werbering": false
-    },
-    {
         "name": "McDonald's Vorchdorf mit McCafe",
         "location": "4655 Vorchdorf",
         "link": "",
@@ -1802,7 +1794,7 @@
     {
         "name": "Sparkasse Vorchdorf",
         "location": "Bahnhofstr. 21, 4655 Vorchdorf",
-        "link": "",
+        "link": "https://www.sparkasse.at/sgruppe/filialen-oeffungszeiten/filialsuche/filiale/4655-vorchdorf/bahnhofstrasse-21/AT02470010",
         "category": "banks",
         "search": "Bank, Konten, Kredite, Beratung",
         "werbering": true
