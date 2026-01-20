@@ -408,12 +408,20 @@
         "werbering": false
     },
     {
-        "name": "Elektro-Payrhuber GmbH",
+        "name": "Elektro Payrhuber Installations- und Handels GmbH",
         "location": "Bahnhofstraße 29, 4655 Vorchdorf",
-        "link": "http://www.elektropayrhuber.at",
+        "link": "https://www.payrhuber.at",
         "category": "construction",
         "search": "Elektroinstallation, Elektroinstallation",
-        "werbering": false
+        "werbering": true
+    },
+    {
+        "name": "Elektrotechnik Hutterer",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Elektrotechnik, Elektriker, Installation",
+        "werbering": true
     },
     {
         "name": "Energiefreund - Ing. Stefan Brunner",
@@ -576,14 +584,6 @@
         "werbering": true
     },
     {
-        "name": "Foxxy Dance-Bar",
-        "location": "4655 Vorchdorf",
-        "link": "https://www.fuzzybar.at",
-        "category": "gastro",
-        "search": "Gastronomie, Bar, Events",
-        "werbering": true
-    },
-    {
         "name": "FÜRTBAUER GmbH & Co KG",
         "location": "4663 Laakirchen",
         "link": "https://www.fuertbauer.at",
@@ -704,20 +704,20 @@
         "werbering": true
     },
     {
-        "name": "GRAROCK Günter, LITO",
+        "name": "Günter Grarock Licht- & Tonanlagen",
         "location": "4655 Vorchdorf",
         "link": "https://www.lito.at",
         "category": "catering",
-        "search": "Veranstaltungstechnik, Veranstaltungstechnik, Ton",
-        "werbering": false
+        "search": "Veranstaltungstechnik, Licht, Ton, Events",
+        "werbering": true
     },
     {
-        "name": "GRUBER GmbH Landtechnik & Zweiräder",
+        "name": "Team Gruber GmbH",
         "location": "4652 Steinerkirchen",
         "link": "https://www.teamgruber.at",
         "category": "cars",
         "search": "Landtechnik, Landmaschinen, Zweiräder, Microcars",
-        "werbering": false
+        "werbering": true
     },
     {
         "name": "Grundner Solarmontagen GmbH",
@@ -725,6 +725,14 @@
         "link": "https://www.grundner-solarmontagen.at",
         "category": "construction",
         "search": "Solar & PV, Solarmontage",
+        "werbering": true
+    },
+    {
+        "name": "Gschliffner - Ihr Installateur mit Feinschliff GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.badwerkstatt.at",
+        "category": "construction",
+        "search": "Installateur, Bad, Heizung, Sanitär, Badsanierung",
         "werbering": true
     },
     {
@@ -912,14 +920,6 @@
         "werbering": true
     },
     {
-        "name": "HUTTERER Harald J, Elektro",
-        "location": "4655 Vorchdorf",
-        "link": "",
-        "category": "construction",
-        "search": "Elektroinstallation, Elektroinstallation",
-        "werbering": false
-    },
-    {
         "name": "ib Rauscher",
         "location": "4655 Vorchdorf",
         "link": "https://www.ibr.co.at",
@@ -933,14 +933,6 @@
         "link": "https://www.id-werkstatt.at",
         "category": "construction",
         "search": "Gastronomieeinrichtungen, Einrichtung, Design",
-        "werbering": true
-    },
-    {
-        "name": "Ihr INSTALLATEUR mit Feinschliff",
-        "location": "4655 Vorchdorf",
-        "link": "https://www.badwerkstatt.at",
-        "category": "construction",
-        "search": "Installateur, Bad, Heizung, Sanitär",
         "werbering": true
     },
     {
@@ -960,19 +952,19 @@
         "werbering": true
     },
     {
-        "name": "INFRAROTHEIZUNG Stefan Viechtbauer",
-        "location": "4655 Vorchdorf",
-        "link": "http://www.v-infrarot.at/hp/",
-        "category": "construction",
-        "search": "Wärmetechnik, Infrarotheizung",
-        "werbering": true
-    },
-    {
-        "name": "INNOCENTE GesmbH, Dachdecker",
+        "name": "Innocente Gesellschaft m.b.H.",
         "location": "4655 Vorchdorf",
         "link": "https://www.innocente.at",
         "category": "construction",
-        "search": "Dachdecker, Dachdeckerarbeiten",
+        "search": "Dachdecker, Dachdeckerarbeiten, Spengler",
+        "werbering": true
+    },
+    {
+        "name": "Innocente Pflanzgefäße",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.innocente-pflanzgefaesse.at",
+        "category": "construction",
+        "search": "Pflanzgefäße, Garten, Beton",
         "werbering": true
     },
     {
@@ -1008,7 +1000,7 @@
         "werbering": true
     },
     {
-        "name": "KALKI'S Hausfleischerei u. Catering",
+        "name": "Kalki´s Hausfleischerei e.U.",
         "location": "4655 Vorchdorf",
         "link": "https://www.kalkishausfleischerei.at",
         "category": "gastro",
@@ -1016,11 +1008,19 @@
         "werbering": true
     },
     {
-        "name": "KARMA LOUNGE Cocktails & Kitchen",
+        "name": "Karma Lounge - Cocktail Shishabar und Kitchen",
         "location": "4655 Vorchdorf",
         "link": "",
         "category": "gastro",
-        "search": "Gastronomie, Bar, Cocktails, Speisen",
+        "search": "Gastronomie, Bar, Cocktails, Speisen, Shisha",
+        "werbering": true
+    },
+    {
+        "name": "KFZ-Leiss GmbH",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.kfz-leiss.at",
+        "category": "cars",
+        "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen",
         "werbering": true
     },
     {
@@ -1070,14 +1070,6 @@
         "category": "flowers",
         "search": "Blumen & Gärtnerei, Blumen, Floristik",
         "werbering": false
-    },
-    {
-        "name": "KRENMAYR KG, Thomas Krenmayr",
-        "location": "4655 Vorchdorf",
-        "link": "https://www.blumen-krenmayr.at",
-        "category": "flowers",
-        "search": "Blumen & Gärtnerei, Blumen, Floristik",
-        "werbering": true
     },
     {
         "name": "Kreuzeder Säge- & Hobelwerk",
@@ -1144,19 +1136,11 @@
         "werbering": false
     },
     {
-        "name": "LEATHER ROSE, Rosemarie Spitzbart",
+        "name": "Leather Rose - Lederhandwerk & Polsterungen",
         "location": "4655 Vorchdorf",
         "link": "https://www.leatherrose.at",
         "category": "jewelry",
-        "search": "Lederwaren, Lederwaren, Handwerk",
-        "werbering": true
-    },
-    {
-        "name": "LEISS Kfz",
-        "location": "4655 Vorchdorf",
-        "link": "https://www.kfz-leiss.at",
-        "category": "cars",
-        "search": "KFZ-Werkstatt, KFZ-Service, Reparaturen",
+        "search": "Lederwaren, Lederwaren, Handwerk, Polsterungen",
         "werbering": true
     },
     {
@@ -1240,12 +1224,12 @@
         "werbering": true
     },
     {
-        "name": "MARMORSTEIN, Arkan Bülent",
+        "name": "Marmor-Stein Handels & Montage GmbH",
         "location": "4655 Vorchdorf",
         "link": "https://www.marmorstein.at",
         "category": "construction",
-        "search": "Steinmetz, Marmor, Steinarbeiten",
-        "werbering": false
+        "search": "Steinmetz, Marmor, Stein, Naturstein, Montage",
+        "werbering": true
     },
     {
         "name": "Martetschläger GmbH",
@@ -1381,6 +1365,14 @@
         "link": "",
         "category": "gas",
         "search": "Tankstelle, Kraftstoffe, Shop",
+        "werbering": false
+    },
+    {
+        "name": "MY GYM Prime Eberstalzell",
+        "location": "ÖKOARENA - Solarstraße, 4653 Eberstalzell",
+        "link": "https://www.mygym-prime.at",
+        "category": "beauty",
+        "search": "Fitnessstudio, Fitness, Training, MyGym, Eberstalzell",
         "werbering": true
     },
     {
@@ -1424,7 +1416,7 @@
         "werbering": true
     },
     {
-        "name": "PALMAN Oliver, Meistermaler",
+        "name": "Palman Oliver, Maler und Anstreicher",
         "location": "4655 Vorchdorf",
         "link": "https://www.palman.co.at",
         "category": "construction",
@@ -1437,14 +1429,6 @@
         "link": "https://www.papiermuseum.at",
         "category": "culture",
         "search": "Museum & Kultur, Museum, Papiergeschichte",
-        "werbering": false
-    },
-    {
-        "name": "PAYRHUBER Elektro GmbH",
-        "location": "4655 Vorchdorf",
-        "link": "https://www.elektro-payrhuber.at",
-        "category": "construction",
-        "search": "Elektroinstallation, Elektroinstallation",
         "werbering": false
     },
     {
@@ -1469,7 +1453,7 @@
         "link": "https://www.pichelsberger.at",
         "category": "cars",
         "search": "Autohaus, Neuwagen, Gebrauchtwagen, Service",
-        "werbering": true
+        "werbering": false
     },
     {
         "name": "Plaichinger Karl GesmbH",
@@ -1477,6 +1461,14 @@
         "link": "",
         "category": "food",
         "search": "Industrie, Industrieprodukte",
+        "werbering": true
+    },
+    {
+        "name": "Plank Kachelöfen und Fliesen",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "construction",
+        "search": "Kachelofen, Fliesen, Ofenbau",
         "werbering": true
     },
     {
@@ -1536,12 +1528,12 @@
         "werbering": true
     },
     {
-        "name": "Radner Bernhard",
-        "location": "Schulstraße 18, 4655 Vorchdorf",
-        "link": "http://www.bestattung-vorchdorf.at",
+        "name": "Radner Bernhard, Tischlerei",
+        "location": "4655 Vorchdorf",
+        "link": "",
         "category": "construction",
         "search": "Tischlerei, Tischlerei, Möbel",
-        "werbering": false
+        "werbering": true
     },
     {
         "name": "Raiffeisenbank Salzkammergut eGen",
@@ -1576,12 +1568,12 @@
         "werbering": true
     },
     {
-        "name": "REGIO INTAKT Beratung",
+        "name": "regio intakt Unternehmensberatung e.U.",
         "location": "4655 Vorchdorf",
         "link": "https://www.regiointakt.at",
         "category": "services",
         "search": "Unternehmensberatung, Beratung, Coaching",
-        "werbering": false
+        "werbering": true
     },
     {
         "name": "REINIGUNG: GLAS-STEIN-PKW-BOOTE UVM....",
@@ -1952,14 +1944,6 @@
         "werbering": false
     },
     {
-        "name": "Radner Bernhard, Tischlerei",
-        "location": "4655 Vorchdorf",
-        "link": "",
-        "category": "construction",
-        "search": "Tischlerei, Tischlerei, Möbel",
-        "werbering": true
-    },
-    {
         "name": "Tischlerei STELZHAMMER GmbH",
         "location": "4663 Laakirchen",
         "link": "",
@@ -1984,7 +1968,7 @@
         "werbering": true
     },
     {
-        "name": "TVM-Pühringer Peter Versicherungsmakler",
+        "name": "TVM Versicherungsmakler GmbH",
         "location": "Lederau 138, 4655 Vorchdorf",
         "link": "https://www.tvm.at",
         "category": "banks",
@@ -2006,6 +1990,14 @@
         "category": "banks",
         "search": "Versicherung, Versicherungsberatung",
         "werbering": false
+    },
+    {
+        "name": "Viechtbauer Stefan Wärmetechnik",
+        "location": "4655 Vorchdorf",
+        "link": "http://www.v-infrarot.at",
+        "category": "construction",
+        "search": "Wärmetechnik, Infrarotheizung",
+        "werbering": true
     },
     {
         "name": "Vinolino, Laszl Gerhard",
@@ -2072,11 +2064,27 @@
         "werbering": false
     },
     {
-        "name": "WELTLADEN",
+        "name": "Weltladen Vorchdorf",
         "location": "4655 Vorchdorf",
         "link": "https://www.weltladenvorchdorf.at",
         "category": "food",
         "search": "Weltladen, Fair Trade Produkte",
+        "werbering": true
+    },
+    {
+        "name": "Werbering Vorchdorf",
+        "location": "4655 Vorchdorf",
+        "link": "https://www.vorchdorfonline.at",
+        "category": "services",
+        "search": "Werbering, Verein, Wirtschaft, Gutscheine",
+        "werbering": true
+    },
+    {
+        "name": "Westreicher, MR Dr. Claudia",
+        "location": "4655 Vorchdorf",
+        "link": "",
+        "category": "healthcare",
+        "search": "Arzt, Ärztin, Medizin, Allgemeinmedizin",
         "werbering": true
     },
     {
@@ -2197,14 +2205,6 @@
         "link": "http://www.jobundpersonal.at",
         "category": "services",
         "search": "Personalberatung, Arbeitskräfteüberlassung, Personaldienstleistungen, Jobs, Stellenangebote",
-        "werbering": true
-    },
-    {
-        "name": "MY GYM Prime - Fitness",
-        "location": "ÖKOARENA - Solarstraße, 4653 Eberstalzell",
-        "link": "https://www.mygym-prime.at",
-        "category": "beauty",
-        "search": "Fitnessstudio, Fitness, Training, MyGym, Eberstalzell",
         "werbering": true
     },
     {

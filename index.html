@@ -2125,6 +2125,7 @@
         let flohmarktAllProducts = [];
         let flohmarktCurrentProduct = null;
         let flohmarktCurrentImageIndex = 0;
+        let showOnlyWerbering = false;
 
         const flohmarktCategoryIcons = {
             'Schulsachen': '📚',
@@ -2839,7 +2840,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '4.8'; // Aktuelle Version der App
+        const APP_VERSION = '4.9'; // Aktuelle Version der App
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -4240,6 +4241,12 @@ Mit freundlichen Grüßen`;
             });
         }
 
+        // Toggle Werbering Filter
+        function toggleWerberingFilter() {
+            showOnlyWerbering = !showOnlyWerbering;
+            navigateToCategory('shopping');
+        }
+
         // Navigate to Category
         function navigateToCategory(categoryId) {
             const category = categories[categoryId];
@@ -4305,6 +4312,14 @@ Mit freundlichen Grüßen`;
                                 <p>☎️ 0699 15 05 88 57 • ✉️ tipp@werbering-vorchdorf.at</p>
                                 <p><a href="https://www.vorchdorfonline.at" target="_blank">🌐 www.vorchdorfonline.at</a></p>
                             </div>
+
+                            <div onclick="toggleWerberingFilter()" style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 20px; padding: 15px; border-radius: 12px; background: ${showOnlyWerbering ? 'var(--secondary)' : 'white'}; border: 2px solid ${showOnlyWerbering ? 'var(--secondary)' : 'var(--border)'}; box-shadow: var(--shadow-md); transition: all 0.3s;">
+                                <span style="font-size: 1.5rem;">🎖️</span>
+                                <span style="font-weight: 700; color: ${showOnlyWerbering ? 'white' : 'var(--primary)'}; font-size: 1rem;">Nur Werberingmitglieder anzeigen</span>
+                                <div style="margin-left: auto; width: 24px; height: 24px; border-radius: 50%; border: 2px solid ${showOnlyWerbering ? 'white' : 'var(--border)'}; background: ${showOnlyWerbering ? 'white' : 'transparent'}; position: relative;">
+                                    ${showOnlyWerbering ? '<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background: var(--secondary); border-radius: 50%;"></div>' : ''}
+                                </div>
+                            </div>
                         ` : ''}
                         <div class="subcategory-list">
                             ${subcategoryList.map(sub => {
@@ -4313,7 +4328,11 @@ Mit freundlichen Grüßen`;
                         if (sub.id === 'all_businesses_az') {
                             subCount = allBusinesses.filter(b => b.werbering === true).length;
                         } else {
-                            subCount = allBusinesses.filter(b => b.category === sub.id && b.werbering === true).length;
+                            subCount = allBusinesses.filter(b => {
+                                const isCategory = b.category === sub.id;
+                                const matchesFilter = showOnlyWerbering ? b.werbering === true : true;
+                                return isCategory && matchesFilter;
+                            }).length;
                         }
                     } else if (categoryId === 'clubs') {
                         subCount = (allClubs[sub.id] || []).length;
@@ -4345,7 +4364,7 @@ Mit freundlichen Grüßen`;
                     <h2>🛍️ Werbering Vorchdorf - Alle Mitgliedsbetriebe</h2>
                     <div class="info-item">
                         <h4>ℹ️ Über den Werbering</h4>
-                        <p>👥 Über 200 Mitgliedsbetriebe</p>
+                        <p>👥 179 Mitgliedsbetriebe und 98 weitere Betriebe</p>
                         <p>🎁 Werbering-Gutscheine bei allen Mitgliedern einlösbar</p>
                         <p>📍 Vorchdorf, Laakirchen und Umgebung</p>
                         <p>☎️ 0699 15 05 88 57 • ✉️ tipp@werbering-vorchdorf.at</p>
@@ -4510,7 +4529,10 @@ Mit freundlichen Grüßen`;
                         </div>
                     `;
                 } else {
-                    const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
+                    const categoryBusinesses = allBusinesses.filter(b =>
+                        b.category === subcategoryId &&
+                        (!showOnlyWerbering || b.werbering === true)
+                    );
                     mainContent.innerHTML = `
                         <div class="detail-view fade-in">
                             <h2>${subcategory.title}</h2>
@@ -4599,7 +4621,7 @@ Mit freundlichen Grüßen`;
                     </div>
                 `;
             }
-            
+
             // Handle list type (like education)
             if (category.content.type === 'list') {
                 return `
