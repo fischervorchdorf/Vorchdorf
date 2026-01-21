@@ -249,7 +249,8 @@
 
         textarea,
         input[type="text"],
-        input[type="email"] {
+        input[type="email"],
+        select {
             width: 100%;
             padding: 14px 16px;
             border: 2px solid var(--border);
@@ -258,6 +259,17 @@
             font-family: inherit;
             transition: all 0.3s;
             background: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
         }
 
         textarea {
@@ -572,13 +584,47 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Wo befindet sich das? <span class="optional">(optional)</span></label>
+                    <label for="ortschaft">In welcher Ortschaft? <span class="optional">(optional)</span></label>
+                    <select id="ortschaft">
+                        <option value="">-- Bitte wählen (optional) --</option>
+                        <option value="Adlhaming">Adlhaming</option>
+                        <option value="Aggsbach">Aggsbach</option>
+                        <option value="Albenedt">Albenedt</option>
+                        <option value="Berg">Berg</option>
+                        <option value="Eggenberg">Eggenberg</option>
+                        <option value="Eichham">Eichham</option>
+                        <option value="Einsiedling">Einsiedling</option>
+                        <option value="Falkenohren">Falkenohren</option>
+                        <option value="Feldham">Feldham</option>
+                        <option value="Fischböckau">Fischböckau</option>
+                        <option value="Heitzing">Heitzing</option>
+                        <option value="Hötzelsdorf">Hötzelsdorf</option>
+                        <option value="Lederau">Lederau</option>
+                        <option value="Moos">Moos</option>
+                        <option value="Mühltal">Mühltal</option>
+                        <option value="Oberhörbach">Oberhörbach</option>
+                        <option value="Pappelleiten">Pappelleiten</option>
+                        <option value="Peintal">Peintal</option>
+                        <option value="Point">Point</option>
+                        <option value="Radhaming">Radhaming</option>
+                        <option value="Schart">Schart</option>
+                        <option value="Seyrkam">Seyrkam</option>
+                        <option value="Theuerwang">Theuerwang</option>
+                        <option value="Unterhörbach">Unterhörbach</option>
+                        <option value="Ursprung">Ursprung</option>
+                        <option value="Vorchdorf">Vorchdorf</option>
+                        <option value="Weidach">Weidach</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Wo ungefähr? <span class="optional">(optional)</span></label>
                     <div class="location-quick">
-                        <span class="location-chip" data-location="Ortszentrum">Ortszentrum</span>
-                        <span class="location-chip" data-location="Schöndorf">Schöndorf</span>
-                        <span class="location-chip" data-location="Lindach">Lindach</span>
-                        <span class="location-chip" data-location="Eggenberg">Eggenberg</span>
-                        <span class="location-chip" data-location="Pfarrkirchen">Pfarrkirchen</span>
+                        <span class="location-chip" data-location="Ortsplatz">Ortsplatz</span>
+                        <span class="location-chip" data-location="Schule">Schule</span>
+                        <span class="location-chip" data-location="Freibad">Freibad</span>
+                        <span class="location-chip" data-location="Friedhof">Friedhof</span>
+                        <span class="location-chip" data-location="Sportplatz">Sportplatz</span>
                     </div>
                     <input type="text" id="ort" placeholder="Genauere Ortsangabe (z.B. Hauptplatz beim Brunnen)">
                 </div>
@@ -616,7 +662,11 @@
                         <span class="summary-value" id="sum-kategorie">-</span>
                     </div>
                     <div class="summary-row">
-                        <span class="summary-label">Ort</span>
+                        <span class="summary-label">Ortschaft</span>
+                        <span class="summary-value" id="sum-ortschaft">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Genauer Ort</span>
                         <span class="summary-value" id="sum-ort">-</span>
                     </div>
                     <div class="summary-row">
@@ -737,10 +787,12 @@
 
         function updateSummary() {
             const kategorie = document.querySelector('input[name="kategorie"]:checked')?.value || '-';
+            const ortschaft = document.getElementById('ortschaft').value || 'Nicht angegeben';
             const ort = document.getElementById('ort').value || 'Nicht angegeben';
             const beschreibungText = document.getElementById('beschreibung').value;
 
             document.getElementById('sum-kategorie').textContent = kategorie;
+            document.getElementById('sum-ortschaft').textContent = ortschaft;
             document.getElementById('sum-ort').textContent = ort;
             document.getElementById('sum-beschreibung').textContent =
                 beschreibungText.length > 50
@@ -750,6 +802,7 @@
 
         function sendMeldung() {
             const kategorie = document.querySelector('input[name="kategorie"]:checked')?.value || 'Sonstiges';
+            const ortschaft = document.getElementById('ortschaft').value || 'Nicht angegeben';
             const ort = document.getElementById('ort').value || 'Nicht angegeben';
             const beschreibungText = document.getElementById('beschreibung').value;
             const userEmail = document.getElementById('email').value;
@@ -759,7 +812,8 @@
             let body = `BÜRGERMELDUNG über die Vorchdorf-App\n`;
             body += `========================================\n\n`;
             body += `KATEGORIE: ${kategorie}\n\n`;
-            body += `ORT: ${ort}\n\n`;
+            body += `ORTSCHAFT: ${ortschaft}\n`;
+            body += `GENAUER ORT: ${ort}\n\n`;
             body += `BESCHREIBUNG:\n${beschreibungText}\n\n`;
 
             if (userEmail) {
