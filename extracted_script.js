@@ -719,7 +719,7 @@ if ('caches' in window) {
 }
 
 // App Version - Update this with each release
-const APP_VERSION = '5.3'; // Aktuelle Version der App
+const APP_VERSION = '5.4'; // Aktuelle Version der App
 const CACHE_BUSTER = Date.now();
 // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
 (async function checkForUpdates() {
