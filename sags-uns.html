@@ -259,6 +259,9 @@
             font-family: inherit;
             transition: all 0.3s;
             background: white;
+        }
+
+        select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -481,7 +484,7 @@
             }
 
             .category-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .form-nav {
@@ -618,7 +621,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Wo ungefähr? <span class="optional">(optional)</span></label>
+                    <label for="ort">Genauere Beschreibung, wenn das Foto nicht eindeutig ist! <span
+                            class="optional">(optional)</span></label>
+                    <textarea id="ort" style="min-height: 80px;"
+                        placeholder="Genauere Beschreibung, wenn das Foto nicht eindeutig ist!"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Wo ungefähr im Ortskern? <span class="optional">(optional)</span></label>
                     <div class="location-quick">
                         <span class="location-chip" data-location="Ortsplatz">Ortsplatz</span>
                         <span class="location-chip" data-location="Schule">Schule</span>
@@ -626,7 +636,6 @@
                         <span class="location-chip" data-location="Friedhof">Friedhof</span>
                         <span class="location-chip" data-location="Sportplatz">Sportplatz</span>
                     </div>
-                    <input type="text" id="ort" placeholder="Genauere Ortsangabe (z.B. Schlossplatz beim Brunnen)">
                 </div>
 
                 <div class="form-group">
@@ -768,6 +777,9 @@
         }
 
         function updateSteps() {
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
             // Update step visibility
             document.querySelectorAll('.form-step').forEach(step => {
                 step.classList.remove('active');
@@ -811,9 +823,9 @@
 
             let body = `BÜRGERMELDUNG über die Vorchdorf-App\n`;
             body += `========================================\n\n`;
-            body += `KATEGORIE: ${kategorie}\n\n`;
-            body += `ORTSCHAFT: ${ortschaft}\n`;
-            body += `GENAUER ORT: ${ort}\n\n`;
+            body += `KATEGORIE:\n${kategorie}\n\n`;
+            body += `ORTSCHAFT:\n${ortschaft}\n\n`;
+            body += `GENAUER ORT / BESCHREIBUNG:\n${ort}\n\n`;
             body += `BESCHREIBUNG:\n${beschreibungText}\n\n`;
 
             if (userEmail) {

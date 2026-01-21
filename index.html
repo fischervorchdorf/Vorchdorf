@@ -2492,6 +2492,7 @@ Mit freundlichen Grüßen`;
             // Click-Handler für Contact-Button - öffne Email-Modal
             document.getElementById('flohmarktModalContactBtn').onclick = function (e) {
                 e.preventDefault();
+                closeFlohmarktModal();
                 openEmailPreviewModal(email, subject, emailBody, imageUrl, sellerName);
             };
             document.getElementById('flohmarktModalContactBtn').href = 'javascript:void(0)'; // Verhindere default-Link
@@ -2653,6 +2654,7 @@ Mit freundlichen Grüßen`;
 
         // Email Preview Modal - mit Bild und HTML-Vorschau
         function openEmailPreviewModal(toEmail, subject, body, imageUrl, sellerName) {
+            window.flohmarktEmailImageURL = imageUrl; // URL für sendEmailFromPreview speichern
             // Erstelle Modal-HTML
             let previewHtml = `
                 <div class="email-preview-modal">
@@ -2791,11 +2793,9 @@ Mit freundlichen Grüßen`;
         function sendEmailFromPreview(toEmail, subject, encodedBody) {
             let body = atob(encodedBody); // Decode from base64
 
-            // Wenn Base64-Bild verfügbar, füge es als eingebettetes Bild hinzu
-            if (window.flohmarktEmailImageBase64) {
-                // Füge Bild als HTML-img mit Data-URL ein
-                body += `\n\n---\n[Produktbild wird angehängt]`;
-                // Base64-Bild wird in HTML-Format angehängt (viele Email-Clients unterstützen das)
+            // Wenn Bild-URL verfügbar, füge sie dem Text hinzu
+            if (window.flohmarktEmailImageURL) {
+                body += `\n\nProdukt-Bild: ${window.flohmarktEmailImageURL}`;
             }
 
             const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
@@ -4331,7 +4331,7 @@ Mit freundlichen Grüßen`;
                         ${categoryId === 'shopping' ? `
                             <div class="info-item">
                                 <h4>ℹ️ Über den Werbering</h4>
-                                <p>👥 179 Werbering-Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung. 98 weitere Betriebe ebenfalls enthalten.</p>
+                                <p>👥 179 Werbering-Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung. Zusätzlich ca. 100 weitere Nicht-Mitglieder.</p>
                                 <p>🎁 Werbering-Gutscheine bei allen Mitgliedern einlösbar</p>
                                 <p>☎️ 0699 15 05 88 57 • ✉️ tipp@werbering-vorchdorf.at</p>
                                 <p><a href="https://www.vorchdorfonline.at" target="_blank">🌐 www.vorchdorfonline.at</a></p>
@@ -4388,7 +4388,7 @@ Mit freundlichen Grüßen`;
                     <h2>🛍️ Werbering Vorchdorf - Alle Mitgliedsbetriebe</h2>
                     <div class="info-item">
                         <h4>ℹ️ Über den Werbering</h4>
-                        <p>👥 179 Werbering-Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung. 98 weitere Betriebe ebenfalls enthalten.</p>
+                        <p>👥 179 Werbering-Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung. Zusätzlich ca. 100 weitere Nicht-Mitglieder.</p>
                         <p>🎁 Werbering-Gutscheine bei allen Mitgliedern einlösbar</p>
                         <p>📍 Vorchdorf, Laakirchen und Umgebung</p>
                         <p>☎️ 0699 15 05 88 57 • ✉️ tipp@werbering-vorchdorf.at</p>
