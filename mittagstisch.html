@@ -164,12 +164,29 @@
         }
 
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            header { padding: 10px 15px; }
-            header img { height: 40px; }
-            header h1 { font-size: 1.2rem; }
-            .content-wrapper { padding: 15px; }
-            .page-title h2 { font-size: 1.4rem; }
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 10px 15px;
+            }
+
+            header img {
+                height: 40px;
+            }
+
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            .page-title h2 {
+                font-size: 1.4rem;
+            }
         }
 
         /* Tabs */
@@ -424,115 +441,115 @@
                 <h2>Vorchdorfer Mittagstisch</h2>
             </div>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="setMode('today')">📅 Heute + Woche</button>
-        <button class="tab-btn" onclick="setMode('hosts')">🍽️ Wirte wählen</button>
-    </div>
-
-    <div class="main">
-        <div id="loader" class="loading">Lade frische Menüs...</div>
-
-        <!-- View: Timeline -->
-        <div id="view-timeline" class="view-section">
-            <div id="timeline-container"></div>
-        </div>
-
-        <!-- View: Hosts -->
-        <div id="view-hosts" class="view-section hidden">
-            <div id="hosts-grid" class="hosts-grid"></div>
-
-            <div id="host-detail-container" class="host-detail-view">
-                <button class="close-host-btn" onclick="closeHostDetail()">← Zurück zur Auswahl</button>
-                <div id="host-plan"></div>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="setMode('today')">📅 Heute + Woche</button>
+                <button class="tab-btn" onclick="setMode('hosts')">🍽️ Wirte wählen</button>
             </div>
-        </div>
-    </div>
 
-    <script>
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/16oJAdKlUthvoQBdOiFbI-1OXYnspNc3Yn8cRuqILNsw/export?format=csv';
-        const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+            <div class="main">
+                <div id="loader" class="loading">Lade frische Menüs...</div>
 
-        let allItems = [];
-        let uniqueHosts = [];
+                <!-- View: Timeline -->
+                <div id="view-timeline" class="view-section">
+                    <div id="timeline-container"></div>
+                </div>
 
-        async function init() {
-            try {
-                const res = await fetch(CSV_URL);
-                const text = await res.text();
-                const raw = parseCSV(text);
+                <!-- View: Hosts -->
+                <div id="view-hosts" class="view-section hidden">
+                    <div id="hosts-grid" class="hosts-grid"></div>
 
-                allItems = raw.flatMap(entry => processEntry(entry));
+                    <div id="host-detail-container" class="host-detail-view">
+                        <button class="close-host-btn" onclick="closeHostDetail()">← Zurück zur Auswahl</button>
+                        <div id="host-plan"></div>
+                    </div>
+                </div>
+            </div>
 
-                // Hosts extraction
-                const hostSet = new Set();
-                allItems.forEach(i => hostSet.add(i.gasthaus));
-                uniqueHosts = Array.from(hostSet).sort();
+            <script>
+                const CSV_URL = 'https://docs.google.com/spreadsheets/d/16oJAdKlUthvoQBdOiFbI-1OXYnspNc3Yn8cRuqILNsw/export?format=csv';
+                const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 
-                buildTimeline();
-                buildHostsGrid();
+                let allItems = [];
+                let uniqueHosts = [];
 
-                document.getElementById('loader').classList.add('hidden');
-            } catch (e) {
-                document.getElementById('loader').innerText = "Fehler beim Laden. Bitte neu laden.";
-                console.error(e);
-            }
-        }
+                async function init() {
+                    try {
+                        const res = await fetch(CSV_URL);
+                        const text = await res.text();
+                        const raw = parseCSV(text);
 
-        // --- Render Logic ---
+                        allItems = raw.flatMap(entry => processEntry(entry));
 
-        function buildTimeline() {
-            const container = document.getElementById('timeline-container');
-            container.innerHTML = '';
+                        // Hosts extraction
+                        const hostSet = new Set();
+                        allItems.forEach(i => hostSet.add(i.gasthaus));
+                        uniqueHosts = Array.from(hostSet).sort();
 
-            const now = new Date();
-            now.setHours(12, 0, 0, 0);
+                        buildTimeline();
+                        buildHostsGrid();
 
-            // Find maximum date in our data
-            let maxDate = new Date(now);
-            allItems.forEach(item => {
-                const d = new Date(item.dateStr);
-                d.setHours(12, 0, 0, 0);
-                if (d > maxDate) maxDate = d;
-            });
+                        document.getElementById('loader').classList.add('hidden');
+                    } catch (e) {
+                        document.getElementById('loader').innerText = "Fehler beim Laden. Bitte neu laden.";
+                        console.error(e);
+                    }
+                }
 
-            // Calculate days diff (cap at 28 days to avoid infinite loops on bad data)
-            const diffTime = Math.abs(maxDate - now);
-            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            if (diffDays < 1) diffDays = 1; // Show at least today/tomorrow logic
-            if (diffDays > 28) diffDays = 28;
+                // --- Render Logic ---
 
-            // Show timeline up to the last available data
-            for (let i = 0; i <= diffDays; i++) {
-                const date = new Date(now);
-                date.setDate(now.getDate() + i);
-                const dateStr = date.toISOString().split('T')[0];
-                const dayName = DAYS[date.getDay()];
+                function buildTimeline() {
+                    const container = document.getElementById('timeline-container');
+                    container.innerHTML = '';
 
-                // Find items for this day
-                const dayItems = allItems.filter(item => item.dateStr === dateStr);
+                    const now = new Date();
+                    now.setHours(12, 0, 0, 0);
 
-                // Render Day Header
-                const dayBlock = document.createElement('div');
-                dayBlock.className = 'day-block';
+                    // Find maximum date in our data
+                    let maxDate = new Date(now);
+                    allItems.forEach(item => {
+                        const d = new Date(item.dateStr);
+                        d.setHours(12, 0, 0, 0);
+                        if (d > maxDate) maxDate = d;
+                    });
 
-                let prettyDate = date.toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' });
-                let label = dayName;
-                if (i === 0) label = "Heute";
-                if (i === 1) label = "Morgen";
+                    // Calculate days diff (cap at 28 days to avoid infinite loops on bad data)
+                    const diffTime = Math.abs(maxDate - now);
+                    let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    if (diffDays < 1) diffDays = 1; // Show at least today/tomorrow logic
+                    if (diffDays > 28) diffDays = 28;
 
-                const headerHTML = `
+                    // Show timeline up to the last available data
+                    for (let i = 0; i <= diffDays; i++) {
+                        const date = new Date(now);
+                        date.setDate(now.getDate() + i);
+                        const dateStr = date.toISOString().split('T')[0];
+                        const dayName = DAYS[date.getDay()];
+
+                        // Find items for this day
+                        const dayItems = allItems.filter(item => item.dateStr === dateStr);
+
+                        // Render Day Header
+                        const dayBlock = document.createElement('div');
+                        dayBlock.className = 'day-block';
+
+                        let prettyDate = date.toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' });
+                        let label = dayName;
+                        if (i === 0) label = "Heute";
+                        if (i === 1) label = "Morgen";
+
+                        const headerHTML = `
                     <div class="day-header">
                         <span class="day-name">${label}, ${prettyDate}.</span>
                     </div>
                 `;
 
-                let contentHTML = '';
-                if (dayItems.length === 0) {
-                    // Only show empty message if it's today or tomorrow, skip empty future days to save space
-                    if (i < 2) contentHTML = `<div class="empty-msg">Keine Menüs eingetragen.</div>`;
-                    else continue; // Skip rendering completely if empty and far future
-                } else {
-                    contentHTML = dayItems.map(item => `
+                        let contentHTML = '';
+                        if (dayItems.length === 0) {
+                            // Only show empty message if it's today or tomorrow, skip empty future days to save space
+                            if (i < 2) contentHTML = `<div class="empty-msg">Keine Menüs eingetragen.</div>`;
+                            else continue; // Skip rendering completely if empty and far future
+                        } else {
+                            contentHTML = dayItems.map(item => `
                         <div class="menu-row">
                             <div class="wirt-icon">🍽️</div>
                             <div class="menu-details">
@@ -545,39 +562,39 @@
                             </div>
                         </div>
                     `).join('');
+                        }
+
+                        dayBlock.innerHTML = headerHTML + contentHTML;
+                        container.appendChild(dayBlock);
+                    }
                 }
 
-                dayBlock.innerHTML = headerHTML + contentHTML;
-                container.appendChild(dayBlock);
-            }
-        }
-
-        function buildHostsGrid() {
-            const grid = document.getElementById('hosts-grid');
-            grid.innerHTML = uniqueHosts.map(host => `
+                function buildHostsGrid() {
+                    const grid = document.getElementById('hosts-grid');
+                    grid.innerHTML = uniqueHosts.map(host => `
                 <div class="host-btn" onclick="showHost('${host}')">
                     <span class="host-btn-icon">👨‍🍳</span>
                     <div class="host-btn-name">${host}</div>
                 </div>
             `).join('');
-        }
+                }
 
-        function showHost(name) {
-            document.getElementById('hosts-grid').classList.add('hidden');
-            const detailView = document.getElementById('host-detail-container');
-            const planContainer = document.getElementById('host-plan');
-            detailView.classList.add('active');
+                function showHost(name) {
+                    document.getElementById('hosts-grid').classList.add('hidden');
+                    const detailView = document.getElementById('host-detail-container');
+                    const planContainer = document.getElementById('host-plan');
+                    detailView.classList.add('active');
 
-            // Find all future/current items for this host
-            const items = allItems.filter(i => i.gasthaus === name && new Date(i.dateStr) >= new Date().setHours(0, 0, 0, 0))
-                .sort((a, b) => a.date - b.date);
+                    // Find all future/current items for this host
+                    const items = allItems.filter(i => i.gasthaus === name && new Date(i.dateStr) >= new Date().setHours(0, 0, 0, 0))
+                        .sort((a, b) => a.date - b.date);
 
-            if (items.length === 0) {
-                planContainer.innerHTML = `<div class="empty-msg">Keine aktuellen Pläne vorhanden.</div>`;
-                return;
-            }
+                    if (items.length === 0) {
+                        planContainer.innerHTML = `<div class="empty-msg">Keine aktuellen Pläne vorhanden.</div>`;
+                        return;
+                    }
 
-            planContainer.innerHTML = items.map(item => `
+                    planContainer.innerHTML = items.map(item => `
                 <div class="day-header" style="margin-top:16px; border-bottom:1px dashed #ccc; justify-content: flex-start; gap: 10px;">
                      <span class="day-name" style="font-size:1rem">${item.dayName}, ${new Date(item.date).toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' })}.</span>
                 </div>
@@ -591,127 +608,127 @@
                     </div>
                 </div>
             `).join('');
-        }
-
-        function closeHostDetail() {
-            document.getElementById('host-detail-container').classList.remove('active');
-            document.getElementById('hosts-grid').classList.remove('hidden');
-        }
-
-        function setMode(mode) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
-
-            if (mode === 'today') {
-                document.querySelector('button[onclick="setMode(\'today\')"]').classList.add('active');
-                document.getElementById('view-timeline').classList.remove('hidden');
-            } else {
-                document.querySelector('button[onclick="setMode(\'hosts\')"]').classList.add('active');
-                document.getElementById('view-hosts').classList.remove('hidden');
-                document.getElementById('hosts-grid').classList.remove('hidden'); // Reset grid visibility
-                document.getElementById('host-detail-container').classList.remove('active');
-            }
-        }
-
-        // --- Parsing Logic (Kept from V2) ---
-
-        function processEntry(entry) {
-            // Logic: Relative Week Calculation + Freitext Parsing
-            const gasthaus = entry.gasthausname;
-            const selection = entry.woche;
-            const freitext = entry.menueplanfreitext || entry.menuplanfreitext || "";
-            const preis = entry.preis || "";
-            const anmerkung = entry.anmerkung || "";
-
-            const timestamp = parseDate(entry.zeitstempel);
-            timestamp.setHours(12, 0, 0, 0); // Noon
-
-            const mondayCurrent = new Date(timestamp);
-            mondayCurrent.setDate(timestamp.getDate() - (timestamp.getDay() === 0 ? 6 : timestamp.getDay() - 1));
-
-            let targetMonday = new Date(mondayCurrent);
-            if (selection.includes("Nächste")) targetMonday.setDate(mondayCurrent.getDate() + 7);
-            else if (selection.includes("Übernächste")) targetMonday.setDate(mondayCurrent.getDate() + 14);
-
-            const extracted = extractFromFreitext(freitext);
-            const items = [];
-
-            ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'].forEach((day, idx) => {
-                const dayKey = day.toLowerCase();
-                let menu = entry[dayKey] || extracted[dayKey] || "";
-
-                // Add "Geschlossen" if explicitly mentioned? For now just skip empty unless needed
-                // Feature: If text contains "Ruhetag" or "Geschlossen", show it!
-                if (menu.trim().length > 2) {
-                    const menuDate = new Date(targetMonday);
-                    menuDate.setDate(targetMonday.getDate() + idx);
-                    items.push({
-                        gasthaus, menu: menu.trim(), preis, anmerkung,
-                        date: menuDate, dayName: day, dateStr: menuDate.toISOString().split('T')[0]
-                    });
                 }
-            });
-            return items;
-        }
 
-        function extractFromFreitext(text) {
-            const days = { montag: ['montag', 'mo'], dienstag: ['dienstag', 'di'], mittwoch: ['mittwoch', 'mi'], donnerstag: ['donnerstag', 'do'], freitag: ['freitag', 'fr'], samstag: ['samstag', 'sa'], sonntag: ['sonntag', 'so'] };
-            const result = {};
-            text.split('\n').forEach(line => {
-                const clean = line.trim();
-                let foundHeader = false;
-                for (let day in days) {
-                    const pattern = new RegExp('^(' + days[day].join('|') + ')[:\\s,\\.]', 'i');
-                    if (pattern.test(clean)) {
-                        currentDay = day;
-                        result[currentDay] = clean.replace(pattern, '').trim();
-                        foundHeader = true; break;
+                function closeHostDetail() {
+                    document.getElementById('host-detail-container').classList.remove('active');
+                    document.getElementById('hosts-grid').classList.remove('hidden');
+                }
+
+                function setMode(mode) {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
+
+                    if (mode === 'today') {
+                        document.querySelector('button[onclick="setMode(\'today\')"]').classList.add('active');
+                        document.getElementById('view-timeline').classList.remove('hidden');
+                    } else {
+                        document.querySelector('button[onclick="setMode(\'hosts\')"]').classList.add('active');
+                        document.getElementById('view-hosts').classList.remove('hidden');
+                        document.getElementById('hosts-grid').classList.remove('hidden'); // Reset grid visibility
+                        document.getElementById('host-detail-container').classList.remove('active');
                     }
                 }
-                if (!foundHeader && typeof currentDay !== 'undefined') {
-                    result[currentDay] = (result[currentDay] ? result[currentDay] + '\n' : '') + clean;
+
+                // --- Parsing Logic (Kept from V2) ---
+
+                function processEntry(entry) {
+                    // Logic: Relative Week Calculation + Freitext Parsing
+                    const gasthaus = entry.gasthausname;
+                    const selection = entry.woche;
+                    const freitext = entry.menueplanfreitext || entry.menuplanfreitext || "";
+                    const preis = entry.preis || "";
+                    const anmerkung = entry.anmerkung || "";
+
+                    const timestamp = parseDate(entry.zeitstempel);
+                    timestamp.setHours(12, 0, 0, 0); // Noon
+
+                    const mondayCurrent = new Date(timestamp);
+                    mondayCurrent.setDate(timestamp.getDate() - (timestamp.getDay() === 0 ? 6 : timestamp.getDay() - 1));
+
+                    let targetMonday = new Date(mondayCurrent);
+                    if (selection.includes("Nächste")) targetMonday.setDate(mondayCurrent.getDate() + 7);
+                    else if (selection.includes("Übernächste")) targetMonday.setDate(mondayCurrent.getDate() + 14);
+
+                    const extracted = extractFromFreitext(freitext);
+                    const items = [];
+
+                    ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'].forEach((day, idx) => {
+                        const dayKey = day.toLowerCase();
+                        let menu = entry[dayKey] || extracted[dayKey] || "";
+
+                        // Add "Geschlossen" if explicitly mentioned? For now just skip empty unless needed
+                        // Feature: If text contains "Ruhetag" or "Geschlossen", show it!
+                        if (menu.trim().length > 2) {
+                            const menuDate = new Date(targetMonday);
+                            menuDate.setDate(targetMonday.getDate() + idx);
+                            items.push({
+                                gasthaus, menu: menu.trim(), preis, anmerkung,
+                                date: menuDate, dayName: day, dateStr: menuDate.toISOString().split('T')[0]
+                            });
+                        }
+                    });
+                    return items;
                 }
-            });
-            return result;
-        }
 
-        function parseCSV(text) {
-            // Robust Parser V2
-            const arr = []; let quote = false; let col = 0, row = 0;
-            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-            for (let c = 0; c < text.length; c++) {
-                let cc = text[c], nc = text[c + 1];
-                arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
-                if (cc == '"') { if (quote && nc == '"') { arr[row][col] += cc; ++c; } else { quote = !quote; } }
-                else if (cc == ',' && !quote) { ++col; }
-                else if (cc == '\n' && !quote) { ++row; col = 0; }
-                else { arr[row][col] += cc; }
-            }
-            const headers = arr[0].map(h => normalizeHeader(h));
-            return arr.slice(1).map(row => {
-                if (row.length < 2) return null;
-                const obj = {}; headers.forEach((h, i) => obj[h] = row[i] ? row[i].trim() : '');
-                return obj.gasthausname ? obj : null;
-            }).filter(x => x);
-        }
+                function extractFromFreitext(text) {
+                    const days = { montag: ['montag', 'mo'], dienstag: ['dienstag', 'di'], mittwoch: ['mittwoch', 'mi'], donnerstag: ['donnerstag', 'do'], freitag: ['freitag', 'fr'], samstag: ['samstag', 'sa'], sonntag: ['sonntag', 'so'] };
+                    const result = {};
+                    text.split('\n').forEach(line => {
+                        const clean = line.trim();
+                        let foundHeader = false;
+                        for (let day in days) {
+                            const pattern = new RegExp('^(' + days[day].join('|') + ')[:\\s,\\.]', 'i');
+                            if (pattern.test(clean)) {
+                                currentDay = day;
+                                result[currentDay] = clean.replace(pattern, '').trim();
+                                foundHeader = true; break;
+                            }
+                        }
+                        if (!foundHeader && typeof currentDay !== 'undefined') {
+                            result[currentDay] = (result[currentDay] ? result[currentDay] + '\n' : '') + clean;
+                        }
+                    });
+                    return result;
+                }
 
-        function normalizeHeader(h) {
-            return h.trim().toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').replace(/[^a-z0-9]/g, '');
-        }
+                function parseCSV(text) {
+                    // Robust Parser V2
+                    const arr = []; let quote = false; let col = 0, row = 0;
+                    text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+                    for (let c = 0; c < text.length; c++) {
+                        let cc = text[c], nc = text[c + 1];
+                        arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
+                        if (cc == '"') { if (quote && nc == '"') { arr[row][col] += cc; ++c; } else { quote = !quote; } }
+                        else if (cc == ',' && !quote) { ++col; }
+                        else if (cc == '\n' && !quote) { ++row; col = 0; }
+                        else { arr[row][col] += cc; }
+                    }
+                    const headers = arr[0].map(h => normalizeHeader(h));
+                    return arr.slice(1).map(row => {
+                        if (row.length < 2) return null;
+                        const obj = {}; headers.forEach((h, i) => obj[h] = row[i] ? row[i].trim() : '');
+                        return obj.gasthausname ? obj : null;
+                    }).filter(x => x);
+                }
 
-        function parseDate(str) {
-            if (!str) return new Date();
-            const p = str.split(' ')[0].split('.');
-            return new Date(p[2], p[1] - 1, p[0]);
-        }
+                function normalizeHeader(h) {
+                    return h.trim().toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').replace(/[^a-z0-9]/g, '');
+                }
 
-        init();
-    </script>
+                function parseDate(str) {
+                    if (!str) return new Date();
+                    const p = str.split(' ')[0].split('.');
+                    return new Date(p[2], p[1] - 1, p[0]);
+                }
+
+                init();
+            </script>
         </div> <!-- Ende content-wrapper -->
 
         <!-- Footer -->
         <div class="footer">
-            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 4.8
+            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 5.3
         </div>
     </div> <!-- Ende app-container -->
 </body>

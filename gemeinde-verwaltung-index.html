@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +26,7 @@
             padding: 20px;
             text-align: center;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .app-header h1 {
@@ -44,7 +45,7 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
             gap: 10px;
         }
@@ -74,7 +75,7 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .back-button {
@@ -106,7 +107,7 @@
             margin-bottom: 15px;
             font-size: 14px;
             color: #666;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .breadcrumb a {
@@ -119,7 +120,7 @@
             background: white;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .page-title {
@@ -192,7 +193,7 @@
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             border-color: #4a7c2c;
         }
 
@@ -255,6 +256,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- App Header -->
     <div class="app-header">
@@ -315,21 +317,25 @@
         <!-- Kategorie Kacheln -->
         <div class="category-grid">
             <!-- Bürgerservice -->
-            <div class="category-card" onclick="window.location.href='#buergerservice'" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+            <div class="category-card" onclick="window.location.href='#buergerservice'"
+                style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
                 <div class="icon">📋</div>
                 <h3>Bürgerservice</h3>
                 <p>Formulare, Ämter & Services</p>
             </div>
 
             <!-- Gemeindeamt -->
-            <div class="category-card" onclick="window.location.href='#gemeindeamt'" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);">
+            <div class="category-card" onclick="window.location.href='#gemeindeamt'"
+                style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);">
                 <div class="icon">🏢</div>
                 <h3>Gemeindeamt</h3>
                 <p>Abteilungen & Mitarbeiter</p>
             </div>
 
             <!-- Politik -->
-            <div class="category-card" onclick="window.location.href='https://www.vorchdorf.at/Gemeinderat_und_Ausschuesse'" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);">
+            <div class="category-card"
+                onclick="window.location.href='https://www.vorchdorf.at/Gemeinderat_und_Ausschuesse'"
+                style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);">
                 <div class="icon">🗳️</div>
                 <h3>Politik</h3>
                 <p>Gemeinderat & Ausschüsse</p>
@@ -338,23 +344,27 @@
 
         <!-- Bürgerservice Section -->
         <div id="buergerservice" style="margin-top: 40px;">
-            <h3 style="color: #2d5016; margin-bottom: 20px; font-size: 24px; display: flex; align-items: center; gap: 10px;">
+            <h3
+                style="color: #2d5016; margin-bottom: 20px; font-size: 24px; display: flex; align-items: center; gap: 10px;">
                 <span>📋</span> Bürgerservice
             </h3>
             <div class="category-grid">
-                <a href="formulare.html" class="category-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
+                <a href="formulare.html" class="category-card"
+                    style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
                     <div class="icon">📄</div>
                     <h3>Formulare</h3>
                     <p>Alle amtlichen Formulare</p>
                 </a>
 
-                <a href="https://www.vorchdorf.at/Aemter_und_Sprechstunden" target="_blank" class="category-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
+                <a href="https://www.vorchdorf.at/Aemter_und_Sprechstunden" target="_blank" class="category-card"
+                    style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
                     <div class="icon">🕐</div>
                     <h3>Ämter & Sprechstunden</h3>
                     <p>Terminvereinbarung</p>
                 </a>
 
-                <a href="../index.html#waste" class="category-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
+                <a href="../index.html#waste" class="category-card"
+                    style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
                     <div class="icon">🗑️</div>
                     <h3>Müllkalender</h3>
                     <p>Abfuhrtermine & Zonen</p>
@@ -364,23 +374,27 @@
 
         <!-- Gemeindeamt Section -->
         <div id="gemeindeamt" style="margin-top: 40px;">
-            <h3 style="color: #2d5016; margin-bottom: 20px; font-size: 24px; display: flex; align-items: center; gap: 10px;">
+            <h3
+                style="color: #2d5016; margin-bottom: 20px; font-size: 24px; display: flex; align-items: center; gap: 10px;">
                 <span>🏢</span> Gemeindeamt
             </h3>
             <div class="category-grid">
-                <a href="abteilungen.html" class="category-card" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);">
+                <a href="abteilungen.html" class="category-card"
+                    style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);">
                     <div class="icon">🏛️</div>
                     <h3>Abteilungen</h3>
                     <p>Alle Abteilungen & Ansprechpartner</p>
                 </a>
 
-                <a href="mitarbeiter.html" class="category-card" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);">
+                <a href="mitarbeiter.html" class="category-card"
+                    style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);">
                     <div class="icon">👥</div>
                     <h3>Mitarbeiter</h3>
                     <p>Gemeindemitarbeiter A-Z</p>
                 </a>
 
-                <a href="gemeindebetriebe.html" class="category-card" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);">
+                <a href="gemeindebetriebe.html" class="category-card"
+                    style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);">
                     <div class="icon">🏗️</div>
                     <h3>Gemeindebetriebe</h3>
                     <p>Bauhof, Kindergärten, etc.</p>
@@ -391,7 +405,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 4.3
+        Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 5.3
     </div>
 
     <script>
@@ -402,11 +416,12 @@
         }
 
         // Enter-Taste im Suchfeld
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
     </script>
 </body>
+
 </html>
