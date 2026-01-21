@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sag's uns - Vorchdorf App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a472a;
+            --primary-light: #2d7a47;
+            --primary-gradient: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
+            --bg: #f5f7f5;
+            --text: #333;
+            --text-light: #666;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border: #ddd;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --accent: #667eea;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f4f8;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header similar to other pages */
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        header img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Back Button Container */
+        .back-button-container {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .back-button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            background: #f5f5f5;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow);
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Form Content Box */
+        .content-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Step Indicator */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .step-dot.completed {
+            background: var(--success);
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Step Title */
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        /* Category Selection */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .category-option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-option:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            background: #f0f4f0;
+        }
+
+        .category-option.selected {
+            border-color: var(--primary);
+            background: #e8f5e9;
+        }
+
+        .category-option input {
+            display: none;
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .category-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .form-group label .optional {
+            font-weight: 400;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        textarea,
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        }
+
+        /* Location Dropdown */
+        .location-quick {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .location-chip {
+            background: #f8f9fa;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .location-chip:hover {
+            background: #e8f5e9;
+            border-color: var(--primary-light);
+        }
+
+        .location-chip.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Photo Hint */
+        .photo-hint {
+            background: #f0f7f0;
+            border: 2px dashed var(--primary-light);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .photo-hint-icon {
+            font-size: 32px;
+        }
+
+        .photo-hint-text {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Navigation Buttons */
+        .form-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: #fafafa;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Summary */
+        .summary-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--text);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-screen h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .success-screen p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1565c0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 10px 15px;
+            }
+
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            header img {
+                height: 40px;
+            }
+
+            .content-wrapper {
+                padding: 20px 15px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-nav {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- App Header mit Wappen -->
+        <header onclick="window.location.href='index.html'">
+            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+            <h1>Vorchdorf-APP</h1>
+            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+        </header>
+
+        <!-- Zurück Button -->
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">← Zurück zur Startseite</a>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">🏠 Start</a> › Sag's uns
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step-dot active" data-step="1"></div>
+                <div class="step-dot" data-step="2"></div>
+                <div class="step-dot" data-step="3"></div>
+            </div>
+
+            <!-- Step 1: Category -->
+            <div class="form-step active" id="step1">
+                <div class="step-title">
+                    <span>1️⃣</span> Was möchten Sie melden?
+                </div>
+
+                <div class="category-grid">
+                    <label class="category-option">
+                        <input type="radio" name="kategorie" value="Schaden/Defekt">
+                        <div class="category-icon">🔧</div>
+                        <div class="category-label">Schaden/Defekt</div>
+                    </label>
+
+                    <label class="category-option">
+                        <input type="radio" name="kategorie" value="Verschmutzung">
+                        <div class="category-icon">🗑️</div>
+                        <div class="category-label">Verschmutzung</div>
+                    </label>
+
+                    <label class="category-option">
+                        <input type="radio" name="kategorie" value="Gefahr/Sicherheit">
+                        <div class="category-icon">⚠️</div>
+                        <div class="category-label">Gefahr/Sicherheit</div>
+                    </label>
+
+                    <label class="category-option">
+                        <input type="radio" name="kategorie" value="Verbesserungsvorschlag">
+                        <div class="category-icon">💡</div>
+                        <div class="category-label">Vorschlag</div>
+                    </label>
+
+                    <label class="category-option">
+                        <input type="radio" name="kategorie" value="Lob & Dank">
+                        <div class="category-icon">👏</div>
+                        <div class="category-label">Lob & Dank</div>
+                    </label>
+
+                    <label class="category-option">
+                        <input type="radio" name="kategorie" value="Sonstiges">
+                        <div class="category-icon">📝</div>
+                        <div class="category-label">Sonstiges</div>
+                    </label>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-primary" onclick="nextStep()" id="btn-step1" disabled>Weiter →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Details -->
+            <div class="form-step" id="step2">
+                <div class="step-title">
+                    <span>2️⃣</span> Details zur Meldung
+                </div>
+
+                <div class="form-group">
+                    <label for="beschreibung">Beschreibung * (mind. 10 Zeichen)</label>
+                    <textarea id="beschreibung"
+                        placeholder="Beschreiben Sie kurz, was Sie melden möchten..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Wo befindet sich das? <span class="optional">(optional)</span></label>
+                    <div class="location-quick">
+                        <span class="location-chip" data-location="Ortszentrum">Ortszentrum</span>
+                        <span class="location-chip" data-location="Schöndorf">Schöndorf</span>
+                        <span class="location-chip" data-location="Lindach">Lindach</span>
+                        <span class="location-chip" data-location="Eggenberg">Eggenberg</span>
+                        <span class="location-chip" data-location="Pfarrkirchen">Pfarrkirchen</span>
+                    </div>
+                    <input type="text" id="ort" placeholder="Genauere Ortsangabe (z.B. Hauptplatz beim Brunnen)">
+                </div>
+
+                <div class="form-group">
+                    <label>📷 Fotos <span class="optional">(optional)</span></label>
+                    <div class="photo-hint">
+                        <div class="photo-hint-icon">📱</div>
+                        <div class="photo-hint-text">
+                            Fotos können Sie nach dem Absenden direkt im E-Mail-Programm anhängen.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Zurück</button>
+                    <button class="btn btn-primary" onclick="nextStep()" id="btn-step2" disabled>Weiter →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Summary & Send -->
+            <div class="form-step" id="step3">
+                <div class="step-title">
+                    <span>3️⃣</span> Zusammenfassung
+                </div>
+
+                <div class="info-box">
+                    ℹ️ Ihre Meldung wird per E-Mail gesendet. Falls Sie Fotos haben: Bitte nach dem Absenden im
+                    E-Mail-Programm als Anhang hinzufügen.
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-row">
+                        <span class="summary-label">Kategorie</span>
+                        <span class="summary-value" id="sum-kategorie">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Ort</span>
+                        <span class="summary-value" id="sum-ort">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Beschreibung</span>
+                        <span class="summary-value" id="sum-beschreibung">-</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Ihre E-Mail <span class="optional">(für Rückfragen)</span></label>
+                    <input type="email" id="email" placeholder="ihre.email@beispiel.at">
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Zurück</button>
+                    <button class="btn btn-primary" onclick="sendMeldung()">📧 Meldung absenden</button>
+                </div>
+            </div>
+
+            <!-- Success Screen -->
+            <div class="form-step" id="stepSuccess">
+                <div class="success-screen">
+                    <div class="success-icon">✅</div>
+                    <h2>Vielen Dank!</h2>
+                    <p>Ihr E-Mail-Programm öffnet sich jetzt. <strong>Tipp:</strong> Fotos können Sie dort direkt als
+                        Anhang hinzufügen, bevor Sie absenden.</p>
+                    <button class="btn btn-primary" onclick="resetForm()">Neue Meldung erstellen</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 4.8.1
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentStep = 1;
+
+        // E-Mail Adresse der Gemeinde
+        const GEMEINDE_EMAIL = 'gemeinde@vorchdorf.ooe.gv.at';
+
+        // DOM Elements
+        const categoryOptions = document.querySelectorAll('.category-option');
+        const locationChips = document.querySelectorAll('.location-chip');
+        const beschreibung = document.getElementById('beschreibung');
+
+        // Category Selection
+        categoryOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                categoryOptions.forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+                option.querySelector('input').checked = true;
+                document.getElementById('btn-step1').disabled = false;
+            });
+        });
+
+        // Location Chips
+        locationChips.forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                e.preventDefault();
+                const wasSelected = chip.classList.contains('selected');
+                locationChips.forEach(c => c.classList.remove('selected'));
+
+                if (!wasSelected) {
+                    chip.classList.add('selected');
+                    const ortInput = document.getElementById('ort');
+                    ortInput.value = chip.dataset.location;
+                } else {
+                    document.getElementById('ort').value = '';
+                }
+            });
+        });
+
+        // Beschreibung Validation
+        beschreibung.addEventListener('input', () => {
+            document.getElementById('btn-step2').disabled = beschreibung.value.trim().length < 10;
+        });
+
+        // Navigation
+        function nextStep() {
+            if (currentStep < 3) {
+                currentStep++;
+                updateSteps();
+
+                if (currentStep === 3) {
+                    updateSummary();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateSteps();
+            }
+        }
+
+        function updateSteps() {
+            // Update step visibility
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(`step${currentStep}`).classList.add('active');
+
+            // Update dots
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index + 1 === currentStep) {
+                    dot.classList.add('active');
+                } else if (index + 1 < currentStep) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        function updateSummary() {
+            const kategorie = document.querySelector('input[name="kategorie"]:checked')?.value || '-';
+            const ort = document.getElementById('ort').value || 'Nicht angegeben';
+            const beschreibungText = document.getElementById('beschreibung').value;
+
+            document.getElementById('sum-kategorie').textContent = kategorie;
+            document.getElementById('sum-ort').textContent = ort;
+            document.getElementById('sum-beschreibung').textContent =
+                beschreibungText.length > 50
+                    ? beschreibungText.substring(0, 50) + '...'
+                    : beschreibungText;
+        }
+
+        function sendMeldung() {
+            const kategorie = document.querySelector('input[name="kategorie"]:checked')?.value || 'Sonstiges';
+            const ort = document.getElementById('ort').value || 'Nicht angegeben';
+            const beschreibungText = document.getElementById('beschreibung').value;
+            const userEmail = document.getElementById('email').value;
+
+            const betreff = `[Sag's uns] ${kategorie}`;
+
+            let body = `BÜRGERMELDUNG über die Vorchdorf-App\n`;
+            body += `========================================\n\n`;
+            body += `KATEGORIE: ${kategorie}\n\n`;
+            body += `ORT: ${ort}\n\n`;
+            body += `BESCHREIBUNG:\n${beschreibungText}\n\n`;
+
+            if (userEmail) {
+                body += `----------------------------------------\n`;
+                body += `Kontakt für Rückfragen: ${userEmail}\n`;
+            }
+
+            body += `\n========================================\n`;
+            body += `Gesendet über die Vorchdorf-App\n`;
+
+            // Open mailto
+            const mailtoLink = `mailto:${GEMEINDE_EMAIL}?subject=${encodeURIComponent(betreff)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+
+            // Show success screen
+            setTimeout(() => {
+                document.querySelectorAll('.form-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                document.getElementById('stepSuccess').classList.add('active');
+
+                // Hide step indicator
+                document.querySelector('.step-indicator').style.display = 'none';
+            }, 500);
+        }
+
+        function resetForm() {
+            currentStep = 1;
+
+            // Reset form fields
+            document.querySelectorAll('input[name="kategorie"]').forEach(r => r.checked = false);
+            categoryOptions.forEach(o => o.classList.remove('selected'));
+            locationChips.forEach(c => c.classList.remove('selected'));
+            document.getElementById('beschreibung').value = '';
+            document.getElementById('ort').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('btn-step1').disabled = true;
+            document.getElementById('btn-step2').disabled = true;
+
+            // Show step indicator
+            document.querySelector('.step-indicator').style.display = 'flex';
+
+            // Update view
+            updateSteps();
+        }
+    </script>
+</body>
+
+</html>

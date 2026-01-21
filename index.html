@@ -22,7 +22,7 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
 
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=4.0">
+    <link rel="manifest" href="./manifest.json?v=4.8.1">
 
     <!-- Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=4.0">
@@ -4027,6 +4027,13 @@ Mit freundlichen Grüßen`;
                 icon: '🛒',
                 description: 'Kaufen & Verkaufen in der Region',
                 isFlohmarkt: true
+            },
+            sags_uns: {
+                id: 'sags_uns',
+                title: "Sag's uns",
+                icon: '💬',
+                description: 'Schäden, Lob oder Anregungen melden',
+                externalLink: 'sags-uns.html'
             }
         };
 
@@ -4206,7 +4213,7 @@ Mit freundlichen Grüßen`;
             const weatherWidget = document.getElementById('weatherWidget');
 
             // Render categories in custom order
-            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'mittagstisch', 'waste_calendar', 'flohmarkt'];
+            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'mittagstisch', 'waste_calendar', 'flohmarkt', 'sags_uns'];
             const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
 
             mainContent.innerHTML = `
