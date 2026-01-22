@@ -1137,6 +1137,13 @@
     "description": "Kaufen & Verkaufen in der Region",
     "isFlohmarkt": true
   },
+  "regionale_produkte": {
+    "id": "regionale_produkte",
+    "title": "Regionale Produkte",
+    "icon": "🍎",
+    "description": "Erzeugnisse direkt aus Vorchdorf",
+    "isRegionaleProdukte": true
+  },
   "sags_uns": {
     "id": "sags_uns",
     "title": "Sag's uns",
