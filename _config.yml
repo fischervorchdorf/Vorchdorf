@@ -1,32 +1,12 @@
 # GitHub Pages Configuration for Vorchdorf App
+# Note: .nojekyll is present, so Jekyll processing is disabled on GitHub Pages.
+# This file is kept for reference or local development.
 
-# Build settings
-include: ["vorchdorf-app"]
-
-# Exclude unnecessary files
 exclude:
   - README.md
   - .gitignore
   - node_modules
-  - files
-  - "files 2"
-  - sicherung_v2.42
-  - "Vorchdorf Flohmarkt Produkte - Google Sheets-Dateien"
-  - "Vereine Vorchdorf"
   - "*.backup"
-  - "*-admin.html"
-  - "*-scraper.html"
-  - "*-veranstaltungen.html"
-  - "ANLEITUNG-*.md"
-  - "ICON-ANLEITUNG.md"
-  - "PWA-SETUP.md"
-  - "force-reload.html"
-  - "test.html"
-  - "events*.html"
-  - "aerzte.html"
-  - "flohmarkt*.html"
-
-markdown: kramdown
-theme: null
-future: false
-safe: false
+  - scrapers/
+  - backups/
+  - "sicherung_*"
