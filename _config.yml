@@ -1,7 +1,7 @@
 # GitHub Pages Configuration for Vorchdorf App
 
 # Build settings
-include: ["Vorchdorf App"]
+include: ["vorchdorf-app"]
 
 # Exclude unnecessary files
 exclude:

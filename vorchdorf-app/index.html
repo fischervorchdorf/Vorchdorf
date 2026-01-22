@@ -22,12 +22,12 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
 
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=2.81">
+    <link rel="manifest" href="./manifest.json?v=5.4">
 
     <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.81">
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.81">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=2.81">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=4.0">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=4.0">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=4.0">
 
     <style>
         * {
@@ -2125,6 +2125,7 @@
         let flohmarktAllProducts = [];
         let flohmarktCurrentProduct = null;
         let flohmarktCurrentImageIndex = 0;
+        let showOnlyWerbering = false;
 
         const flohmarktCategoryIcons = {
             'Schulsachen': '📚',
@@ -2142,72 +2143,96 @@
             'Sonstiges': '📦'
         };
 
-        // CSV Parser für Flohmarkt
-        function parseCSV(csv) {
-            const lines = csv.split('\n');
-            const headers = parseCSVLine(lines[0]);
-            const products = [];
+        // Robuster CSV Parser mit Trennzeichen-Erkennung und Fallback
+        function parseCSV(text) {
+            // Detect delimiter based on first line
+            const firstLine = text.split('\n')[0];
+            const delimiter = firstLine.includes(';') ? ';' : ',';
 
-            for (let i = 1; i < lines.length; i++) {
-                if (lines[i].trim() === '') continue;
-                const values = parseCSVLine(lines[i]);
-                const product = {};
-                headers.forEach((header, index) => {
-                    product[header.trim()] = values[index] ? values[index].trim() : '';
-                });
-                products.push(product);
-            }
-            return products;
-        }
+            const arr = [];
+            let quote = false;
+            let col = 0, row = 0;
 
-        function parseCSVLine(line) {
-            const result = [];
-            let current = '';
-            let inQuotes = false;
+            // Normalize line endings
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-            for (let i = 0; i < line.length; i++) {
-                const char = line[i];
-                if (char === '"') {
-                    inQuotes = !inQuotes;
-                } else if (char === ',' && !inQuotes) {
-                    result.push(current);
-                    current = '';
-                } else {
-                    current += char;
+            for (let c = 0; c < text.length; c++) {
+                let cc = text[c];
+                let nc = text[c + 1];
+                arr[row] = arr[row] || [];
+                arr[row][col] = arr[row][col] || '';
+
+                if (cc == '"') {
+                    if (quote && nc == '"') {
+                        arr[row][col] += cc; ++c;
+                    } else {
+                        quote = !quote;
+                    }
                 }
+                else if (cc == delimiter && !quote) { ++col; }
+                else if (cc == '\n' && !quote) { ++row; col = 0; }
+                else { arr[row][col] += cc; }
             }
-            result.push(current);
+
+            // Clean headers
+            const headers = arr[0].map(h => h.trim().replace(/^[\uFEFF\u200B]/, ''));
+            const result = [];
+
+            for (let i = 1; i < arr.length; i++) {
+                const rowData = arr[i];
+                if (rowData.length < 2) continue;
+
+                const obj = {};
+
+                // Strategy 1: Standard Map
+                headers.forEach((h, idx) => {
+                    obj[h] = rowData[idx] ? rowData[idx].trim() : '';
+                });
+
+                // Strategy 2: Fallback for critical fields if empty (using fixed indices based on Google Sheet structure)
+                // 0:Timestamp, 1:Status, 2:Name, 3:Category, 4:Price, 5:Desc, 6:Firm, 7:Email, 8:Img1
+                if (!obj['Produktname'] && rowData[2]) obj['Produktname'] = rowData[2];
+                if (!obj['Kategorie'] && rowData[3]) obj['Kategorie'] = rowData[3];
+                if (!obj['Preis in Euro'] && rowData[4]) obj['Preis in Euro'] = rowData[4];
+                if (!obj['Firmenname'] && rowData[6]) obj['Firmenname'] = rowData[6];
+
+                // Flexible Image Search
+                if (!obj['Bild 1 Url von Imgur']) {
+                    // Try column 8 or find any http link
+                    if (rowData[8] && rowData[8].startsWith('http')) obj['Bild 1 Url von Imgur'] = rowData[8];
+                }
+
+                result.push(obj);
+            }
             return result;
         }
 
-        // Flohmarkt Produkte laden
         async function loadFlohmarktProducts() {
             try {
-                // Verstecke Footer wenn Flohmarkt aktiv
-                const mainFooter = document.getElementById('mainFooter');
-                if (mainFooter) {
-                    mainFooter.style.display = 'none';
-                }
+                // Footer nicht mehr verstecken!
 
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                let response;
+                // const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                // let response;
 
                 try {
                     response = await fetch(FLOHMARKT_SHEET_URL);
                 } catch (e) {
-                    response = await fetch(proxyUrl + encodeURIComponent(FLOHMARKT_SHEET_URL));
+                    console.error('Fetch error:', e);
+                }
+
+                if (!response || !response.ok) {
+                    throw new Error('Network response was not ok');
                 }
 
                 const csv = await response.text();
                 const products = parseCSV(csv);
 
-                // DEBUG: Alle Produkte anzeigen (Filter entfernt zum Debuggen)
-                flohmarktAllProducts = products; // TEMP: Zeige ALLE Produkte
+                // Neueste zuerst
+                products.reverse();
 
-                console.log('DEBUG: Geladen', flohmarktAllProducts.length, 'Produkte');
-                if (flohmarktAllProducts.length > 0) {
-                    console.log('DEBUG: Erstes Produkt Status:', flohmarktAllProducts[0].Status);
-                }
+                flohmarktAllProducts = products;
+
+                renderFlohmarktProducts(flohmarktAllProducts);
 
                 renderFlohmarktProducts(flohmarktAllProducts);
             } catch (error) {
@@ -2467,6 +2492,7 @@ Mit freundlichen Grüßen`;
             // Click-Handler für Contact-Button - öffne Email-Modal
             document.getElementById('flohmarktModalContactBtn').onclick = function (e) {
                 e.preventDefault();
+                closeFlohmarktModal();
                 openEmailPreviewModal(email, subject, emailBody, imageUrl, sellerName);
             };
             document.getElementById('flohmarktModalContactBtn').href = 'javascript:void(0)'; // Verhindere default-Link
@@ -2628,6 +2654,7 @@ Mit freundlichen Grüßen`;
 
         // Email Preview Modal - mit Bild und HTML-Vorschau
         function openEmailPreviewModal(toEmail, subject, body, imageUrl, sellerName) {
+            window.flohmarktEmailImageURL = imageUrl; // URL für sendEmailFromPreview speichern
             // Erstelle Modal-HTML
             let previewHtml = `
                 <div class="email-preview-modal">
@@ -2766,16 +2793,18 @@ Mit freundlichen Grüßen`;
         function sendEmailFromPreview(toEmail, subject, encodedBody) {
             let body = atob(encodedBody); // Decode from base64
 
-            // Wenn Base64-Bild verfügbar, füge es als eingebettetes Bild hinzu
-            if (window.flohmarktEmailImageBase64) {
-                // Füge Bild als HTML-img mit Data-URL ein
-                body += `\n\n---\n[Produktbild wird angehängt]`;
-                // Base64-Bild wird in HTML-Format angehängt (viele Email-Clients unterstützen das)
+            // Wenn Bild-URL verfügbar, füge sie dem Text hinzu
+            if (window.flohmarktEmailImageURL) {
+                body += `\n\nProdukt-Bild: ${window.flohmarktEmailImageURL}`;
             }
 
             const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
-            setTimeout(() => closeEmailPreviewModal(), 100);
+            // Schließe zuerst das Modal, dann öffne Email
+            closeEmailPreviewModal();
+            // Kurze Verzögerung damit das Modal geschlossen ist bevor Email öffnet
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 300);
         }
 
         // Event Listeners für Flohmarkt
@@ -2811,9 +2840,8 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '5.4'; // Aktuelle Version der App
+        const APP_VERSION = '5.5'; // Aktuelle Version der App
         const CACHE_BUSTER = Date.now();
-
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
             try {
@@ -2909,1189 +2937,58 @@ Mit freundlichen Grüßen`;
         let allBusinesses = [];
         let allClubs = {};
 
+        // Gemeinde-Verwaltung Daten - Loaded from JSON
+        let allFormulare = [];
+        let allMitarbeiter = [];
+        let allAbteilungen = [];
+        let allGemeindebetriebe = [];
+
         // Data Structure
-        const categories = {
-            events: {
-                id: 'events',
-                title: 'Veranstaltungen',
-                icon: '📅',
-                description: 'Events, Konzerte, Feste & mehr',
-                externalLink: 'events.html'
-            },
-            gallery: {
-                id: 'gallery',
-                title: 'Bilder & Galerie',
-                icon: '📸',
-                description: 'Bilder und Fotos von Vorchdorf',
-                externalLink: 'http://www.vorchdorfer.at/'
-            },
-            welcome: {
-                id: 'welcome',
-                title: 'Willkommen',
-                icon: '👋',
-                description: 'Erste Infos über Vorchdorf',
-                content: {
-                    type: 'info',
-                    sections: [
-                        {
-                            title: '👋 Herzlich willkommen in Vorchdorf!',
-                            items: [
-                                {
-                                    title: 'Wir freuen uns, dass Sie hier sind!',
-                                    info: [
-                                        'Vorchdorf ist mehr als nur ein Wohnort – es ist das lebendige Tor zum Salzkammergut.',
-                                        'Zwischen Tradition, starker Wirtschaft und wunderschöner Natur bietet unsere Marktgemeinde alles, was man zum Wohlfühlen braucht.',
-                                        'Damit Sie sich schnell zurechtfinden, haben wir hier die wichtigsten Fakten und erste Schritte für Sie zusammengefasst.'
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            title: '🔢 Vorchdorf in Zahlen & Fakten',
-                            items: [
-                                {
-                                    title: 'Ein kurzer Steckbrief Ihrer neuen Heimat',
-                                    info: [
-                                        '📏 Fläche: 47,78 km²',
-                                        '📍 Seehöhe: 414 m ü. A.',
-                                        '👥 Einwohner: ca. 8.300 (Stand 2024/2025)',
-                                        '📮 Postleitzahl: 4655',
-                                        '🗺️ Lage: Bezirk Gmunden, direkt an der A1 Westautobahn',
-                                        '🏘️ Struktur: 27 Ortschaften, wichtiger Wirtschaftsstandort im Almtal'
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            title: '📝 Checkliste: Neu in Vorchdorf? Das ist zu tun',
-                            items: [
-                                {
-                                    title: '1️⃣ Anmeldung (Meldezettel)',
-                                    info: [
-                                        'Innerhalb von 3 Tagen nach Bezug der Unterkunft beim Meldeamt anmelden',
-                                        'Wo: Marktgemeindeamt Vorchdorf (Erdgeschoss, Bürgerservice)',
-                                        'Mitbringen: Meldezettel (unterschrieben), Reisepass/Personalausweis, Geburtsurkunde'
-                                    ]
-                                },
-                                {
-                                    title: '2️⃣ Müllabfuhr & ASZ-Karte',
-                                    info: [
-                                        'In Vorchdorf legen wir Wert auf Mülltrennung',
-                                        'Mülltonnen: Anmeldung für Restmüll- und Biotonnen am Gemeindeamt',
-                                        'ASZ (Altstoffsammelzentrum): OÖ-Siedlerkarte beim Gemeindeamt abholen'
-                                    ]
-                                },
-                                {
-                                    title: '3️⃣ Wasserzählerstand',
-                                    info: [
-                                        'Bei Eigentümerwechsel den Wasserzählerstand dem Steueramt melden',
-                                        'Wichtig für korrekte Abrechnung'
-                                    ]
-                                },
-                                {
-                                    title: '4️⃣ Hundesteuer',
-                                    info: [
-                                        'Wenn Sie einen vierbeinigen Freund mitbringen: Hund am Gemeindeamt anmelden',
-                                        'Dort erhalten Sie auch die Hundemarke'
-                                    ]
-                                },
-                                {
-                                    title: '5️⃣ Vorchdorf-Card (Tipp!)',
-                                    info: [
-                                        'Holen Sie sich Informationen zur Vorchdorf-Card (Werbering)',
-                                        'Unsere lokale Gutscheinkarte wird in unzähligen Geschäften akzeptiert',
-                                        'Ideal, um den Ort kennenzulernen'
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            title: '🏛️ Gemeindeamt & Öffnungszeiten',
-                            items: [
-                                {
-                                    title: 'Marktgemeinde Vorchdorf',
-                                    info: [
-                                        '📍 Schloßplatz 7, 4655 Vorchdorf',
-                                        '📞 Telefon: +43 7614 6555',
-                                        '📧 E-Mail: gemeinde@vorchdorf.ooe.gv.at'
-                                    ]
-                                },
-                                {
-                                    title: 'Öffnungszeiten Bürgerservice',
-                                    info: [
-                                        'Montag: 07:00 – 12:00 Uhr',
-                                        'Dienstag: 07:00 – 12:00 Uhr & 14:00 – 18:00 Uhr',
-                                        'Mittwoch: kein Parteienverkehr',
-                                        'Donnerstag: 07:00 – 12:00 Uhr & 14:00 – 17:00 Uhr',
-                                        'Freitag: 07:00 – 12:00 Uhr'
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            title: '💡 Wussten Sie schon?',
-                            items: [
-                                {
-                                    title: 'Vorchdorf als Verkehrsknotenpunkt',
-                                    info: [
-                                        'Vorchdorf ist ein Verkehrsknotenpunkt der besonderen Art',
-                                        'Bei uns treffen sich nicht nur Autobahn und Landstraßen zusammen',
-                                        'Sondern auch zwei berühmte Lokalbahnen am selben Bahnhof:',
-                                        '🚊 Die Traunseetram (aus Gmunden)',
-                                        '🚊 Die Vorchdorferbahn (aus Lambach)',
-                                        'Steigen Sie ein und erkunden Sie die Region!'
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            health: {
-                id: 'health',
-                title: 'Gesundheit & Soziales',
-                icon: '🏥',
-                description: 'Ärzte, Apotheken & Beratungsstellen',
-                subcategories: {
-                    doctors_websites: {
-                        id: 'doctors_websites',
-                        icon: '👨‍⚕️',
-                        title: 'Ärzte in Vorchdorf - eigene Webseiten',
-                        description: 'Klicken für Details',
-                        items: [
-                            {
-                                title: 'Dr. Gruber Theresa',
-                                info: ['Praktische Ärztin'],
-                                link: 'https://www.gruberdoktor.at/'
-                            },
-                            {
-                                title: 'Dr. Christoph Hohn',
-                                info: ['Praktischer Arzt'],
-                                link: 'https://www.docfinder.at/praktischer-arzt/4655-vorchdorf/dr-christoph-hohn'
-                            },
-                            {
-                                title: 'Hausärztin Raml Katja',
-                                info: ['Praktische Ärztin'],
-                                link: 'https://hausaerztin-raml.at/'
-                            },
-                            {
-                                title: 'Dr. Westreicher Claudia',
-                                info: ['Praktische Ärztin'],
-                                link: 'https://www.westreicher.at/'
-                            },
-                            {
-                                title: 'Dr. Westreicher Richard',
-                                info: ['Praktischer Arzt'],
-                                link: 'https://www.westreicher.at/'
-                            },
-                            {
-                                title: 'Dr. Klinkert',
-                                info: ['Zahnarzt'],
-                                link: 'https://www.zahnarzt-klinkert.at/'
-                            },
-                            {
-                                title: 'Dr. Wolfgang Krenmayr',
-                                info: ['Zahnarzt'],
-                                link: 'https://www.docfinder.at/zahnarzt/4655-vorchdorf/dr-wolfgang-krenmayr'
-                            },
-                            {
-                                title: 'Tierambulanz Vorchdorf (Kleintierklinik Vitalis)',
-                                info: ['Tierarzt'],
-                                link: 'https://www.kleintierklinik-vitalis.at/'
-                            },
-                            {
-                                title: 'Traunkreis Vet Clinic',
-                                info: ['Tierarzt'],
-                                link: 'http://www.vetclinic.at/tierarztpraxis-vorchdorf/kontakt/'
-                            },
-                            {
-                                title: 'Dr. Wurzer Helmut',
-                                info: ['Tierarzt'],
-                                link: 'https://www.vorchdorf.at/Wurzer_Helmut'
-                            },
-                            {
-                                title: 'Dr. Huber Petra',
-                                info: ['Facharzt'],
-                                link: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Aerzte_in_Vorchdorf'
-                            }
-                        ]
-                    },
-                    doctors_vorchdorf: {
-                        id: 'doctors_vorchdorf',
-                        icon: '🌐',
-                        title: 'Ärzte in Vorchdorf auf vorchdorf.at',
-                        directLink: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Aerzte_in_Vorchdorf'
-                    },
-                    doctors_opening_hours: {
-                        id: 'doctors_opening_hours',
-                        icon: '⏰',
-                        title: 'Ärzte in Vorchdorf Öffnungszeiten',
-                        directLink: 'https://www.google.com/search?q=ärzte+vorchdorf+öffnungszeiten'
-                    },
-                    specialists: {
-                        id: 'specialists',
-                        icon: '🔍',
-                        title: 'Kinder- und Fachärzte auf arztsuche',
-                        directLink: 'https://arztsuche.aekooe.at/finder/search/land/OO,SA'
-                    },
-                    pharmacy: {
-                        id: 'pharmacy',
-                        icon: '💊',
-                        title: 'Apotheken auf apothekensuche',
-                        directLink: 'https://www.apothekerkammer.at/apothekensuche/4655,+%C3%96sterreich/4655/@47.9989105,13.9451777/p=postal_code'
-                    },
-                    social: {
-                        id: 'social',
-                        icon: '🤝',
-                        title: 'Soziale Einrichtungen',
-                        items: [
-                            {
-                                title: 'Mutterberatung',
-                                info: [
-                                    'Regelmäßige Beratungstermine',
-                                    'Infos auf der Gemeinde-Website'
-                                ],
-                                link: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Mutterberatung'
-                            },
-                            {
-                                title: 'Sozialfonds "WIR helfen"',
-                                info: [
-                                    'Unterstützung für Familien in Notlagen',
-                                    'Kontakt über Gemeindeamt Vorchdorf'
-                                ],
-                                link: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Sozialfonds_WIR_helfen_'
-                            },
-                            {
-                                title: 'Gesundheitsnummer 1450',
-                                info: [
-                                    'Telefonische Gesundheitsberatung',
-                                    'Rund um die Uhr erreichbar: 1450'
-                                ],
-                                link: 'https://www.sozialministerium.gv.at/Themen/Gesundheit/eHealth/Gesundheitsberatung-1450.html'
-                            }
-                        ]
-                    }
-                }
-            },
-            education: {
-                id: 'education',
-                title: 'Bildung',
-                icon: '🎓',
-                description: 'Schulen, Kindergärten & Weiterbildung',
-                content: {
-                    type: 'list',
-                    items: [
-                        {
-                            title: 'Erwachsenenbildung VHS',
-                            link: 'https://www.vorchdorf.at/Erwachsenenbildung_VHS'
-                        },
-                        {
-                            title: 'GTS - Ganztagesschule',
-                            link: 'https://www.vorchdorf.at/GTS'
-                        },
-                        {
-                            title: 'Kindergarten Fischböckau',
-                            link: 'https://www.vorchdorf.at/Kindergarten_Fischboeckau_1'
-                        },
-                        {
-                            title: 'Kindergarten Kunterbunt und Farbenfroh',
-                            link: 'https://www.vorchdorf.at/Kindergarten_Kunterbunt_und_Farbenfroh'
-                        },
-                        {
-                            title: 'Krabbelstube Fischböckau',
-                            link: 'https://www.vorchdorf.at/Krabbelstube_Fischboeckau_1'
-                        },
-                        {
-                            title: 'Landesmusikschule',
-                            link: 'https://www.vorchdorf.at/Landesmusikschule'
-                        },
-                        {
-                            title: 'Neue Mittelschule',
-                            link: 'https://www.vorchdorf.at/Neue_Mittelschule'
-                        },
-                        {
-                            title: 'Öffentliche Bibliothek',
-                            link: 'https://bibliothek-vorchdorf.at/'
-                        },
-                        {
-                            title: 'Otelo Vorchdorf',
-                            link: 'https://www.vorchdorf.at/Otelo_Vorchdorf'
-                        },
-                        {
-                            title: 'Schulausspeisung',
-                            link: 'https://www.vorchdorf.at/Schulausspeisung_1'
-                        },
-                        {
-                            title: 'Schulbibliothek',
-                            link: 'https://www.vorchdorf.at/Bibliothek_Vorchdorf'
-                        },
-                        {
-                            title: 'Schule an der Alm',
-                            link: 'https://www.vorchdorf.at/Schule_an_der_Alm'
-                        },
-                        {
-                            title: 'Spielgruppe',
-                            link: 'https://www.vorchdorf.at/Spielgruppe_1'
-                        },
-                        {
-                            title: 'Volksschule Pamet',
-                            link: 'https://www.vorchdorf.at/Volksschule_Pamet_1'
-                        },
-                        {
-                            title: 'Volksschule Vorchdorf',
-                            link: 'https://www.vorchdorf.at/Volksschule_Vorchdorf_1'
-                        }
-                    ]
-                }
-            },
-            sport_fitness: {
-                id: 'sport_fitness',
-                title: 'Sport & Fitness',
-                icon: '⚽',
-                description: 'Fitnessstudios, Sportangebote & Sportstätten',
-                subcategories: {
-                    fitness: {
-                        id: 'fitness',
-                        title: '💪 Fitnessstudios',
-                        items: [
-                            {
-                                title: 'ANYTIME FITNESS Vorchdorf',
-                                info: [
-                                    '💪 Modernes Fitnessstudio',
-                                    '🕒 24 Stunden geöffnet',
-                                    '📍 Bahnhofstraße 18, 4655 Vorchdorf',
-                                    '📞 +43 660 4476547'
-                                ],
-                                link: 'https://www.af-austria.at'
-                            },
-                            {
-                                title: 'MEIN TRAINING Vorchdorf',
-                                info: [
-                                    '💪 Persönliches Training',
-                                    '🏋️ Modern ausgestattet',
-                                    '📍 Lambacherstraße 32, 4655 Vorchdorf',
-                                    '📞 +43 7614 93041'
-                                ],
-                                link: 'https://www.mein-training.at'
-                            }
-                        ]
-                    },
-                    sports: {
-                        id: 'sports',
-                        title: 'Sportangebote & Sportstätten',
-                        icon: '⚽',
-                        items: [
-                            {
-                                title: 'Tennisanlagen Vorchdorf',
-                                info: [
-                                    '🎾 Schöne Tennisplätze',
-                                    '👥 Tennisclub Union Vorchdorf',
-                                    '📍 Laudachweg 13, Vorchdorf'
-                                ],
-                                link: 'https://www.utc-vorchdorf.at/'
-                            },
-                            {
-                                title: 'Fußballplätze',
-                                info: [
-                                    '⚽ Hauptplatz & Trainingsplätze',
-                                    '👥 ASKÖ Vorchdorf & SV Vorchdorf',
-                                    '📍 Streiningerstraße 2c, Vorchdorf'
-                                ],
-                                link: 'https://vereine.oefb.at/AskoeVorchdorf/Sportplatz/'
-                            },
-                            {
-                                title: 'Schwimmen & Wassersport',
-                                info: [
-                                    '🏊 Freibad Vorchdorf (Almtalbad)',
-                                    '🚣 Trauntal Wassersport',
-                                    '📍 Laudachweg 11, Vorchdorf'
-                                ],
-                                link: 'https://www.vorchdorf.at/Almtalbad_Vorchdorf_1'
-                            },
-                            {
-                                title: 'Pumptrack',
-                                info: [
-                                    '🏍️ Mountainbike Pumptrack',
-                                    '👥 Naturfreunde Vorchdorf',
-                                    '✓ Für Anfänger & Profis'
-                                ],
-                                link: 'https://vorchdorf.naturfreunde.at/ueber-uns/pumptrack/'
-                            },
-                            {
-                                title: 'Sporthalle Vorchdorf',
-                                info: [
-                                    '🏀 Moderne Sporthalle',
-                                    '📍 Schulstraße 8, Vorchdorf',
-                                    '☎️ 07614 635645'
-                                ],
-                                link: 'https://www.google.com/search?q=sporthalle+vorchdorf&rlz=1C5CHFA_enAT1105AT1105&oq=sporthalle+vorchdorf&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDIzNTNqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8&sei=reJgaZLlAfaJ7NYPlIKd6Ao#vhid=/g/1td7m3nd&vssid=lcl'
-                            },
-                            {
-                                title: 'Lauftraining Vorchdorf',
-                                info: [
-                                    '🏃 Laufgruppe für Erwachsene',
-                                    '👥 Gemeinsam trainieren',
-                                    '📍 Verschiedene Strecken'
-                                ],
-                                link: 'https://www.vorchdorf.at/Lauftraining_Erwachsene_6'
-                            }
-                        ]
-                    },
-                    sports_clubs: {
-                        id: 'sports_clubs',
-                        title: '🏅 Sportvereine',
-                        description: '15 Sportvereine in Vorchdorf',
-                        items: []
-                    }
-                }
-            },
-            clubs: {
-                id: 'clubs',
-                title: 'Vereine',
-                icon: '🤝',
-                description: 'Über 60 aktive Vereine in Vorchdorf',
-                subcategories: {
-                    sport: {
-                        id: 'sport',
-                        title: '⚽ Sport',
-                        description: '15 Sportvereine in Vorchdorf',
-                        items: []
-                    },
-                    kultur: {
-                        id: 'kultur',
-                        title: '🎭 Kultur',
-                        description: '10 Kulturvereine in Vorchdorf',
-                        items: []
-                    },
-                    musik: {
-                        id: 'musik',
-                        title: '🎵 Musik',
-                        description: '7 Musikvereine in Vorchdorf',
-                        items: []
-                    },
-                    religion: {
-                        id: 'religion',
-                        title: '⛪ Religion',
-                        description: '6 Religionsgemeinschaften',
-                        items: []
-                    },
-                    soziales: {
-                        id: 'soziales',
-                        title: '🤝 Soziales & Jugend',
-                        description: '10 soziale Vereine',
-                        items: []
-                    },
-                    sonstiges: {
-                        id: 'sonstiges',
-                        title: '📋 Sonstiges',
-                        description: '13 weitere Vereine',
-                        items: []
-                    }
-                }
-            },
-            shopping: {
-                id: 'shopping',
-                title: 'Einkaufen & Wirtschaft',
-                icon: '🛍️',
-                description: 'Über 200 Werbering-Betriebe in 23 Kategorien',
-                subcategories: {
-                    legal: {
-                        id: 'legal',
-                        title: '⚖️ Anwälte & Notare',
-                        description: 'Rechtsbeistand vor Ort'
-                    },
-                    banks: {
-                        id: 'banks',
-                        title: '🏦 Banken & Versicherungen',
-                        description: 'Finanzdienstleister in der Region'
-                    },
-                    construction: {
-                        id: 'construction',
-                        title: '🏠 Bauen, Wohnen, Einrichten',
-                        description: 'Bau, Handwerk und Einrichtung'
-                    },
-                    beauty: {
-                        id: 'beauty',
-                        title: '💪 Beauty & Fitness',
-                        description: 'Fitnessstudios, Friseure & Kosmetik'
-                    },
-                    accounting: {
-                        id: 'accounting',
-                        title: '📊 Buchhaltung & Steuerberatung',
-                        description: 'Steuerberater und Wirtschaftstreuhänder'
-                    },
-                    catering: {
-                        id: 'catering',
-                        title: '🎪 Catering & Veranstaltungstechnik',
-                        description: 'Catering-Services und Event-Technik'
-                    },
-                    services: {
-                        id: 'services',
-                        title: '🔧 Dienstleistungen',
-                        description: 'Verschiedene Service-Angebote'
-                    },
-                    it: {
-                        id: 'it',
-                        title: '💻 EDV',
-                        description: 'IT-Dienstleister und Bürotechnik'
-                    },
-                    photo: {
-                        id: 'photo',
-                        title: '📸 Fotografie',
-                        description: 'Professionelle Fotografen'
-                    },
-                    flowers: {
-                        id: 'flowers',
-                        title: '🌸 Gärtnerei & Floristik',
-                        description: 'Blumen und Gartenbedarf'
-                    },
-                    healthcare: {
-                        id: 'healthcare',
-                        title: '⚕️ Gesundheit und Lebensberatung',
-                        description: 'Apotheken, Optiker, Wellness & Therapie'
-                    },
-                    wholesale: {
-                        id: 'wholesale',
-                        title: '📦 Großhandel',
-                        description: 'Großhandel und Lieferanten'
-                    },
-                    gastro: {
-                        id: 'gastro',
-                        title: '🍽️ Hotelerie & Gastronomie',
-                        description: 'Hotels, Restaurants, Cafés & Bars'
-                    },
-                    industry: {
-                        id: 'industry',
-                        title: '🏭 Industrie',
-                        description: 'Industriebetriebe und Produktion'
-                    },
-                    cars: {
-                        id: 'cars',
-                        title: '🚙 KFZ & Fahrrad',
-                        description: 'Autohäuser, Werkstätten & Fahrräder'
-                    },
-                    culture: {
-                        id: 'culture',
-                        title: '🎭 Kultur & Freizeit',
-                        description: 'Museen, Freibäder und Reisebüros'
-                    },
-                    food: {
-                        id: 'food',
-                        title: '🛒 Lebensmittel',
-                        description: 'Supermärkte, Bäckereien & Fleischereien'
-                    },
-                    fashion: {
-                        id: 'fashion',
-                        title: '👗 Mode & Accessoire',
-                        description: 'Modehäuser und Schuhgeschäfte'
-                    },
-                    jewelry: {
-                        id: 'jewelry',
-                        title: '💎 Schmuck, Uhren, Manufakturen',
-                        description: 'Juweliere und Handwerkskunst'
-                    },
-                    gas: {
-                        id: 'gas',
-                        title: '⛽ Tankstellen',
-                        description: 'Tankstellen in der Region'
-                    },
-                    tobacco: {
-                        id: 'tobacco',
-                        title: '🚬 Trafiken',
-                        description: 'Tabakwaren und Zeitschriften'
-                    },
-                    transport: {
-                        id: 'transport',
-                        title: '🚗 Transport',
-                        description: 'Taxi, Busse und Mietwagen'
-                    },
-                    advertising: {
-                        id: 'advertising',
-                        title: '📢 Werbung & PR',
-                        description: 'Werbeagenturen und Medien'
-                    },
-                    all_businesses_az: {
-                        id: 'all_businesses_az',
-                        title: '🎖️ Alle Werbering-Mitglieder von A-Z',
-                        description: 'Komplette Übersicht aller Werbering-Mitglieder alphabetisch sortiert nach Branche'
-                    }
-                }
-            },
-            leisure: {
-                id: 'leisure',
-                title: 'Freizeit & Kultur',
-                icon: '🎨',
-                description: 'Veranstaltungen, Sehenswürdigkeiten & mehr',
-                subcategories: {
-                    sights: {
-                        id: 'sights',
-                        title: '🏛️ Sehenswürdigkeiten',
-                        items: [
-                            {
-                                title: 'Schloss Hochhaus',
-                                info: [
-                                    'Historisches Wahrzeichen',
-                                    'Heute Wohnhaus'
-                                ]
-                            },
-                            {
-                                title: 'Pfarrkirche',
-                                info: [
-                                    'Barocke Kirche',
-                                    'Sehenswerte Innenausstattung'
-                                ]
-                            },
-                            {
-                                title: 'Museum Schuhmacherkeller',
-                                info: [
-                                    'Heimatmuseum',
-                                    'Geschichte der Region',
-                                    'Besichtigung nach Vereinbarung'
-                                ]
-                            }
-                        ]
-                    },
-                    nature: {
-                        id: 'nature',
-                        title: '🌲 Natur & Erholung',
-                        items: [
-                            {
-                                title: 'Wanderwege',
-                                info: [
-                                    'Schöne Wanderrouten in der Umgebung',
-                                    'Laudachtal',
-                                    'Almwanderungen'
-                                ]
-                            },
-                            {
-                                title: 'Radwege',
-                                info: [
-                                    'Gut ausgebautes Radwegenetz',
-                                    'Almtal-Radweg'
-                                ]
-                            },
-                            {
-                                title: 'Parks & Grünanlagen',
-                                info: [
-                                    'Mehrere Parkanlagen im Ort',
-                                    'Grünanlagen zum Erholen'
-                                ]
-                            }
-                        ]
-                    },
-                    playgrounds: {
-                        id: 'playgrounds',
-                        title: '🎪 Spielplätze für Kinder',
-                        items: [
-                            {
-                                title: 'Spielplatz Vorchdorf',
-                                info: [
-                                    '🎪 Hauptspielplatz',
-                                    '📍 Krumphuberweg 10, Vorchdorf',
-                                    '⭐ Sehr gut erhalten',
-                                    '✓ Verschiedene Spielgeräte'
-                                ]
-                            },
-                            {
-                                title: 'Kinderspielplatz Kirchham',
-                                info: [
-                                    '🎪 Moderner Spielplatz',
-                                    '📍 Kirchham bei Vorchdorf',
-                                    '⭐ Top-Bewertung (5,0)',
-                                    '✓ Rutsche, Schaukel, Spielhaus'
-                                ]
-                            },
-                            {
-                                title: 'Spielplatz Schulstraße',
-                                info: [
-                                    '🎪 Schulnähe Spielplatz',
-                                    '📍 Schulstraße 18, Vorchdorf',
-                                    '✓ Für Grundschüler geeignet',
-                                    '✓ Wohngebiet-Nähe'
-                                ]
-                            },
-                            {
-                                title: 'Spielplatz Kindertraum - Wirt in der Edt',
-                                info: [
-                                    '🎪 Besonderer Spielplatz',
-                                    '📍 Wirt in der Edt, Vorchdorf',
-                                    '🍽️ Kombination mit Restaurant',
-                                    '✓ Gemütliches Café daneben'
-                                ],
-                                link: 'https://www.wirt-edt.at'
-                            }
-                        ]
-                    },
-                    events: {
-                        id: 'events',
-                        title: '📅 Veranstaltungen',
-                        items: [
-                            {
-                                title: 'Veranstaltungskalender',
-                                info: [
-                                    'Aktuelle Events auf www.vorchdorf.at',
-                                    'Konzerte, Feste, Märkte'
-                                ],
-                                link: 'https://www.vorchdorf.at/Unser_Ort/Veranstaltungen'
-                            },
-                            {
-                                title: 'Traditionelle Feste',
-                                info: [
-                                    'Kirchtag',
-                                    'Weihnachtsmarkt',
-                                    'Dorffest'
-                                ]
-                            },
-                            {
-                                title: 'Kulturvilla',
-                                info: [
-                                    'Kulturzentrum',
-                                    'Konzerte und Ausstellungen'
-                                ]
-                            }
-                        ]
-                    },
-                    gastro: {
-                        id: 'gastro',
-                        title: '🍽️ Gastronomie',
-                        items: [
-                            {
-                                title: 'Gasthäuser & Restaurants',
-                                info: [
-                                    'Traditionelle österreichische Küche',
-                                    'Verschiedene Lokalitäten im Ort'
-                                ]
-                            },
-                            {
-                                title: 'Cafés',
-                                info: [
-                                    'Gemütliche Cafés',
-                                    'Konditoreien'
-                                ]
-                            }
-                        ]
-                    }
-                }
-            },
-            mobility: {
-                id: 'mobility',
-                title: 'Mobilität',
-                icon: '🚌',
-                description: 'Bus, Bahn & Verkehr',
-                subcategories: {
-                    taxi_quick: {
-                        id: 'taxi_quick',
-                        title: '☎️ Taxi sofort anrufen',
-                        description: 'Schnelle Fahrservices - direkt anrufen'
-                    },
-                    public: {
-                        id: 'public',
-                        title: 'Öffentlicher Verkehr',
-                        items: [
-                            {
-                                title: 'Vorchdorfer Bahn',
-                                info: [
-                                    '🚂 Historische Bahnlinie',
-                                    'Mit liebevoll restaurierten Waggons'
-                                ],
-                                link: 'https://www.vorchdorferbahn.at/'
-                            },
-                            {
-                                title: 'Fahrplanauskunft OÖ VV',
-                                info: [
-                                    '🚌 Öffentliche Verkehrsmittel',
-                                    'Busse, Bahnen und Straßenbahnen'
-                                ],
-                                link: 'https://www.ooevv.at/de/fahrplaene/fahrplanauskunft.html'
-                            },
-                            {
-                                title: 'Stern und Hafferl Bahn',
-                                info: [
-                                    '🚂 Lokalbahn im Salzkammergut',
-                                    'Fahrplan als PDF'
-                                ],
-                                link: 'https://www.stern-verkehr.at/wp-content/uploads/2025/11/Zettelfahrplan-OOeVV-420x330mm-LV-2026-web-1.pdf'
-                            },
-                            {
-                                title: 'Traunseetram',
-                                info: [
-                                    '🚊 Straßenbahn am Traunsee',
-                                    'Fahrplan als PDF'
-                                ],
-                                link: 'https://www.stern-verkehr.at/wp-content/uploads/2025/11/Zettelfahrplan-OOeVV-735x330mm-GV-2026-web.pdf'
-                            },
-                            {
-                                title: 'Busfahrplan Region',
-                                info: [
-                                    '🚌 Busverbindungen lokal',
-                                    'Fahrplan als PDF'
-                                ],
-                                link: 'https://www.ooevv.at/fileadmin/OOEVV/Downloads/Fahrplaene/527.pdf'
-                            },
-                            {
-                                title: 'Salzkammergut Shuttle',
-                                info: [
-                                    '🚐 Bedarfsgesteuerter Bustransport',
-                                    'Sichere und komfortable Beförderung'
-                                ],
-                                link: 'https://traunsee-almtal.salzkammergut.at/anreise-nahverkehr/salzkammergut-shuttle.html'
-                            }
-                        ]
-                    },
-                    taxi: {
-                        id: 'taxi',
-                        title: 'Taxi & private Fahrservices',
-                        items: [
-                            {
-                                title: 'Taxi Wiedl',
-                                info: [
-                                    '🚕 Zuverlässiger Taxiservice',
-                                    'Personenbeförderung aller Art',
-                                    '📍 Vorchdorf'
-                                ],
-                                link: 'https://to4009.wixsite.com/wiedl'
-                            },
-                            {
-                                title: 'Attwenger Taxi',
-                                info: [
-                                    '🚕 Personenbeförderung',
-                                    'Transporte aller Art',
-                                    '📍 Vorchdorf'
-                                ],
-                                link: 'https://www.vorchdorfonline.at/users/attwenger'
-                            },
-                            {
-                                title: 'Gollinger Personenbeförderung',
-                                info: [
-                                    '🚌 Busunternehmen',
-                                    'Fahrservices in der Region',
-                                    '📍 Vorchdorf'
-                                ],
-                                link: 'https://www.gollinger.net'
-                            },
-                            {
-                                title: 'AIGNER Mietwagen, Bus & Taxi',
-                                info: [
-                                    '🚕 Mietwagen und Transporte',
-                                    'Komplette Mobilitätslösungen',
-                                    '📍 Vorchdorf'
-                                ],
-                                link: 'https://www.mietwagen-aigner.at'
-                            }
-                        ]
-                    },
-                    parking: {
-                        id: 'parking',
-                        title: 'Parken & Verkehr',
-                        items: [
-                            {
-                                title: 'Parkplätze Vorchdorf',
-                                info: [
-                                    '🅿️ Kostenlose Parkplätze',
-                                    'Zentrum und Umgebung',
-                                    'Übersicht aller Parkplätze'
-                                ],
-                                link: 'https://www.viamichelin.at/karten-stadtplan/parkplatze/osterreich/oberosterreich/gmunden/vorchdorf-4655'
-                            },
-                            {
-                                title: 'Digitaler Ortsplan',
-                                info: [
-                                    '🗺️ Interaktive Karte',
-                                    'Alle Einrichtungen und Dienste',
-                                    'Adressen und Kontakte'
-                                ],
-                                link: 'https://www.vorchdorf.at/system/web/mapfinder2.aspx?menuonr=221152584&sprache=1'
-                            },
-                            {
-                                title: 'Verkehrsanbindung',
-                                info: [
-                                    '🛣️ A1 Westautobahn in der Nähe',
-                                    'Gute Erreichbarkeit Linz/Salzburg',
-                                    'Zentrale Lage'
-                                ],
-                                link: 'https://www.vorchdorf.at'
-                            }
-                        ]
-                    },
-                    cycling: {
-                        id: 'cycling',
-                        title: 'Radfahren',
-                        items: [
-                            {
-                                title: 'Radfahrwege',
-                                info: [
-                                    '🚴 Gut ausgebaute Radwege',
-                                    'Almtal-Radweg durch Vorchdorf',
-                                    'Streckeninfos und Touren'
-                                ],
-                                link: 'https://traunsee-almtal.salzkammergut.at/region/unsere-orte/vorchdorf/radfahren.html'
-                            },
-                            {
-                                title: 'E-Bike Ladestationen',
-                                info: [
-                                    '🔌 Schlossplatz vor dem Gastgarten',
-                                    'Direkt beim Schloss Hochhaus',
-                                    'Kostenlos verfügbar'
-                                ],
-                                link: 'https://www.vorchdorf.at/system/web/mapfinder2.aspx?menuonr=221152584&sprache=1'
-                            },
-                            {
-                                title: 'E-Auto Ladestationen',
-                                info: [
-                                    '⚡ Elektrotankstellen in Vorchdorf',
-                                    'Ladestationen für E-Fahrzeuge',
-                                    'Finde die nächste Stromtankstelle'
-                                ],
-                                link: 'https://chargefinder.com/de/vorchdorf/stromtankstelle/3x3d9'
-                            }
-                        ]
-                    }
-                }
-            },
-            administration: {
-                id: 'administration',
-                title: 'Gemeinde & Verwaltung',
-                icon: '🏛️',
-                description: 'Gemeindeamt & wichtige Kontakte',
-                content: {
-                    type: 'info',
-                    sections: [
-                        {
-                            title: 'Gemeindeamt',
-                            items: [
-                                {
-                                    title: 'Kontakt',
-                                    info: [
-                                        '📍 Schloßplatz 7, 4655 Vorchdorf',
-                                        '☎️ +43 7614 6555 500',
-                                        '📧 gemeinde@vorchdorf.ooe.gv.at',
-                                        '🌐 www.vorchdorf.at'
-                                    ],
-                                    link: 'https://www.vorchdorf.at'
-                                },
-                                {
-                                    title: 'Öffnungszeiten',
-                                    info: [
-                                        'Mo, Mi, Do, Fr: 07:00 - 12:00 Uhr',
-                                        'Di: 07:00 - 18:00 Uhr'
-                                    ]
-                                },
-                                {
-                                    title: 'Wichtige Abteilungen',
-                                    info: [
-                                        'Bürgerservice',
-                                        'Meldewesen',
-                                        'Bauamt',
-                                        'Standesamt',
-                                        'Infos: www.vorchdorf.at/Gemeindeamt'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Gemeindeamt'
-                                }
-                            ]
-                        },
-                        {
-                            title: '⭐ Müllkalender & Altstoffe',
-                            items: [
-                                {
-                                    title: 'Müllabfuhr-Termine 2025',
-                                    info: [
-                                        '♻️ Abfuhrtermine für alle Ortstteile',
-                                        'Bio-, Rest- und Papiertonnen',
-                                        'Sperrmüll & Grünschnitt'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/system/web/kalender.aspx?sprache=1&menuonr=227703103&typids=227719859,227719865'
-                                },
-                                {
-                                    title: 'ASZ Altstoffsammelzentrum',
-                                    info: [
-                                        '♻️ Altstoffe richtig entsorgen',
-                                        'Infos zu Öffnungszeiten & Standort',
-                                        'Was wird angenommen?'
-                                    ],
-                                    link: 'https://www.altstoffsammelzentrum.at/wo_wann_was/asz/show/Asz/vorchdorf.html'
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Weitere Anlaufstellen',
-                            items: [
-                                {
-                                    title: 'Formulare & Downloads',
-                                    info: [
-                                        'Online-Formulare verfügbar',
-                                        'www.vorchdorf.at/Formulare'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Buergerservice/Formulare'
-                                },
-                                {
-                                    title: 'Digitaler Ortsplan',
-                                    info: [
-                                        'Interaktive Karte von Vorchdorf',
-                                        'Alle wichtigen Adressen'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Buergerservice/Digitaler_Ortsplan'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            emergency: {
-                id: 'emergency',
-                title: 'Notfallkontakte & Standorte',
-                icon: '🆘',
-                description: 'Wichtige Nummern und Standorte im Notfall',
-                content: {
-                    type: 'info',
-                    sections: [
-                        {
-                            title: '📍 Notfall-Standorte in Vorchdorf',
-                            items: [
-                                {
-                                    title: 'Polizei & Rettung',
-                                    info: [
-                                        '🚔 Polizeiinspektion Vorchdorf',
-                                        '🚑 Rettung (im gleichen Gebäude)',
-                                        '📍 Dr. Mitterbauerstraße 4c, 4655 Vorchdorf',
-                                        '☎️ Polizei: 133 | Rettung: 144',
-                                        '⏰ Rund um die Uhr erreichbar'
-                                    ],
-                                    link: 'https://www.vorchdorf.at/Polizeiinspektion_Vorchdorf'
-                                },
-                                {
-                                    title: 'Feuerwehr Vorchdorf',
-                                    info: [
-                                        '🚒 Freiwillige Feuerwehr',
-                                        '📍 Dr. Mitterbauerstraße 4b, 4655 Vorchdorf',
-                                        '☎️ Notfall: 122',
-                                        '📱 +43 7614 7012'
-                                    ]
-                                },
-                                {
-                                    title: 'Defibrillator (AED)',
-                                    info: [
-                                        '❤️ Automatischer Defibrillator',
-                                        '📍 Pfarrhofdurchfahrt, Vorchdorf',
-                                        '⏱️ 24/7 verfügbar',
-                                        '✓ Im Notfall lebensrettend'
-                                    ],
-                                    link: 'https://www.vorchdorfonline.at/artikel/defibrillator-vorchdorfer-pfarrfhofdurchfahrt'
-                                },
-                                {
-                                    title: 'Wasserrettung Vorchdorf',
-                                    info: [
-                                        '🚨 Österreichisches Wasserrettungswesen',
-                                        '👥 Rettung & Sicherheit am Wasser',
-                                        '📍 Almtal, Vorchdorf',
-                                        '✓ Spezialisierte Wasserrettung'
-                                    ],
-                                    link: 'https://ooe.owr.at/vorchdorf/ueber-uns/unsere-ortsstelle/'
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Notrufnummern',
-                            items: [
-                                {
-                                    title: 'Ärztefunkdienst',
-                                    info: ['🏥 141 - Ärztlicher Notdienst']
-                                },
-                                {
-                                    title: 'Euronotruf',
-                                    info: ['☎️ 112 - Internationaler Notruf']
-                                },
-                                {
-                                    title: 'Feuerwehr',
-                                    info: ['🚒 122 - Feuerwehr Vorchdorf']
-                                },
-                                {
-                                    title: 'Gesundheitsberatung',
-                                    info: ['☎️ 1450 - Telefonische Gesundheitsberatung (24/7)']
-                                },
-                                {
-                                    title: 'Polizei',
-                                    info: ['👮 133 - Polizeiinspektion']
-                                },
-                                {
-                                    title: 'Rettung',
-                                    info: ['🚑 144 - Rettungsdienst']
-                                },
-                                {
-                                    title: 'Telefonseelsorge',
-                                    info: ['☎️ 142 - Rund um die Uhr']
-                                },
-                                {
-                                    title: 'Vergiftungsinformationszentrale',
-                                    info: ['☎️ +43 1 406 43 43']
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Weitere wichtige Kontakte',
-                            items: [
-                                {
-                                    title: 'Apothekennotruf',
-                                    info: ['Aktuelle Notdienste online'],
-                                    link: 'https://www.apothekerkammer.at/apothekensuche/4655,+%C3%96sterreich/4655/@47.9989105,13.9451777/p=postal_code'
-                                },
-                                {
-                                    title: 'Krankenhaus Gmunden',
-                                    info: ['☎️ +43 5 0554 66-0', 'Ca. 10 km entfernt'],
-                                    link: 'https://www.ooeg.at/sk/gm'
-                                },
-                                {
-                                    title: 'Krankenhaus Vöcklabruck',
-                                    info: ['☎️ +43 5 0554 72-0', 'Ca. 25 km entfernt'],
-                                    link: 'https://www.ooeg.at/sk/vb'
-                                },
-                                {
-                                    title: 'Krankenhaus Wels',
-                                    info: ['☎️ +43 7242 415-0', 'Ca. 35 km entfernt'],
-                                    link: 'https://www.klinikum-wegr.at'
-                                },
-                                {
-                                    title: 'Kleintierklinik Vitalis',
-                                    info: ['4655 Vorchdorf', 'Tierärztliche Notfallversorgung'],
-                                    link: 'https://www.kleintierklinik-vitalis.at/'
-                                },
-                                {
-                                    title: 'Tierklinik Sattledt',
-                                    info: ['4642 Sattledt', 'Tierärztliche Notfallversorgung'],
-                                    link: 'https://www.tierklinik-sattledt.at/'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            flohmarkt: {
-                id: 'flohmarkt',
-                title: 'Flohmarkt',
-                icon: '🛒',
-                description: 'Kaufen & Verkaufen in der Region',
-                isFlohmarkt: true
+        // Kategorien werden aus categories.json geladen
+        let categories = {};
+
+        // Lade Kategorien aus JSON Datei
+        async function loadCategories() {
+            try {
+                const response = await fetch('./categories.json?v=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                categories = await response.json();
+                console.log(`✓ ${Object.keys(categories).length} Kategorien geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von categories.json:', error);
+                showDataError('Kategorien');
             }
-        };
+        }
 
         // Lade Businesses aus JSON Datei
         async function loadBusinesses() {
             try {
-                const response = await fetch('./businesses.json');
+                // AGGRESSIVE CACHE BUSTING
+                const response = await fetch('./businesses.json?v=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
                 const businesses = await response.json();
 
-                // Speichere in allBusinesses globale Variable
+                // Speichere in allBusinesses Variable
                 allBusinesses = businesses;
 
                 console.log(`✓ ${businesses.length} Betriebe geladen`);
+
+                if (businesses.length === 0) {
+                    console.warn('Warnung: businesses.json ist leer');
+                }
             } catch (error) {
                 console.error('Fehler beim Laden von businesses.json:', error);
                 allBusinesses = []; // Fallback zu leerem Array
+                showDataError('Betriebe');
             }
         }
 
         async function loadClubs() {
             try {
-                const response = await fetch('./clubs.json');
+                const response = await fetch('./clubs.json?v=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
                 const clubs = await response.json();
                 allClubs = clubs;
 
@@ -4113,7 +3010,69 @@ Mit freundlichen Grüßen`;
             } catch (error) {
                 console.error('Fehler beim Laden von clubs.json:', error);
                 allClubs = {};
+                showDataError('Vereine');
             }
+        }
+
+        // Lade Gemeinde-Verwaltung Daten
+        async function loadGemeindeData() {
+            const ts = Date.now();
+            try {
+                // Lade Formulare
+                const formResponse = await fetch(`./gemeinde-verwaltung/data/formulare.json?v=${ts}`);
+                if (!formResponse.ok) throw new Error(`HTTP error! status: ${formResponse.status}`);
+                const formData = await formResponse.json();
+                allFormulare = formData.formulare || [];
+                console.log(`✓ ${allFormulare.length} Formulare geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von formulare.json:', error);
+                allFormulare = [];
+            }
+
+            try {
+                // Lade Mitarbeiter
+                const mitResponse = await fetch(`./gemeinde-verwaltung/data/mitarbeiter.json?v=${ts}`);
+                if (!mitResponse.ok) throw new Error(`HTTP error! status: ${mitResponse.status}`);
+                const mitData = await mitResponse.json();
+                allMitarbeiter = mitData.mitarbeiter || [];
+                console.log(`✓ ${allMitarbeiter.length} Mitarbeiter geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von mitarbeiter.json:', error);
+                allMitarbeiter = [];
+            }
+
+            try {
+                // Lade Abteilungen
+                const abtResponse = await fetch(`./gemeinde-verwaltung/data/abteilungen.json?v=${ts}`);
+                if (!abtResponse.ok) throw new Error(`HTTP error! status: ${abtResponse.status}`);
+                const abtData = await abtResponse.json();
+                allAbteilungen = abtData.abteilungen || [];
+                console.log(`✓ ${allAbteilungen.length} Abteilungen geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von abteilungen.json:', error);
+                allAbteilungen = [];
+            }
+
+            try {
+                // Lade Gemeindebetriebe
+                const betResponse = await fetch(`./gemeinde-verwaltung/data/gemeindebetriebe.json?v=${ts}`);
+                if (!betResponse.ok) throw new Error(`HTTP error! status: ${betResponse.status}`);
+                const betData = await betResponse.json();
+                allGemeindebetriebe = betData.betriebe || [];
+                console.log(`✓ ${allGemeindebetriebe.length} Gemeindebetriebe geladen`);
+            } catch (error) {
+                console.error('Fehler beim Laden von gemeindebetriebe.json:', error);
+                allGemeindebetriebe = [];
+            }
+        }
+
+        function showDataError(type) {
+            // Zeige eine kleine Warnung in der UI wenn Daten nicht geladen werden können
+            const banner = document.createElement('div');
+            banner.style.cssText = 'background: #ff4d4d; color: white; padding: 10px; text-align: center; font-size: 0.9em; position: sticky; top: 0; z-index: 9999;';
+            banner.innerHTML = `⚠️ <b>Fehler:</b> ${type} konnten nicht geladen werden. Bitte Seite neu laden oder Cache leeren.`;
+            document.body.prepend(banner);
+            setTimeout(() => banner.remove(), 10000);
         }
 
         // Initialize App
@@ -4177,7 +3136,7 @@ Mit freundlichen Grüßen`;
             const weatherWidget = document.getElementById('weatherWidget');
 
             // Render categories in custom order
-            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'flohmarkt'];
+            const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'mittagstisch', 'waste_calendar', 'flohmarkt', 'sags_uns'];
             const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
 
             mainContent.innerHTML = `
@@ -4228,6 +3187,12 @@ Mit freundlichen Grüßen`;
             });
         }
 
+        // Toggle Werbering Filter
+        function toggleWerberingFilter() {
+            showOnlyWerbering = !showOnlyWerbering;
+            navigateToCategory('shopping');
+        }
+
         // Navigate to Category
         function navigateToCategory(categoryId) {
             const category = categories[categoryId];
@@ -4248,6 +3213,12 @@ Mit freundlichen Grüßen`;
                 updateBreadcrumb([{ text: category.title }]);
 
                 loadFlohmarktProducts();
+                return;
+            }
+
+            // Handle Waste Calendar
+            if (category.wasteCalendar) {
+                openWasteCalendar();
                 return;
             }
 
@@ -4282,10 +3253,18 @@ Mit freundlichen Grüßen`;
                         ${categoryId === 'shopping' ? `
                             <div class="info-item">
                                 <h4>ℹ️ Über den Werbering</h4>
-                                <p>👥 Über 200 Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung</p>
+                                <p>👥 179 Werbering-Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung. Zusätzlich ca. 100 weitere Nicht-Mitglieder.</p>
                                 <p>🎁 Werbering-Gutscheine bei allen Mitgliedern einlösbar</p>
                                 <p>☎️ 0699 15 05 88 57 • ✉️ tipp@werbering-vorchdorf.at</p>
                                 <p><a href="https://www.vorchdorfonline.at" target="_blank">🌐 www.vorchdorfonline.at</a></p>
+                            </div>
+
+                            <div onclick="toggleWerberingFilter()" style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 20px; padding: 15px; border-radius: 12px; background: ${showOnlyWerbering ? 'var(--secondary)' : 'white'}; border: 2px solid ${showOnlyWerbering ? 'var(--secondary)' : 'var(--border)'}; box-shadow: var(--shadow-md); transition: all 0.3s;">
+                                <span style="font-size: 1.5rem;">🎖️</span>
+                                <span style="font-weight: 700; color: ${showOnlyWerbering ? 'white' : 'var(--primary)'}; font-size: 1rem;">Nur Werberingmitglieder anzeigen</span>
+                                <div style="margin-left: auto; width: 24px; height: 24px; border-radius: 50%; border: 2px solid ${showOnlyWerbering ? 'white' : 'var(--border)'}; background: ${showOnlyWerbering ? 'white' : 'transparent'}; position: relative;">
+                                    ${showOnlyWerbering ? '<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background: var(--secondary); border-radius: 50%;"></div>' : ''}
+                                </div>
                             </div>
                         ` : ''}
                         <div class="subcategory-list">
@@ -4295,7 +3274,11 @@ Mit freundlichen Grüßen`;
                         if (sub.id === 'all_businesses_az') {
                             subCount = allBusinesses.filter(b => b.werbering === true).length;
                         } else {
-                            subCount = allBusinesses.filter(b => b.category === sub.id && b.werbering === true).length;
+                            subCount = allBusinesses.filter(b => {
+                                const isCategory = b.category === sub.id;
+                                const matchesFilter = showOnlyWerbering ? b.werbering === true : true;
+                                return isCategory && matchesFilter;
+                            }).length;
                         }
                     } else if (categoryId === 'clubs') {
                         subCount = (allClubs[sub.id] || []).length;
@@ -4327,7 +3310,7 @@ Mit freundlichen Grüßen`;
                     <h2>🛍️ Werbering Vorchdorf - Alle Mitgliedsbetriebe</h2>
                     <div class="info-item">
                         <h4>ℹ️ Über den Werbering</h4>
-                        <p>👥 Über 200 Mitgliedsbetriebe</p>
+                        <p>👥 179 Werbering-Mitgliedsbetriebe in Vorchdorf, Laakirchen und Umgebung. Zusätzlich ca. 100 weitere Nicht-Mitglieder.</p>
                         <p>🎁 Werbering-Gutscheine bei allen Mitgliedern einlösbar</p>
                         <p>📍 Vorchdorf, Laakirchen und Umgebung</p>
                         <p>☎️ 0699 15 05 88 57 • ✉️ tipp@werbering-vorchdorf.at</p>
@@ -4367,6 +3350,12 @@ Mit freundlichen Grüßen`;
             // Check for direct link - if exists, open directly
             if (subcategory.directLink) {
                 window.open(subcategory.directLink, '_blank');
+                return;
+            }
+
+            // Check for external link - if exists, open in same window
+            if (subcategory.externalLink) {
+                window.location.href = subcategory.externalLink;
                 return;
             }
 
@@ -4486,7 +3475,10 @@ Mit freundlichen Grüßen`;
                         </div>
                     `;
                 } else {
-                    const categoryBusinesses = allBusinesses.filter(b => b.category === subcategoryId);
+                    const categoryBusinesses = allBusinesses.filter(b =>
+                        b.category === subcategoryId &&
+                        (!showOnlyWerbering || b.werbering === true)
+                    );
                     mainContent.innerHTML = `
                         <div class="detail-view fade-in">
                             <h2>${subcategory.title}</h2>
@@ -4549,6 +3541,33 @@ Mit freundlichen Grüßen`;
 
         // Render Content
         function renderContent(category) {
+            // Handle mixed type (like administration with intro + subcategories)
+            if (category.content.type === 'mixed') {
+                return `
+                    <div class="detail-view fade-in">
+                        <h2>${category.icon} ${category.title}</h2>
+                        ${category.content.intro ? category.content.intro.map(item => `
+                            <div class="info-item">
+                                <h4>${item.title}</h4>
+                                ${item.info.map(info => `<p>${info}</p>`).join('')}
+                                ${item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
+                            </div>
+                        `).join('') : ''}
+                        ${category.subcategories ? `
+                            <h3 style="margin-top: 30px;">Bereiche & Services</h3>
+                            <div class="subcategory-list">
+                                ${Object.values(category.subcategories).map(sub => `
+                                    <div class="subcategory-item" onclick="navigateToSubcategory('${category.id}', '${sub.id}')">
+                                        <h4>${sub.title}</h4>
+                                        <p>${sub.description || ''}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
             // Handle list type (like education)
             if (category.content.type === 'list') {
                 return `
@@ -4579,7 +3598,7 @@ Mit freundlichen Grüßen`;
                                 <div class="info-item">
                                     <h4>${item.title}</h4>
                                     ${item.info.map(info => `<p>${info}</p>`).join('')}
-                                    ${item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
+                                    ${item.wasteCalendar ? `<p><a href="#" onclick="event.preventDefault(); openWasteCalendar();">→ Müllkalender öffnen</a></p>` : item.link ? `<p><a href="${item.link}" target="_blank">→ Mehr Informationen</a></p>` : ''}
                                 </div>
                             `).join('')}
                         </div>
@@ -4613,6 +3632,11 @@ Mit freundlichen Grüßen`;
                 mainFooter.style.display = 'block';
             }
             renderHome();
+        }
+
+        // Open Waste Calendar
+        function openWasteCalendar() {
+            window.location.href = './muellkalender-vorchdorf-final.html';
         }
 
         // Update Breadcrumb
@@ -5150,6 +4174,130 @@ Mit freundlichen Grüßen`;
                 }
             });
 
+            // 4. Suche in FORMULAREN (Gemeinde-Verwaltung)
+            allFormulare.forEach(formular => {
+                const text = (formular.title || '').toLowerCase();
+                const normalizedText = normalizeString(text);
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (text.includes(variant) || normalizedText.includes(normalizedVariant)) {
+                        results.push({
+                            type: 'formular',
+                            priority: 5,
+                            formular: formular,
+                            matchText: formular.title
+                        });
+                        break;
+                    }
+                }
+            });
+
+            // 5. Suche in MITARBEITERN (Gemeinde-Verwaltung)
+            allMitarbeiter.forEach(person => {
+                const text = `${person.name || ''} ${person.email || ''}`.toLowerCase();
+                const normalizedText = normalizeString(text);
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (text.includes(variant) || normalizedText.includes(normalizedVariant)) {
+                        results.push({
+                            type: 'mitarbeiter',
+                            priority: 5.1,
+                            person: person,
+                            matchText: person.name
+                        });
+                        break;
+                    }
+                }
+            });
+
+            // 6. Suche in ABTEILUNGEN (Gemeinde-Verwaltung)
+            allAbteilungen.forEach(abteilung => {
+                const abtText = `${abteilung.name || ''}`.toLowerCase();
+                const normalizedAbtText = normalizeString(abtText);
+                let abtMatch = false;
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (abtText.includes(variant) || normalizedAbtText.includes(normalizedVariant)) {
+                        abtMatch = true;
+                        results.push({
+                            type: 'abteilung',
+                            priority: 5.2,
+                            abteilung: abteilung,
+                            matchText: abteilung.name
+                        });
+                        break;
+                    }
+                }
+
+                // Auch in Mitarbeitern der Abteilung suchen
+                if (!abtMatch && abteilung.mitarbeiter) {
+                    abteilung.mitarbeiter.forEach(person => {
+                        const personText = `${person.name || ''} ${person.funktion || ''} ${person.email || ''}`.toLowerCase();
+                        const normalizedPersonText = normalizeString(personText);
+
+                        for (const variant of searchVariations) {
+                            const normalizedVariant = normalizeString(variant);
+                            if (personText.includes(variant) || normalizedPersonText.includes(normalizedVariant)) {
+                                results.push({
+                                    type: 'abteilung-person',
+                                    priority: 5.3,
+                                    abteilung: abteilung,
+                                    person: person,
+                                    matchText: person.name
+                                });
+                                break;
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 7. Suche in GEMEINDEBETRIEBEN
+            allGemeindebetriebe.forEach(betrieb => {
+                const betText = `${betrieb.name || ''} ${betrieb.beschreibung || ''}`.toLowerCase();
+                const normalizedBetText = normalizeString(betText);
+                let betMatch = false;
+
+                for (const variant of searchVariations) {
+                    const normalizedVariant = normalizeString(variant);
+                    if (betText.includes(variant) || normalizedBetText.includes(normalizedVariant)) {
+                        betMatch = true;
+                        results.push({
+                            type: 'gemeindebetrieb',
+                            priority: 5.4,
+                            betrieb: betrieb,
+                            matchText: betrieb.name
+                        });
+                        break;
+                    }
+                }
+
+                // Auch in Mitarbeitern des Betriebs suchen
+                if (!betMatch && betrieb.mitarbeiter) {
+                    betrieb.mitarbeiter.forEach(person => {
+                        const personText = `${person.name || ''} ${person.funktion || ''} ${person.email || ''}`.toLowerCase();
+                        const normalizedPersonText = normalizeString(personText);
+
+                        for (const variant of searchVariations) {
+                            const normalizedVariant = normalizeString(variant);
+                            if (personText.includes(variant) || normalizedPersonText.includes(normalizedVariant)) {
+                                results.push({
+                                    type: 'gemeindebetrieb-person',
+                                    priority: 5.5,
+                                    betrieb: betrieb,
+                                    person: person,
+                                    matchText: person.name
+                                });
+                                break;
+                            }
+                        }
+                    });
+                }
+            });
+
             // Sortiere nach Priorität (Kategorien zuerst, dann Unterkategorien, dann Items, dann Businesses)
             results.sort((a, b) => a.priority - b.priority);
 
@@ -5169,6 +4317,18 @@ Mit freundlichen Grüßen`;
                     key = `item-${result.category.id}-${result.subcategory.id}-${result.item.title}`;
                 } else if (result.type === 'content-item') {
                     key = `content-${result.category.id}-${result.item.title}`;
+                } else if (result.type === 'formular') {
+                    key = `formular-${result.formular.title}`;
+                } else if (result.type === 'mitarbeiter') {
+                    key = `mitarbeiter-${result.person.name}`;
+                } else if (result.type === 'abteilung') {
+                    key = `abteilung-${result.abteilung.name}`;
+                } else if (result.type === 'abteilung-person') {
+                    key = `abteilung-person-${result.abteilung.name}-${result.person.name}`;
+                } else if (result.type === 'gemeindebetrieb') {
+                    key = `gemeindebetrieb-${result.betrieb.name}`;
+                } else if (result.type === 'gemeindebetrieb-person') {
+                    key = `gemeindebetrieb-person-${result.betrieb.name}-${result.person.name}`;
                 }
 
                 if (!seen.has(key)) {
@@ -5254,6 +4414,71 @@ Mit freundlichen Grüßen`;
                             ${b.link ? `<a href="${b.link}" class="business-link" target="_blank">🌐 Website besuchen</a>` : ''}
                         </div>
                     `;
+                } else if (result.type === 'formular') {
+                    // Formulare
+                    const f = result.formular;
+                    html += `
+                        <div class="business-card">
+                            <div class="business-name">📄 ${f.title}</div>
+                            <div class="business-location">🏛️ Gemeinde & Verwaltung → Formulare</div>
+                            <a href="${f.url}" class="business-link" target="_blank">→ Formular öffnen</a>
+                        </div>
+                    `;
+                } else if (result.type === 'mitarbeiter') {
+                    // Mitarbeiter
+                    const p = result.person;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/mitarbeiter.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">👤 ${p.name}</div>
+                            <div class="business-location">🏛️ Gemeindemitarbeiter</div>
+                            ${p.telefon ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">☎️ ${p.telefon}</p>` : ''}
+                            ${p.email ? `<p style="font-size: 0.9em; color: var(--text-light);">📧 ${p.email}</p>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'abteilung') {
+                    // Abteilungen
+                    const a = result.abteilung;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/abteilungen.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">🏛️ ${a.name}</div>
+                            <div class="business-location">Gemeindeamt Vorchdorf</div>
+                            ${a.url ? `<a href="${a.url}" class="business-link" target="_blank" onclick="event.stopPropagation()">→ Mehr Infos</a>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'abteilung-person') {
+                    // Person in Abteilung
+                    const p = result.person;
+                    const a = result.abteilung;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/abteilungen.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">👤 ${p.name}</div>
+                            <div class="business-location">🏛️ ${a.name}</div>
+                            ${p.funktion ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${p.funktion}</p>` : ''}
+                            ${p.telefon ? `<p style="font-size: 0.9em; color: var(--text-light);">☎️ ${p.telefon}</p>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'gemeindebetrieb') {
+                    // Gemeindebetriebe
+                    const b = result.betrieb;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/gemeindebetriebe.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">🏗️ ${b.name}</div>
+                            <div class="business-location">🏛️ Gemeinde & Verwaltung → Gemeindebetriebe</div>
+                            ${b.url ? `<a href="${b.url}" class="business-link" target="_blank" onclick="event.stopPropagation()">→ Mehr Infos</a>` : ''}
+                        </div>
+                    `;
+                } else if (result.type === 'gemeindebetrieb-person') {
+                    // Person in Gemeindebetrieb
+                    const p = result.person;
+                    const b = result.betrieb;
+                    html += `
+                        <div class="business-card" onclick="window.open('./gemeinde-verwaltung/gemeindebetriebe.html', '_self')" style="cursor: pointer;">
+                            <div class="business-name">👤 ${p.name}</div>
+                            <div class="business-location">🏗️ ${b.name}</div>
+                            ${p.funktion ? `<p style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${p.funktion}</p>` : ''}
+                            ${p.telefon ? `<p style="font-size: 0.9em; color: var(--text-light);">☎️ ${p.telefon}</p>` : ''}
+                        </div>
+                    `;
                 }
             });
 
@@ -5263,8 +4488,10 @@ Mit freundlichen Grüßen`;
 
         // Enter key for search
         document.addEventListener('DOMContentLoaded', async function () {
+            await loadCategories();  // Lade Kategorien aus JSON
             await loadBusinesses();  // Lade businesses aus JSON
             await loadClubs();       // Lade vereine aus JSON
+            await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
 
             // Scroll-Check für Floating Back Button
             window.addEventListener('scroll', function () {
@@ -5277,6 +4504,44 @@ Mit freundlichen Grüßen`;
                     floatBtn.classList.remove('visible');
                 }
             });
+
+            // Browser History Handler für Android Zurück-Taste
+            // Füge initial State hinzu
+            if (!window.history.state) {
+                window.history.replaceState({ page: 'home' }, '', '');
+            }
+
+            // Handle Browser Back Button (Android Zurück-Taste)
+            window.addEventListener('popstate', function (event) {
+                // Wenn wir auf der Home-Seite sind, lassen wir den Browser die Navigation durchführen
+                if (currentView === 'home') {
+                    // Lasse den Browser navigieren (aus der App raus)
+                    return;
+                }
+
+                // Ansonsten navigieren wir intern zurück
+                event.preventDefault();
+                goBack();
+
+                // Stelle sicher, dass es immer einen History-Eintrag gibt
+                if (currentView !== 'home') {
+                    window.history.pushState({ page: currentView }, '', '');
+                }
+            });
+
+            // Bei Navigation neuen History-Eintrag erstellen
+            const originalNavigateToCategory = window.navigateToCategory;
+            window.navigateToCategory = function (categoryId) {
+                originalNavigateToCategory(categoryId);
+                window.history.pushState({ page: 'category', categoryId: categoryId }, '', '');
+            };
+
+            const originalNavigateToSubcategory = window.navigateToSubcategory;
+            window.navigateToSubcategory = function (categoryId, subcategoryId) {
+                originalNavigateToSubcategory(categoryId, subcategoryId);
+                window.history.pushState({ page: 'subcategory', categoryId: categoryId, subcategoryId: subcategoryId }, '', '');
+            };
+
 
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;

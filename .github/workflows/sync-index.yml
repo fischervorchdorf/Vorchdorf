@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Copy Vorchdorf App/index.html to root
+      - name: Copy vorchdorf-app/index.html to root
         run: |
-          cp "Vorchdorf App/index.html" "index.html"
+          cp "vorchdorf-app/index.html" "index.html"
           
       - name: Commit and push if changed
         run: |
