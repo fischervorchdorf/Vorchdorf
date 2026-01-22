@@ -3090,7 +3090,7 @@ Mit freundlichen Grüßen`;
                             <div class="rp-product-price">${product['Preis in Euro'] || 'Preis auf Anfrage'} €</div>
                             <div class="rp-product-company">🏢 ${product.Firmenname || 'Privat'}</div>
                             <div class="rp-product-footer">
-                                ${homepage ? `<span class="rp-homepage-link">🌐 Website</span>` : ''}
+                                ${homepage ? `<a href="${homepage.startsWith('http') ? homepage : 'https://' + homepage}" target="_blank" class="rp-homepage-link" onclick="event.stopPropagation()">🌐 Website</a>` : ''}
                                 <span style="color: var(--primary); font-weight: 700;">Details →</span>
                             </div>
                         </div>
