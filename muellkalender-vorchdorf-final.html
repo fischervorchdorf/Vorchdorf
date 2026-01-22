@@ -385,6 +385,21 @@
             margin-top: 10px;
         }
 
+        /* KALENDER EXPORT BUTTON */
+        .export-btn {
+            background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
+            color: white;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .export-btn:hover {
+            background: linear-gradient(135deg, #2d7a47 0%, #1a472a 100%);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -505,6 +520,107 @@
             display: block;
             margin-bottom: 5px;
         }
+
+        /* Export Modal Styles */
+        .export-anleitung {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .export-anleitung h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .export-anleitung ol {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .export-anleitung ol li {
+            margin-bottom: 5px;
+        }
+
+        .geraet-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .geraet-tab {
+            padding: 10px 15px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .geraet-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .geraet-tab:hover:not(.active) {
+            background: #d0d0d0;
+        }
+
+        .geraet-content {
+            display: none;
+        }
+
+        .geraet-content.active {
+            display: block;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .erfolg-meldung {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+
+        .erfolg-meldung.active {
+            display: block;
+        }
     </style>
 </head>
 
@@ -557,6 +673,9 @@
                     <button class="btn alle-termine-btn" onclick="zeigeAlleTermine()">
                         📅 Alle Termine anzeigen
                     </button>
+                    <button class="btn export-btn" onclick="zeigeExportModal()">
+                        📲 In meinen Kalender exportieren
+                    </button>
                 </div>
 
                 <div class="hinweis">
@@ -566,6 +685,7 @@
                 </div>
             </div>
 
+            <!-- Alle Termine Modal -->
             <div class="modal" id="alle-termine-modal">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -573,6 +693,100 @@
                         <button class="modal-close" onclick="schliesseModal()">&times;</button>
                     </div>
                     <div class="modal-body" id="alle-termine-liste"></div>
+                </div>
+            </div>
+
+            <!-- Export Modal -->
+            <div class="modal" id="export-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>📲 Kalender exportieren</h3>
+                        <button class="modal-close" onclick="schliesseExportModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="margin-bottom: 15px; color: #666;">
+                            Exportiere alle Mülltermine für <strong id="export-strasse-name"></strong> in deinen
+                            persönlichen Kalender.
+                        </p>
+
+                        <div class="geraet-tabs">
+                            <button class="geraet-tab active" onclick="zeigeAnleitung('iphone')">📱 iPhone</button>
+                            <button class="geraet-tab" onclick="zeigeAnleitung('android')">🤖 Android</button>
+                            <button class="geraet-tab" onclick="zeigeAnleitung('mac')">💻 Mac</button>
+                            <button class="geraet-tab" onclick="zeigeAnleitung('windows')">🖥️ Windows</button>
+                        </div>
+
+                        <div id="anleitung-iphone" class="geraet-content active">
+                            <div class="export-anleitung">
+                                <h4>📱 iPhone / iPad</h4>
+                                <ol>
+                                    <li>Klicke auf <strong>"Kalender herunterladen"</strong></li>
+                                    <li>Die Datei wird heruntergeladen</li>
+                                    <li>Tippe auf die Datei in deinen Downloads</li>
+                                    <li>Es erscheint: <em>"X Ereignisse hinzufügen?"</em></li>
+                                    <li>Tippe auf <strong>"Alle hinzufügen"</strong></li>
+                                    <li>✅ Fertig! Die Termine sind in deinem Kalender.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div id="anleitung-android" class="geraet-content">
+                            <div class="export-anleitung">
+                                <h4>🤖 Android</h4>
+                                <ol>
+                                    <li>Klicke auf <strong>"Kalender herunterladen"</strong></li>
+                                    <li>Die Datei wird heruntergeladen</li>
+                                    <li>Öffne deine <strong>Dateien-App</strong></li>
+                                    <li>Gehe zu <strong>Downloads</strong></li>
+                                    <li>Tippe auf die <strong>.ics Datei</strong></li>
+                                    <li>Wähle <strong>Google Kalender</strong> (oder deine Kalender-App)</li>
+                                    <li>Bestätige mit <strong>"Importieren"</strong></li>
+                                    <li>✅ Fertig! Die Termine sind in deinem Kalender.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div id="anleitung-mac" class="geraet-content">
+                            <div class="export-anleitung">
+                                <h4>💻 Mac</h4>
+                                <ol>
+                                    <li>Klicke auf <strong>"Kalender herunterladen"</strong></li>
+                                    <li>Die Datei wird in deinem Downloads-Ordner gespeichert</li>
+                                    <li><strong>Doppelklicke</strong> auf die .ics Datei</li>
+                                    <li>Die Kalender-App öffnet sich automatisch</li>
+                                    <li>Wähle den gewünschten Kalender aus</li>
+                                    <li>Klicke auf <strong>"Importieren"</strong></li>
+                                    <li>✅ Fertig! Die Termine sind in deinem Kalender.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div id="anleitung-windows" class="geraet-content">
+                            <div class="export-anleitung">
+                                <h4>🖥️ Windows PC</h4>
+                                <ol>
+                                    <li>Klicke auf <strong>"Kalender herunterladen"</strong></li>
+                                    <li>Die Datei wird heruntergeladen</li>
+                                    <li><strong>Doppelklicke</strong> auf die .ics Datei</li>
+                                    <li>Outlook (oder dein Standard-Kalender) öffnet sich</li>
+                                    <li>Klicke auf <strong>"Importieren"</strong> oder <strong>"Ja"</strong></li>
+                                    <li>✅ Fertig! Die Termine sind in deinem Kalender.</li>
+                                </ol>
+                                <p style="margin-top: 10px; font-size: 0.85rem; color: #888;">
+                                    <strong>Tipp für Google Kalender:</strong> Öffne calendar.google.com → Einstellungen
+                                    → Importieren → .ics Datei auswählen
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="download-btn" onclick="exportiereKalender()">
+                            📥 Kalender herunterladen (.ics)
+                        </button>
+
+                        <div class="erfolg-meldung" id="erfolg-meldung">
+                            ✅ Download gestartet! Folge jetzt der Anleitung oben.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -607,7 +821,7 @@
                         "Brauereistraße", "Brodwinkel", "Buchenstraße", "Burgstraße",
                         "C. Forstingerstraße", "Eggenberg", "Falkenohren", "Falkenweg",
                         "Fernbergerstraße", "Gmundner Straße 13 und ab Nr. 26", "Hausfeld",
-                        "Im Kellerfeld", "J. Wagnerstraße", "Kirschnerfeld", "Koglstraße",
+                        "Im Kellerfeld", "Johann Wagnerstraße", "Kirschnerfeld", "Koglstraße",
                         "Laudachweg", "Ledererweg", "Loisnweg", "M. Kitzmantelstraße",
                         "Messenbacherstraße", "Peintal", "Rösslbauerweg", "Schmiedgasse",
                         "Sonnenweg", "Spitzleithen", "Teichweg", "Weidach", "Weidenstraße"
@@ -736,8 +950,7 @@
                         { datum: "2026-05-12", gebiete: ["4"] },
                         { datum: "2026-05-13", gebiete: ["5"] },
                         { datum: "2026-05-15", gebiete: ["6"] },
-                        { datum: "2026-05-26", gebiete: ["1"] },
-                        { datum: "2026-05-27", gebiete: ["2"] },
+                        { datum: "2026-05-27", gebiete: ["1", "2"] },
                         { datum: "2026-05-28", gebiete: ["3"] },
                         { datum: "2026-06-09", gebiete: ["4"] },
                         { datum: "2026-06-10", gebiete: ["5"] },
@@ -769,9 +982,9 @@
                         { datum: "2026-10-13", gebiete: ["1"] },
                         { datum: "2026-10-14", gebiete: ["2"] },
                         { datum: "2026-10-15", gebiete: ["3"] },
-                        { datum: "2026-10-27", gebiete: ["4"] },
-                        { datum: "2026-10-28", gebiete: ["5"] },
-                        { datum: "2026-10-29", gebiete: ["6"] },
+                        { datum: "2026-10-28", gebiete: ["4"] },
+                        { datum: "2026-10-29", gebiete: ["5"] },
+                        { datum: "2026-10-30", gebiete: ["6"] },
                         { datum: "2026-11-10", gebiete: ["1"] },
                         { datum: "2026-11-11", gebiete: ["2"] },
                         { datum: "2026-11-12", gebiete: ["3"] },
@@ -1073,6 +1286,12 @@
                             schliesseModal();
                         }
                     });
+
+                    document.getElementById('export-modal').addEventListener('click', (e) => {
+                        if (e.target.id === 'export-modal') {
+                            schliesseExportModal();
+                        }
+                    });
                 }
 
                 function onStrasseInput(e) {
@@ -1117,6 +1336,45 @@
 
                     zeigeGebiet(strasse, gebiet);
                     zeigeNaechsteTermine(gebiet);
+                }
+
+                function getAlleTermineFuerExport(gebiet) {
+                    const termine = [];
+
+                    // Gelb, Rot, Schwarz - normal
+                    for (const typ of ["gelb", "rot", "schwarz"]) {
+                        const typTermine = TERMINE_2026[typ] || [];
+                        for (const eintrag of typTermine) {
+                            if (eintrag.gebiete.includes(gebiet)) {
+                                termine.push({
+                                    datum: new Date(eintrag.datum),
+                                    typ: typ,
+                                    config: MUELL_TYPEN[typ]
+                                });
+                            }
+                        }
+                    }
+
+                    // Grün - je nach Sterngebiet
+                    let gruenTermine;
+                    if (istSterngebiet4) {
+                        gruenTermine = TERMINE_2026.gruen_stern4;
+                    } else if (istSterngebiet5) {
+                        gruenTermine = TERMINE_2026.gruen_stern5;
+                    } else {
+                        gruenTermine = TERMINE_2026.gruen.filter(e => e.gebiete.includes(gebiet));
+                    }
+
+                    for (const eintrag of gruenTermine) {
+                        termine.push({
+                            datum: new Date(eintrag.datum),
+                            typ: "gruen",
+                            config: MUELL_TYPEN["gruen"]
+                        });
+                    }
+
+                    termine.sort((a, b) => a.datum - b.datum);
+                    return termine;
                 }
 
                 function getTermineFuerGebiet(gebiet) {
@@ -1261,6 +1519,96 @@
                     document.getElementById('alle-termine-modal').classList.remove('active');
                 }
 
+                // ============================================
+                // KALENDER EXPORT FUNKTIONEN
+                // ============================================
+
+                function zeigeExportModal() {
+                    if (!aktuellesGebiet || !aktuelleStrasse) return;
+
+                    document.getElementById('export-strasse-name').textContent = aktuelleStrasse;
+                    document.getElementById('erfolg-meldung').classList.remove('active');
+                    document.getElementById('export-modal').classList.add('active');
+                }
+
+                function schliesseExportModal() {
+                    document.getElementById('export-modal').classList.remove('active');
+                }
+
+                function zeigeAnleitung(geraet) {
+                    // Alle Tabs deaktivieren
+                    document.querySelectorAll('.geraet-tab').forEach(tab => tab.classList.remove('active'));
+                    document.querySelectorAll('.geraet-content').forEach(content => content.classList.remove('active'));
+
+                    // Gewählten Tab aktivieren
+                    event.target.classList.add('active');
+                    document.getElementById('anleitung-' + geraet).classList.add('active');
+                }
+
+                function formatDateForICS(date) {
+                    const year = date.getFullYear();
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const day = String(date.getDate()).padStart(2, '0');
+                    return `${year}${month}${day}`;
+                }
+
+                function generateUID(datum, typ) {
+                    return `${formatDateForICS(datum)}-${typ}@vorchdorf-muellkalender`;
+                }
+
+                function exportiereKalender() {
+                    if (!aktuellesGebiet) return;
+
+                    const termine = getAlleTermineFuerExport(aktuellesGebiet);
+
+                    // ICS Header
+                    let ics = [
+                        'BEGIN:VCALENDAR',
+                        'VERSION:2.0',
+                        'PRODID:-//Vorchdorf App//Müllkalender 2026//DE',
+                        'CALSCALE:GREGORIAN',
+                        'METHOD:PUBLISH',
+                        'X-WR-CALNAME:Müllkalender Vorchdorf 2026',
+                        'X-WR-TIMEZONE:Europe/Vienna'
+                    ].join('\r\n');
+
+                    // Events hinzufügen
+                    for (const termin of termine) {
+                        const datumStr = formatDateForICS(termin.datum);
+                        const uid = generateUID(termin.datum, termin.typ);
+
+                        ics += '\r\n' + [
+                            'BEGIN:VEVENT',
+                            `DTSTART;VALUE=DATE:${datumStr}`,
+                            `DTEND;VALUE=DATE:${datumStr}`,
+                            `DTSTAMP:${formatDateForICS(new Date())}T000000Z`,
+                            `UID:${uid}`,
+                            `SUMMARY:${termin.config.icon} ${termin.config.name}`,
+                            `DESCRIPTION:${termin.config.beschreibung}-Abholung in ${aktuelleStrasse} (Gebiet ${aktuellesGebiet})\\nBereitstellung ab 6:00 Uhr!`,
+                            'LOCATION:Vorchdorf',
+                            'STATUS:CONFIRMED',
+                            'TRANSP:TRANSPARENT',
+                            'END:VEVENT'
+                        ].join('\r\n');
+                    }
+
+                    // ICS Footer
+                    ics += '\r\nEND:VCALENDAR';
+
+                    // Download auslösen
+                    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+                    const link = document.createElement('a');
+                    const strasseClean = aktuelleStrasse.replace(/[^a-zA-Z0-9äöüÄÖÜß]/g, '-').toLowerCase();
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `muellkalender-vorchdorf-2026-${strasseClean}.ics`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // Erfolgsmeldung anzeigen
+                    document.getElementById('erfolg-meldung').classList.add('active');
+                }
+
                 function formatiereDatum(datum) {
                     const wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
                     return `${wochentage[datum.getDay()]}, ${datum.getDate()}. ${MONATSNAMEN[datum.getMonth()]}`;
@@ -1278,7 +1626,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 5.4
+        powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 5.5
     </div>
     </div> <!-- Ende app-container -->
 </body>
