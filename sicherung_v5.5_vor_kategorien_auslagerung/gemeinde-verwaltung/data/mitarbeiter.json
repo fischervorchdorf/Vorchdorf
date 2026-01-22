@@ -1,0 +1,227 @@
+{
+  "count": 37,
+  "mitarbeiter": [
+    {
+      "name": "Aberl Paul",
+      "telefon": "+43 676 898 655 570",
+      "email": "p.aberl@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1453322&mode=T&width=150&height=180&cropping=BYH&cts=1749112418"
+    },
+    {
+      "name": "Angleitner Sonja",
+      "telefon": "+43 676 898 655 544",
+      "email": "s.angleitner@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382303&mode=T&width=150&height=180&cropping=BYH&cts=1749114214"
+    },
+    {
+      "name": "Blühweis Ingeborg",
+      "telefon": "+43 676 898 655 540",
+      "email": "i.bluehweis@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452803&mode=T&width=150&height=180&cropping=BYH&cts=1749113396"
+    },
+    {
+      "name": "Corea Iulian-Jean",
+      "telefon": "+43 676 898 655 630",
+      "email": "technik@kitzmantelfabrik.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3985936&mode=T&width=150&height=180&cropping=BYH&cts=1749742571"
+    },
+    {
+      "name": "Depner Nicole",
+      "telefon": "+43 7614 6555 576",
+      "email": "n.depner@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=4002004&mode=T&width=150&height=180&cropping=BYH&cts=1751452337"
+    },
+    {
+      "name": "Dickinger Ingeborg",
+      "telefon": "+43 676 898 655 541",
+      "email": "i.dickinger@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452810&mode=T&width=150&height=180&cropping=BYH&cts=1749118661"
+    },
+    {
+      "name": "Edlinger Anna-Lena",
+      "telefon": "+43 7614 6555 552",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"
+    },
+    {
+      "name": "Fischerleitner Selina",
+      "telefon": "+43 7614 6555 552",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3981184&mode=T&width=150&height=180&cropping=BYH&cts=1749118841"
+    },
+    {
+      "name": "Freilinger Michael",
+      "telefon": "+43 7614 6555 554",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1782710&mode=T&width=150&height=180&cropping=BYH&cts=1749113150"
+    },
+    {
+      "name": "Fölß Stefanie",
+      "telefon": "+43 676 898 655 554",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2886180&mode=T&width=150&height=180&cropping=BYH&cts=1646995107"
+    },
+    {
+      "name": "Gadermaier Stefan",
+      "telefon": "+43 7614 6555 556",
+      "email": "s.gadermaier@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980895&mode=T&width=150&height=180&cropping=BYH&cts=1749112088"
+    },
+    {
+      "name": "Grafinger Ingrid",
+      "telefon": "+43 676 898 655 553",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1121654&mode=T&width=150&height=180&cropping=BYH&cts=1750064697"
+    },
+    {
+      "name": "Hartenthaler Daniel",
+      "telefon": "+43 676 898 655 535",
+      "email": "d.hartenthaler@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1499935&mode=T&width=150&height=180&cropping=BYH&cts=1749111521"
+    },
+    {
+      "name": "Hauser Irene",
+      "telefon": "+43 7614 6555 558",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980910&mode=T&width=150&height=180&cropping=BYH&cts=1749112290"
+    },
+    {
+      "name": "Heitzendorfer Eva",
+      "telefon": "+43 7614 6555 542",
+      "email": "e.heitzendorfer@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980936&mode=T&width=150&height=180&cropping=BYH&cts=1749112923"
+    },
+    {
+      "name": "Hitzenberger Kerstin",
+      "telefon": "+43 7614 6555 547",
+      "email": "k.hitzenberger@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"
+    },
+    {
+      "name": "Huemer Daniela",
+      "telefon": "+43 676 898 655 555",
+      "email": "bauamt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452875&mode=T&width=150&height=180&cropping=BYH&cts=1557472777"
+    },
+    {
+      "name": "Klein Lukas",
+      "telefon": "+43 7614 6555 557",
+      "email": "l.klein@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"
+    },
+    {
+      "name": "Kronberger Lisa",
+      "telefon": "+43 7614 6555 577",
+      "email": "l.kronberger@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452892&mode=T&width=150&height=180&cropping=BYH&cts=1749112366"
+    },
+    {
+      "name": "Maier Daniela",
+      "telefon": "+43 676 898 655 572",
+      "email": "d.maier@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452882&mode=T&width=150&height=180&cropping=BYH&cts=1751451314"
+    },
+    {
+      "name": "Mayr Sandra",
+      "telefon": "+43 676 898 655 571",
+      "email": "s.mayr@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950219&mode=T&width=150&height=180&cropping=BYH&cts=1749113042"
+    },
+    {
+      "name": "Melcher Sandra",
+      "telefon": "+43 7614 6555 579",
+      "email": "s.melcher@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"
+    },
+    {
+      "name": "Obermaier Katharina",
+      "telefon": "+43 676 898 655 545",
+      "email": "k.obermaier@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950222&mode=T&width=150&height=180&cropping=BYH&cts=1756726628"
+    },
+    {
+      "name": "Rachbauer Michaela, Mag. Social Media & Consulting",
+      "telefon": "+43 676 898 655 513",
+      "email": "meine.buehne@kitzmantelfabrik.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2966043&mode=T&width=150&height=180&cropping=BYH&cts=1749111666"
+    },
+    {
+      "name": "Raffelsberger (in Karenz) Julia",
+      "telefon": "+43 676 898 655 511",
+      "email": "j.raffelsberger@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3799416&mode=T&width=150&height=180&cropping=BYH&cts=1749117532"
+    },
+    {
+      "name": "Repczuk Herbert",
+      "telefon": "+43 676 898 655 551",
+      "email": "h.repczuk@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452889&mode=T&width=150&height=180&cropping=BYH&cts=1749111821"
+    },
+    {
+      "name": "Schmid Daniela",
+      "telefon": "+43 7614 6555 500",
+      "email": "d.schmid@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544708&mode=T&width=150&height=180&cropping=BYH&cts=1749118385"
+    },
+    {
+      "name": "Spalt Gerald, Ing.",
+      "telefon": "+43 676 898 655 550",
+      "email": "g.spalt@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1578808&mode=T&width=150&height=180&cropping=BYH&cts=1625584198"
+    },
+    {
+      "name": "Spitzbart Brigitte, Management & Consulting",
+      "telefon": "+43 676 898 655 512",
+      "email": "management@kitzmantelfabrik.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382201&mode=T&width=150&height=180&cropping=BYH&cts=1749111581"
+    },
+    {
+      "name": "Stelzer Celine",
+      "telefon": "+43 7614 6555 530",
+      "email": "c.stelzer@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980928&mode=T&width=150&height=180&cropping=BYH&cts=1749112630"
+    },
+    {
+      "name": "Streng Leonie",
+      "telefon": "+43 7614 6555 531",
+      "email": "l.streng@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3947877&mode=T&width=150&height=180&cropping=BYH&cts=1753957829"
+    },
+    {
+      "name": "Stürzlinger Simone",
+      "telefon": "+43 676 898 655 543",
+      "email": "s.stuerzlinger@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2061414&mode=T&width=150&height=180&cropping=BYH&cts=1749111884"
+    },
+    {
+      "name": "Viertauer Andreas",
+      "telefon": "+43 676 898655536",
+      "email": "a.viertauer@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544704&mode=T&width=150&height=180&cropping=BYH&cts=1707141195"
+    },
+    {
+      "name": "Waltenspiel Sabine",
+      "telefon": "+43 7614 6555 500",
+      "email": "s.waltenspiel@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382196&mode=T&width=150&height=180&cropping=BYH&cts=1749119060"
+    },
+    {
+      "name": "Weingärtner Martina",
+      "telefon": "+43 7614 6555 574",
+      "email": "m.weingaertner@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1901583&mode=T&width=150&height=180&cropping=BYH&cts=1749118315"
+    },
+    {
+      "name": "Wilde Constantin",
+      "telefon": "+43 7614 6555 573",
+      "email": "",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3981122&mode=T&width=150&height=180&cropping=BYH&cts=1749117371"
+    },
+    {
+      "name": "Wimmer Astrid",
+      "telefon": "+43 676 898 655 575",
+      "email": "a.wimmer@vorchdorf.ooe.gv.at",
+      "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452906&mode=T&width=150&height=180&cropping=BYH&cts=1749112156"
+    }
+  ]
+}

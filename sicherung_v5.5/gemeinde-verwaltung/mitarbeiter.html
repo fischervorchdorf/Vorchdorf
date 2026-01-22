@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitarbeiter - Vorchdorf App</title>
+    <style>
+
+        :root {
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 50%, #1a472a 100%);
+            --shadow-md: rgba(0, 0, 0, 0.15);
+            --shadow-lg: rgba(0, 0, 0, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header mit Wappen */
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 40px var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        header:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(26, 71, 42, 0.3);
+        }
+
+        header img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Search */
+        .search-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px var(--shadow-md);
+            display: flex;
+            gap: 15px;
+        }
+
+        .search-container input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: #1a472a;
+        }
+
+        .search-container button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Back Button */
+        .back-button-container {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+        }
+
+        .back-button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .back-button:hover {
+            background: #f5f5f5;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-md);
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #1a472a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow-lg);
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .page-title h2 {
+            font-size: 2rem;
+            color: #1a472a;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #1a472a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header { padding: 10px 15px; }
+            header img { height: 40px; }
+            header h1 { font-size: 1.2rem; }
+            .search-container { flex-direction: column; }
+            .search-container button { width: 100%; }
+            .content-wrapper { padding: 15px; }
+            .page-title h2 { font-size: 1.5rem; }
+        }
+
+
+        /* Mitarbeiter specific styles */
+        .mitarbeiter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .person-card { background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px; transition: all 0.3s; }
+        .person-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #1a472a; }
+        .person-header { display: flex; gap: 15px; margin-bottom: 15px; }
+        .person-foto { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+        .person-info { flex: 1; }
+        .person-name { font-weight: 600; font-size: 16px; color: #1d1d1f; margin-bottom: 8px; }
+        .contact-link { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #1a472a; text-decoration: none; margin-bottom: 5px; }
+        .contact-link:hover { text-decoration: underline; }
+        .search-box { background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .search-box input { width: 100%; padding: 12px; border: 2px solid #e5e5ea; border-radius: 8px; font-size: 16px; }
+        .search-box input:focus { outline: none; border-color: #1a472a; }
+        .count-info { color: #666; font-size: 14px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- App Header mit Wappen -->
+        <header onclick="window.location.href='../index.html'" style="cursor: pointer;">
+            <img src="../AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+            <h1>Vorchdorf-APP</h1>
+            <img src="../AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
+        </header>
+
+        <!-- Suchfeld -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Suche nach Informationen, Vereinen, Betrieben...">
+            <button onclick="performSearch()">🔍 Suchen</button>
+        </div>
+
+        <!-- Zurück Button -->
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">← Zurück</a>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="../index.html">🏠 Start</a> › <a href="index.html">Gemeinde & Verwaltung</a> › Mitarbeiter
+        </div>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="page-title">
+                <span style="font-size: 2.5rem;">👥</span>
+                <h2>Mitarbeiter</h2>
+            </div>
+            <p class="count-info" id="count"></p>
+            <div class="search-box">
+                <input type="search" id="filterInput" placeholder="🔍 Mitarbeiter suchen...">
+            </div>
+            <div class="mitarbeiter-grid" id="mitarbeiterGrid"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 5.4
+        </div>
+    </div>
+
+    <script>
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            window.location.href = `../index.html?search=${encodeURIComponent(searchTerm)}`;
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        const data = {"count": 37, "mitarbeiter": [{"name": "Aberl Paul", "telefon": "+43 676 898 655 570", "email": "p.aberl@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1453322&mode=T&width=150&height=180&cropping=BYH&cts=1749112418"}, {"name": "Angleitner Sonja", "telefon": "+43 676 898 655 544", "email": "s.angleitner@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382303&mode=T&width=150&height=180&cropping=BYH&cts=1749114214"}, {"name": "Blühweis Ingeborg", "telefon": "+43 676 898 655 540", "email": "i.bluehweis@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452803&mode=T&width=150&height=180&cropping=BYH&cts=1749113396"}, {"name": "Corea Iulian-Jean", "telefon": "+43 676 898 655 630", "email": "technik@kitzmantelfabrik.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3985936&mode=T&width=150&height=180&cropping=BYH&cts=1749742571"}, {"name": "Depner Nicole", "telefon": "+43 7614 6555 576", "email": "n.depner@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=4002004&mode=T&width=150&height=180&cropping=BYH&cts=1751452337"}, {"name": "Dickinger Ingeborg", "telefon": "+43 676 898 655 541", "email": "i.dickinger@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452810&mode=T&width=150&height=180&cropping=BYH&cts=1749118661"}, {"name": "Edlinger Anna-Lena", "telefon": "+43 7614 6555 552", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"}, {"name": "Fischerleitner Selina", "telefon": "+43 7614 6555 552", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3981184&mode=T&width=150&height=180&cropping=BYH&cts=1749118841"}, {"name": "Freilinger Michael", "telefon": "+43 7614 6555 554", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1782710&mode=T&width=150&height=180&cropping=BYH&cts=1749113150"}, {"name": "Fölß Stefanie", "telefon": "+43 676 898 655 554", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2886180&mode=T&width=150&height=180&cropping=BYH&cts=1646995107"}, {"name": "Gadermaier Stefan", "telefon": "+43 7614 6555 556", "email": "s.gadermaier@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980895&mode=T&width=150&height=180&cropping=BYH&cts=1749112088"}, {"name": "Grafinger Ingrid", "telefon": "+43 676 898 655 553", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1121654&mode=T&width=150&height=180&cropping=BYH&cts=1750064697"}, {"name": "Hartenthaler Daniel", "telefon": "+43 676 898 655 535", "email": "d.hartenthaler@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1499935&mode=T&width=150&height=180&cropping=BYH&cts=1749111521"}, {"name": "Hauser Irene", "telefon": "+43 7614 6555 558", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980910&mode=T&width=150&height=180&cropping=BYH&cts=1749112290"}, {"name": "Heitzendorfer Eva", "telefon": "+43 7614 6555 542", "email": "e.heitzendorfer@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980936&mode=T&width=150&height=180&cropping=BYH&cts=1749112923"}, {"name": "Hitzenberger Kerstin", "telefon": "+43 7614 6555 547", "email": "k.hitzenberger@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"}, {"name": "Huemer Daniela", "telefon": "+43 676 898 655 555", "email": "bauamt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452875&mode=T&width=150&height=180&cropping=BYH&cts=1557472777"}, {"name": "Klein Lukas", "telefon": "+43 7614 6555 557", "email": "l.klein@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602306&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"}, {"name": "Kronberger Lisa", "telefon": "+43 7614 6555 577", "email": "l.kronberger@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452892&mode=T&width=150&height=180&cropping=BYH&cts=1749112366"}, {"name": "Maier Daniela", "telefon": "+43 676 898 655 572", "email": "d.maier@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452882&mode=T&width=150&height=180&cropping=BYH&cts=1751451314"}, {"name": "Mayr Sandra", "telefon": "+43 676 898 655 571", "email": "s.mayr@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950219&mode=T&width=150&height=180&cropping=BYH&cts=1749113042"}, {"name": "Melcher Sandra", "telefon": "+43 7614 6555 579", "email": "s.melcher@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3602307&mode=T&width=150&height=180&cropping=BYH&cts=1712077139"}, {"name": "Obermaier Katharina", "telefon": "+43 676 898 655 545", "email": "k.obermaier@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2950222&mode=T&width=150&height=180&cropping=BYH&cts=1756726628"}, {"name": "Rachbauer Michaela, Mag. Social Media & Consulting", "telefon": "+43 676 898 655 513", "email": "meine.buehne@kitzmantelfabrik.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2966043&mode=T&width=150&height=180&cropping=BYH&cts=1749111666"}, {"name": "Raffelsberger (in Karenz) Julia", "telefon": "+43 676 898 655 511", "email": "j.raffelsberger@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3799416&mode=T&width=150&height=180&cropping=BYH&cts=1749117532"}, {"name": "Repczuk Herbert", "telefon": "+43 676 898 655 551", "email": "h.repczuk@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452889&mode=T&width=150&height=180&cropping=BYH&cts=1749111821"}, {"name": "Schmid Daniela", "telefon": "+43 7614 6555 500", "email": "d.schmid@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544708&mode=T&width=150&height=180&cropping=BYH&cts=1749118385"}, {"name": "Spalt Gerald, Ing.", "telefon": "+43 676 898 655 550", "email": "g.spalt@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1578808&mode=T&width=150&height=180&cropping=BYH&cts=1625584198"}, {"name": "Spitzbart Brigitte, Management & Consulting", "telefon": "+43 676 898 655 512", "email": "management@kitzmantelfabrik.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382201&mode=T&width=150&height=180&cropping=BYH&cts=1749111581"}, {"name": "Stelzer Celine", "telefon": "+43 7614 6555 530", "email": "c.stelzer@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3980928&mode=T&width=150&height=180&cropping=BYH&cts=1749112630"}, {"name": "Streng Leonie", "telefon": "+43 7614 6555 531", "email": "l.streng@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3947877&mode=T&width=150&height=180&cropping=BYH&cts=1753957829"}, {"name": "Stürzlinger Simone", "telefon": "+43 676 898 655 543", "email": "s.stuerzlinger@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=2061414&mode=T&width=150&height=180&cropping=BYH&cts=1749111884"}, {"name": "Viertauer Andreas", "telefon": "+43 676 898655536", "email": "a.viertauer@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3544704&mode=T&width=150&height=180&cropping=BYH&cts=1707141195"}, {"name": "Waltenspiel Sabine", "telefon": "+43 7614 6555 500", "email": "s.waltenspiel@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1382196&mode=T&width=150&height=180&cropping=BYH&cts=1749119060"}, {"name": "Weingärtner Martina", "telefon": "+43 7614 6555 574", "email": "m.weingaertner@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1901583&mode=T&width=150&height=180&cropping=BYH&cts=1749118315"}, {"name": "Wilde Constantin", "telefon": "+43 7614 6555 573", "email": "", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=3981122&mode=T&width=150&height=180&cropping=BYH&cts=1749117371"}, {"name": "Wimmer Astrid", "telefon": "+43 676 898 655 575", "email": "a.wimmer@vorchdorf.ooe.gv.at", "foto": "https://www.vorchdorf.at/system/web/GetImage.ashx?fileid=1452906&mode=T&width=150&height=180&cropping=BYH&cts=1749112156"}]};
+        let filtered = data.mitarbeiter;
+
+        document.getElementById('count').textContent = `${data.count} Mitarbeiter`;
+
+        function renderMitarbeiter() {
+            const html = filtered.map(p => {
+                const foto = p.foto ? '<img src="' + p.foto + '" class="person-foto">' : '<div class="person-foto">👤</div>';
+                return `
+                    <div class="person-card">
+                        <div class="person-header">
+                            ${foto}
+                            <div class="person-info">
+                                <div class="person-name">${esc(p.name)}</div>
+                                <div class="person-contacts">
+                                    ${p.email ? '<a href="mailto:' + p.email + '" class="contact-link">📧 ' + p.email + '</a>' : ''}
+                                    ${p.telefon ? '<a href="tel:' + p.telefon + '" class="contact-link">📞 ' + p.telefon + '</a>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('mitarbeiterGrid').innerHTML = html;
+        }
+
+        function esc(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        document.getElementById('filterInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            filtered = data.mitarbeiter.filter(p =>
+                p.name.toLowerCase().includes(term) ||
+                (p.email && p.email.toLowerCase().includes(term))
+            );
+            renderMitarbeiter();
+        });
+
+        renderMitarbeiter();
+    </script>
+</body>
+</html>

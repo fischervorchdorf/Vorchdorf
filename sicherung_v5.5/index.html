@@ -2944,21 +2944,1098 @@ Mit freundlichen Grüßen`;
         let allGemeindebetriebe = [];
 
         // Data Structure
-        // Kategorien werden aus categories.json geladen
-        let categories = {};
-
-        // Lade Kategorien aus JSON Datei
-        async function loadCategories() {
-            try {
-                const response = await fetch('./categories.json?v=' + Date.now());
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                categories = await response.json();
-                console.log(`✓ ${Object.keys(categories).length} Kategorien geladen`);
-            } catch (error) {
-                console.error('Fehler beim Laden von categories.json:', error);
-                showDataError('Kategorien');
+        const categories = {
+            events: {
+                id: 'events',
+                title: 'Veranstaltungen',
+                icon: '📅',
+                description: 'Events, Konzerte, Feste & mehr',
+                externalLink: 'events.html'
+            },
+            gallery: {
+                id: 'gallery',
+                title: 'Bilder & Galerie',
+                icon: '📸',
+                description: 'Bilder und Fotos von Vorchdorf',
+                externalLink: 'http://www.vorchdorfer.at/'
+            },
+            mittagstisch: {
+                id: 'mittagstisch',
+                title: 'Mittagsmenü',
+                icon: '🍽️',
+                description: 'Aktuelle Menüpläne der Wirte',
+                externalLink: 'mittagstisch.html'
+            },
+            welcome: {
+                id: 'welcome',
+                title: 'Willkommen',
+                icon: '👋',
+                description: 'Erste Infos über Vorchdorf',
+                content: {
+                    type: 'info',
+                    sections: [
+                        {
+                            title: '👋 Herzlich willkommen in Vorchdorf!',
+                            items: [
+                                {
+                                    title: 'Wir freuen uns, dass Sie hier sind!',
+                                    info: [
+                                        'Vorchdorf ist mehr als nur ein Wohnort – es ist das lebendige Tor zum Salzkammergut.',
+                                        'Zwischen Tradition, starker Wirtschaft und wunderschöner Natur bietet unsere Marktgemeinde alles, was man zum Wohlfühlen braucht.',
+                                        'Damit Sie sich schnell zurechtfinden, haben wir hier die wichtigsten Fakten und erste Schritte für Sie zusammengefasst.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '🔢 Vorchdorf in Zahlen & Fakten',
+                            items: [
+                                {
+                                    title: 'Ein kurzer Steckbrief Ihrer neuen Heimat',
+                                    info: [
+                                        '📏 Fläche: 47,78 km²',
+                                        '📍 Seehöhe: 414 m ü. A.',
+                                        '👥 Einwohner: ca. 8.300 (Stand 2024/2025)',
+                                        '📮 Postleitzahl: 4655',
+                                        '🗺️ Lage: Bezirk Gmunden, direkt an der A1 Westautobahn',
+                                        '🏘️ Struktur: 27 Ortschaften, wichtiger Wirtschaftsstandort im Almtal'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '📝 Checkliste: Neu in Vorchdorf? Das ist zu tun',
+                            items: [
+                                {
+                                    title: '1️⃣ Anmeldung (Meldezettel)',
+                                    info: [
+                                        'Innerhalb von 3 Tagen nach Bezug der Unterkunft beim Meldeamt anmelden',
+                                        'Wo: Marktgemeindeamt Vorchdorf (Erdgeschoss, Bürgerservice)',
+                                        'Mitbringen: Meldezettel (unterschrieben), Reisepass/Personalausweis, Geburtsurkunde'
+                                    ]
+                                },
+                                {
+                                    title: '2️⃣ Müllabfuhr & ASZ-Karte',
+                                    info: [
+                                        'In Vorchdorf legen wir Wert auf Mülltrennung',
+                                        'Mülltonnen: Anmeldung für Restmüll- und Biotonnen am Gemeindeamt',
+                                        'ASZ (Altstoffsammelzentrum): OÖ-Siedlerkarte beim Gemeindeamt abholen'
+                                    ]
+                                },
+                                {
+                                    title: '3️⃣ Wasserzählerstand',
+                                    info: [
+                                        'Bei Eigentümerwechsel den Wasserzählerstand dem Steueramt melden',
+                                        'Wichtig für korrekte Abrechnung'
+                                    ]
+                                },
+                                {
+                                    title: '4️⃣ Hundesteuer',
+                                    info: [
+                                        'Wenn Sie einen vierbeinigen Freund mitbringen: Hund am Gemeindeamt anmelden',
+                                        'Dort erhalten Sie auch die Hundemarke'
+                                    ]
+                                },
+                                {
+                                    title: '5️⃣ Vorchdorfer Werbering-Gutscheine',
+                                    info: [
+                                        'Die Gutscheine können Sie in allen Banken kaufen und in allen Mitgliedsbetrieben damit bezahlen.',
+                                        'Ideal, um den Ort kennenzulernen und perfekt als Geschenk!'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '🏛️ Gemeindeamt & Öffnungszeiten',
+                            items: [
+                                {
+                                    title: 'Marktgemeinde Vorchdorf',
+                                    info: [
+                                        '📍 Schloßplatz 7, 4655 Vorchdorf',
+                                        '📞 Telefon: +43 7614 6555',
+                                        '📧 E-Mail: gemeinde@vorchdorf.ooe.gv.at'
+                                    ]
+                                },
+                                {
+                                    title: 'Öffnungszeiten Bürgerservice',
+                                    info: [
+                                        'Montag: 07:00 – 12:00 Uhr',
+                                        'Dienstag: 07:00 – 12:00 Uhr & 14:00 – 18:00 Uhr',
+                                        'Mittwoch: kein Parteienverkehr',
+                                        'Donnerstag: 07:00 – 12:00 Uhr & 14:00 – 17:00 Uhr',
+                                        'Freitag: 07:00 – 12:00 Uhr'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            title: '💡 Wussten Sie schon?',
+                            items: [
+                                {
+                                    title: 'Vorchdorf als Verkehrsknotenpunkt',
+                                    info: [
+                                        'Vorchdorf ist ein Verkehrsknotenpunkt der besonderen Art',
+                                        'Bei uns treffen sich nicht nur Autobahn und Landstraßen zusammen',
+                                        'Sondern auch zwei berühmte Lokalbahnen am selben Bahnhof:',
+                                        '🚊 Die Traunseetram (aus Gmunden)',
+                                        '🚊 Die Vorchdorferbahn (aus Lambach)',
+                                        'Steigen Sie ein und erkunden Sie die Region!'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            health: {
+                id: 'health',
+                title: 'Gesundheit & Soziales',
+                icon: '🏥',
+                description: 'Ärzte, Apotheken & Beratungsstellen',
+                subcategories: {
+                    doctors_websites: {
+                        id: 'doctors_websites',
+                        icon: '👨‍⚕️',
+                        title: 'Ärzte in Vorchdorf - eigene Webseiten',
+                        description: 'Klicken für Details',
+                        items: [
+                            {
+                                title: 'Dr. Gruber Theresa',
+                                info: ['Praktische Ärztin'],
+                                link: 'https://www.gruberdoktor.at/'
+                            },
+                            {
+                                title: 'Dr. Christoph Hohn',
+                                info: ['Praktischer Arzt'],
+                                link: 'https://www.docfinder.at/praktischer-arzt/4655-vorchdorf/dr-christoph-hohn'
+                            },
+                            {
+                                title: 'Hausärztin Raml Katja',
+                                info: ['Praktische Ärztin'],
+                                link: 'https://hausaerztin-raml.at/'
+                            },
+                            {
+                                title: 'Dr. Westreicher Claudia',
+                                info: ['Praktische Ärztin'],
+                                link: 'https://www.westreicher.at/'
+                            },
+                            {
+                                title: 'Dr. Westreicher Richard',
+                                info: ['Praktischer Arzt'],
+                                link: 'https://www.westreicher.at/'
+                            },
+                            {
+                                title: 'Dr. Klinkert',
+                                info: ['Zahnarzt'],
+                                link: 'https://www.zahnarzt-klinkert.at/'
+                            },
+                            {
+                                title: 'Dr. Wolfgang Krenmayr',
+                                info: ['Zahnarzt'],
+                                link: 'https://www.docfinder.at/zahnarzt/4655-vorchdorf/dr-wolfgang-krenmayr'
+                            },
+                            {
+                                title: 'Tierambulanz Vorchdorf (Kleintierklinik Vitalis)',
+                                info: ['Tierarzt'],
+                                link: 'https://www.kleintierklinik-vitalis.at/'
+                            },
+                            {
+                                title: 'Traunkreis Vet Clinic',
+                                info: ['Tierarzt'],
+                                link: 'http://www.vetclinic.at/tierarztpraxis-vorchdorf/kontakt/'
+                            },
+                            {
+                                title: 'Dr. Wurzer Helmut',
+                                info: ['Tierarzt'],
+                                link: 'https://www.vorchdorf.at/Wurzer_Helmut'
+                            },
+                            {
+                                title: 'Dr. Huber Petra',
+                                info: ['Facharzt'],
+                                link: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Aerzte_in_Vorchdorf'
+                            }
+                        ]
+                    },
+                    doctors_vorchdorf: {
+                        id: 'doctors_vorchdorf',
+                        icon: '🌐',
+                        title: 'Ärzte in Vorchdorf auf vorchdorf.at',
+                        directLink: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Aerzte_in_Vorchdorf'
+                    },
+                    doctors_opening_hours: {
+                        id: 'doctors_opening_hours',
+                        icon: '⏰',
+                        title: 'Ärzte in Vorchdorf Öffnungszeiten',
+                        directLink: 'https://www.google.com/search?q=ärzte+vorchdorf+öffnungszeiten'
+                    },
+                    specialists: {
+                        id: 'specialists',
+                        icon: '🔍',
+                        title: 'Kinder- und Fachärzte auf arztsuche',
+                        directLink: 'https://arztsuche.aekooe.at/finder/search/land/OO,SA'
+                    },
+                    pharmacy: {
+                        id: 'pharmacy',
+                        icon: '💊',
+                        title: 'Apotheken auf apothekensuche',
+                        directLink: 'https://www.apothekerkammer.at/apothekensuche/4655,+%C3%96sterreich/4655/@47.9989105,13.9451777/p=postal_code'
+                    },
+                    social: {
+                        id: 'social',
+                        icon: '🤝',
+                        title: 'Soziale Einrichtungen',
+                        items: [
+                            {
+                                title: 'Mutterberatung',
+                                info: [
+                                    'Regelmäßige Beratungstermine',
+                                    'Infos auf der Gemeinde-Website'
+                                ],
+                                link: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Mutterberatung'
+                            },
+                            {
+                                title: 'Sozialfonds "WIR helfen"',
+                                info: [
+                                    'Unterstützung für Familien in Notlagen',
+                                    'Kontakt über Gemeindeamt Vorchdorf'
+                                ],
+                                link: 'https://www.vorchdorf.at/Unser_Ort/Gesundheit_Soziales/Sozialfonds_WIR_helfen_'
+                            },
+                            {
+                                title: 'Gesundheitsnummer 1450',
+                                info: [
+                                    'Telefonische Gesundheitsberatung',
+                                    'Rund um die Uhr erreichbar: 1450'
+                                ],
+                                link: 'https://www.sozialministerium.gv.at/Themen/Gesundheit/eHealth/Gesundheitsberatung-1450.html'
+                            }
+                        ]
+                    }
+                }
+            },
+            education: {
+                id: 'education',
+                title: 'Bildung',
+                icon: '🎓',
+                description: 'Schulen, Kindergärten & Weiterbildung',
+                content: {
+                    type: 'list',
+                    items: [
+                        {
+                            title: 'Erwachsenenbildung VHS',
+                            link: 'https://www.vorchdorf.at/Erwachsenenbildung_VHS'
+                        },
+                        {
+                            title: 'GTS - Ganztagesschule',
+                            link: 'https://www.vorchdorf.at/GTS'
+                        },
+                        {
+                            title: 'Kindergarten Fischböckau',
+                            link: 'https://www.vorchdorf.at/Kindergarten_Fischboeckau_1'
+                        },
+                        {
+                            title: 'Kindergarten Kunterbunt und Farbenfroh',
+                            link: 'https://www.vorchdorf.at/Kindergarten_Kunterbunt_und_Farbenfroh'
+                        },
+                        {
+                            title: 'Krabbelstube Fischböckau',
+                            link: 'https://www.vorchdorf.at/Krabbelstube_Fischboeckau_1'
+                        },
+                        {
+                            title: 'Landesmusikschule',
+                            link: 'https://www.vorchdorf.at/Landesmusikschule'
+                        },
+                        {
+                            title: 'Neue Mittelschule',
+                            link: 'https://www.vorchdorf.at/Neue_Mittelschule'
+                        },
+                        {
+                            title: 'Öffentliche Bibliothek',
+                            link: 'https://bibliothek-vorchdorf.at/'
+                        },
+                        {
+                            title: 'Otelo Vorchdorf',
+                            link: 'https://www.vorchdorf.at/Otelo_Vorchdorf'
+                        },
+                        {
+                            title: 'Schulausspeisung',
+                            link: 'https://www.vorchdorf.at/Schulausspeisung_1'
+                        },
+                        {
+                            title: 'Schulbibliothek',
+                            link: 'https://www.vorchdorf.at/Bibliothek_Vorchdorf'
+                        },
+                        {
+                            title: 'Schule an der Alm',
+                            link: 'https://www.vorchdorf.at/Schule_an_der_Alm'
+                        },
+                        {
+                            title: 'Spielgruppe',
+                            link: 'https://www.vorchdorf.at/Spielgruppe_1'
+                        },
+                        {
+                            title: 'Volksschule Pamet',
+                            link: 'https://www.vorchdorf.at/Volksschule_Pamet_1'
+                        },
+                        {
+                            title: 'Volksschule Vorchdorf',
+                            link: 'https://www.vorchdorf.at/Volksschule_Vorchdorf_1'
+                        }
+                    ]
+                }
+            },
+            sport_fitness: {
+                id: 'sport_fitness',
+                title: 'Sport & Fitness',
+                icon: '⚽',
+                description: 'Fitnessstudios, Sportangebote & Sportstätten',
+                subcategories: {
+                    fitness: {
+                        id: 'fitness',
+                        title: '💪 Fitnessstudios',
+                        items: [
+                            {
+                                title: 'ANYTIME FITNESS Vorchdorf',
+                                info: [
+                                    '💪 Modernes Fitnessstudio',
+                                    '🕒 24 Stunden geöffnet',
+                                    '📍 Bahnhofstraße 18, 4655 Vorchdorf',
+                                    '📞 +43 660 4476547'
+                                ],
+                                link: 'https://www.af-austria.at'
+                            },
+                            {
+                                title: 'MEIN TRAINING Vorchdorf',
+                                info: [
+                                    '💪 Persönliches Training',
+                                    '🏋️ Modern ausgestattet',
+                                    '📍 Lambacherstraße 32, 4655 Vorchdorf',
+                                    '📞 +43 7614 93041'
+                                ],
+                                link: 'https://www.mein-training.at'
+                            }
+                        ]
+                    },
+                    sports: {
+                        id: 'sports',
+                        title: 'Sportangebote & Sportstätten',
+                        icon: '⚽',
+                        items: [
+                            {
+                                title: 'Tennisanlagen Vorchdorf',
+                                info: [
+                                    '🎾 Schöne Tennisplätze',
+                                    '👥 Tennisclub Union Vorchdorf',
+                                    '📍 Laudachweg 13, Vorchdorf'
+                                ],
+                                link: 'https://www.utc-vorchdorf.at/'
+                            },
+                            {
+                                title: 'Fußballplätze',
+                                info: [
+                                    '⚽ Hauptplatz & Trainingsplätze',
+                                    '👥 ASKÖ Vorchdorf & SV Vorchdorf',
+                                    '📍 Streiningerstraße 2c, Vorchdorf'
+                                ],
+                                link: 'https://vereine.oefb.at/AskoeVorchdorf/Sportplatz/'
+                            },
+                            {
+                                title: 'Schwimmen & Wassersport',
+                                info: [
+                                    '🏊 Freibad Vorchdorf (Almtalbad)',
+                                    '🚣 Trauntal Wassersport',
+                                    '📍 Laudachweg 11, Vorchdorf'
+                                ],
+                                link: 'https://www.vorchdorf.at/Almtalbad_Vorchdorf_1'
+                            },
+                            {
+                                title: 'Pumptrack',
+                                info: [
+                                    '🏍️ Mountainbike Pumptrack',
+                                    '👥 Naturfreunde Vorchdorf',
+                                    '✓ Für Anfänger & Profis'
+                                ],
+                                link: 'https://vorchdorf.naturfreunde.at/ueber-uns/pumptrack/'
+                            },
+                            {
+                                title: 'Sporthalle Vorchdorf',
+                                info: [
+                                    '🏀 Moderne Sporthalle',
+                                    '📍 Schulstraße 8, Vorchdorf',
+                                    '☎️ 07614 635645'
+                                ],
+                                link: 'https://www.google.com/search?q=sporthalle+vorchdorf&rlz=1C5CHFA_enAT1105AT1105&oq=sporthalle+vorchdorf&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDIzNTNqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8&sei=reJgaZLlAfaJ7NYPlIKd6Ao#vhid=/g/1td7m3nd&vssid=lcl'
+                            },
+                            {
+                                title: 'Lauftraining Vorchdorf',
+                                info: [
+                                    '🏃 Laufgruppe für Erwachsene',
+                                    '👥 Gemeinsam trainieren',
+                                    '📍 Verschiedene Strecken'
+                                ],
+                                link: 'https://www.vorchdorf.at/Lauftraining_Erwachsene_6'
+                            }
+                        ]
+                    },
+                    sports_clubs: {
+                        id: 'sports_clubs',
+                        title: '🏅 Sportvereine',
+                        description: '15 Sportvereine in Vorchdorf',
+                        items: []
+                    }
+                }
+            },
+            clubs: {
+                id: 'clubs',
+                title: 'Vereine',
+                icon: '🤝',
+                description: 'Über 60 aktive Vereine in Vorchdorf',
+                subcategories: {
+                    sport: {
+                        id: 'sport',
+                        title: '⚽ Sport',
+                        description: '15 Sportvereine in Vorchdorf',
+                        items: []
+                    },
+                    kultur: {
+                        id: 'kultur',
+                        title: '🎭 Kultur',
+                        description: '10 Kulturvereine in Vorchdorf',
+                        items: []
+                    },
+                    musik: {
+                        id: 'musik',
+                        title: '🎵 Musik',
+                        description: '7 Musikvereine in Vorchdorf',
+                        items: []
+                    },
+                    religion: {
+                        id: 'religion',
+                        title: '⛪ Religion',
+                        description: '6 Religionsgemeinschaften',
+                        items: []
+                    },
+                    soziales: {
+                        id: 'soziales',
+                        title: '🤝 Soziales & Jugend',
+                        description: '10 soziale Vereine',
+                        items: []
+                    },
+                    sonstiges: {
+                        id: 'sonstiges',
+                        title: '📋 Sonstiges',
+                        description: '13 weitere Vereine',
+                        items: []
+                    }
+                }
+            },
+            shopping: {
+                id: 'shopping',
+                title: 'Einkaufen & Wirtschaft',
+                icon: '🛍️',
+                description: 'Über 200 Werbering-Betriebe in 23 Kategorien',
+                subcategories: {
+                    legal: {
+                        id: 'legal',
+                        title: '⚖️ Anwälte & Notare',
+                        description: 'Rechtsbeistand vor Ort'
+                    },
+                    banks: {
+                        id: 'banks',
+                        title: '🏦 Banken & Versicherungen',
+                        description: 'Finanzdienstleister in der Region'
+                    },
+                    construction: {
+                        id: 'construction',
+                        title: '🏠 Bauen, Wohnen, Einrichten',
+                        description: 'Bau, Handwerk und Einrichtung'
+                    },
+                    beauty: {
+                        id: 'beauty',
+                        title: '💪 Beauty & Fitness',
+                        description: 'Fitnessstudios, Friseure & Kosmetik'
+                    },
+                    accounting: {
+                        id: 'accounting',
+                        title: '📊 Buchhaltung & Steuerberatung',
+                        description: 'Steuerberater und Wirtschaftstreuhänder'
+                    },
+                    catering: {
+                        id: 'catering',
+                        title: '🎪 Catering & Veranstaltungstechnik',
+                        description: 'Catering-Services und Event-Technik'
+                    },
+                    services: {
+                        id: 'services',
+                        title: '🔧 Dienstleistungen',
+                        description: 'Verschiedene Service-Angebote'
+                    },
+                    it: {
+                        id: 'it',
+                        title: '💻 EDV',
+                        description: 'IT-Dienstleister und Bürotechnik'
+                    },
+                    photo: {
+                        id: 'photo',
+                        title: '📸 Fotografie',
+                        description: 'Professionelle Fotografen'
+                    },
+                    flowers: {
+                        id: 'flowers',
+                        title: '🌸 Gärtnerei & Floristik',
+                        description: 'Blumen und Gartenbedarf'
+                    },
+                    healthcare: {
+                        id: 'healthcare',
+                        title: '⚕️ Gesundheit und Lebensberatung',
+                        description: 'Apotheken, Optiker, Wellness & Therapie'
+                    },
+                    wholesale: {
+                        id: 'wholesale',
+                        title: '📦 Großhandel',
+                        description: 'Großhandel und Lieferanten'
+                    },
+                    gastro: {
+                        id: 'gastro',
+                        title: '🍽️ Hotelerie & Gastronomie',
+                        description: 'Hotels, Restaurants, Cafés & Bars'
+                    },
+                    industry: {
+                        id: 'industry',
+                        title: '🏭 Industrie',
+                        description: 'Industriebetriebe und Produktion'
+                    },
+                    cars: {
+                        id: 'cars',
+                        title: '🚙 KFZ & Fahrrad',
+                        description: 'Autohäuser, Werkstätten & Fahrräder'
+                    },
+                    culture: {
+                        id: 'culture',
+                        title: '🎭 Kultur & Freizeit',
+                        description: 'Museen, Freibäder und Reisebüros'
+                    },
+                    food: {
+                        id: 'food',
+                        title: '🛒 Lebensmittel',
+                        description: 'Supermärkte, Bäckereien & Fleischereien'
+                    },
+                    fashion: {
+                        id: 'fashion',
+                        title: '👗 Mode & Accessoire',
+                        description: 'Modehäuser und Schuhgeschäfte'
+                    },
+                    jewelry: {
+                        id: 'jewelry',
+                        title: '💎 Schmuck, Uhren, Manufakturen',
+                        description: 'Juweliere und Handwerkskunst'
+                    },
+                    gas: {
+                        id: 'gas',
+                        title: '⛽ Tankstellen',
+                        description: 'Tankstellen in der Region'
+                    },
+                    tobacco: {
+                        id: 'tobacco',
+                        title: '🚬 Trafiken',
+                        description: 'Tabakwaren und Zeitschriften'
+                    },
+                    transport: {
+                        id: 'transport',
+                        title: '🚗 Transport',
+                        description: 'Taxi, Busse und Mietwagen'
+                    },
+                    advertising: {
+                        id: 'advertising',
+                        title: '📢 Werbung & PR',
+                        description: 'Werbeagenturen und Medien'
+                    },
+                    all_businesses_az: {
+                        id: 'all_businesses_az',
+                        title: '🎖️ Alle Werbering-Mitglieder von A-Z',
+                        description: 'Komplette Übersicht aller Werbering-Mitglieder alphabetisch sortiert nach Branche'
+                    }
+                }
+            },
+            leisure: {
+                id: 'leisure',
+                title: 'Freizeit & Kultur',
+                icon: '🎨',
+                description: 'Veranstaltungen, Sehenswürdigkeiten & mehr',
+                subcategories: {
+                    sights: {
+                        id: 'sights',
+                        title: '🏛️ Sehenswürdigkeiten',
+                        items: [
+                            {
+                                title: '🏍️ Salzkammergut Motorradmuseum',
+                                link: 'http://www.motorradmuseum-vorchdorf.at/',
+                                info: [
+                                    'Über 300 Exponate aus 100 Jahren Geschichte',
+                                    'Authentische wasserkraftbetriebene Werkstatt'
+                                ]
+                            },
+                            {
+                                title: '🔑 Escape House Vorchdorf',
+                                link: 'https://escape-house.at/',
+                                info: [
+                                    '7 verschiedene Themenräume',
+                                    'Einer der größten Anbieter Oberösterreichs',
+                                    'Im Schloss Hochhaus'
+                                ]
+                            },
+                            {
+                                title: '🎭 Kitzmantelfabrik',
+                                link: 'https://www.kitzmantelfabrik.at/',
+                                info: [
+                                    'Modernes Veranstaltungszentrum (ehem. Lederfabrik)',
+                                    'Mix aus Industriecharme & Architektur'
+                                ]
+                            },
+                            {
+                                title: '🍴 Gasthaus Schloss Hochhaus',
+                                link: 'https://schloss-hochhaus.at/',
+                                info: [
+                                    '1 Gault&Millau Haube',
+                                    'Regionale Almtal-Küche',
+                                    'Idyllischer Gastgarten im Schlosshof'
+                                ]
+                            },
+                            {
+                                title: '🏛️ Museum der Region Vorchdorf',
+                                link: 'https://www.museum-vorchdorf.at/',
+                                info: [
+                                    'Sammlung zur Ur- und Frühgeschichte',
+                                    'Größte Pfeifensammlung Österreichs'
+                                ]
+                            },
+                            {
+                                title: '🌟 Restaurant Tanglberg',
+                                link: 'http://www.tanglberg.at/',
+                                info: [
+                                    '4 Gault&Millau Hauben',
+                                    'Gourmetrestaurant im Gebäude aus dem 16. Jh.'
+                                ]
+                            },
+                            {
+                                title: '⛪ Pfarrkirche Vorchdorf',
+                                link: 'https://www.dioezese-linz.at/vorchdorf',
+                                info: [
+                                    'Barockisierter spätgotischer Bau (um 1700)',
+                                    'Farbenfrohe Deckenfresken von 1760'
+                                ]
+                            }
+                        ]
+                    },
+                    nature: {
+                        id: 'nature',
+                        title: '🌲 Natur & Erholung',
+                        items: [
+                            {
+                                title: 'Wanderwege',
+                                link: 'https://www.vorchdorfonline.at/sites/default/files/wanderkarte_vorchdorf_2022.pdf',
+                                info: [
+                                    'Schöne Wanderrouten in der Umgebung',
+                                    'Laudachtal',
+                                    'Almwanderungen'
+                                ]
+                            },
+                            {
+                                title: 'Radwege',
+                                link: 'https://traunsee-almtal.salzkammergut.at/region/unsere-orte/vorchdorf/radfahren.html',
+                                info: [
+                                    'Gut ausgebautes Radwegenetz',
+                                    'Almtal-Radweg'
+                                ]
+                            }
+                        ]
+                    },
+                    playgrounds: {
+                        id: 'playgrounds',
+                        title: '🎪 Spielplätze für Kinder',
+                        items: [
+                            {
+                                title: 'Spielplatz Vorchdorf',
+                                link: 'https://www.spiel-raum-creativ.at/projekte/spielplaetze/vorchdorf/',
+                                info: [
+                                    '🎪 Hauptspielplatz',
+                                    '📍 Krumphuberweg 10, Vorchdorf',
+                                    '⭐ Sehr gut erhalten',
+                                    '✓ Verschiedene Spielgeräte'
+                                ]
+                            },
+                            {
+                                title: 'Spielplatz Schulstraße',
+                                info: [
+                                    '🎪 Schulnähe Spielplatz',
+                                    '📍 Schulstraße 18, Vorchdorf',
+                                    '✓ Für Grundschüler geeignet',
+                                    '✓ Wohngebiet-Nähe'
+                                ]
+                            },
+                            {
+                                title: 'Spielplatz Kindertraum - Wirt in der Edt',
+                                info: [
+                                    '🎪 Besonderer Spielplatz',
+                                    '📍 Wirt in der Edt, Vorchdorf',
+                                    '🍽️ Kombination mit Restaurant'
+                                ],
+                                link: 'https://www.wirt-edt.at/spielplatz/'
+                            }
+                        ]
+                    },
+                    events: {
+                        id: 'events',
+                        title: '📅 Veranstaltungen',
+                        description: 'Aktuelle Termine und Events',
+                        externalLink: 'events.html'
+                    },
+                    kulturvilla: {
+                        id: 'kulturvilla',
+                        title: '🏰 Kulturvilla Vorchdorf',
+                        description: 'Konzerte, Kurse & Begegnung',
+                        externalLink: 'https://www.kulturvilla.at/'
+                    },
+                    kitzmantel_direct: {
+                        id: 'kitzmantel_direct',
+                        title: '🎭 Kitzmantelfabrik',
+                        description: 'Veranstaltungszentrum Vorchdorf',
+                        externalLink: 'https://www.kitzmantelfabrik.at/'
+                    }
+                }
+            },
+            mobility: {
+                id: 'mobility',
+                title: 'Mobilität',
+                icon: '🚌',
+                description: 'Bus, Bahn & Verkehr',
+                subcategories: {
+                    taxi_quick: {
+                        id: 'taxi_quick',
+                        title: '☎️ Taxi sofort anrufen',
+                        description: 'Schnelle Fahrservices - direkt anrufen'
+                    },
+                    public: {
+                        id: 'public',
+                        title: 'Öffentlicher Verkehr',
+                        items: [
+                            {
+                                title: 'Vorchdorfer Bahn',
+                                info: [
+                                    '🚂 Historische Bahnlinie',
+                                    'Mit liebevoll restaurierten Waggons'
+                                ],
+                                link: 'https://www.vorchdorferbahn.at/'
+                            },
+                            {
+                                title: 'Fahrplanauskunft OÖ VV',
+                                info: [
+                                    '🚌 Öffentliche Verkehrsmittel',
+                                    'Busse, Bahnen und Straßenbahnen'
+                                ],
+                                link: 'https://www.ooevv.at/de/fahrplaene/fahrplanauskunft.html'
+                            },
+                            {
+                                title: 'Stern und Hafferl Bahn',
+                                info: [
+                                    '🚂 Lokalbahn im Salzkammergut',
+                                    'Fahrplan als PDF'
+                                ],
+                                link: 'https://www.stern-verkehr.at/wp-content/uploads/2025/11/Zettelfahrplan-OOeVV-420x330mm-LV-2026-web-1.pdf'
+                            },
+                            {
+                                title: 'Traunseetram',
+                                info: [
+                                    '🚊 Straßenbahn am Traunsee',
+                                    'Fahrplan als PDF'
+                                ],
+                                link: 'https://www.stern-verkehr.at/wp-content/uploads/2025/11/Zettelfahrplan-OOeVV-735x330mm-GV-2026-web.pdf'
+                            },
+                            {
+                                title: 'Busfahrplan Region',
+                                info: [
+                                    '🚌 Busverbindungen lokal',
+                                    'Fahrplan als PDF'
+                                ],
+                                link: 'https://www.ooevv.at/fileadmin/OOEVV/Downloads/Fahrplaene/527.pdf'
+                            },
+                            {
+                                title: 'Salzkammergut Shuttle',
+                                info: [
+                                    '🚐 Bedarfsgesteuerter Bustransport',
+                                    'Sichere und komfortable Beförderung'
+                                ],
+                                link: 'https://traunsee-almtal.salzkammergut.at/anreise-nahverkehr/salzkammergut-shuttle.html'
+                            }
+                        ]
+                    },
+                    taxi: {
+                        id: 'taxi',
+                        title: 'Taxi & private Fahrservices',
+                        items: [
+                            {
+                                title: 'Taxi Wiedl',
+                                info: [
+                                    '🚕 Zuverlässiger Taxiservice',
+                                    'Personenbeförderung aller Art',
+                                    '📍 Vorchdorf'
+                                ],
+                                link: 'https://to4009.wixsite.com/wiedl'
+                            },
+                            {
+                                title: 'Attwenger Taxi',
+                                info: [
+                                    '🚕 Personenbeförderung',
+                                    'Transporte aller Art',
+                                    '📍 Vorchdorf'
+                                ],
+                                link: 'https://www.vorchdorfonline.at/users/attwenger'
+                            },
+                            {
+                                title: 'Gollinger Personenbeförderung',
+                                info: [
+                                    '🚌 Busunternehmen',
+                                    'Fahrservices in der Region',
+                                    '📍 Vorchdorf'
+                                ],
+                                link: 'https://www.gollinger.net'
+                            },
+                            {
+                                title: 'AIGNER Mietwagen, Bus & Taxi',
+                                info: [
+                                    '🚕 Mietwagen und Transporte',
+                                    'Komplette Mobilitätslösungen',
+                                    '📍 Vorchdorf'
+                                ],
+                                link: 'https://www.mietwagen-aigner.at'
+                            }
+                        ]
+                    },
+                    parking: {
+                        id: 'parking',
+                        title: 'Parken & Verkehr',
+                        items: [
+                            {
+                                title: 'Parkplätze Vorchdorf',
+                                info: [
+                                    '🅿️ Kostenlose Parkplätze',
+                                    'Zentrum und Umgebung',
+                                    'Übersicht aller Parkplätze'
+                                ],
+                                link: 'https://www.viamichelin.at/karten-stadtplan/parkplatze/osterreich/oberosterreich/gmunden/vorchdorf-4655'
+                            },
+                            {
+                                title: 'Digitaler Ortsplan',
+                                info: [
+                                    '🗺️ Interaktive Karte',
+                                    'Alle Einrichtungen und Dienste',
+                                    'Adressen und Kontakte'
+                                ],
+                                link: 'https://www.vorchdorf.at/system/web/mapfinder2.aspx?menuonr=221152584&sprache=1'
+                            },
+                            {
+                                title: 'Verkehrsanbindung',
+                                info: [
+                                    '🛣️ A1 Westautobahn in der Nähe',
+                                    'Gute Erreichbarkeit Linz/Salzburg',
+                                    'Zentrale Lage'
+                                ],
+                                link: 'https://www.vorchdorf.at'
+                            }
+                        ]
+                    },
+                    cycling: {
+                        id: 'cycling',
+                        title: 'Radfahren',
+                        items: [
+                            {
+                                title: 'Radfahrwege',
+                                info: [
+                                    '🚴 Gut ausgebaute Radwege',
+                                    'Almtal-Radweg durch Vorchdorf',
+                                    'Streckeninfos und Touren'
+                                ],
+                                link: 'https://traunsee-almtal.salzkammergut.at/region/unsere-orte/vorchdorf/radfahren.html'
+                            },
+                            {
+                                title: 'E-Bike Ladestationen',
+                                info: [
+                                    '🔌 Schlossplatz vor dem Gastgarten',
+                                    'Direkt beim Schloss Hochhaus',
+                                    'Kostenlos verfügbar'
+                                ],
+                                link: 'https://www.vorchdorf.at/system/web/mapfinder2.aspx?menuonr=221152584&sprache=1'
+                            },
+                            {
+                                title: 'E-Auto Ladestationen',
+                                info: [
+                                    '⚡ Elektrotankstellen in Vorchdorf',
+                                    'Ladestationen für E-Fahrzeuge',
+                                    'Finde die nächste Stromtankstelle'
+                                ],
+                                link: 'https://chargefinder.com/de/vorchdorf/stromtankstelle/3x3d9'
+                            }
+                        ]
+                    }
+                }
+            },
+            administration: {
+                id: 'administration',
+                title: 'Gemeinde & Verwaltung',
+                icon: '🏛️',
+                description: 'Gemeindeamt, Formulare & Kontakte',
+                externalLink: './gemeinde-verwaltung/index.html'
+            },
+            waste_calendar: {
+                id: 'waste_calendar',
+                title: 'Müllkalender',
+                icon: '🗑️',
+                description: 'Abfuhrtermine für Ihre Straße',
+                wasteCalendar: true
+            },
+            emergency: {
+                id: 'emergency',
+                title: 'Notfallkontakte & Standorte',
+                icon: '🆘',
+                description: 'Wichtige Nummern und Standorte im Notfall',
+                content: {
+                    type: 'info',
+                    sections: [
+                        {
+                            title: '📍 Notfall-Standorte in Vorchdorf',
+                            items: [
+                                {
+                                    title: 'Polizei & Rettung',
+                                    info: [
+                                        '🚔 Polizeiinspektion Vorchdorf',
+                                        '🚑 Rettung (im gleichen Gebäude)',
+                                        '📍 Dr. Mitterbauerstraße 4c, 4655 Vorchdorf',
+                                        '☎️ Polizei: 133 | Rettung: 144',
+                                        '⏰ Rund um die Uhr erreichbar'
+                                    ],
+                                    link: 'https://www.vorchdorf.at/Polizeiinspektion_Vorchdorf'
+                                },
+                                {
+                                    title: 'Feuerwehr Vorchdorf',
+                                    info: [
+                                        '🚒 Freiwillige Feuerwehr',
+                                        '📍 Dr. Mitterbauerstraße 4b, 4655 Vorchdorf',
+                                        '☎️ Notfall: 122',
+                                        '📱 +43 7614 7012'
+                                    ]
+                                },
+                                {
+                                    title: 'Defibrillator (AED)',
+                                    info: [
+                                        '❤️ Automatischer Defibrillator',
+                                        '📍 Pfarrhofdurchfahrt, Vorchdorf',
+                                        '⏱️ 24/7 verfügbar',
+                                        '✓ Im Notfall lebensrettend'
+                                    ],
+                                    link: 'https://www.vorchdorfonline.at/artikel/defibrillator-vorchdorfer-pfarrfhofdurchfahrt'
+                                },
+                                {
+                                    title: 'Wasserrettung Vorchdorf',
+                                    info: [
+                                        '🚨 Österreichisches Wasserrettungswesen',
+                                        '👥 Rettung & Sicherheit am Wasser',
+                                        '📍 Almtal, Vorchdorf',
+                                        '✓ Spezialisierte Wasserrettung'
+                                    ],
+                                    link: 'https://ooe.owr.at/vorchdorf/ueber-uns/unsere-ortsstelle/'
+                                }
+                            ]
+                        },
+                        {
+                            title: 'Notrufnummern',
+                            items: [
+                                {
+                                    title: 'Ärztefunkdienst',
+                                    info: ['🏥 141 - Ärztlicher Notdienst']
+                                },
+                                {
+                                    title: 'Euronotruf',
+                                    info: ['☎️ 112 - Internationaler Notruf']
+                                },
+                                {
+                                    title: 'Feuerwehr',
+                                    info: ['🚒 122 - Feuerwehr Vorchdorf']
+                                },
+                                {
+                                    title: 'Gesundheitsberatung',
+                                    info: ['☎️ 1450 - Telefonische Gesundheitsberatung (24/7)']
+                                },
+                                {
+                                    title: 'Polizei',
+                                    info: ['👮 133 - Polizeiinspektion']
+                                },
+                                {
+                                    title: 'Rettung',
+                                    info: ['🚑 144 - Rettungsdienst']
+                                },
+                                {
+                                    title: 'Telefonseelsorge',
+                                    info: ['☎️ 142 - Rund um die Uhr']
+                                },
+                                {
+                                    title: 'Vergiftungsinformationszentrale',
+                                    info: ['☎️ +43 1 406 43 43']
+                                }
+                            ]
+                        },
+                        {
+                            title: 'Weitere wichtige Kontakte',
+                            items: [
+                                {
+                                    title: 'Apothekennotruf',
+                                    info: ['Aktuelle Notdienste online'],
+                                    link: 'https://www.apothekerkammer.at/apothekensuche/4655,+%C3%96sterreich/4655/@47.9989105,13.9451777/p=postal_code'
+                                },
+                                {
+                                    title: 'Krankenhaus Gmunden',
+                                    info: ['☎️ +43 5 0554 66-0', 'Ca. 10 km entfernt'],
+                                    link: 'https://www.ooeg.at/sk/gm'
+                                },
+                                {
+                                    title: 'Krankenhaus Vöcklabruck',
+                                    info: ['☎️ +43 5 0554 72-0', 'Ca. 25 km entfernt'],
+                                    link: 'https://www.ooeg.at/sk/vb'
+                                },
+                                {
+                                    title: 'Krankenhaus Wels',
+                                    info: ['☎️ +43 7242 415-0', 'Ca. 35 km entfernt'],
+                                    link: 'https://www.klinikum-wegr.at'
+                                },
+                                {
+                                    title: 'Kleintierklinik Vitalis',
+                                    info: ['4655 Vorchdorf', 'Tierärztliche Notfallversorgung'],
+                                    link: 'https://www.kleintierklinik-vitalis.at/'
+                                },
+                                {
+                                    title: 'Tierklinik Sattledt',
+                                    info: ['4642 Sattledt', 'Tierärztliche Notfallversorgung'],
+                                    link: 'https://www.tierklinik-sattledt.at/'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            flohmarkt: {
+                id: 'flohmarkt',
+                title: 'Flohmarkt',
+                icon: '🛒',
+                description: 'Kaufen & Verkaufen in der Region',
+                isFlohmarkt: true
+            },
+            sags_uns: {
+                id: 'sags_uns',
+                title: "Sag's uns",
+                icon: '💬',
+                description: 'Schäden, Lob oder Anregungen melden',
+                externalLink: 'sags-uns.html'
             }
-        }
+        };
 
         // Lade Businesses aus JSON Datei
         async function loadBusinesses() {
@@ -4488,7 +5565,6 @@ Mit freundlichen Grüßen`;
 
         // Enter key for search
         document.addEventListener('DOMContentLoaded', async function () {
-            await loadCategories();  // Lade Kategorien aus JSON
             await loadBusinesses();  // Lade businesses aus JSON
             await loadClubs();       // Lade vereine aus JSON
             await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
