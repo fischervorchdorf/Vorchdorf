@@ -2473,6 +2473,24 @@
             white-space: pre-line;
         }
 
+        .rp-modal-contact-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-align: center;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .rp-modal-contact-btn:hover {
+            background: var(--primary-light);
+        }
+
         .rp-modal-company-info {
             background: #f8f9fa;
             padding: 20px;
@@ -2780,6 +2798,10 @@
                     <strong>Anbieter:</strong>
                     <div id="rpModalCompanyName" style="font-size: 1.1rem; color: var(--primary); margin-top: 5px;">
                     </div>
+                    <a id="rpModalContactBtn" href="#" class="rp-modal-contact-btn"
+                        style="margin-top: 15px; display: block;">
+                        📧 Anbieter kontaktieren
+                    </a>
                 </div>
             </div>
         </div>
@@ -3530,6 +3552,26 @@ Mit freundlichen Grüßen`;
             document.getElementById('rpModalPrice').textContent = rpCurrentProduct['Preis in Euro'] ? rpCurrentProduct['Preis in Euro'] + ' €' : 'Preis auf Anfrage';
             document.getElementById('rpModalDescription').textContent = rpCurrentProduct.Beschreibung || 'Keine Beschreibung vorhanden.';
             document.getElementById('rpModalCompanyName').textContent = rpCurrentProduct.Firmenname || 'Privat';
+
+            // Email-Kontakt Setup
+            const company = rpAllCompanies.find(c => c.Firma === rpCurrentProduct.Firmenname);
+            const email = company?.email || 'kontakt@vorchdorf.at';
+            const subject = encodeURIComponent(`Anfrage zu: ${rpCurrentProduct.Produktname}`);
+            const emailBody = `Hallo,
+
+            ich interessiere mich für Ihr Produkt "${rpCurrentProduct.Produktname}".
+
+            ${rpCurrentProduct.Beschreibung ? 'Produktbeschreibung: ' + rpCurrentProduct.Beschreibung : ''}
+
+            Preis: ${rpCurrentProduct['Preis in Euro'] ? rpCurrentProduct['Preis in Euro'] + ' €' : 'Auf Anfrage'}
+
+            Mit freundlichen Grüßen`;
+
+            document.getElementById('rpModalContactBtn').onclick = function (e) {
+                e.preventDefault();
+                const mailtoLink = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
+                window.location.href = mailtoLink;
+            };
 
             // Bild anzeigen
             const modalImage = document.getElementById('rpModalImage');
