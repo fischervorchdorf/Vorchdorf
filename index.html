@@ -3360,7 +3360,13 @@ Mit freundlichen Grüßen`;
                 ${company.verkaufsdaten ? `
                     <div class="rp-company-info-row">
                         <span class="rp-company-info-icon">🏪</span>
-                        <span class="rp-company-info-text"><strong>Verkauf auch bei:</strong> ${company.verkaufsdaten}</span>
+                        <span class="rp-company-info-text">
+                            <strong>Verkauf auch bei:</strong><br>
+                            ${company.verkaufsdaten.split(/(?=Bauernmarkt|Almtaler)/g)
+                            .filter(s => s.trim())
+                            .map(s => '• ' + s.trim())
+                            .join('<br>')}
+                        </span>
                     </div>
                 ` : ''}
                 
