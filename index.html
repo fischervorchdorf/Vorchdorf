@@ -1974,7 +1974,11 @@
             }
         }
 
-        /* Regionale Produkte Styles */
+        /* ============================================ */
+        /* REGIONALE PRODUKTE STYLES */
+        /* ============================================ */
+
+        /* Container */
         .rp-container {
             display: none;
             max-width: 1200px;
@@ -1986,6 +1990,7 @@
             display: block;
         }
 
+        /* Header */
         .rp-header {
             background: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
             color: white;
@@ -1993,7 +1998,6 @@
             border-radius: 12px;
             margin-bottom: 20px;
             text-align: center;
-            position: relative;
         }
 
         .rp-header h2 {
@@ -2003,47 +2007,200 @@
 
         .rp-header p {
             opacity: 0.9;
-            margin-bottom: 15px;
         }
 
-        .rp-filter {
-            background: var(--card-bg);
+        /* Back Button */
+        .rp-back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .rp-back-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Section Title */
+        .rp-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* ============================================ */
+        /* KATEGORIE GRID */
+        /* ============================================ */
+        .rp-category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .rp-category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid var(--border);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .rp-category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .rp-category-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .rp-category-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .rp-category-count {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .rp-category-count.zero {
+            color: #ccc;
+        }
+
+        /* ============================================ */
+        /* FIRMEN KACHELN */
+        /* ============================================ */
+        .rp-companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .rp-company-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .rp-company-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .rp-company-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rp-company-info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .rp-company-info-icon {
+            font-size: 1rem;
+            min-width: 20px;
+        }
+
+        .rp-company-info-text {
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .rp-company-website {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .rp-company-website:hover {
+            background: var(--primary-light);
+        }
+
+        /* ============================================ */
+        /* FILTER & PRODUKTE */
+        /* ============================================ */
+        .rp-products-section {
+            margin-top: 40px;
+        }
+
+        .rp-filters {
+            background: white;
             border-radius: 12px;
             padding: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            align-items: center;
         }
 
-        .rp-search {
+        .rp-search-input {
             flex: 1;
             min-width: 200px;
             padding: 12px 20px;
             border: 2px solid var(--border);
             border-radius: 50px;
-            font-family: inherit;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
         }
 
-        .rp-search:focus {
+        .rp-search-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
         }
 
         .rp-filter-select {
             padding: 12px 20px;
             border: 2px solid var(--border);
             border-radius: 50px;
-            font-family: inherit;
             font-size: 1rem;
             background: white;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
         }
 
         .rp-filter-select:focus {
@@ -2051,28 +2208,24 @@
             border-color: var(--primary);
         }
 
-        .rp-grid {
+        .rp-products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
         }
 
         .rp-product-card {
-            background: var(--card-bg);
+            background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         .rp-product-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 24px var(--shadow-md);
         }
 
         .rp-product-image {
@@ -2085,7 +2238,7 @@
         .rp-product-placeholder {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #2d7a47 0%, #1a472a 100%);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2095,12 +2248,9 @@
 
         .rp-product-info {
             padding: 15px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
         }
 
-        .rp-product-category {
+        .rp-product-category-tag {
             display: inline-block;
             background: rgba(26, 71, 42, 0.1);
             color: var(--primary);
@@ -2109,57 +2259,53 @@
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 8px;
-            align-self: flex-start;
         }
 
         .rp-product-title {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 5px;
-            color: #333;
-            line-height: 1.3;
+            color: var(--text);
         }
 
         .rp-product-price {
             font-size: 1.4rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
-        .rp-product-company {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .rp-product-company-name {
+            font-size: 0.9rem;
+            color: var(--text-light);
         }
 
-        .rp-product-footer {
-            margin-top: auto;
-            border-top: 1px solid #eee;
-            padding-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* ============================================ */
+        /* RESPONSIVE */
+        /* ============================================ */
+        @media (max-width: 768px) {
+            .rp-category-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
 
-        .rp-homepage-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
+            .rp-companies-grid {
+                grid-template-columns: 1fr;
+            }
 
-        .rp-homepage-link:hover {
-            color: var(--secondary);
-            text-decoration: underline;
+            .rp-products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .rp-filters {
+                flex-direction: column;
+            }
+
+            .rp-search-input,
+            .rp-filter-select {
+                width: 100%;
+            }
         }
 
         /* Modal Styles for Regionale Produkte */
@@ -2541,29 +2687,54 @@
 
     <!-- Regionale Produkte Container -->
     <div id="rpContainer" class="rp-container">
+        <!-- Header -->
         <div class="rp-header">
-            <h2>🍎 Regionale Produkte</h2>
-            <p>Direkt vom Erzeuger aus Vorchdorf</p>
+            <h2>🍎 Regionale Produkte aus Vorchdorf</h2>
+            <p>Frische Produkte direkt von regionalen Anbietern</p>
         </div>
 
-        <section class="rp-filter">
-            <input type="text" id="rpSearch" class="rp-search" placeholder="Produkt oder Firma suchen...">
-            <select id="rpCategory" class="rp-filter-select">
-                <option value="">Alle Kategorien</option>
-                <option value="Honig und Imkereiprodukte">🍯 Honig & Imkerei</option>
-                <option value="Eingelegtes & Konserven">🥫 Eingelegtes & Konserven</option>
-                <option value="Fisch">🐟 Fisch</option>
-            </select>
-        </section>
+        <!-- Back Button -->
+        <button id="rpBackBtn" class="rp-back-btn hidden" onclick="rpGoBack()">← Zurück</button>
 
-        <div class="rp-grid" id="rpGrid"></div>
-
-        <div class="rp-empty" id="rpEmpty" style="display: none; text-align: center; padding: 40px; color: #666;">
-            <div style="font-size: 3rem; margin-bottom: 15px;">🔍</div>
-            <h3>Keine Produkte gefunden</h3>
-            <p>Versuche eine andere Suche oder Kategorie</p>
+        <!-- MAIN VIEW: Categories -->
+        <div id="rpCategoriesView">
+            <h3 class="rp-section-title">Kategorien</h3>
+            <div id="rpCategoryGrid" class="rp-category-grid"></div>
         </div>
 
+        <!-- COMPANIES VIEW (hidden by default) -->
+        <div id="rpCompaniesView" class="hidden">
+            <h3 id="rpCompaniesTitle" class="rp-section-title"></h3>
+            <div id="rpCompaniesGrid" class="rp-companies-grid"></div>
+        </div>
+
+        <!-- PRODUCTS SECTION -->
+        <div id="rpProductsSection" class="rp-products-section">
+            <h3 class="rp-section-title">Alle Produkte</h3>
+
+            <!-- Filters -->
+            <div class="rp-filters">
+                <input type="text" id="rpSearchInput" class="rp-search-input" placeholder="🔍 Produkte durchsuchen...">
+                <select id="rpCategoryFilter" class="rp-filter-select">
+                    <option value="">Alle Kategorien</option>
+                </select>
+                <select id="rpCompanyFilter" class="rp-filter-select">
+                    <option value="">Alle Firmen</option>
+                </select>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="rpProductsGrid" class="rp-products-grid"></div>
+
+            <!-- Empty State -->
+            <div id="rpEmptyState" class="hidden" style="text-align: center; padding: 40px; color: var(--text-light);">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🔍</div>
+                <h3>Keine Produkte gefunden</h3>
+                <p>Versuche eine andere Suche oder Kategorie</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
         <footer
             style="margin-top: 40px; text-align: center; padding: 20px; border-top: 1px solid #eee; color: #666; font-size: 0.9rem;">
             Powered by <a href="https://fischervorchdorf.at" target="_blank"
@@ -2575,28 +2746,23 @@
     <div class="rp-modal-overlay" id="rpModalOverlay">
         <div class="rp-modal" id="rpModal">
             <button class="rp-modal-close" id="rpModalClose">✕</button>
+
             <div class="rp-modal-images" id="rpModalImages">
-                <img src="" alt="" class="rp-modal-image" id="rpModalImage">
-                <button class="rp-modal-image-nav prev" id="rpPrevImage">‹</button>
-                <button class="rp-modal-image-nav next" id="rpNextImage">›</button>
-                <div class="rp-modal-image-dots" id="rpModalDots"></div>
+                <img id="rpModalImage" src="" alt="" class="rp-modal-image">
+                <button id="rpPrevImage" class="rp-modal-nav prev">‹</button>
+                <button id="rpNextImage" class="rp-modal-nav next">›</button>
             </div>
+
             <div class="rp-modal-content">
-                <span class="rp-modal-category" id="rpModalCategory"></span>
-                <h2 class="rp-modal-title" id="rpModalTitle"></h2>
-                <div class="rp-modal-price" id="rpModalPrice"></div>
-                <div class="rp-modal-company-info">
-                    <div class="rp-modal-company-name" id="rpModalCompanyName"></div>
-                    <div id="rpModalCompanyHome"></div>
-                </div>
-                <p class="rp-modal-description" id="rpModalDescription"></p>
-                <div class="rp-modal-actions">
-                    <a href="" class="rp-btn-primary" id="rpModalContactBtn">
-                        ✉️ Anfrage per E-Mail
-                    </a>
-                    <a href="" target="_blank" class="rp-btn-secondary" id="rpModalWebBtn">
-                        🌐 Website besuchen
-                    </a>
+                <span id="rpModalCategory" class="rp-product-category-tag"></span>
+                <h2 id="rpModalTitle" class="rp-modal-title"></h2>
+                <div id="rpModalPrice" class="rp-modal-price"></div>
+                <p id="rpModalDescription" class="rp-modal-description"></p>
+
+                <div style="margin-top: 20px;">
+                    <strong>Anbieter:</strong>
+                    <div id="rpModalCompanyName" style="font-size: 1.1rem; color: var(--primary); margin-top: 5px;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -3031,165 +3197,292 @@ Mit freundlichen Grüßen`;
             updateFlohmarktImageDots();
         }
 
+        // ============================================
         // REGIONALE PRODUKTE LOGIC
-        const RP_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1a-aYkGryPJiXjhp-6hPOrjRYHz199x8cy1t1mg6RVIE/export?format=csv';
-        let rpAllProducts = [];
-        let rpCurrentProduct = null;
-        let rpCurrentImageIndex = 0;
+        // ============================================
+        const RP_PRODUCTS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1a-aYkGryPJiXjhp-6hPOrjRYHz199x8cy1t1mg6RVIE/export?format=csv&gid=0';
+        const RP_COMPANIES_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1a-aYkGryPJiXjhp-6hPOrjRYHz199x8cy1t1mg6RVIE/export?format=csv&gid=760538274';
 
-        const rpCategoryIcons = {
-            'Honig und Imkereiprodukte': '🍯',
+        const rpCategories = {
+            'Obst & Beeren': '🍎',
+            'Gemüse & Kartoffeln': '🥕',
+            'Fleisch & Wurst': '🥩',
+            'Milch & Käse': '🧀',
+            'Eier & Geflügel': '🥚',
+            'Brot & Süßwaren': '🥖',
+            'Honig & Imkereiprodukte': '🍯',
+            'Öle & Essig': '🫒',
+            'Mehl & Getreide': '🌾',
+            'Kräuter & Gewürze': '🌿',
+            'Säfte & Getränke': '🧃',
             'Eingelegtes & Konserven': '🥫',
             'Fisch': '🐟'
         };
 
+        let rpAllProducts = [];
+        let rpAllCompanies = [];
+        let rpCurrentView = 'categories';
+        let rpCurrentCategory = null;
+        let rpCurrentProduct = null;
+        let rpCurrentImageIndex = 0;
+
+        // Laden der Produkte
         async function loadRPProducts() {
             try {
-                const response = await fetch(RP_SHEET_URL);
-                const csvText = await response.text();
-                rpAllProducts = parseCSV(csvText);
+                const response = await fetch(RP_PRODUCTS_SHEET_URL);
+                const csv = await response.text();
+                rpAllProducts = parseCSV(csv);
 
-                // Sort by timestamp (newest first) - assuming Zeitstempel is in first column
-                rpAllProducts.sort((a, b) => {
-                    const dateA = new Date(a.Zeitstempel || 0);
-                    const dateB = new Date(b.Zeitstempel || 0);
-                    return dateB - dateA;
-                });
-
-                renderRPProducts(rpAllProducts);
+                console.log('✓ Regionale Produkte geladen:', rpAllProducts.length);
+                return rpAllProducts;
             } catch (error) {
-                console.error('Fehler beim Laden der regionalen Produkte:', error);
+                console.error('Fehler beim Laden der Produkte:', error);
+                return [];
             }
         }
 
-        function renderRPProducts(products) {
-            const grid = document.getElementById('rpGrid');
-            const empty = document.getElementById('rpEmpty');
+        // Laden der Firmen
+        async function loadRPCompanies() {
+            try {
+                const response = await fetch(RP_COMPANIES_SHEET_URL);
+                const csv = await response.text();
+                rpAllCompanies = parseCSV(csv);
 
-            if (products.length === 0) {
+                console.log('✓ Regionale Produkte Firmen geladen:', rpAllCompanies.length);
+                return rpAllCompanies;
+            } catch (error) {
+                console.error('Fehler beim Laden der Firmen:', error);
+                return [];
+            }
+        }
+
+        // Initialisierung
+        async function initializeRP() {
+            await Promise.all([
+                loadRPProducts(),
+                loadRPCompanies()
+            ]);
+
+            renderRPCategories();
+            populateRPFilters();
+            renderRPProducts();
+        }
+
+        // Kategorien anzeigen
+        function renderRPCategories() {
+            const grid = document.getElementById('rpCategoryGrid');
+
+            // Zähle Firmen pro Kategorie
+            const categoryCounts = {};
+            Object.keys(rpCategories).forEach(cat => {
+                categoryCounts[cat] = rpAllCompanies.filter(company => company[cat] === 'x').length;
+            });
+
+            // Sortiere Kategorien alphabetisch
+            const sortedCategories = Object.keys(rpCategories).sort();
+
+            grid.innerHTML = sortedCategories.map(category => {
+                const icon = rpCategories[category];
+                const count = categoryCounts[category] || 0;
+                const countClass = count === 0 ? 'zero' : '';
+
+                return `
+            <div class="rp-category-card" onclick="rpShowCompanies('${category}')">
+                <span class="rp-category-icon">${icon}</span>
+                <div class="rp-category-name">${category}</div>
+                <div class="rp-category-count ${countClass}">${count} ${count === 1 ? 'Anbieter' : 'Anbieter'}</div>
+            </div>
+        `;
+            }).join('');
+        }
+
+        // Firmen anzeigen
+        function rpShowCompanies(category) {
+            rpCurrentCategory = category;
+            rpCurrentView = 'companies';
+
+            // Views umschalten
+            document.getElementById('rpCategoriesView').classList.add('hidden');
+            document.getElementById('rpCompaniesView').classList.remove('hidden');
+            document.getElementById('rpProductsSection').classList.add('hidden');
+            document.getElementById('rpBackBtn').classList.remove('hidden');
+
+            // Firmen für diese Kategorie filtern
+            const companies = rpAllCompanies
+                .filter(company => company[category] === 'x')
+                .sort((a, b) => a.Firma.localeCompare(b.Firma, 'de'));
+
+            // Titel setzen
+            const icon = rpCategories[category];
+            document.getElementById('rpCompaniesTitle').innerHTML = `${icon} ${category} - ${companies.length} Anbieter`;
+
+            // Grid rendern
+            const grid = document.getElementById('rpCompaniesGrid');
+            grid.innerHTML = companies.map(company => {
+                const hasWebsite = company.homepage && company.homepage.trim() !== '';
+                const cardClick = hasWebsite ? `onclick="window.open('${company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage}', '_blank')"` : '';
+
+                return `
+            <div class="rp-company-card" ${cardClick}>
+                <div class="rp-company-name">
+                    🏢 ${company.Firma}
+                </div>
+                
+                ${company.adresse ? `
+                    <div class="rp-company-info-row">
+                        <span class="rp-company-info-icon">📍</span>
+                        <span class="rp-company-info-text">${company.adresse}</span>
+                    </div>
+                ` : ''}
+                
+                ${company.telefonnummer ? `
+                    <div class="rp-company-info-row">
+                        <span class="rp-company-info-icon">📞</span>
+                        <span class="rp-company-info-text">${company.telefonnummer}</span>
+                    </div>
+                ` : ''}
+                
+                ${company.email ? `
+                    <div class="rp-company-info-row">
+                        <span class="rp-company-info-icon">📧</span>
+                        <span class="rp-company-info-text">${company.email}</span>
+                    </div>
+                ` : ''}
+                
+                ${company.öffnungszeiten ? `
+                    <div class="rp-company-info-row">
+                        <span class="rp-company-info-icon">🕐</span>
+                        <span class="rp-company-info-text"><strong>Öffnungszeiten:</strong> ${company.öffnungszeiten}</span>
+                    </div>
+                ` : ''}
+                
+                ${company.verkaufsdaten ? `
+                    <div class="rp-company-info-row">
+                        <span class="rp-company-info-icon">🏪</span>
+                        <span class="rp-company-info-text"><strong>Verkauf auch bei:</strong> ${company.verkaufsdaten}</span>
+                    </div>
+                ` : ''}
+                
+                ${company.zusatzinfos ? `
+                    <div class="rp-company-info-row">
+                        <span class="rp-company-info-icon">ℹ️</span>
+                        <span class="rp-company-info-text">${company.zusatzinfos}</span>
+                    </div>
+                ` : ''}
+                
+                ${hasWebsite ? `
+                    <a href="${company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage}" 
+                       target="_blank" 
+                       class="rp-company-website"
+                       onclick="event.stopPropagation()">
+                        🌐 Website besuchen
+                    </a>
+                ` : ''}
+            </div>
+        `;
+            }).join('');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Filter befüllen
+        function populateRPFilters() {
+            // Kategorie-Filter
+            const categoryFilter = document.getElementById('rpCategoryFilter');
+            const sortedCategories = Object.keys(rpCategories).sort();
+            categoryFilter.innerHTML = '<option value="">Alle Kategorien</option>' +
+                sortedCategories.map(cat => `<option value="${cat}">${rpCategories[cat]} ${cat}</option>`).join('');
+
+            // Firmen-Filter
+            const companyFilter = document.getElementById('rpCompanyFilter');
+            const uniqueCompanies = [...new Set(rpAllProducts.map(p => p.Firmenname).filter(f => f))].sort();
+            companyFilter.innerHTML = '<option value="">Alle Firmen</option>' +
+                uniqueCompanies.map(company => `<option value="${company}">${company}</option>`).join('');
+        }
+
+        // Produkte anzeigen & filtern
+        function renderRPProducts() {
+            const search = document.getElementById('rpSearchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('rpCategoryFilter').value;
+            const companyFilter = document.getElementById('rpCompanyFilter').value;
+
+            const filtered = rpAllProducts.filter(product => {
+                const matchesSearch = !search ||
+                    (product.Produktname && product.Produktname.toLowerCase().includes(search)) ||
+                    (product.Beschreibung && product.Beschreibung.toLowerCase().includes(search)) ||
+                    (product.Firmenname && product.Firmenname.toLowerCase().includes(search));
+
+                const matchesCategory = !categoryFilter || product.Kategorie === categoryFilter;
+                const matchesCompany = !companyFilter || product.Firmenname === companyFilter;
+
+                return matchesSearch && matchesCategory && matchesCompany;
+            });
+
+            const grid = document.getElementById('rpProductsGrid');
+            const emptyState = document.getElementById('rpEmptyState');
+
+            if (filtered.length === 0) {
                 grid.innerHTML = '';
-                empty.style.display = 'block';
+                emptyState.classList.remove('hidden');
                 return;
             }
 
-            empty.style.display = 'none';
-            grid.innerHTML = products.map((product, index) => {
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map((product, index) => {
                 const images = extractRPImages(product);
-                const cat = product.Kategorie || 'Sonstiges';
-                const icon = rpCategoryIcons[cat] || '🍎';
-                const homepage = product['Deine Homepage'] || '';
+                const icon = rpCategories[product.Kategorie] || '🍎';
 
                 return `
-                    <article class="rp-product-card" onclick="openRPModal(${index})">
-                        ${images.length > 0 ?
-                        `<img src="${images[0]}" class="rp-product-image" alt="${product.Produktname}">` :
+            <div class="rp-product-card" onclick="rpShowProduct(${rpAllProducts.indexOf(product)})">
+                ${images.length > 0 ?
+                        `<img src="${images[0]}" alt="${product.Produktname}" class="rp-product-image" onerror="this.outerHTML='<div class=\\'rp-product-placeholder\\'>${icon}</div>'">` :
                         `<div class="rp-product-placeholder">${icon}</div>`
                     }
-                        <div class="rp-product-info">
-                            <span class="rp-product-category">${icon} ${cat}</span>
-                            <h3 class="rp-product-title">${product.Produktname || 'Unbenannt'}</h3>
-                            <div class="rp-product-price">${product['Preis in Euro'] || 'Preis auf Anfrage'} €</div>
-                            <div class="rp-product-company">🏢 ${product.Firmenname || 'Privat'}</div>
-                            <div class="rp-product-footer">
-                                ${homepage ? `
-                                    <a href="${homepage.startsWith('http') ? homepage : 'https://' + homepage}" target="_blank" class="rp-homepage-link" onclick="event.stopPropagation()">
-                                        🌐 ${homepage.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '')}
-                                    </a>
-                                ` : ''}
-                                <span style="color: var(--primary); font-weight: 700;">Details →</span>
-                            </div>
-                        </div>
-                    </article>
-                `;
+                <div class="rp-product-info">
+                    <span class="rp-product-category-tag">${icon} ${product.Kategorie}</span>
+                    <h3 class="rp-product-title">${product.Produktname || 'Unbenannt'}</h3>
+                    <div class="rp-product-price">${product['Preis in Euro'] ? product['Preis in Euro'] + ' €' : 'Preis auf Anfrage'}</div>
+                    <div class="rp-product-company-name">🏢 ${product.Firmenname || 'Privat'}</div>
+                </div>
+            </div>
+        `;
             }).join('');
         }
 
         function extractRPImages(product) {
-            const imgs = [];
-            if (product['Bild 1 Url von Imgur']) imgs.push(product['Bild 1 Url von Imgur']);
-            if (product['Bild 2']) imgs.push(product['Bild 2']);
-            if (product['Bild 3']) imgs.push(product['Bild 3']);
-            if (product['Bild 4']) imgs.push(product['Bild 4']);
-
-            return imgs.filter(url => url && url.startsWith('http')).map(url => {
-                // Imgur links fixen
-                if (url.includes('imgur.com') && !url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-                    const id = url.split('/').pop().split(/[?#]/)[0];
-                    return `https://i.imgur.com/${id}.jpg`;
-                }
-                return url;
-            });
+            const images = [];
+            if (product['Bild 1 Url von Imgur']) images.push(product['Bild 1 Url von Imgur']);
+            if (product['Bild 2']) images.push(product['Bild 2']);
+            if (product['Bild 3']) images.push(product['Bild 3']);
+            if (product['Bild 4']) images.push(product['Bild 4']);
+            return images.filter(url => url && url.startsWith('http'));
         }
 
-        function filterRPProducts() {
-            const searchTerm = document.getElementById('rpSearch').value.toLowerCase();
-            const categorySelect = document.getElementById('rpCategory').value;
-
-            const filtered = rpAllProducts.filter(p => {
-                const matchesSearch = (p.Produktname || '').toLowerCase().includes(searchTerm) ||
-                    (p.Firmenname || '').toLowerCase().includes(searchTerm) ||
-                    (p.Beschreibung || '').toLowerCase().includes(searchTerm);
-                const matchesCategory = !categorySelect || p.Kategorie === categorySelect;
-                return matchesSearch && matchesCategory;
-            });
-
-            renderRPProducts(filtered);
-        }
-
-        function openRPModal(index) {
-            const searchTerm = document.getElementById('rpSearch').value.toLowerCase();
-            const categorySelect = document.getElementById('rpCategory').value;
-
-            const filtered = rpAllProducts.filter(p => {
-                const matchesSearch = (p.Produktname || '').toLowerCase().includes(searchTerm) ||
-                    (p.Firmenname || '').toLowerCase().includes(searchTerm) ||
-                    (p.Beschreibung || '').toLowerCase().includes(searchTerm);
-                const matchesCategory = !categorySelect || p.Kategorie === categorySelect;
-                return matchesSearch && matchesCategory;
-            });
-
-            rpCurrentProduct = filtered[index];
-
-            if (!rpCurrentProduct) return;
-
+        // Produkt Detail Modal
+        function rpShowProduct(index) {
+            rpCurrentProduct = rpAllProducts[index];
             rpCurrentImageIndex = 0;
+
             const images = extractRPImages(rpCurrentProduct);
-            rpCurrentProduct.images = images;
+            const icon = rpCategories[rpCurrentProduct.Kategorie] || '🍎';
 
-            const cat = rpCurrentProduct.Kategorie || 'Sonstiges';
-            const icon = rpCategoryIcons[cat] || '🍎';
-
-            document.getElementById('rpModalCategory').textContent = `${icon} ${cat}`;
-            document.getElementById('rpModalTitle').textContent = rpCurrentProduct.Produktname || 'Ohne Titel';
-            document.getElementById('rpModalPrice').textContent = (rpCurrentProduct['Preis in Euro'] || 'Preis auf Anfrage') + ' €';
+            document.getElementById('rpModalCategory').textContent = `${icon} ${rpCurrentProduct.Kategorie}`;
+            document.getElementById('rpModalTitle').textContent = rpCurrentProduct.Produktname || 'Unbenannt';
+            document.getElementById('rpModalPrice').textContent = rpCurrentProduct['Preis in Euro'] ? rpCurrentProduct['Preis in Euro'] + ' €' : 'Preis auf Anfrage';
             document.getElementById('rpModalDescription').textContent = rpCurrentProduct.Beschreibung || 'Keine Beschreibung vorhanden.';
             document.getElementById('rpModalCompanyName').textContent = rpCurrentProduct.Firmenname || 'Privat';
 
-            const webBtn = document.getElementById('rpModalWebBtn');
-            const homepage = rpCurrentProduct['Deine Homepage'];
-            if (homepage) {
-                const url = homepage.startsWith('http') ? homepage : 'https://' + homepage;
-                webBtn.href = url;
-                webBtn.style.display = 'flex';
-                document.getElementById('rpModalCompanyHome').innerHTML = `<a href="${url}" target="_blank" style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">🌐 ${homepage}</a>`;
+            // Bild anzeigen
+            const modalImage = document.getElementById('rpModalImage');
+            if (images.length > 0) {
+                modalImage.src = images[rpCurrentImageIndex];
+                modalImage.style.display = 'block';
+                document.getElementById('rpPrevImage').style.display = images.length > 1 ? 'block' : 'none';
+                document.getElementById('rpNextImage').style.display = images.length > 1 ? 'block' : 'none';
             } else {
-                webBtn.style.display = 'none';
-                document.getElementById('rpModalCompanyHome').innerHTML = '';
+                modalImage.style.display = 'none';
             }
-
-            const email = rpCurrentProduct['Deine E-mail'];
-            const contactBtn = document.getElementById('rpModalContactBtn');
-            if (email) {
-                const subject = encodeURIComponent('Anfrage: ' + rpCurrentProduct.Produktname);
-                const body = encodeURIComponent('Guten Tag!\n\nIch interessiere mich für Ihr Produkt "' + rpCurrentProduct.Produktname + '" auf der Vorchdorf App.\n\nMit freundlichen Grüßen');
-                contactBtn.href = `mailto:${email}?subject=${subject}&body=${body}`;
-                contactBtn.style.display = 'flex';
-            } else {
-                contactBtn.style.display = 'none';
-            }
-
-            updateRPModalImage();
-            updateRPImageDots();
 
             document.getElementById('rpModalOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -3200,74 +3493,34 @@ Mit freundlichen Grüßen`;
             document.body.style.overflow = '';
         }
 
-        function updateRPModalImage() {
-            const img = document.getElementById('rpModalImage');
-            const container = document.getElementById('rpModalImages');
-            const images = rpCurrentProduct.images || [];
-
-            if (images.length > 0 && images[rpCurrentImageIndex]) {
-                img.src = images[rpCurrentImageIndex];
-                img.style.display = 'block';
-            } else {
-                const cat = rpCurrentProduct.Kategorie || 'Sonstiges';
-                const icon = rpCategoryIcons[cat] || '🍎';
-                img.style.display = 'none';
-                // Optional: Placeholder im Modal
-            }
-        }
-
-        function updateRPImageDots() {
-            const images = rpCurrentProduct.images || [];
-            const container = document.getElementById('rpModalDots');
-            if (images.length <= 1) {
-                container.innerHTML = '';
-                return;
-            }
-            container.innerHTML = images.map((_, i) => `
-                    <button class="rp-modal-image-dot ${i === rpCurrentImageIndex ? 'active' : ''}" onclick="goToRPImage(${i})"></button>
-                `).join('');
-        }
-
-        function goToRPImage(index) {
-            rpCurrentImageIndex = index;
-            updateRPModalImage();
-            updateRPImageDots();
+        function rpPrevImage() {
+            const images = extractRPImages(rpCurrentProduct);
+            rpCurrentImageIndex = (rpCurrentImageIndex - 1 + images.length) % images.length;
+            document.getElementById('rpModalImage').src = images[rpCurrentImageIndex];
         }
 
         function rpNextImage() {
-            const images = rpCurrentProduct.images || [];
-            if (images.length > 1) {
-                rpCurrentImageIndex = (rpCurrentImageIndex + 1) % images.length;
-                updateRPModalImage();
-                updateRPImageDots();
+            const images = extractRPImages(rpCurrentProduct);
+            rpCurrentImageIndex = (rpCurrentImageIndex + 1) % images.length;
+            document.getElementById('rpModalImage').src = images[rpCurrentImageIndex];
+        }
+
+        // Navigation
+        function rpGoBack() {
+            if (rpCurrentView === 'companies') {
+                // Von Firmen zurück zu Kategorien
+                rpCurrentView = 'categories';
+                document.getElementById('rpCategoriesView').classList.remove('hidden');
+                document.getElementById('rpCompaniesView').classList.add('hidden');
+                document.getElementById('rpProductsSection').classList.remove('hidden');
+                document.getElementById('rpBackBtn').classList.add('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        function rpPrevImage() {
-            const images = rpCurrentProduct.images || [];
-            if (images.length > 1) {
-                rpCurrentImageIndex = (rpCurrentImageIndex - 1 + images.length) % images.length;
-                updateRPModalImage();
-                updateRPImageDots();
-            }
-        }
-
-        function flohmarktNextImage() {
-            const images = flohmarktCurrentProduct.images || [];
-            if (images.length > 1) {
-                flohmarktCurrentImageIndex = (flohmarktCurrentImageIndex + 1) % images.length;
-                updateFlohmarktModalImage();
-                updateFlohmarktImageDots();
-            }
-        }
-
-        function flohmarktPrevImage() {
-            const images = flohmarktCurrentProduct.images || [];
-            if (images.length > 1) {
-                flohmarktCurrentImageIndex = (flohmarktCurrentImageIndex - 1 + images.length) % images.length;
-                updateFlohmarktModalImage();
-                updateFlohmarktImageDots();
-            }
+        // Filter Event Listeners
+        function filterRPProducts() {
+            renderRPProducts();
         }
 
         // Lade Bild als Base64 (für Email-Einbettung)
@@ -5217,7 +5470,7 @@ Mit freundlichen Grüßen`;
             await loadBusinesses();  // Lade businesses aus JSON
             await loadClubs();       // Lade vereine aus JSON
             await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
-            await loadRPProducts(); // Lade Regionale Produ
+            await initializeRP(); // Lade Regionale Produkte (Produkte + Firmen)
 
             // Scroll-Check für Floating Back Button
             window.addEventListener('scroll', function () {
@@ -5274,8 +5527,9 @@ Mit freundlichen Grüßen`;
             document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
 
             // Event Listeners for Regionale Produkte
-            document.getElementById('rpSearch').addEventListener('input', filterRPProducts);
-            document.getElementById('rpCategory').addEventListener('change', filterRPProducts);
+            document.getElementById('rpSearchInput').addEventListener('input', filterRPProducts);
+            document.getElementById('rpCategoryFilter').addEventListener('change', filterRPProducts);
+            document.getElementById('rpCompanyFilter').addEventListener('change', filterRPProducts);
             document.getElementById('rpModalClose').addEventListener('click', closeRPModal);
             document.getElementById('rpPrevImage').addEventListener('click', (e) => { e.stopPropagation(); rpPrevImage(); });
             document.getElementById('rpNextImage').addEventListener('click', (e) => { e.stopPropagation(); rpNextImage(); });
