@@ -204,6 +204,10 @@
             header h1 {
                 font-size: 1.2rem;
             }
+
+            .rp-header {
+                display: none;
+            }
         }
 
         /* Search Bar */
@@ -4226,7 +4230,8 @@ Mit freundlichen Grüßen`;
                 document.getElementById('backButton').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
-                document.querySelector('.search-box').classList.add('hidden');
+                document.querySelector('.search-container').classList.add('hidden');
+                document.getElementById('mainFooter').style.display = 'none';
                 document.getElementById('rpContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 
@@ -4655,7 +4660,7 @@ Mit freundlichen Grüßen`;
             if (mainFooter) {
                 mainFooter.style.display = 'block';
             }
-            document.querySelector('.search-box').classList.remove('hidden');
+            document.querySelector('.search-container').classList.remove('hidden');
             renderHome();
         }
 
@@ -5582,6 +5587,7 @@ Mit freundlichen Grüßen`;
             document.getElementById('rpPrevImage').addEventListener('click', (e) => { e.stopPropagation(); rpPrevImage(); });
             document.getElementById('rpNextImage').addEventListener('click', (e) => { e.stopPropagation(); rpNextImage(); });
             document.getElementById('rpModalOverlay').addEventListener('click', (e) => {
+                document.getElementById('mainFooter').style.display = 'none';
                 if (e.target.id === 'rpModalOverlay') closeRPModal();
             });
 
