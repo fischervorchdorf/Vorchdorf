@@ -3320,11 +3320,9 @@ Mit freundlichen Grüßen`;
             // Grid rendern
             const grid = document.getElementById('rpCompaniesGrid');
             grid.innerHTML = companies.map(company => {
-                const hasWebsite = company.homepage && company.homepage.trim() !== '';
-                const cardClick = hasWebsite ? `onclick="window.open('${company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage}', '_blank')"` : '';
 
                 return `
-            <div class="rp-company-card" ${cardClick}>
+            <div class="rp-company-card">
                 <div class="rp-company-name">
                     🏢 ${company.Firma}
                 </div>
@@ -3339,16 +3337,24 @@ Mit freundlichen Grüßen`;
                 ${company.telefonnummer ? `
                     <div class="rp-company-info-row">
                         <span class="rp-company-info-icon">📞</span>
-                        <span class="rp-company-info-text">${company.telefonnummer}</span>
+                        <span class="rp-company-info-text">
+                            <a href="tel:${company.telefonnummer.replace(/\s/g, '')}" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                ${company.telefonnummer}
+                            </a>
+                        </span>
                     </div>
                 ` : ''}
                 
                 ${company.email ? `
                     <div class="rp-company-info-row">
                         <span class="rp-company-info-icon">📧</span>
-                        <span class="rp-company-info-text">${company.email}</span>
-                    </div>
-                ` : ''}
+                        <span class="rp-company-info-text">
+                            <a href="mailto:${company.email}" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                ${company.email}
+                            </a>
+                      </span>
+    </div>
+` : ''}
                 
                 ${company.öffnungszeiten ? `
                     <div class="rp-company-info-row">
@@ -4221,10 +4227,16 @@ Mit freundlichen Grüßen`;
                 document.getElementById('backButton').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('searchContainer').classList.add('hidden');
                 document.getElementById('rpContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 
-                loadRPProducts();
+                initializeRP();
+                rpCurrentView = 'categories';
+                document.getElementById('rpCategoriesView').classList.remove('hidden');
+                document.getElementById('rpCompaniesView').classList.add('hidden');
+                document.getElementById('rpProductsSection').classList.remove('hidden');
+                document.getElementById('rpBackBtn').classList.add('hidden');
                 return;
             }
 
@@ -4644,6 +4656,7 @@ Mit freundlichen Grüßen`;
             if (mainFooter) {
                 mainFooter.style.display = 'block';
             }
+            document.getElementById('searchContainer').classList.remove('hidden');
             renderHome();
         }
 
@@ -5560,6 +5573,7 @@ Mit freundlichen Grüßen`;
             // Display version in footer
             document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
             document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
+            document.getElementById('rpVersionInfo').textContent = ' | Version ' + APP_VERSION;
 
             // Event Listeners for Regionale Produkte
             document.getElementById('rpSearchInput').addEventListener('input', filterRPProducts);
