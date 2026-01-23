@@ -1887,7 +1887,19 @@
             font-weight: 500;
         }
 
+        /* Flohmarkt Mobile Styles */
         @media (max-width: 768px) {
+
+            .flohmarkt-header h2,
+            .flohmarkt-header p {
+                display: none;
+            }
+
+            .flohmarkt-header {
+                padding: 10px;
+                text-align: right;
+            }
+
             .flohmarkt-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
@@ -2613,7 +2625,7 @@
         <!-- Flohmarkt Container -->
         <div id="flohmarktContainer" class="flohmarkt-container">
             <div class="flohmarkt-header">
-                <h2>🛒 Vorchdorf Flohmarkt</h2>
+                <h2>🛒 Flohmarkt der Werberingmitglieder</h2>
                 <p>Kaufen & Verkaufen in der Region</p>
                 <button class="flohmarkt-info-btn" onclick="openFlohmarktInfo()">ℹ️ Info</button>
             </div>
@@ -4215,6 +4227,7 @@ Mit freundlichen Grüßen`;
                 document.getElementById('backButton').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('mainFooter').style.display = 'none';
                 document.getElementById('flohmarktContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 
