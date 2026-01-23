@@ -4227,7 +4227,7 @@ Mit freundlichen Grüßen`;
                 document.getElementById('backButton').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
-                document.getElementById('searchContainer').classList.add('hidden');
+                document.querySelector('.search-box').classList.add('hidden');
                 document.getElementById('rpContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 
@@ -4656,7 +4656,7 @@ Mit freundlichen Grüßen`;
             if (mainFooter) {
                 mainFooter.style.display = 'block';
             }
-            document.getElementById('searchContainer').classList.remove('hidden');
+            document.querySelector('.search-box').classList.remove('hidden');
             renderHome();
         }
 
