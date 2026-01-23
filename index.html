@@ -2591,7 +2591,7 @@
 
         <!-- Floating Back Button -->
         <button id="floatingBackButton" class="floating-back-button" onclick="goBack()" title="Zurück">
-            ←
+            ↑
         </button>
 
         <!-- Breadcrumb Navigation -->
@@ -3319,6 +3319,8 @@ Mit freundlichen Grüßen`;
             rpCurrentView = 'companies';
 
             // Views umschalten
+            document.getElementById('floatingBackButton').classList.remove('visible');
+            document.getElementById('backButton').classList.add('hidden');
             document.getElementById('rpCategoriesView').classList.add('hidden');
             document.getElementById('rpCompaniesView').classList.remove('hidden');
             document.getElementById('rpProductsSection').classList.add('hidden');
@@ -4243,7 +4245,7 @@ Mit freundlichen Grüßen`;
 
                 document.getElementById('emergencyBanner').classList.add('hidden');
                 document.getElementById('weatherWidget').classList.add('hidden');
-                document.getElementById('backButton').classList.remove('hidden');
+                document.getElementById('backButton').classList.add('hidden');
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
                 document.querySelector('.search-container').classList.add('hidden');
