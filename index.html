@@ -3383,11 +3383,10 @@ Mit freundlichen Grüßen`;
                     </div>
                 ` : ''}
                 
-                ${hasWebsite ? `
+                ${company.homepage && company.homepage.trim() ? `
                     <a href="${company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage}" 
                        target="_blank" 
-                       class="rp-company-website"
-                       onclick="event.stopPropagation()">
+                       class="rp-company-website">
                         🌐 Website besuchen
                     </a>
                 ` : ''}
