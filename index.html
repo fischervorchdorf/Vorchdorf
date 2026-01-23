@@ -2735,10 +2735,11 @@
         </div>
 
         <!-- Footer -->
-        <footer
+        <footer id="rpFooter"
             style="margin-top: 40px; text-align: center; padding: 20px; border-top: 1px solid #eee; color: #666; font-size: 0.9rem;">
             Powered by <a href="https://fischervorchdorf.at" target="_blank"
                 style="color: var(--primary); text-decoration: none; font-weight: 600;">fischervorchdorf.at</a>
+            <span id="rpVersionInfo"></span>
         </footer>
     </div>
 
@@ -3452,11 +3453,39 @@ Mit freundlichen Grüßen`;
 
         function extractRPImages(product) {
             const images = [];
-            if (product['Bild 1 Url von Imgur']) images.push(product['Bild 1 Url von Imgur']);
-            if (product['Bild 2']) images.push(product['Bild 2']);
-            if (product['Bild 3']) images.push(product['Bild 3']);
-            if (product['Bild 4']) images.push(product['Bild 4']);
-            return images.filter(url => url && url.startsWith('http'));
+
+            // Sammle alle Bild-URLs
+            const potentialImages = [
+                product['Bild 1 Url von Imgur'],
+                product['Bild 2'],
+                product['Bild 3'],
+                product['Bild 4']
+            ];
+
+            potentialImages.forEach(url => {
+                if (!url) return;
+
+                let cleaned = url.trim();
+
+                // Entferne HTML-Tags
+                if (cleaned.includes('href=')) {
+                    const match = cleaned.match(/href=["']([^"']+)["']/);
+                    if (match) cleaned = match[1];
+                }
+
+                // Prüfe ob es eine gültige URL ist
+                if (cleaned.startsWith('http')) {
+                    // Imgur-URLs reparieren
+                    if (cleaned.includes('imgur.com') && !cleaned.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                        const parts = cleaned.split('/');
+                        const id = parts[parts.length - 1].split(/[?#]/)[0];
+                        if (id) cleaned = `https://i.imgur.com/${id}.jpg`;
+                    }
+                    images.push(cleaned);
+                }
+            });
+
+            return images;
         }
 
         // Produkt Detail Modal
