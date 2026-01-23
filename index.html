@@ -4134,6 +4134,7 @@ Mit freundlichen Grüßen`;
             document.getElementById('mainContent').style.display = 'block';
             document.getElementById('flohmarktContainer').classList.remove('active');
             document.getElementById('rpContainer').classList.remove('active');
+            document.querySelector('.search-container').classList.remove('hidden');
 
             const mainContent = document.getElementById('mainContent');
             const weatherWidget = document.getElementById('weatherWidget');
@@ -4200,6 +4201,8 @@ Mit freundlichen Grüßen`;
         function navigateToCategory(categoryId) {
             const category = categories[categoryId];
             if (!category) return;
+            // Verstecke Search-Container standardmäßig bei allen Kategorien
+            document.querySelector('.search-container').classList.add('hidden');
 
             // Handle Flohmarkt
             if (category.isFlohmarkt) {
@@ -4275,6 +4278,13 @@ Mit freundlichen Grüßen`;
             if (category.subcategories) {
                 // Show subcategories in defined order (already alphabetically sorted)
                 const subcategoryList = Object.values(category.subcategories);
+                // Zeige Search bei Shopping und Clubs
+                if (categoryId === 'shopping' || categoryId === 'clubs') {
+                    document.querySelector('.search-container').classList.remove('hidden');
+                }
+                else {
+                    document.querySelector('.search-container').classList.add('hidden');
+                }
 
                 mainContent.innerHTML = `
                     <div class="detail-view fade-in">
