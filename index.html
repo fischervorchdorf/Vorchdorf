@@ -3557,15 +3557,18 @@ Mit freundlichen Grüßen`;
             const company = rpAllCompanies.find(c => c.Firma === rpCurrentProduct.Firmenname);
             const email = company?.email || 'kontakt@vorchdorf.at';
             const subject = encodeURIComponent(`Anfrage zu: ${rpCurrentProduct.Produktname}`);
+            const imageUrl = images.length > 0 ? images[0] : '';
             const emailBody = `Hallo,
 
-            ich interessiere mich für Ihr Produkt "${rpCurrentProduct.Produktname}".
+ich interessiere mich für Ihr Produkt "${rpCurrentProduct.Produktname}".
 
-            ${rpCurrentProduct.Beschreibung ? 'Produktbeschreibung: ' + rpCurrentProduct.Beschreibung : ''}
+${rpCurrentProduct.Beschreibung ? 'Produktbeschreibung: ' + rpCurrentProduct.Beschreibung : ''}
 
-            Preis: ${rpCurrentProduct['Preis in Euro'] ? rpCurrentProduct['Preis in Euro'] + ' €' : 'Auf Anfrage'}
+Preis: ${rpCurrentProduct['Preis in Euro'] ? rpCurrentProduct['Preis in Euro'] + ' €' : 'Auf Anfrage'}
 
-            Mit freundlichen Grüßen`;
+${imageUrl ? 'Produktbild: ' + imageUrl : ''}
+
+Mit freundlichen Grüßen`;
 
             document.getElementById('rpModalContactBtn').onclick = function (e) {
                 e.preventDefault();
