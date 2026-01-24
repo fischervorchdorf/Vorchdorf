@@ -22,7 +22,7 @@
     <meta name="apple-mobile-web-app-title" content="Vorchdorf">
 
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json?v=5.6">
+    <link rel="manifest" href="./manifest.json?v=5.7">
 
     <!-- Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=4.0">
@@ -1479,7 +1479,8 @@
             margin-bottom: 15px;
         }
 
-        .flohmarkt-info-btn {
+        .flohmarkt-info-btn,
+        .rp-info-btn {
             background: rgba(255, 255, 255, 0.3);
             color: white;
             border: 2px solid white;
@@ -1492,7 +1493,8 @@
             display: inline-block;
         }
 
-        .flohmarkt-info-btn:hover {
+        .flohmarkt-info-btn:hover,
+        .rp-info-btn:hover {
             background: rgba(255, 255, 255, 0.5);
             transform: scale(1.05);
         }
@@ -2725,6 +2727,7 @@
         <div class="rp-header">
             <h2>🍎 Regionale Produkte aus Vorchdorf</h2>
             <p>Frische Produkte direkt von regionalen Anbietern</p>
+            <button class="rp-info-btn" onclick="openRPInfo()">ℹ️ Info</button>
         </div>
 
         <!-- Back Button -->
@@ -3713,6 +3716,77 @@ Mit freundlichen Grüßen`;
             console.log('Modal closed');
         }
 
+        // Regionale Produkte Info Modal
+        function openRPInfo() {
+            const infoHtml = `
+                <div class="rp-info-modal" style="background: white; border-radius: 16px; max-width: 800px; width: 95%; max-height: 90vh; padding: 50px 40px; position: relative; z-index: 10001; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                    <button class="rp-info-close" onclick="closeRPInfo()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #666;">✕</button>
+                    <h2 style="font-size: 2rem; color: #1a472a; margin: 0 0 20px 0;">ℹ️ Regionale Produkte aus Vorchdorf</h2>
+                    
+                    <h3 style="font-size: 1.3rem; color: #1a472a; margin: 20px 0 10px 0;">Qualität, die man kennt – aus der Region, für die Region</h3>
+                    <p style="font-size: 1.1rem; color: #1a1a1a; line-height: 1.6; margin: 10px 0;">Wissen Sie, woher Ihr Brot kommt? Wer Ihre Eier produziert? Oder wo das Gemüse auf Ihrem Teller gewachsen ist?<br><br>
+                    In Vorchdorf haben wir das Glück, von einer Vielzahl engagierter Produzenten umgeben zu sein, die mit Leidenschaft und Fachwissen hochwertige Lebensmittel und Produkte erzeugen. Menschen, die wir oft persönlich kennen. Nachbarn, die mit Sorgfalt und nach bestem Wissen und Gewissen arbeiten.</p>
+                    
+                    <h3 style="font-size: 1.3rem; color: #1a472a; margin: 25px 0 10px 0;">Regionalität ist mehr als ein Trend</h3>
+                    <p style="font-size: 1.1rem; color: #1a1a1a; line-height: 1.6; margin: 10px 0;">Wenn wir regional kaufen, wählen wir Qualität. Wir wählen Frische. Wir wählen kurze Wege und damit auch Nachhaltigkeit. Vor allem aber wählen wir Vertrauen – denn wir wissen, wer hinter den Produkten steht.<br><br>
+                    Diese Übersicht soll Ihnen zeigen, welche Vielfalt unsere Region zu bieten hat: von frischem Obst und Gemüse über handwerklich hergestellte Spezialitäten bis hin zu traditionellen Produkten. Entdecken Sie, wer was produziert und wo Sie diese Schätze direkt beziehen können.</p>
+
+                    <h3 style="font-size: 1.3rem; color: #1a472a; margin: 25px 0 10px 0;">Gemeinsam stärken wir unsere Region</h3>
+                    <p style="font-size: 1.1rem; color: #1a1a1a; line-height: 1.6; margin: 10px 0;">Jeder Einkauf bei unseren regionalen Erzeugern ist ein Beitrag zur Stärkung der lokalen Wirtschaft, zur Erhaltung unserer Kulturlandschaft und zur Sicherung von Arbeitsplätzen in Vorchdorf und Umgebung.<br><br>
+                    Lernen Sie unsere Produzenten kennen – ihre Geschichten, ihre Produkte, ihre Leidenschaft für das, was sie tun.</p>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <button class="rp-info-btn-close" onclick="closeRPInfo()" style="background: var(--primary); color: white; border: none; padding: 12px 30px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s;">✓ Schließen</button>
+                    </div>
+                </div>
+            `;
+
+            // Entferne alte Modal wenn existiert
+            let oldModal = document.getElementById('rpInfoModal');
+            if (oldModal) {
+                oldModal.remove();
+            }
+
+            // Erstelle neuen Modal mit INLINE STYLES
+            const modal = document.createElement('div');
+            modal.id = 'rpInfoModal';
+            modal.innerHTML = infoHtml;
+            modal.style.cssText = `
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+                z-index: 999999 !important;
+                padding: 20px !important;
+                overflow-y: auto !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            `;
+            document.body.appendChild(modal);
+
+            // Click-handler zum schließen
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeRPInfo();
+                }
+            });
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRPInfo() {
+            const modal = document.getElementById('rpInfoModal');
+            if (modal) {
+                modal.remove();
+            }
+            document.body.style.overflow = '';
+        }
+
         // Email Preview Modal - mit Bild und HTML-Vorschau
         function openEmailPreviewModal(toEmail, subject, body, imageUrl, sellerName) {
             window.flohmarktEmailImageURL = imageUrl; // URL für sendEmailFromPreview speichern
@@ -3901,7 +3975,7 @@ Mit freundlichen Grüßen`;
         }
 
         // App Version - Update this with each release
-        const APP_VERSION = '5.6'; // Aktuelle Version der App
+        const APP_VERSION = '5.7'; // Aktuelle Version der App
         const CACHE_BUSTER = Date.now();
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
