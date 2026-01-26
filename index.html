@@ -1995,6 +1995,77 @@
         /* ============================================ */
         /* REGIONALE PRODUKTE STYLES */
         /* ============================================ */
+        /* Info Tiles */
+        .rp-info-tiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .rp-info-tile {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rp-info-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .rp-info-tile:hover .rp-info-tile-arrow {
+            transform: translateX(5px);
+        }
+
+        .rp-info-tile-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .rp-info-tile-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .rp-info-tile-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .rp-info-tile-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            transition: transform 0.3s;
+        }
+
+        /* Section Divider */
+        .rp-section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .rp-info-tiles {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* Container */
         .rp-container {
@@ -2852,6 +2923,24 @@
                 <h3>Keine Produkte gefunden</h3>
                 <p>Versuche eine andere Suche oder Kategorie</p>
             </div>
+            <!-- Bauernmärkte & Direktvermarkter Kacheln -->
+            <div class="rp-info-tiles">
+                <div class="rp-info-tile" onclick="window.open('bauernmaerkte.html', '_self')">
+                    <div class="rp-info-tile-icon">🥕</div>
+                    <h3 class="rp-info-tile-title">Bauernmärkte</h3>
+                    <p class="rp-info-tile-text">11 Märkte in der Region - jeden Tag frische Produkte!</p>
+                    <div class="rp-info-tile-arrow">→</div>
+                </div>
+                <div class="rp-info-tile" onclick="rpShowDirectMarketersAZ()">
+                    <div class="rp-info-tile-icon">📋</div>
+                    <h3 class="rp-info-tile-title">Direktvermarkter A-Z</h3>
+                    <p class="rp-info-tile-text">Alle regionalen Anbieter alphabetisch sortiert</p>
+                    <div class="rp-info-tile-arrow">→</div>
+                </div>
+            </div>
+
+            <!-- Trennlinie -->
+            <div class="rp-section-divider"></div>
 
             <!-- Direktvermarkter Übersicht -->
             <div id="rpDirectMarketersSection" class="rp-direct-marketers-section">
@@ -3621,40 +3710,64 @@ Mit freundlichen Grüßen`;
                 return a.localeCompare(b, 'de');
             });
 
-            // Rendere HTML
+            javascript
+        }).join('');
+        }  // ← DIESES } MUSS HIER SEIN (schließt renderDirectMarketers)
+
+        // Direktvermarkter A-Z anzeigen
+        function rpShowDirectMarketersAZ() {
+So sollte es komplett aussehen:
+            javascript        // Rendere HTML
             grid.innerHTML = sortedLocations.map(location => {
                 const companies = companiesByLocation[location].sort((a, b) =>
                     a.Firma.localeCompare(b.Firma, 'de')
                 );
 
                 return `
-            <div class="rp-dm-location-group">
-                <h4 class="rp-dm-location-title">
-                    📍 ${location}
-                </h4>
-                <div class="rp-dm-company-list">
-                    ${companies.map(company => {
+                <div class="rp-dm-location-group">
+                    <h4 class="rp-dm-location-title">
+                        📍 ${location}
+                    </h4>
+                    <div class="rp-dm-company-list">
+                        ${companies.map(company => {
                     const hasWebsite = company.homepage && company.homepage.trim();
                     const url = hasWebsite
                         ? (company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage)
                         : '#';
 
-                    if (!hasWebsite) return ''; // Verstecke Firmen ohne Homepage
+                    if (!hasWebsite) return '';
 
                     return `
-                            <a href="${url}" target="_blank" class="rp-dm-company-item">
-                                <span class="rp-dm-company-name">${company.Firma}</span>
-                                <span class="rp-dm-company-arrow">→</span>
-                            </a>
-                        `;
+                                <a href="${url}" target="_blank" class="rp-dm-company-item">
+                                    <span class="rp-dm-company-name">${company.Firma}</span>
+                                    <span class="rp-dm-company-arrow">→</span>
+                                </a>
+                            `;
                 }).join('')}
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
             }).join('');
         }
 
+        // Direktvermarkter A-Z anzeigen
+        function rpShowDirectMarketersAZ() {
+            // Verstecke alles andere
+            document.getElementById('rpCategoriesView').classList.add('hidden');
+            document.getElementById('rpProductsSection').classList.add('hidden');
+            document.querySelector('.rp-info-tiles').style.display = 'none';
+            document.querySelector('.rp-section-divider').style.display = 'none';
+
+            // Zeige Direktvermarkter
+            document.getElementById('rpDirectMarketersSection').classList.remove('hidden');
+            document.getElementById('rpBackBtn').classList.remove('hidden');
+
+            rpCurrentView = 'az';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function extractRPImages(product) {
+
             const images = [];
 
             // Sammle alle Bild-URLs
@@ -3762,12 +3875,15 @@ Mit freundlichen Grüßen`;
 
         // Navigation
         function rpGoBack() {
-            if (rpCurrentView === 'companies') {
-                // Von Firmen zurück zu Kategorien
+            if (rpCurrentView === 'companies' || rpCurrentView === 'az') {
+                // Von Firmen oder A-Z zurück zu Kategorien
                 rpCurrentView = 'categories';
                 document.getElementById('rpCategoriesView').classList.remove('hidden');
                 document.getElementById('rpCompaniesView').classList.add('hidden');
                 document.getElementById('rpProductsSection').classList.remove('hidden');
+                document.getElementById('rpDirectMarketersSection').classList.add('hidden');
+                document.querySelector('.rp-info-tiles').style.display = 'grid';
+                document.querySelector('.rp-section-divider').style.display = 'block';
                 document.getElementById('rpBackBtn').classList.add('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bauernmärkte - Vorchdorf App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d5016;
+            --primary-light: #4a7c2c;
+            --primary-gradient: linear-gradient(135deg, #2d5016 0%, #4a7c2c 100%);
+            --bg: #f5f7f5;
+            --text: #333;
+            --text-light: #666;
+            --shadow: rgba(0,0,0,0.1);
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            border-color: var(--primary);
+            background: #f9f9fb;
+        }
+
+        .header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 15px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .filter-tab {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--primary-light);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .info-box {
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-box-icon {
+            font-size: 24px;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .info-box-text strong {
+            color: var(--primary);
+        }
+
+        .day-section {
+            margin-bottom: 25px;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .day-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .day-icon.dienstag { background: #2196f3; }
+        .day-icon.donnerstag { background: #e91e63; }
+        .day-icon.freitag { background: var(--primary); }
+        .day-icon.samstag { background: #ff9800; }
+
+        .day-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .markets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s;
+            border-left: 4px solid var(--primary);
+        }
+
+        .market-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .market-card.highlight {
+            border-left-color: #ff9800;
+            background: linear-gradient(135deg, #fff 0%, #fff8e1 100%);
+        }
+
+        .market-card.monthly {
+            border-left-color: #9c27b0;
+        }
+
+        .market-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .market-name .home-badge {
+            background: #ff9800;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .market-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .market-detail-icon {
+            font-size: 16px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .market-detail-text {
+            color: var(--text);
+        }
+
+        .market-detail-text strong {
+            color: var(--primary);
+        }
+
+        .market-time {
+            background: var(--bg);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .market-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .market-link:hover {
+            background: var(--primary-light);
+            transform: translateX(3px);
+        }
+
+        .monthly-badge {
+            background: #9c27b0;
+            color: white;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .distance-badge {
+            background: var(--bg);
+            color: var(--text-light);
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .quick-overview {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .quick-overview h3 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .quick-item {
+            text-align: center;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 10px;
+        }
+
+        .quick-day {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .quick-count {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .quick-label {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .no-results-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .filter-tabs {
+                flex-wrap: nowrap;
+            }
+
+            .markets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <a href="index.html" class="back-button">← Zurück zur Startseite</a>
+
+        <div class="header">
+            <h1>🥕 Bauernmärkte</h1>
+            <p>Frische regionale Produkte in deiner Nähe</p>
+        </div>
+
+        <div class="quick-overview">
+            <h3>📅 Diese Woche einkaufen</h3>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <div class="quick-day">Dienstag</div>
+                    <div class="quick-count">1</div>
+                    <div class="quick-label">Markt</div>
+                </div>
+                <div class="quick-item">
+                    <div class="quick-day">Donnerstag</div>
+                    <div class="quick-count">1</div>
+                    <div class="quick-label">Markt</div>
+                </div>
+                <div class="quick-item">
+                    <div class="quick-day">Freitag</div>
+                    <div class="quick-count">5</div>
+                    <div class="quick-label">Märkte</div>
+                </div>
+                <div class="quick-item">
+                    <div class="quick-day">Samstag</div>
+                    <div class="quick-count">4</div>
+                    <div class="quick-label">Märkte</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterMarkets('alle')">Alle</button>
+            <button class="filter-tab" onclick="filterMarkets('dienstag')">Dienstag</button>
+            <button class="filter-tab" onclick="filterMarkets('donnerstag')">Donnerstag</button>
+            <button class="filter-tab" onclick="filterMarkets('freitag')">Freitag</button>
+            <button class="filter-tab" onclick="filterMarkets('samstag')">Samstag</button>
+            <button class="filter-tab" onclick="filterMarkets('monatlich')">Monatlich</button>
+        </div>
+
+        <div class="info-box">
+            <span class="info-box-icon">💡</span>
+            <span class="info-box-text">
+                <strong>Tipp:</strong> Der Vorchdorfer Bauernmarkt ist jeden Freitag ab 14 Uhr – perfekt fürs Wochenende!
+            </span>
+        </div>
+
+        <div id="marketsContainer">
+            <!-- Dienstag -->
+            <div class="day-section" data-day="dienstag">
+                <div class="day-header">
+                    <div class="day-icon dienstag">Di</div>
+                    <span class="day-title">Dienstag</span>
+                </div>
+                <div class="markets-grid">
+                    <div class="market-card" data-day="dienstag">
+                        <div class="market-name">
+                            Wochenmarkt Gmunden
+                            <span class="distance-badge">~15 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">07:30 – 12:00 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Rathausplatz, 4810 Gmunden</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">ℹ️</span>
+                            <span class="market-detail-text">Ca. 50 Marktfiranten direkt am Traunsee-Ufer</span>
+                        </div>
+                        <a href="https://www.gmunden.at/kultur-freizeit-tourismus/gmundens-maerkte/wochenmarkt/" target="_blank" class="market-link">Website →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donnerstag -->
+            <div class="day-section" data-day="donnerstag">
+                <div class="day-header">
+                    <div class="day-icon donnerstag">Do</div>
+                    <span class="day-title">Donnerstag</span>
+                </div>
+                <div class="markets-grid">
+                    <div class="market-card" data-day="donnerstag">
+                        <div class="market-name">
+                            Bauernmarkt Wartberg/Krems
+                            <span class="distance-badge">~12 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">15:00 – 19:00 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Hauptstraße 25, 4552 Wartberg/Krems</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Suppenwürze, Gemüse, Fleisch, Speck, Käsekrainer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Freitag -->
+            <div class="day-section" data-day="freitag">
+                <div class="day-header">
+                    <div class="day-icon freitag">Fr</div>
+                    <span class="day-title">Freitag</span>
+                </div>
+                <div class="markets-grid">
+                    <div class="market-card highlight" data-day="freitag">
+                        <div class="market-name">
+                            Vorchdorfer Bauernmarkt
+                            <span class="home-badge">🏠 Heimmarkt</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">14:00 – 17:00 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Lambacherstraße 8 (Hoftaverne Ziegelböck), 4655 Vorchdorf</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">13 Landwirte: Schaf, Wild, Brot, Gestecke – in urigem Gewölbe</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🚗</span>
+                            <span class="market-detail-text">Nur 2 Min. von der Autobahnabfahrt!</span>
+                        </div>
+                        <a href="https://traunsee-almtal.salzkammergut.at/oesterreich-veranstaltung/detail/430211785/vorchdorfer-bauernmarkt.html" target="_blank" class="market-link">Website →</a>
+                    </div>
+
+                    <div class="market-card" data-day="freitag">
+                        <div class="market-name">
+                            Salzkammergut Bauernmarkt
+                            <span class="distance-badge">~8 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">12:30 – 16:30 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Gewerbepark Kleinreith (Lagerhaus), 4694 Ohlsdorf</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Seit 1988! 15 Bauern mit Brot, Käse, Fleisch, Obst, Gemüse</span>
+                        </div>
+                        <a href="https://www.salzkammergut-bauernmarkt.at/" target="_blank" class="market-link">Website →</a>
+                    </div>
+
+                    <div class="market-card" data-day="freitag">
+                        <div class="market-name">
+                            Bauernmarkt Kremsmünster
+                            <span class="distance-badge">~10 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">14:00 – 18:00 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Marktplatz, 4550 Kremsmünster</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Fleisch, Teigwaren, Milchprodukte, Brot, Bier, Most</span>
+                        </div>
+                        <a href="https://www.kremsmuenster.online/nahversorger/bauernmarkt-78" target="_blank" class="market-link">Website →</a>
+                    </div>
+
+                    <div class="market-card" data-day="freitag">
+                        <div class="market-name">
+                            Bauernmarkt Bad Hall
+                            <span class="distance-badge">~18 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">14:00 – 17:00 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Eduard-Bach-Straße, 4540 Bad Hall</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Obst, Gemüse, Käse, Fisch, Fleisch, Mehlspeisen</span>
+                        </div>
+                        <a href="http://www.bauernmarkt-badhall.at" target="_blank" class="market-link">Website →</a>
+                    </div>
+
+                    <div class="market-card" data-day="freitag">
+                        <div class="market-name">
+                            Frischemarkt Kirchdorf
+                            <span class="distance-badge">~15 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">09:00 – 12:30 Uhr</span>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Redtenbacherplatz, 4560 Kirchdorf/Krems</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Regionale Produkte und Frischewaren</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Samstag -->
+            <div class="day-section" data-day="samstag">
+                <div class="day-header">
+                    <div class="day-icon samstag">Sa</div>
+                    <span class="day-title">Samstag</span>
+                </div>
+                <div class="markets-grid">
+                    <div class="market-card" data-day="samstag">
+                        <div class="market-name">
+                            Bauernmarkt Schlierbach
+                            <span class="distance-badge">~12 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">08:00 – 11:30 Uhr</span>
+                                <strong style="color: var(--primary); margin-left: 8px;">Jeden Samstag!</strong>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Klosterstraße 8 (Bauernmarkthalle), 4553 Schlierbach</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Brot, Pute, Lamm, Forellen, Edelbrände, Honig, Nudeln</span>
+                        </div>
+                    </div>
+
+                    <div class="market-card monthly" data-day="samstag" data-monthly="true">
+                        <span class="monthly-badge">1× monatlich</span>
+                        <div class="market-name">
+                            Bauernmarkt Pettenbach
+                            <span class="distance-badge">~8 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">08:30 – 11:00 Uhr</span>
+                                <strong style="color: #9c27b0; margin-left: 8px;">1. Samstag/Monat</strong>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Arkadengang Marktgemeindeamt, 4643 Pettenbach</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Käse, Teigwaren, Eier, Säfte, Honig, Bauernkrapfen</span>
+                        </div>
+                        <a href="https://pettenbach.at/Bauernmarkt" target="_blank" class="market-link">Website →</a>
+                    </div>
+
+                    <div class="market-card monthly" data-day="samstag" data-monthly="true">
+                        <span class="monthly-badge">1× monatlich</span>
+                        <div class="market-name">
+                            Almtaler Bauernmarkt Scharnstein
+                            <span class="distance-badge">~12 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">09:00 – 11:30 Uhr</span>
+                                <strong style="color: #9c27b0; margin-left: 8px;">1. Samstag/Monat</strong>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Kirchenplatz, 4644 Scharnstein</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Brot, Schafmilch, Lamm, Fisch, Freilandschwein, Naturkosmetik</span>
+                        </div>
+                        <a href="https://www.scharnstein.ooe.gv.at/Bauernmarkt_am_Kirchenplatz_Scharnstein" target="_blank" class="market-link">Website →</a>
+                    </div>
+
+                    <div class="market-card monthly" data-day="samstag" data-monthly="true">
+                        <span class="monthly-badge">1× monatlich (ab März)</span>
+                        <div class="market-name">
+                            Bauernmarkt Altmünster
+                            <span class="distance-badge">~18 km</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🕐</span>
+                            <span class="market-detail-text">
+                                <span class="market-time">08:00 – 11:30 Uhr</span>
+                                <strong style="color: #9c27b0; margin-left: 8px;">1. Samstag/Monat</strong>
+                            </span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">📍</span>
+                            <span class="market-detail-text">Gemeindevorplatz, 4813 Altmünster</span>
+                        </div>
+                        <div class="market-detail">
+                            <span class="market-detail-icon">🛒</span>
+                            <span class="market-detail-text">Fisch, Brot, Eier, Nudeln, Essig, Schafmilchprodukte</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <p>Keine Märkte für diesen Filter gefunden.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function filterMarkets(filter) {
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const sections = document.querySelectorAll('.day-section');
+            const cards = document.querySelectorAll('.market-card');
+            let visibleCount = 0;
+
+            if (filter === 'alle') {
+                sections.forEach(section => section.style.display = 'block');
+                cards.forEach(card => card.style.display = 'block');
+                visibleCount = cards.length;
+            } else if (filter === 'monatlich') {
+                sections.forEach(section => section.style.display = 'none');
+                cards.forEach(card => {
+                    if (card.dataset.monthly === 'true') {
+                        card.style.display = 'block';
+                        card.closest('.day-section').style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                sections.forEach(section => {
+                    if (section.dataset.day === filter) {
+                        section.style.display = 'block';
+                        section.querySelectorAll('.market-card').forEach(card => {
+                            card.style.display = 'block';
+                            visibleCount++;
+                        });
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
