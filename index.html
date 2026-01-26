@@ -2185,6 +2185,89 @@
             margin-top: 40px;
         }
 
+        /* Direktvermarkter Sektion */
+        .rp-direct-marketers-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--border);
+        }
+
+        .rp-direct-marketers-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .rp-dm-location-group {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .rp-dm-location-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rp-dm-company-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .rp-dm-company-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .rp-dm-company-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .rp-dm-company-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .rp-dm-company-arrow {
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        .rp-dm-company-item:hover .rp-dm-company-arrow {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .rp-direct-marketers-section {
+                margin-top: 40px;
+                padding-top: 30px;
+            }
+
+            .rp-dm-location-group {
+                padding: 20px;
+            }
+
+            .rp-dm-location-title {
+                font-size: 1.2rem;
+            }
+        }
+
         .rp-filters {
             background: white;
             border-radius: 12px;
@@ -2769,8 +2852,13 @@
                 <h3>Keine Produkte gefunden</h3>
                 <p>Versuche eine andere Suche oder Kategorie</p>
             </div>
-        </div>
 
+            <!-- Direktvermarkter Übersicht -->
+            <div id="rpDirectMarketersSection" class="rp-direct-marketers-section">
+                <h3 class="rp-section-title">🏡 Unsere Direktvermarkter</h3>
+                <div id="rpDirectMarketersGrid" class="rp-direct-marketers-grid"></div>
+            </div>
+        </div>
         <!-- Footer -->
         <footer id="rpFooter"
             style="margin-top: 40px; text-align: center; padding: 20px; border-top: 1px solid #eee; color: #666; font-size: 0.9rem;">
@@ -3308,6 +3396,7 @@ Mit freundlichen Grüßen`;
             renderRPCategories();
             populateRPFilters();
             renderRPProducts();
+            renderDirectMarketers(); // NEU!
         }
 
         // Kategorien anzeigen
@@ -3499,6 +3588,66 @@ Mit freundlichen Grüßen`;
                     <h3 class="rp-product-title">${product.Produktname || 'Unbenannt'}</h3>
                     <div class="rp-product-price">${product['Preis in Euro'] ? product['Preis in Euro'] + ' €' : 'Preis auf Anfrage'}</div>
                     <div class="rp-product-company-name">🏢 ${product.Firmenname || 'Privat'}</div>
+                </div>
+            </div>
+        `;
+            }).join('');
+        }
+        // Direktvermarkter nach Orten sortiert anzeigen
+        function renderDirectMarketers() {
+            const grid = document.getElementById('rpDirectMarketersGrid');
+
+            // Extrahiere Ort aus Adresse (z.B. "Adresse 1, 4655 Vorchdorf" -> "Vorchdorf")
+            const companiesByLocation = {};
+
+            rpAllCompanies.forEach(company => {
+                if (!company.adresse) return;
+
+                // Extrahiere Ort (nach der PLZ)
+                const match = company.adresse.match(/\d{4}\s+(.+)/);
+                let location = match ? match[1].trim() : 'Sonstige';
+
+                if (!companiesByLocation[location]) {
+                    companiesByLocation[location] = [];
+                }
+
+                companiesByLocation[location].push(company);
+            });
+
+            // Sortiere Orte: Vorchdorf zuerst, dann alphabetisch
+            const sortedLocations = Object.keys(companiesByLocation).sort((a, b) => {
+                if (a === 'Vorchdorf') return -1;
+                if (b === 'Vorchdorf') return 1;
+                return a.localeCompare(b, 'de');
+            });
+
+            // Rendere HTML
+            grid.innerHTML = sortedLocations.map(location => {
+                const companies = companiesByLocation[location].sort((a, b) =>
+                    a.Firma.localeCompare(b.Firma, 'de')
+                );
+
+                return `
+            <div class="rp-dm-location-group">
+                <h4 class="rp-dm-location-title">
+                    📍 ${location}
+                </h4>
+                <div class="rp-dm-company-list">
+                    ${companies.map(company => {
+                    const hasWebsite = company.homepage && company.homepage.trim();
+                    const url = hasWebsite
+                        ? (company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage)
+                        : '#';
+
+                    if (!hasWebsite) return ''; // Verstecke Firmen ohne Homepage
+
+                    return `
+                            <a href="${url}" target="_blank" class="rp-dm-company-item">
+                                <span class="rp-dm-company-name">${company.Firma}</span>
+                                <span class="rp-dm-company-arrow">→</span>
+                            </a>
+                        `;
+                }).join('')}
                 </div>
             </div>
         `;
