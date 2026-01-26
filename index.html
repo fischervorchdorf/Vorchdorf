@@ -2923,31 +2923,34 @@
                 <h3>Keine Produkte gefunden</h3>
                 <p>Versuche eine andere Suche oder Kategorie</p>
             </div>
-            <!-- Bauernmärkte & Direktvermarkter Kacheln -->
-            <div class="rp-info-tiles">
-                <div class="rp-info-tile" onclick="window.open('bauernmaerkte.html', '_self')">
-                    <div class="rp-info-tile-icon">🥕</div>
-                    <h3 class="rp-info-tile-title">Bauernmärkte</h3>
-                    <p class="rp-info-tile-text">11 Märkte in der Region - jeden Tag frische Produkte!</p>
-                    <div class="rp-info-tile-arrow">→</div>
-                </div>
-                <div class="rp-info-tile" onclick="rpShowDirectMarketersAZ()">
-                    <div class="rp-info-tile-icon">📋</div>
-                    <h3 class="rp-info-tile-title">Direktvermarkter A-Z</h3>
-                    <p class="rp-info-tile-text">Alle regionalen Anbieter alphabetisch sortiert</p>
-                    <div class="rp-info-tile-arrow">→</div>
-                </div>
+        </div> <!-- ENDE rpProductsSection -->
+
+        <!-- Bauernmärkte & Direktvermarkter Kacheln -->
+        <div class="rp-info-tiles">
+            <div class="rp-info-tile" onclick="window.open('bauernmaerkte.html', '_self')">
+                <div class="rp-info-tile-icon">🥕</div>
+                <h3 class="rp-info-tile-title">Bauernmärkte</h3>
+                <p class="rp-info-tile-text">11 Märkte in der Region - jeden Tag frische Produkte!</p>
+                <div class="rp-info-tile-arrow">→</div>
             </div>
 
-            <!-- Trennlinie -->
-            <div class="rp-section-divider"></div>
-
-            <!-- Direktvermarkter Übersicht -->
-            <div id="rpDirectMarketersSection" class="rp-direct-marketers-section">
-                <h3 class="rp-section-title">🏡 Unsere Direktvermarkter</h3>
-                <div id="rpDirectMarketersGrid" class="rp-direct-marketers-grid"></div>
+            <div class="rp-info-tile" onclick="rpShowDirectMarketersAZ()">
+                <div class="rp-info-tile-icon">📋</div>
+                <h3 class="rp-info-tile-title">Direktvermarkter A-Z</h3>
+                <p class="rp-info-tile-text">Alle regionalen Anbieter alphabetisch sortiert</p>
+                <div class="rp-info-tile-arrow">→</div>
             </div>
         </div>
+
+        <!-- Trennlinie -->
+        <div class="rp-section-divider"></div>
+
+        <!-- Direktvermarkter Übersicht -->
+        <div id="rpDirectMarketersSection" class="rp-direct-marketers-section">
+            <h3 class="rp-section-title">🏡 Unsere Direktvermarkter</h3>
+            <div id="rpDirectMarketersGrid" class="rp-direct-marketers-grid"></div>
+        </div>
+
         <!-- Footer -->
         <footer id="rpFooter"
             style="margin-top: 40px; text-align: center; padding: 20px; border-top: 1px solid #eee; color: #666; font-size: 0.9rem;">
@@ -3710,14 +3713,7 @@ Mit freundlichen Grüßen`;
                 return a.localeCompare(b, 'de');
             });
 
-            javascript
-        }).join('');
-        }  // ← DIESES } MUSS HIER SEIN (schließt renderDirectMarketers)
-
-        // Direktvermarkter A-Z anzeigen
-        function rpShowDirectMarketersAZ() {
-So sollte es komplett aussehen:
-            javascript        // Rendere HTML
+            // Rendere HTML
             grid.innerHTML = sortedLocations.map(location => {
                 const companies = companiesByLocation[location].sort((a, b) =>
                     a.Firma.localeCompare(b.Firma, 'de')
