@@ -2305,22 +2305,28 @@
         .rp-dm-company-item {
             display: inline-flex;
             align-items: center;
-            padding: 6px 12px;
-            background: #f8f9fa;
+            padding: 6px 14px;
+            background: #f1f3f5;
             border-radius: 50px;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             color: var(--text);
-            font-size: 0.85rem;
-            border: 1px solid #eee;
+            font-size: 0.88rem;
+            border: 1px solid #dee2e6;
             cursor: pointer;
+            font-weight: 500;
         }
 
         .rp-dm-company-item:hover {
-            background: white;
+            background: var(--primary);
+            color: white;
             border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             transform: translateY(-2px);
+        }
+
+        .rp-dm-company-item:hover .rp-dm-company-number {
+            background: white;
             color: var(--primary);
         }
 
@@ -3819,6 +3825,12 @@ Mit freundlichen Grüßen`;
                     'Wartberg an der Krems': [47.9833, 14.1333]
                 };
 
+                // Globale Karteninstanzen speichern, um sie später zu aktualisieren (invalidateSize)
+                window.rpMaps = window.rpMaps || [];
+                // Alte Instanzen aufräumen falls nötig
+                window.rpMaps.forEach(m => m.remove());
+                window.rpMaps = [];
+
                 // Extrahiere Ort aus Adresse
                 const companiesByLocation = {};
                 let companyNumber = 1;
@@ -3874,11 +3886,14 @@ Mit freundlichen Grüßen`;
                             </h4>
                             <div class="rp-dm-company-list">
                                 ${companies.map(company => {
+                        const hasWebsite = company.homepage && company.homepage.trim().length > 3;
+                        const url = hasWebsite ? (company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage) : null;
+
                         return `
-                                        <div class="rp-dm-company-item">
+                                        <${url ? `a href="${url}" target="_blank"` : 'div'} class="rp-dm-company-item">
                                             <span class="rp-dm-company-number">${company._displayNumber}</span>
                                             <span class="rp-dm-company-name">${company.Firma}</span>
-                                        </div>
+                                        </${url ? 'a' : 'div'}>
                                     `;
                     }).join('')}
                             </div>
@@ -4022,28 +4037,13 @@ Mit freundlichen Grüßen`;
                 document.getElementById('rpDirectMarketersSection').classList.remove('hidden');
                 document.getElementById('rpBackBtn').classList.remove('hidden');
 
-                // Trigger map resize on all maps
+                // Karten-Resize erzwingen für alle geladenen Karten
                 setTimeout(() => {
-                    document.querySelectorAll('.rp-dm-location-map').forEach(mapDiv => {
-                        // Find the leaflet map instance attached to the container?
-                        // Leaflet doesn't attach map instance to DOM element by default.
-                        // But we can trigger a window resize event which might help if responsive logic is there,
-                        // OR we just rely on the initializeLocationMap being robust.
-                        // Actually, we need to re-invalidate size if the map was already initialized.
-                        // A simple trick: standard leaflet practice involves invalidateSize();
-
-                        // Since we don't have easy access to map instances here (managed inside closures),
-                        // we rely on the fact that initializeLocationMap handles the initial render.
-                        // If maps are already rendered but hidden, showing them needs invalidateSize.
-
-                        // BUT: The current logic re-renders everything every time `initializeRP` is called? 
-                        // No, `renderDirectMarketers` is called once. 
-                        // If the user navigates away and back, maps might be broken.
-
-                        // Let's just force a re-layout trigger
-                        window.dispatchEvent(new Event('resize'));
-                    });
-                }, 100);
+                    if (window.rpMaps) {
+                        window.rpMaps.forEach(m => m.invalidateSize());
+                    }
+                    window.dispatchEvent(new Event('resize'));
+                }, 300);
 
                 rpCurrentView = 'az';
                 document.getElementById('floatingBackButton').classList.add('visible');
@@ -4526,7 +4526,7 @@ Mit freundlichen Grüßen`;
 
             // App Version - Update this with each release
             // App Version - Update this with each release
-            const APP_VERSION = '6.0'; // Aktuelle Version der App
+            const APP_VERSION = '6.2'; // Aktuelle Version der App
             const CACHE_BUSTER = Date.now();
             // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
             (async function checkForUpdates() {
