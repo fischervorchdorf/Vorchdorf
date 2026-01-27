@@ -3958,10 +3958,10 @@ Mit freundlichen Grüßen`;
 
                         const numberIcon = L.divIcon({
                             className: 'custom-number-icon',
-                            html: `<div style="background: #2d5016; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3); font-family: sans-serif;">${company._displayNumber}</div>`,
-                            iconSize: [32, 32],
-                            iconAnchor: [16, 16],
-                            popupAnchor: [0, -16]
+                            html: `<div style="background: #2d5016; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3); font-family: sans-serif; font-size: 0.8rem;">${company._displayNumber}</div>`,
+                            iconSize: [24, 24],
+                            iconAnchor: [12, 12],
+                            popupAnchor: [0, -12]
                         });
 
                         const marker = L.marker(coords, { icon: numberIcon })
@@ -3971,18 +3971,16 @@ Mit freundlichen Grüßen`;
                         markers.push(marker);
                     });
 
-                    // Fit bounds if markers exist
-                    if (markers.length > 0) {
-                        const group = new L.featureGroup(markers);
-                        setTimeout(() => {
-                            map.fitBounds(group.getBounds().pad(0.1));
-                            map.invalidateSize();
-                        }, 500);
-                    } else {
-                        setTimeout(() => {
-                            map.invalidateSize();
-                        }, 500);
-                    }
+                    // WICHTIG: Fix für Map Display Probleme
+                    setTimeout(() => {
+                        map.invalidateSize();
+                        if (markers.length > 0) {
+                            const group = new L.featureGroup(markers);
+                            try {
+                                map.fitBounds(group.getBounds().pad(0.1));
+                            } catch (e) { /* ignore bounds error */ }
+                        }
+                    }, 500);
                 } catch (e) {
                     console.error("Map initialization error:", e);
                 }
