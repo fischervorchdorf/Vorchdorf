@@ -2377,6 +2377,7 @@
         .rp-dm-company-arrow {
             font-size: 1.2rem;
             opacity: 0.5;
+            margin-left: auto;
         }
 
         .rp-dm-company-item:hover .rp-dm-company-arrow {
@@ -3901,6 +3902,7 @@ Mit freundlichen Grüßen`;
                 document.getElementById('rpBackBtn').classList.remove('hidden');
 
                 rpCurrentView = 'az';
+                document.getElementById('floatingBackButton').classList.add('visible');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -4023,6 +4025,7 @@ Mit freundlichen Grüßen`;
                     document.querySelector('.rp-info-tiles').style.display = 'grid';
                     document.querySelector('.rp-section-divider').style.display = 'block';
                     document.getElementById('rpBackBtn').classList.add('hidden');
+                    document.getElementById('floatingBackButton').classList.add('visible');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             }
@@ -4768,6 +4771,7 @@ Mit freundlichen Grüßen`;
                     document.getElementById('emergencyBanner').classList.add('hidden');
                     document.getElementById('weatherWidget').classList.add('hidden');
                     document.getElementById('backButton').classList.add('hidden');
+                    document.getElementById('floatingBackButton').classList.add('visible');
                     window.scrollTo({ top: 0, behavior: 'instant' });
                     document.getElementById('mainContent').style.display = 'none';
                     document.querySelector('.search-container').classList.add('hidden');
@@ -5209,6 +5213,7 @@ Mit freundlichen Grüßen`;
                 }
                 document.querySelector('.search-container').classList.remove('hidden');
                 renderHome();
+                document.getElementById('floatingBackButton').classList.remove('visible');
             }
 
             // Open Waste Calendar
