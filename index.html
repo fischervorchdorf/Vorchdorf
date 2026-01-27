@@ -392,30 +392,31 @@
             position: fixed;
             bottom: 30px;
             right: 20px;
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-1);
+            width: 60px;
+            height: 60px;
+            background: #2d5016;
+            /* Dunkelgrün wie gewünscht */
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             cursor: pointer;
             z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             visibility: hidden;
-            transform: scale(0.5);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            font-size: 1.5rem;
-            font-weight: bold;
+            transform: translateY(20px);
+            border: 3px solid white;
+            font-size: 2rem;
+            line-height: normal;
         }
 
         .floating-back-button.visible {
             opacity: 1;
             visibility: visible;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
         .floating-back-button:hover {
@@ -2345,50 +2346,6 @@
             flex-shrink: 0;
         }
 
-        .rp-dm-location-map {
-            margin-top: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid var(--border);
-            height: 350px;
-        }
-
-        .rp-dm-location-map .leaflet-container {
-            height: 100%;
-            border-radius: 12px;
-        }
-
-        .rp-dm-map-button {
-            display: block;
-            margin-top: 15px;
-            padding: 12px 20px;
-            background: #4285f4;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .rp-dm-map-button:hover {
-            background: #3367d6;
-            transform: translateY(-2px);
-        }
-
-        .rp-dm-location-map iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .rp-dm-company-item:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateX(5px);
-        }
-
         .rp-dm-company-name {
             font-weight: 600;
             font-size: 1.05rem;
@@ -2843,11 +2800,7 @@
             </button>
         </div>
 
-        <!-- Floating Back Button -->
-        <button id="floatingBackButton" class="floating-back-button" onclick="handleFloatingBack()"
-            title="Zurück"></button>
-        ↑
-        </button>
+
 
         <!-- Breadcrumb Navigation -->
         <div id="breadcrumb" class="breadcrumb hidden"></div>
@@ -3792,48 +3745,11 @@ Mit freundlichen Grüßen`;
         `;
                 }).join('');
             }
-            // Direktvermarkter nach Orten sortiert anzeigen mit Karten
             function renderDirectMarketers() {
                 const grid = document.getElementById('rpDirectMarketersGrid');
 
-                // Orts-Koordinaten (Zentrum)
-                const locationCoords = {
-                    'Vorchdorf': [48.0067, 13.9156],
-                    'Altmünster': [47.9000, 13.7667],
-                    'Bad Wimsbach-Neydharting': [48.0833, 13.9833],
-                    'Brunnenthal': [48.0333, 13.9667],
-                    'Eberstalzell': [48.0833, 14.0333],
-                    'Gmunden': [47.9167, 13.8000],
-                    'Kirchham': [48.0500, 13.9333],
-                    'Kremsmünster': [48.0500, 14.1333],
-                    'Laakirchen': [47.9833, 13.8167],
-                    'Lambach': [48.0833, 13.8833],
-                    'Niederthalheim': [48.0667, 13.7333],
-                    'Ohlsdorf': [47.9667, 13.9000],
-                    'Pettenbach': [47.9667, 14.0333],
-                    'Pinsdorf': [47.9167, 13.7667],
-                    'Roitham am Traunfall': [47.9667, 13.9167],
-                    'Sankt Konrad': [48.1167, 13.9000],
-                    'Sattledt': [48.1000, 14.0500],
-                    'Scharnstein': [47.9167, 13.9833],
-                    'Scharten': [48.1667, 13.9500],
-                    'Schlierbach': [47.9333, 14.1000],
-                    'Schwanenstadt': [48.0667, 13.7833],
-                    'Steinerkirchen an der Traun': [48.0167, 14.0333],
-                    'Steyrermühl': [47.9500, 13.8667],
-                    'Taiskirchen im Innkreis': [48.3167, 13.6333],
-                    'Wartberg an der Krems': [47.9833, 14.1333]
-                };
-
-                // Globale Karteninstanzen speichern, um sie später zu aktualisieren (invalidateSize)
-                window.rpMaps = window.rpMaps || [];
-                // Alte Instanzen aufräumen falls nötig
-                window.rpMaps.forEach(m => m.remove());
-                window.rpMaps = [];
-
                 // Extrahiere Ort aus Adresse
                 const companiesByLocation = {};
-                let companyNumber = 1;
 
                 rpAllCompanies.forEach(company => {
                     let location = 'Sonstige';
@@ -3849,6 +3765,11 @@ Mit freundlichen Grüßen`;
                                 location = zipCity;
                             }
                         }
+                    }
+
+                    // Korrektur Meindlhof Spezialfall
+                    if (company.Firma && company.Firma.includes('Meindlhof')) {
+                        location = 'Schlatt'; // Korrigierter Standort
                     }
 
                     if (!companiesByLocation[location]) {
@@ -3877,8 +3798,6 @@ Mit freundlichen Grüßen`;
                     // Assign display numbers for this location group
                     companies.forEach(c => c._displayNumber = companyNumber++);
 
-                    const mapId = `map-location-${locIndex}`; // Improved ID
-
                     return `
                         <div class="rp-dm-location-group">
                             <h4 class="rp-dm-location-title">
@@ -3897,107 +3816,11 @@ Mit freundlichen Grüßen`;
                                     `;
                     }).join('')}
                             </div>
-                            
-                            <div class="rp-dm-location-map" id="${mapId}"></div>
                         </div>
                     `;
                 }).join('');
-
-                // Initialisiere Karten nach dem Rendern
-                setTimeout(() => {
-                    sortedLocations.forEach((location, locIndex) => {
-                        const companies = companiesByLocation[location];
-                        const mapId = `map-location-${locIndex}`;
-
-                        // Find matching coords for location
-                        let centerCoords = [48.0067, 13.9156]; // Default Vorchdorf
-
-                        // Fuzzy match location name
-                        for (const key in locationCoords) {
-                            if (location.includes(key) || key.includes(location)) {
-                                centerCoords = locationCoords[key];
-                                break;
-                            }
-                        }
-
-                        initializeLocationMap(mapId, companies, centerCoords, location);
-                    });
-                }, 500);
             }
 
-            function initializeLocationMap(mapId, companies, centerCoords, locationName) {
-                const mapElement = document.getElementById(mapId);
-                if (!mapElement) return;
-
-                if (typeof L === 'undefined') {
-                    mapElement.innerHTML = '<div style="padding:20px;text-align:center;">Karte konnte nicht geladen werden.</div>';
-                    return;
-                }
-
-                try {
-                    const map = L.map(mapId).setView(centerCoords, 13);
-                    window.rpMaps.push(map);
-
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '© OpenStreetMap'
-                    }).addTo(map);
-
-                    const markers = [];
-                    const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
-
-                    companies.forEach((company) => {
-                        let coords = null;
-                        if (company.adresse && typeof COMPANY_COORDINATES !== 'undefined') {
-                            const originalAddr = company.adresse.trim();
-                            const normOriginal = normalize(originalAddr);
-
-                            // Suche über alle Keys in der Datenbank mit Normalisierung
-                            for (const k in COMPANY_COORDINATES) {
-                                const normK = normalize(k);
-                                if (normK === normOriginal || normOriginal.includes(normK) || normK.includes(normOriginal)) {
-                                    coords = COMPANY_COORDINATES[k];
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (!coords) {
-                            // Minimaler Versatz um das Zentrum (Haus-Maßstab)
-                            coords = [
-                                centerCoords[0] + (Math.random() - 0.5) * 0.001,
-                                centerCoords[1] + (Math.random() - 0.5) * 0.001
-                            ];
-                        }
-
-                        const numberIcon = L.divIcon({
-                            className: 'custom-number-icon',
-                            html: `<div style="background: #2d5016; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3); font-family: sans-serif; font-size: 0.8rem;">${company._displayNumber}</div>`,
-                            iconSize: [24, 24],
-                            iconAnchor: [12, 12],
-                            popupAnchor: [0, -12]
-                        });
-
-                        const marker = L.marker(coords, { icon: numberIcon })
-                            .addTo(map)
-                            .bindPopup(`<strong>${company._displayNumber}. ${company.Firma}</strong><br>${company.adresse || locationName}`);
-
-                        markers.push(marker);
-                    });
-
-                    // WICHTIG: Fix für Map Display Probleme
-                    setTimeout(() => {
-                        map.invalidateSize();
-                        if (markers.length > 0) {
-                            const group = new L.featureGroup(markers);
-                            try {
-                                map.fitBounds(group.getBounds().pad(0.2), { maxZoom: 16 });
-                            } catch (e) { }
-                        }
-                    }, 400);
-                } catch (e) {
-                    console.error("Map error:", e);
-                }
-            }
             // Direktvermarkter A-Z anzeigen
             function rpShowDirectMarketersAZ() {
                 // Verstecke alles andere
@@ -4009,14 +3832,6 @@ Mit freundlichen Grüßen`;
                 // Zeige Direktvermarkter
                 document.getElementById('rpDirectMarketersSection').classList.remove('hidden');
                 document.getElementById('rpBackBtn').classList.remove('hidden');
-
-                // Karten-Resize erzwingen für alle geladenen Karten
-                setTimeout(() => {
-                    if (window.rpMaps) {
-                        window.rpMaps.forEach(m => m.invalidateSize());
-                    }
-                    window.dispatchEvent(new Event('resize'));
-                }, 300);
 
                 rpCurrentView = 'az';
                 document.getElementById('floatingBackButton').classList.add('visible');
@@ -4499,7 +4314,7 @@ Mit freundlichen Grüßen`;
 
             // App Version - Update this with each release
             // App Version - Update this with each release
-            const APP_VERSION = '6.2'; // Aktuelle Version der App
+            const APP_VERSION = '7.1'; // Aktuelle Version der App
             const CACHE_BUSTER = Date.now();
             // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
             (async function checkForUpdates() {
@@ -6213,9 +6028,7 @@ Mit freundlichen Grüßen`;
                 // Scroll-Check für Floating Back Button
                 window.addEventListener('scroll', function () {
                     const floatBtn = document.getElementById('floatingBackButton');
-                    const isBackVisible = !document.getElementById('backButton').classList.contains('hidden');
-
-                    if (isBackVisible && window.scrollY > 300) {
+                    if (window.scrollY > 300) {
                         floatBtn.classList.add('visible');
                     } else {
                         floatBtn.classList.remove('visible');
@@ -6340,6 +6153,11 @@ Mit freundlichen Grüßen`;
                 init();
             });
         </script>
+
+        <!-- Floating Back Button (At the very end of body to prevent layout jumps) -->
+        <button id="floatingBackButton" class="floating-back-button" onclick="handleFloatingBack()" title="Nach oben">
+            &uarr;
+        </button>
 </body>
 
 </html>
