@@ -185,5 +185,15 @@ const COMPANY_COORDINATES = {
     "Spöck 5, 4753 Taiskirchen im Innkreis": [48.3178, 13.6345],
     "Weinberg 5, 4753 Taiskirchen im Innkreis": [48.3189, 13.6356],
     "Diepersdorf 20, 4681 Wartberg an der Krems": [47.9856, 14.1356],
-    "Schachadorf 22, 4681 Wartberg an der Krems": [47.9845, 14.1345]
+    "Schachadorf 22, 4681 Wartberg an der Krems": [47.9845, 14.1345],
+
+    // Explicit fixes for user logs
+    "Don Alfonso-Weg 18, 4813 Altmünster": [47.9012, 13.7654],
+    "Aigen 1, 4654 Bad Wimsbach-Neydharting": [48.0845, 13.9845],
+    "Wimstraße 5, 4654 Bad Wimsbach-Neydharting": [48.0823, 13.9812],
+    "Forsthausstraße 3, 4654 Bad Wimsbach-Neydharting": [48.0856, 13.9867],
+    "Giering 12, 4654 Bad Wimsbach-Neydharting": [48.0867, 13.9889],
+    "Steig 10, 4816 Gschwandt": [47.9356, 13.8345],
+    "Überhülling 2, 4663 Laakirchen": [47.9880, 13.8220],
+    "Buchenstraße 16, 4694 Ohlsdorf": [47.9512, 13.9023]
 };
