@@ -3929,7 +3929,6 @@ Mit freundlichen Grüßen`;
                 const mapElement = document.getElementById(mapId);
                 if (!mapElement) return;
 
-                // Ensure Leaflet is loaded
                 if (typeof L === 'undefined') {
                     mapElement.innerHTML = '<div style="padding:20px;text-align:center;">Karte konnte nicht geladen werden.</div>';
                     return;
@@ -3937,59 +3936,36 @@ Mit freundlichen Grüßen`;
 
                 try {
                     const map = L.map(mapId).setView(centerCoords, 13);
+                    window.rpMaps.push(map);
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '© OpenStreetMap'
                     }).addTo(map);
 
                     const markers = [];
+                    const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
 
                     companies.forEach((company) => {
-                        // Hole Koordinaten - Robustes Matching
                         let coords = null;
-
                         if (company.adresse && typeof COMPANY_COORDINATES !== 'undefined') {
                             const originalAddr = company.adresse.trim();
+                            const normOriginal = normalize(originalAddr);
 
-                            // Try multiple variations
-                            let constructedKey = originalAddr;
-                            const parts = originalAddr.split(/[-,]/);
-
-                            if (parts.length >= 2) {
-                                const part1 = parts[0].trim();
-                                const part2 = parts[1].trim();
-
-                                // Variation A: "Street, Zip City"
-                                const keyA = `${part2}, ${part1}`;
-                                // Variation B: "Zip City, Street"
-                                const keyB = `${part1}, ${part2}`;
-
-                                if (COMPANY_COORDINATES[keyA]) coords = COMPANY_COORDINATES[keyA];
-                                else if (COMPANY_COORDINATES[keyB]) coords = COMPANY_COORDINATES[keyB];
-                                else if (COMPANY_COORDINATES[originalAddr]) coords = COMPANY_COORDINATES[originalAddr];
-                            } else {
-                                if (COMPANY_COORDINATES[originalAddr]) coords = COMPANY_COORDINATES[originalAddr];
-                            }
-
-                            // Fuzzy match fallback
-                            if (!coords) {
-                                const normTarget = originalAddr.replace(/[^a-z0-9]/gi, '').toLowerCase();
-                                for (const k in COMPANY_COORDINATES) {
-                                    const normK = k.replace(/[^a-z0-9]/gi, '').toLowerCase();
-                                    if (normTarget.includes(normK) || normK.includes(normTarget)) {
-                                        coords = COMPANY_COORDINATES[k];
-                                        break;
-                                    }
+                            // Suche über alle Keys in der Datenbank mit Normalisierung
+                            for (const k in COMPANY_COORDINATES) {
+                                const normK = normalize(k);
+                                if (normK === normOriginal || normOriginal.includes(normK) || normK.includes(normOriginal)) {
+                                    coords = COMPANY_COORDINATES[k];
+                                    break;
                                 }
                             }
                         }
 
                         if (!coords) {
-                            // Use centerCoords but add a tiny random offset to avoid stacking items exactly
-                            // This prevents the "perlenreihe" / stacking issue
+                            // Minimaler Versatz um das Zentrum (Haus-Maßstab)
                             coords = [
-                                centerCoords[0] + (Math.random() - 0.5) * 0.002,
-                                centerCoords[1] + (Math.random() - 0.5) * 0.002
+                                centerCoords[0] + (Math.random() - 0.5) * 0.001,
+                                centerCoords[1] + (Math.random() - 0.5) * 0.001
                             ];
                         }
 
@@ -4014,15 +3990,12 @@ Mit freundlichen Grüßen`;
                         if (markers.length > 0) {
                             const group = new L.featureGroup(markers);
                             try {
-                                map.fitBounds(group.getBounds().pad(0.15), { maxZoom: 15 });
-                            } catch (e) { /* ignore bounds error */ }
+                                map.fitBounds(group.getBounds().pad(0.2), { maxZoom: 16 });
+                            } catch (e) { }
                         }
-                    }, 300);
-
-                    // Second invalidation after a bit longer to be sure
-                    setTimeout(() => map.invalidateSize(), 800);
+                    }, 400);
                 } catch (e) {
-                    console.error("Map initialization error:", e);
+                    console.error("Map error:", e);
                 }
             }
             // Direktvermarkter A-Z anzeigen
