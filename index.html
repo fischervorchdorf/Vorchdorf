@@ -637,6 +637,50 @@
             border-radius: 3px;
         }
 
+        /* Platzoptimierung: Verstecke große Header-Boxen auf Handy/Tablet */
+        @media (max-width: 1024px) {
+
+            .detail-view h2,
+            .rp-header h2,
+            .rp-header p,
+            .flohmarkt-header h2,
+            .flohmarkt-header p,
+            #rpCategoriesView .rp-section-title,
+            #rpProductsSection .rp-section-title {
+                display: none !important;
+            }
+
+            .rp-header,
+            .flohmarkt-header {
+                background: none !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                margin-bottom: 20px !important;
+                min-height: auto !important;
+            }
+
+            .flohmarkt-info-btn,
+            .rp-info-btn {
+                background: var(--primary) !important;
+                color: white !important;
+                border: 2px solid var(--primary) !important;
+                margin: 0 auto !important;
+                display: block !important;
+                width: fit-content !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            .detail-view,
+            .rp-container,
+            .flohmarkt-container {
+                padding-top: 5px !important;
+            }
+
+            .rp-section-divider {
+                margin: 15px 0 !important;
+            }
+        }
+
         /* Business Cards Grid - NEW LAYOUT */
         .business-grid {
             display: grid;
@@ -3585,8 +3629,6 @@ Mit freundlichen Grüßen`;
                 rpCurrentView = 'companies';
 
                 // Views umschalten
-                document.getElementById('floatingBackButton').classList.remove('visible');
-                document.getElementById('backButton').classList.add('hidden');
                 document.getElementById('rpCategoriesView').classList.add('hidden');
                 document.getElementById('rpCompaniesView').classList.remove('hidden');
                 document.getElementById('rpProductsSection').classList.add('hidden');
@@ -3608,7 +3650,7 @@ Mit freundlichen Grüßen`;
                     return `
             <div class="rp-company-card">
                 <div class="rp-company-name">
-                    🏢 ${company.Firma}
+                    🏢 ${company.Firma} ${company.homepage ? ' <span style="font-size: 0.8em; margin-left: 5px;">🌐</span>' : ''}
                 </div>
                 
                 ${company.adresse ? `
@@ -3811,7 +3853,7 @@ Mit freundlichen Grüßen`;
                         return `
                                         <${url ? `a href="${url}" target="_blank"` : 'div'} class="rp-dm-company-item">
                                             <span class="rp-dm-company-number">${company._displayNumber}</span>
-                                            <span class="rp-dm-company-name">${company.Firma}</span>
+                                            <span class="rp-dm-company-name">${company.Firma} ${url ? ' 🌐' : ''}</span>
                                         </${url ? 'a' : 'div'}>
                                     `;
                     }).join('')}
@@ -4314,7 +4356,7 @@ Mit freundlichen Grüßen`;
 
             // App Version - Update this with each release
             // App Version - Update this with each release
-            const APP_VERSION = '7.1'; // Aktuelle Version der App
+            const APP_VERSION = '7.5'; // Aktuelle Version der App
             const CACHE_BUSTER = Date.now();
             // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
             (async function checkForUpdates() {
@@ -4703,8 +4745,7 @@ Mit freundlichen Grüßen`;
 
                     document.getElementById('emergencyBanner').classList.add('hidden');
                     document.getElementById('weatherWidget').classList.add('hidden');
-                    document.getElementById('backButton').classList.add('hidden');
-                    document.getElementById('floatingBackButton').classList.add('visible');
+                    document.getElementById('backButton').classList.remove('hidden');
                     window.scrollTo({ top: 0, behavior: 'instant' });
                     document.getElementById('mainContent').style.display = 'none';
                     document.querySelector('.search-container').classList.add('hidden');
