@@ -166,5 +166,24 @@ const COMPANY_COORDINATES = {
     "Unterhörbach 4, 4655 Vorchdorf": [48.0201, 13.9356],
     "Berg 12, 4655 Vorchdorf": [48.0089, 13.8989],
     "Unterhörbach 10, 4655 Vorchdorf": [48.0203, 13.9358],
-    "Danzlauerstraße 15, 4655 Vorchdorf": [48.0012, 13.9078]
+    "Danzlauerstraße 15, 4655 Vorchdorf": [48.0012, 13.9078],
+
+    // Additional Missing Coordinates (Step Id 203)
+    "Mayrhofstraße 12, 4644 Scharnstein": [47.9189, 13.9856],
+    "Haslach 3, 4612 Scharten": [48.1689, 13.9523],
+    "Hochkogl 24, 4612 Scharten": [48.1678, 13.9512],
+    "Schöngrubstraße 5, 4553 Schlierbach": [47.9345, 14.1012],
+    "Kochlöffling 2, 4690 Schwanenstadt": [48.0678, 13.7845],
+    "Mühlparz 4, 4690 Schwanenstadt": [48.0689, 13.7856],
+    "Philippsberg 3, 4690 Schwanenstadt": [48.0701, 13.7867],
+    "Hummelberg 16, 4652 Steinerkirchen an der Traun": [48.0178, 14.0345],
+    "Schnelling 6, 4652 Steinerkirchen an der Traun": [48.0189, 14.0356],
+    "Dambachstraße 1, 4641 Steinhaus bei Wels": [48.1167, 14.0167],
+    "Ottsdorfer Straße 26, 4662 Steyrermühl": [47.9523, 13.8689],
+    "Schieferstraße 15, 4662 Steyrermühl": [47.9534, 13.8701],
+    "Unterm Berg 12, 4662 Steyrermühl": [47.9512, 13.8678],
+    "Spöck 5, 4753 Taiskirchen im Innkreis": [48.3178, 13.6345],
+    "Weinberg 5, 4753 Taiskirchen im Innkreis": [48.3189, 13.6356],
+    "Diepersdorf 20, 4681 Wartberg an der Krems": [47.9856, 14.1356],
+    "Schachadorf 22, 4681 Wartberg an der Krems": [47.9845, 14.1345]
 };

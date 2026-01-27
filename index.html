@@ -6203,10 +6203,6 @@ Mit freundlichen Grüßen`;
                 await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
                 await initializeRP(); // Lade Regionale Produkte (Produkte + Firmen)
 
-                const coordsScript = document.createElement('script');
-                coordsScript.src = 'company-coordinates.js';
-                document.head.appendChild(coordsScript);
-
                 // Ensure COMPANY_COORDINATES is loaded
                 if (typeof COMPANY_COORDINATES === 'undefined') {
                     const script = document.createElement('script');
