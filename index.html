@@ -3826,11 +3826,18 @@ Mit freundlichen Grüßen`;
                 rpAllCompanies.forEach(company => {
                     let location = 'Sonstige';
                     if (company.adresse) {
-                        const match = company.adresse.match(/(\d{4})\s+([^,]+)/);
-                        if (match && match[2]) {
-                            location = match[2].trim();
-                            // Clean up location name (remove trailing numbers or junk)
-                            location = location.split(/[/(]/)[0].trim();
+                        // Logic: "4655 Vorchdorf - Streiningerstraße 50"
+                        // 1. Split by ' - ' or just '-'
+                        const parts = company.adresse.split('-');
+                        if (parts.length > 0) {
+                            const zipCity = parts[0].trim(); // "4655 Vorchdorf"
+
+                            const match = zipCity.match(/(\d{4})\s+(.+)/);
+                            if (match && match[2]) {
+                                location = match[2].trim(); // "Vorchdorf"
+                            } else {
+                                location = zipCity;
+                            }
                         }
                     }
 
@@ -3838,7 +3845,6 @@ Mit freundlichen Grüßen`;
                         companiesByLocation[location] = [];
                     }
 
-                    company._displayNumber = companyNumber++;
                     companiesByLocation[location].push(company);
                 });
 
@@ -3851,9 +3857,15 @@ Mit freundlichen Grüßen`;
 
                 // Rendere HTML
                 grid.innerHTML = sortedLocations.map((location, locIndex) => {
+                    // Reset numbering for each location
+                    let companyNumber = 1;
+
                     const companies = companiesByLocation[location].sort((a, b) =>
                         a.Firma.localeCompare(b.Firma, 'de')
                     );
+
+                    // Assign display numbers for this location group
+                    companies.forEach(c => c._displayNumber = companyNumber++);
 
                     const mapId = `map-location-${locIndex}`; // Improved ID
 
@@ -3924,26 +3936,31 @@ Mit freundlichen Grüßen`;
                         let coords = null;
 
                         if (company.adresse && typeof COMPANY_COORDINATES !== 'undefined') {
-                            const exactKey = company.adresse.trim();
-                            // 1. Exact match
-                            if (COMPANY_COORDINATES[exactKey]) {
-                                coords = COMPANY_COORDINATES[exactKey];
-                            }
-                            // 2. Fuzzy match (ignore spaces)
-                            else {
-                                const normKey = exactKey.replace(/\s+/g, '');
-                                for (const k in COMPANY_COORDINATES) {
-                                    if (k.replace(/\s+/g, '') === normKey) {
-                                        coords = COMPANY_COORDINATES[k];
-                                        break;
-                                    }
-                                }
+                            const originalAddr = company.adresse.trim(); // "4655 Vorchdorf - Streiningerstraße 50"
+
+                            // Try to reconstruct "Street, Zip City" from "Zip City - Street"
+                            let constructedKey = originalAddr;
+                            const parts = originalAddr.split('-');
+                            if (parts.length >= 2) {
+                                // Teile aufbereiten: Erste Teil ist PLZ Ort, Zweiter Teil ist Straße
+                                const zipCity = parts[0].trim(); // 4655 Vorchdorf
+                                const street = parts[1].trim();  // Streiningerstraße 50
+                                constructedKey = `${street}, ${zipCity}`;
                             }
 
-                            // 3. Address part match
-                            if (!coords) {
+                            // 1. Exact match with constructed key
+                            if (COMPANY_COORDINATES[constructedKey]) {
+                                coords = COMPANY_COORDINATES[constructedKey];
+                            }
+                            // 2. Exact match with original key (fallback)
+                            else if (COMPANY_COORDINATES[originalAddr]) {
+                                coords = COMPANY_COORDINATES[originalAddr];
+                            }
+                            // 3. Fuzzy match
+                            else {
+                                const normKey = constructedKey.replace(/\s+/g, '');
                                 for (const k in COMPANY_COORDINATES) {
-                                    if (k.includes(exactKey) || exactKey.includes(k)) {
+                                    if (k.replace(/\s+/g, '') === normKey) {
                                         coords = COMPANY_COORDINATES[k];
                                         break;
                                     }
@@ -4500,7 +4517,8 @@ Mit freundlichen Grüßen`;
             }
 
             // App Version - Update this with each release
-            const APP_VERSION = '5.8'; // Aktuelle Version der App
+            // App Version - Update this with each release
+            const APP_VERSION = '5.9'; // Aktuelle Version der App
             const CACHE_BUSTER = Date.now();
             // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
             (async function checkForUpdates() {
