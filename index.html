@@ -2297,6 +2297,7 @@
 
         .rp-dm-company-list {
             display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 12px;
         }
 
@@ -2304,13 +2305,23 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding: 12px 15px;
+            padding: 8px 12px;
             background: #f8f9fa;
             border-radius: 8px;
             transition: all 0.3s;
             text-decoration: none;
             color: var(--text);
             gap: 10px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .rp-dm-company-item:hover {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+            color: var(--primary);
         }
 
         .rp-dm-company-number {
@@ -3137,6 +3148,27 @@
                     if (!obj['Preis in Euro'] && rowData[4]) obj['Preis in Euro'] = rowData[4];
                     if (!obj['Firmenname'] && rowData[6]) obj['Firmenname'] = rowData[6];
 
+                    // Fallback for Address (Adresse)
+                    if (!obj['adresse']) {
+                        const addressCandidates = ['Adresse', 'Anschrift', 'Strasse', 'Straße', 'Standort'];
+                        for (const key of addressCandidates) {
+                            if (obj[key]) {
+                                obj['adresse'] = obj[key];
+                                break;
+                            }
+                        }
+                        // If still empty, try to find a column that looks like an address (contains digit and zip)
+                        if (!obj['adresse']) {
+                            // Look through all fields
+                            for (const k in obj) {
+                                if (obj[k] && typeof obj[k] === 'string' && obj[k].match(/\d{4}\s+/)) {
+                                    obj['adresse'] = obj[k];
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                     // Flexible Image Search
                     if (!obj['Bild 1 Url von Imgur']) {
                         // Try column 8 or find any http link
@@ -3792,10 +3824,15 @@ Mit freundlichen Grüßen`;
                 let companyNumber = 1;
 
                 rpAllCompanies.forEach(company => {
-                    if (!company.adresse) return;
-
-                    const match = company.adresse.match(/\d{4}\s+([^-,]+)/);
-                    let location = match ? match[1].trim() : 'Sonstige';
+                    let location = 'Sonstige';
+                    if (company.adresse) {
+                        const match = company.adresse.match(/(\d{4})\s+([^,]+)/);
+                        if (match && match[2]) {
+                            location = match[2].trim();
+                            // Clean up location name (remove trailing numbers or junk)
+                            location = location.split(/[/(]/)[0].trim();
+                        }
+                    }
 
                     if (!companiesByLocation[location]) {
                         companiesByLocation[location] = [];
@@ -3807,8 +3844,8 @@ Mit freundlichen Grüßen`;
 
                 // Sortiere Orte: Vorchdorf zuerst, dann alphabetisch
                 const sortedLocations = Object.keys(companiesByLocation).sort((a, b) => {
-                    if (a === 'Vorchdorf') return -1;
-                    if (b === 'Vorchdorf') return 1;
+                    if (a.includes('Vorchdorf')) return -1;
+                    if (b.includes('Vorchdorf')) return 1;
                     return a.localeCompare(b, 'de');
                 });
 
@@ -3818,7 +3855,7 @@ Mit freundlichen Grüßen`;
                         a.Firma.localeCompare(b.Firma, 'de')
                     );
 
-                    const mapId = `map-${locIndex}`;
+                    const mapId = `map-location-${locIndex}`; // Improved ID
 
                     return `
                         <div class="rp-dm-location-group">
@@ -3836,7 +3873,6 @@ Mit freundlichen Grüßen`;
                                         <${hasWebsite ? 'a href="' + url + '" target="_blank"' : 'div'} class="rp-dm-company-item">
                                             <span class="rp-dm-company-number">${company._displayNumber}</span>
                                             <span class="rp-dm-company-name">${company.Firma}</span>
-                                            ${hasWebsite ? '<span class="rp-dm-company-arrow">→</span>' : ''}
                                         </${hasWebsite ? 'a' : 'div'}>
                                     `;
                     }).join('')}
@@ -3851,9 +3887,20 @@ Mit freundlichen Grüßen`;
                 setTimeout(() => {
                     sortedLocations.forEach((location, locIndex) => {
                         const companies = companiesByLocation[location];
-                        const mapId = `map-${locIndex}`;
-                        const coords = locationCoords[location] || [48.0, 14.0];
-                        initializeLocationMap(mapId, companies, coords, location);
+                        const mapId = `map-location-${locIndex}`;
+
+                        // Find matching coords for location
+                        let centerCoords = [48.0067, 13.9156]; // Default Vorchdorf
+
+                        // Fuzzy match location name
+                        for (const key in locationCoords) {
+                            if (location.includes(key) || key.includes(location)) {
+                                centerCoords = locationCoords[key];
+                                break;
+                            }
+                        }
+
+                        initializeLocationMap(mapId, companies, centerCoords, location);
                     });
                 }, 500);
             }
@@ -3862,31 +3909,88 @@ Mit freundlichen Grüßen`;
                 const mapElement = document.getElementById(mapId);
                 if (!mapElement) return;
 
-                const map = L.map(mapId).setView(centerCoords, 14);
+                // Ensure Leaflet is loaded
+                if (typeof L === 'undefined') {
+                    mapElement.innerHTML = '<div style="padding:20px;text-align:center;">Karte konnte nicht geladen werden.</div>';
+                    return;
+                }
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap'
-                }).addTo(map);
+                try {
+                    const map = L.map(mapId).setView(centerCoords, 13);
 
-                companies.forEach((company) => {
-                    // Hole Koordinaten aus vorberechneter Liste
-                    const coords = COMPANY_COORDINATES[company.adresse] || centerCoords;
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap'
+                    }).addTo(map);
 
-                    const numberIcon = L.divIcon({
-                        className: 'custom-number-icon',
-                        html: `<div style="background: #2d5016; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">${company._displayNumber}</div>`,
-                        iconSize: [32, 32],
-                        iconAnchor: [16, 16]
+                    const markers = [];
+
+                    companies.forEach((company) => {
+                        // Hole Koordinaten - Robustes Matching
+                        let coords = null;
+
+                        if (company.adresse && typeof COMPANY_COORDINATES !== 'undefined') {
+                            const exactKey = company.adresse.trim();
+                            // 1. Exact match
+                            if (COMPANY_COORDINATES[exactKey]) {
+                                coords = COMPANY_COORDINATES[exactKey];
+                            }
+                            // 2. Fuzzy match (ignore spaces)
+                            else {
+                                const normKey = exactKey.replace(/\s+/g, '');
+                                for (const k in COMPANY_COORDINATES) {
+                                    if (k.replace(/\s+/g, '') === normKey) {
+                                        coords = COMPANY_COORDINATES[k];
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // 3. Address part match
+                            if (!coords) {
+                                for (const k in COMPANY_COORDINATES) {
+                                    if (k.includes(exactKey) || exactKey.includes(k)) {
+                                        coords = COMPANY_COORDINATES[k];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!coords) {
+                            console.warn(`Keine Koordinaten für: ${company.Firma} (${company.adresse})`);
+                            coords = centerCoords; // Fallback to center
+                        }
+
+                        const numberIcon = L.divIcon({
+                            className: 'custom-number-icon',
+                            html: `<div style="background: #2d5016; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3); font-family: sans-serif;">${company._displayNumber}</div>`,
+                            iconSize: [32, 32],
+                            iconAnchor: [16, 16],
+                            popupAnchor: [0, -16]
+                        });
+
+                        const marker = L.marker(coords, { icon: numberIcon })
+                            .addTo(map)
+                            .bindPopup(`<strong>${company._displayNumber}. ${company.Firma}</strong><br>${company.adresse || locationName}`);
+
+                        markers.push(marker);
                     });
 
-                    L.marker(coords, { icon: numberIcon })
-                        .addTo(map)
-                        .bindPopup(`<strong>${company._displayNumber}. ${company.Firma}</strong><br>${company.adresse || locationName}`);
-                });
-
-                setTimeout(() => {
-                    map.invalidateSize();
-                }, 500);
+                    // Fit bounds if markers exist
+                    if (markers.length > 0) {
+                        const group = new L.featureGroup(markers);
+                        setTimeout(() => {
+                            map.fitBounds(group.getBounds().pad(0.1));
+                            map.invalidateSize();
+                        }, 500);
+                    } else {
+                        setTimeout(() => {
+                            map.invalidateSize();
+                        }, 500);
+                    }
+                } catch (e) {
+                    console.error("Map initialization error:", e);
+                }
             }
             // Direktvermarkter A-Z anzeigen
             function rpShowDirectMarketersAZ() {
