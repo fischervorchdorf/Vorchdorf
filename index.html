@@ -682,6 +682,16 @@
                 margin: 15px 0 !important;
             }
 
+            /* Verstecke redundanten RP-Button wenn globaler Button da ist */
+            .rp-container #rpBackBtn {
+                display: none !important;
+            }
+
+            #rpCompaniesView~#rpBackBtn,
+            #rpDirectMarketersSection~#rpBackBtn {
+                display: block !important;
+            }
+
             .mobile-hide-header {
                 display: none !important;
             }
@@ -2963,16 +2973,8 @@
     <div id="rpContainer" class="rp-container">
         <!-- Header -->
         <div class="rp-header">
-            <h2>🍎 Regionale Produkte aus Vorchdorf</h2>
-            <p>Frische Produkte direkt von regionalen Anbietern</p>
+            <h2>🍎 Regionale Produkte aus der Region Vorchdorf</h2>
             <button class="rp-info-btn" onclick="openRPInfo()">ℹ️ Info</button>
-        </div>
-
-        <!-- Info Box (Neu: Immer sichtbar in der Hauptansicht) -->
-        <div id="rpMainInfoBox" class="info-item" style="margin-bottom: 20px;">
-            <h4>🍎 Qualität aus unserer Region</h4>
-            <p>In Vorchdorf produzieren viele engagierte Betriebe hochwertige Lebensmittel. Hier finden Sie eine
-                Übersicht aller Anbieter und Produkte direkt vom Erzeuger.</p>
         </div>
 
         <!-- Back Button -->
@@ -2980,6 +2982,12 @@
 
         <!-- MAIN VIEW: Categories -->
         <div id="rpCategoriesView">
+            <!-- Info Box (Immer sichtbar in der Hauptansicht) -->
+            <div id="rpMainInfoBox" class="info-item" style="margin-bottom: 20px;">
+                <h4>🍎 Qualität aus unserer Region</h4>
+                <p>In Vorchdorf produzieren viele engagierte Betriebe hochwertige Lebensmittel. Hier finden Sie eine
+                    Übersicht aller Anbieter und Produkte direkt vom Erzeuger.</p>
+            </div>
             <h3 class="rp-section-title">Kategorien</h3>
             <div id="rpCategoryGrid" class="rp-category-grid"></div>
 
@@ -4371,7 +4379,7 @@ Mit freundlichen Grüßen`;
 
                 // App Version - Update this with each release
                 // App Version - Update this with each release
-                const APP_VERSION = '8.3'; // Mobile UI Cleanup & Version Sync
+                const APP_VERSION = '8.4'; // Button Cleanup & Syntax Fixes
                 const CACHE_BUSTER = Date.now();
                 // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
                 (async function checkForUpdates() {
@@ -4775,9 +4783,8 @@ Mit freundlichen Grüßen`;
                         document.getElementById('rpCategoriesView').classList.remove('hidden');
                         document.getElementById('rpCompaniesView').classList.add('hidden');
                         document.getElementById('rpProductsSection').classList.remove('hidden');
-                        document.getElementById('rpBackBtn').classList.remove('hidden'); // Immer zeigen in RP
-                        document.getElementById('backButton').classList.remove('hidden');
-                        document.getElementById('rpMainInfoBox').classList.remove('hidden'); // Sicherstellen dass Info sichtbar ist
+                        document.getElementById('rpBackBtn').classList.add('hidden'); // Verstecke lokalen Button auf Startseite
+                        document.getElementById('backButton').classList.remove('hidden'); // Zeige globalen Button
                         return;
                     }
 
