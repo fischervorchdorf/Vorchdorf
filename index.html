@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, public, proxy-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -2327,6 +2332,11 @@
             height: 350px;
         }
 
+        .rp-dm-location-map .leaflet-container {
+            height: 100%;
+            border-radius: 12px;
+        }
+
         .rp-dm-map-button {
             display: block;
             margin-top: 15px;
@@ -3738,7 +3748,7 @@ Mit freundlichen Grüßen`;
         `;
                 }).join('');
             }
-            // Direktvermarkter nach Orten sortiert anzeigen mit Nummerierung
+            // Direktvermarkter nach Orten sortiert anzeigen mit Karten
             function renderDirectMarketers() {
                 const grid = document.getElementById('rpDirectMarketersGrid');
 
@@ -3770,46 +3780,117 @@ Mit freundlichen Grüßen`;
                 });
 
                 // Rendere HTML
-                grid.innerHTML = sortedLocations.map(location => {
+                grid.innerHTML = sortedLocations.map((location, locIndex) => {
                     const companies = companiesByLocation[location].sort((a, b) =>
                         a.Firma.localeCompare(b.Firma, 'de')
                     );
 
-                    // Erstelle Google Maps Such-URL mit allen Adressen
-                    const addresses = companies
-                        .filter(c => c.adresse)
-                        .map(c => c.adresse)
-                        .join(' | ');
-                    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addresses)}`;
+                    const mapId = `map-${locIndex}`;
 
                     return `
-            <div class="rp-dm-location-group">
-                <h4 class="rp-dm-location-title">
-                    📍 ${location} (${companies.length} ${companies.length === 1 ? 'Anbieter' : 'Anbieter'})
-                </h4>
-                <div class="rp-dm-company-list">
-                    ${companies.map(company => {
+                <div class="rp-dm-location-group">
+                    <h4 class="rp-dm-location-title">
+                        📍 ${location} (${companies.length} ${companies.length === 1 ? 'Anbieter' : 'Anbieter'})
+                    </h4>
+                    <div class="rp-dm-company-list">
+                        ${companies.map(company => {
                         const hasWebsite = company.homepage && company.homepage.trim();
                         const url = hasWebsite
                             ? (company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage)
                             : '#';
 
                         return `
-                            <${hasWebsite ? 'a href="' + url + '" target="_blank"' : 'div'} class="rp-dm-company-item">
-                                <span class="rp-dm-company-number">${company._displayNumber}</span>
-                                <span class="rp-dm-company-name">${company.Firma}</span>
-                                ${hasWebsite ? '<span class="rp-dm-company-arrow">→</span>' : ''}
-                            </${hasWebsite ? 'a' : 'div'}>
-                        `;
+                                <${hasWebsite ? 'a href="' + url + '" target="_blank"' : 'div'} class="rp-dm-company-item">
+                                    <span class="rp-dm-company-number">${company._displayNumber}</span>
+                                    <span class="rp-dm-company-name">${company.Firma}</span>
+                                    ${hasWebsite ? '<span class="rp-dm-company-arrow">→</span>' : ''}
+                                </${hasWebsite ? 'a' : 'div'}>
+                            `;
                     }).join('')}
-                </div>
+                    </div>
                 
-                <a href="${mapUrl}" target="_blank" class="rp-dm-map-button">
-                    📍 Alle ${companies.length} Anbieter in ${location} auf der Karte anzeigen
-                </a>
-            </div>
-        `;
+                    <div class="rp-dm-location-map" id="${mapId}"></div>
+                     </div>
+                `;
                 }).join('');
+
+                // Initialisiere Karten nach dem Rendern
+                setTimeout(() => {
+                    sortedLocations.forEach((location, locIndex) => {
+                        const companies = companiesByLocation[location];
+                        const mapId = `map-${locIndex}`;
+                        initializeLocationMap(mapId, companies);
+                    });
+                }, 100);
+            }
+
+            // Initialisiere Leaflet Karte für einen Ort
+            function initializeLocationMap(mapId, companies) {
+                const mapElement = document.getElementById(mapId);
+                if (!mapElement) return;
+
+                // Geocode Adressen zu Koordinaten (vereinfacht)
+                const geocodePromises = companies.map(company =>
+                    geocodeAddress(company.adresse).then(coords => ({
+                        ...company,
+                        coords
+                    }))
+                );
+
+                Promise.all(geocodePromises).then(companiesWithCoords => {
+                    const validCompanies = companiesWithCoords.filter(c => c.coords);
+                    if (validCompanies.length === 0) return;
+
+                    // Berechne Zentrum
+                    const avgLat = validCompanies.reduce((sum, c) => sum + c.coords.lat, 0) / validCompanies.length;
+                    const avgLng = validCompanies.reduce((sum, c) => sum + c.coords.lng, 0) / validCompanies.length;
+
+                    // Erstelle Karte
+                    const map = L.map(mapId).setView([avgLat, avgLng], 13);
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap'
+                    }).addTo(map);
+
+                    // Füge nummerierte Marker hinzu
+                    validCompanies.forEach(company => {
+                        const numberIcon = L.divIcon({
+                            className: 'custom-number-icon',
+                            html: `<div style="background: #2d5016; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">${company._displayNumber}</div>`,
+                            iconSize: [32, 32],
+                            iconAnchor: [16, 16]
+                        });
+
+                        L.marker([company.coords.lat, company.coords.lng], { icon: numberIcon })
+                            .addTo(map)
+                            .bindPopup(`<strong>${company.Firma}</strong><br>${company.adresse}`);
+                    });
+
+                    // Passe Zoom an alle Marker an
+                    if (validCompanies.length > 1) {
+                        const bounds = L.latLngBounds(validCompanies.map(c => [c.coords.lat, c.coords.lng]));
+                        map.fitBounds(bounds, { padding: [50, 50] });
+                    }
+                });
+            }
+
+            // Vereinfachtes Geocoding (Nominatim)
+            async function geocodeAddress(address) {
+                try {
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`
+                    );
+                    const data = await response.json();
+                    if (data && data.length > 0) {
+                        return {
+                            lat: parseFloat(data[0].lat),
+                            lng: parseFloat(data[0].lon)
+                        };
+                    }
+                } catch (e) {
+                    console.error('Geocoding failed:', e);
+                }
+                return null;
             }
 
             // Direktvermarkter A-Z anzeigen
@@ -4302,7 +4383,7 @@ Mit freundlichen Grüßen`;
             }
 
             // App Version - Update this with each release
-            const APP_VERSION = '5.7'; // Aktuelle Version der App
+            const APP_VERSION = '5.8'; // Aktuelle Version der App
             const CACHE_BUSTER = Date.now();
             // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
             (async function checkForUpdates() {
