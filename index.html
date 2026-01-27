@@ -2296,24 +2296,24 @@
         }
 
         .rp-dm-company-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .rp-dm-company-item {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 8px 12px;
+            padding: 6px 12px;
             background: #f8f9fa;
-            border-radius: 8px;
-            transition: all 0.3s;
+            border-radius: 50px;
+            transition: all 0.2s;
             text-decoration: none;
             color: var(--text);
-            gap: 10px;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
+            font-size: 0.85rem;
+            border: 1px solid #eee;
+            cursor: pointer;
         }
 
         .rp-dm-company-item:hover {
@@ -2328,14 +2328,14 @@
             background: var(--primary);
             color: white;
             font-weight: 700;
-            font-size: 0.9rem;
-            width: 28px;
-            height: 28px;
+            font-size: 0.8rem;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 8px;
             flex-shrink: 0;
         }
 
@@ -3864,16 +3864,11 @@ Mit freundlichen Grüßen`;
                             </h4>
                             <div class="rp-dm-company-list">
                                 ${companies.map(company => {
-                        const hasWebsite = company.homepage && company.homepage.trim();
-                        const url = hasWebsite
-                            ? (company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage)
-                            : '#';
-
                         return `
-                                        <${hasWebsite ? 'a href="' + url + '" target="_blank"' : 'div'} class="rp-dm-company-item">
+                                        <div class="rp-dm-company-item">
                                             <span class="rp-dm-company-number">${company._displayNumber}</span>
                                             <span class="rp-dm-company-name">${company.Firma}</span>
-                                        </${hasWebsite ? 'a' : 'div'}>
+                                        </div>
                                     `;
                     }).join('')}
                             </div>
@@ -4003,6 +3998,29 @@ Mit freundlichen Grüßen`;
                 // Zeige Direktvermarkter
                 document.getElementById('rpDirectMarketersSection').classList.remove('hidden');
                 document.getElementById('rpBackBtn').classList.remove('hidden');
+
+                // Trigger map resize on all maps
+                setTimeout(() => {
+                    document.querySelectorAll('.rp-dm-location-map').forEach(mapDiv => {
+                        // Find the leaflet map instance attached to the container?
+                        // Leaflet doesn't attach map instance to DOM element by default.
+                        // But we can trigger a window resize event which might help if responsive logic is there,
+                        // OR we just rely on the initializeLocationMap being robust.
+                        // Actually, we need to re-invalidate size if the map was already initialized.
+                        // A simple trick: standard leaflet practice involves invalidateSize();
+
+                        // Since we don't have easy access to map instances here (managed inside closures),
+                        // we rely on the fact that initializeLocationMap handles the initial render.
+                        // If maps are already rendered but hidden, showing them needs invalidateSize.
+
+                        // BUT: The current logic re-renders everything every time `initializeRP` is called? 
+                        // No, `renderDirectMarketers` is called once. 
+                        // If the user navigates away and back, maps might be broken.
+
+                        // Let's just force a re-layout trigger
+                        window.dispatchEvent(new Event('resize'));
+                    });
+                }, 100);
 
                 rpCurrentView = 'az';
                 document.getElementById('floatingBackButton').classList.add('visible');
