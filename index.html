@@ -3788,7 +3788,7 @@ Mit freundlichen Grüßen`;
                 rpAllCompanies.forEach(company => {
                     if (!company.adresse) return;
 
-                    const match = company.adresse.match(/\d{4}\s+(.+)/);
+                    const match = company.adresse.match(/\d{4}\s+([^-,]+)/);
                     let location = match ? match[1].trim() : 'Sonstige';
 
                     if (!companiesByLocation[location]) {
