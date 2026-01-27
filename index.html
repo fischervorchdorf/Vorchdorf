@@ -6187,6 +6187,18 @@ Mit freundlichen Grüßen`;
                 await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
                 await initializeRP(); // Lade Regionale Produkte (Produkte + Firmen)
 
+                const coordsScript = document.createElement('script');
+                coordsScript.src = 'company-coordinates.js';
+                document.head.appendChild(coordsScript);
+
+                // Ensure COMPANY_COORDINATES is loaded
+                if (typeof COMPANY_COORDINATES === 'undefined') {
+                    const script = document.createElement('script');
+                    script.src = 'company-coordinates.js';
+                    script.onload = () => console.log('Coordinates loaded dynamically');
+                    document.head.appendChild(script);
+                }
+
                 // Scroll-Check für Floating Back Button
                 window.addEventListener('scroll', function () {
                     const floatBtn = document.getElementById('floatingBackButton');
