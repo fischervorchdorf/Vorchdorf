@@ -3752,6 +3752,35 @@ Mit freundlichen Grüßen`;
             function renderDirectMarketers() {
                 const grid = document.getElementById('rpDirectMarketersGrid');
 
+                // Orts-Koordinaten (Zentrum)
+                const locationCoords = {
+                    'Vorchdorf': [48.0067, 13.9156],
+                    'Altmünster': [47.9000, 13.7667],
+                    'Bad Wimsbach-Neydharting': [48.0833, 13.9833],
+                    'Brunnenthal': [48.0333, 13.9667],
+                    'Eberstalzell': [48.0833, 14.0333],
+                    'Gmunden': [47.9167, 13.8000],
+                    'Kirchham': [48.0500, 13.9333],
+                    'Kremsmünster': [48.0500, 14.1333],
+                    'Laakirchen': [47.9833, 13.8167],
+                    'Lambach': [48.0833, 13.8833],
+                    'Niederthalheim': [48.0667, 13.7333],
+                    'Ohlsdorf': [47.9667, 13.9000],
+                    'Pettenbach': [47.9667, 14.0333],
+                    'Pinsdorf': [47.9167, 13.7667],
+                    'Roitham am Traunfall': [47.9667, 13.9167],
+                    'Sankt Konrad': [48.1167, 13.9000],
+                    'Sattledt': [48.1000, 14.0500],
+                    'Scharnstein': [47.9167, 13.9833],
+                    'Scharten': [48.1667, 13.9500],
+                    'Schlierbach': [47.9333, 14.1000],
+                    'Schwanenstadt': [48.0667, 13.7833],
+                    'Steinerkirchen an der Traun': [48.0167, 14.0333],
+                    'Steyrermühl': [47.9500, 13.8667],
+                    'Taiskirchen im Innkreis': [48.3167, 13.6333],
+                    'Wartberg an der Krems': [47.9833, 14.1333]
+                };
+
                 // Extrahiere Ort aus Adresse
                 const companiesByLocation = {};
                 let companyNumber = 1;
@@ -3759,7 +3788,6 @@ Mit freundlichen Grüßen`;
                 rpAllCompanies.forEach(company => {
                     if (!company.adresse) return;
 
-                    // Extrahiere Ort (nach der PLZ)
                     const match = company.adresse.match(/\d{4}\s+(.+)/);
                     let location = match ? match[1].trim() : 'Sonstige';
 
@@ -3767,7 +3795,6 @@ Mit freundlichen Grüßen`;
                         companiesByLocation[location] = [];
                     }
 
-                    // Füge Nummer hinzu
                     company._displayNumber = companyNumber++;
                     companiesByLocation[location].push(company);
                 });
@@ -3788,30 +3815,30 @@ Mit freundlichen Grüßen`;
                     const mapId = `map-${locIndex}`;
 
                     return `
-                <div class="rp-dm-location-group">
-                    <h4 class="rp-dm-location-title">
-                        📍 ${location} (${companies.length} ${companies.length === 1 ? 'Anbieter' : 'Anbieter'})
-                    </h4>
-                    <div class="rp-dm-company-list">
-                        ${companies.map(company => {
+                        <div class="rp-dm-location-group">
+                            <h4 class="rp-dm-location-title">
+                                📍 ${location} (${companies.length} ${companies.length === 1 ? 'Anbieter' : 'Anbieter'})
+                            </h4>
+                            <div class="rp-dm-company-list">
+                                ${companies.map(company => {
                         const hasWebsite = company.homepage && company.homepage.trim();
                         const url = hasWebsite
                             ? (company.homepage.startsWith('http') ? company.homepage : 'https://' + company.homepage)
                             : '#';
 
                         return `
-                                <${hasWebsite ? 'a href="' + url + '" target="_blank"' : 'div'} class="rp-dm-company-item">
-                                    <span class="rp-dm-company-number">${company._displayNumber}</span>
-                                    <span class="rp-dm-company-name">${company.Firma}</span>
-                                    ${hasWebsite ? '<span class="rp-dm-company-arrow">→</span>' : ''}
-                                </${hasWebsite ? 'a' : 'div'}>
-                            `;
+                                        <${hasWebsite ? 'a href="' + url + '" target="_blank"' : 'div'} class="rp-dm-company-item">
+                                            <span class="rp-dm-company-number">${company._displayNumber}</span>
+                                            <span class="rp-dm-company-name">${company.Firma}</span>
+                                            ${hasWebsite ? '<span class="rp-dm-company-arrow">→</span>' : ''}
+                                        </${hasWebsite ? 'a' : 'div'}>
+                                    `;
                     }).join('')}
-                    </div>
-                
-                    <div class="rp-dm-location-map" id="${mapId}"></div>
-                     </div>
-                `;
+                            </div>
+                            
+                            <div class="rp-dm-location-map" id="${mapId}"></div>
+                        </div>
+                    `;
                 }).join('');
 
                 // Initialisiere Karten nach dem Rendern
@@ -3819,78 +3846,41 @@ Mit freundlichen Grüßen`;
                     sortedLocations.forEach((location, locIndex) => {
                         const companies = companiesByLocation[location];
                         const mapId = `map-${locIndex}`;
-                        initializeLocationMap(mapId, companies);
+                        const coords = locationCoords[location] || [48.0, 14.0];
+                        initializeLocationMap(mapId, companies, coords, location);
                     });
                 }, 100);
             }
 
             // Initialisiere Leaflet Karte für einen Ort
-            function initializeLocationMap(mapId, companies) {
+            function initializeLocationMap(mapId, companies, centerCoords, locationName) {
                 const mapElement = document.getElementById(mapId);
                 if (!mapElement) return;
 
-                // Geocode Adressen zu Koordinaten (vereinfacht)
-                const geocodePromises = companies.map(company =>
-                    geocodeAddress(company.adresse).then(coords => ({
-                        ...company,
-                        coords
-                    }))
-                );
+                // Erstelle Karte
+                const map = L.map(mapId).setView(centerCoords, 14);
 
-                Promise.all(geocodePromises).then(companiesWithCoords => {
-                    const validCompanies = companiesWithCoords.filter(c => c.coords);
-                    if (validCompanies.length === 0) return;
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(map);
 
-                    // Berechne Zentrum
-                    const avgLat = validCompanies.reduce((sum, c) => sum + c.coords.lat, 0) / validCompanies.length;
-                    const avgLng = validCompanies.reduce((sum, c) => sum + c.coords.lng, 0) / validCompanies.length;
-
-                    // Erstelle Karte
-                    const map = L.map(mapId).setView([avgLat, avgLng], 13);
-
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '© OpenStreetMap'
-                    }).addTo(map);
-
-                    // Füge nummerierte Marker hinzu
-                    validCompanies.forEach(company => {
-                        const numberIcon = L.divIcon({
-                            className: 'custom-number-icon',
-                            html: `<div style="background: #2d5016; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">${company._displayNumber}</div>`,
-                            iconSize: [32, 32],
-                            iconAnchor: [16, 16]
-                        });
-
-                        L.marker([company.coords.lat, company.coords.lng], { icon: numberIcon })
-                            .addTo(map)
-                            .bindPopup(`<strong>${company.Firma}</strong><br>${company.adresse}`);
+                // Füge nummerierte Marker für alle Firmen hinzu
+                companies.forEach((company, idx) => {
+                    const numberIcon = L.divIcon({
+                        className: 'custom-number-icon',
+                        html: `<div style="background: #2d5016; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">${company._displayNumber}</div>`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 16]
                     });
 
-                    // Passe Zoom an alle Marker an
-                    if (validCompanies.length > 1) {
-                        const bounds = L.latLngBounds(validCompanies.map(c => [c.coords.lat, c.coords.lng]));
-                        map.fitBounds(bounds, { padding: [50, 50] });
-                    }
-                });
-            }
+                    // Verwende Ortszentrum mit kleinem Offset für jeden Anbieter
+                    const offsetLat = centerCoords[0] + (Math.random() - 0.5) * 0.01;
+                    const offsetLng = centerCoords[1] + (Math.random() - 0.5) * 0.01;
 
-            // Vereinfachtes Geocoding (Nominatim)
-            async function geocodeAddress(address) {
-                try {
-                    const response = await fetch(
-                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`
-                    );
-                    const data = await response.json();
-                    if (data && data.length > 0) {
-                        return {
-                            lat: parseFloat(data[0].lat),
-                            lng: parseFloat(data[0].lon)
-                        };
-                    }
-                } catch (e) {
-                    console.error('Geocoding failed:', e);
-                }
-                return null;
+                    L.marker([offsetLat, offsetLng], { icon: numberIcon })
+                        .addTo(map)
+                        .bindPopup(`<strong>${company._displayNumber}. ${company.Firma}</strong><br>${company.adresse || locationName}`);
+                });
             }
 
             // Direktvermarkter A-Z anzeigen
