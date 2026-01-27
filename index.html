@@ -3851,7 +3851,7 @@ Mit freundlichen Grüßen`;
                         const coords = locationCoords[location] || [48.0, 14.0];
                         initializeLocationMap(mapId, companies, coords, location);
                     });
-                }, 100);
+                }, 500);
             }
 
             // Initialisiere Leaflet Karte für einen Ort
@@ -3887,7 +3887,7 @@ Mit freundlichen Grüßen`;
                 // Erzwinge Neuberechnung der Kartengröße
                 setTimeout(() => {
                     map.invalidateSize();
-                }, 200);
+                }, 500);
             }
             // Direktvermarkter A-Z anzeigen
             function rpShowDirectMarketersAZ() {
