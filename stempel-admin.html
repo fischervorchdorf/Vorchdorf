@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stempelpass Admin - Vorchdorf</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a472a;
+            --secondary: #FF9800;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            display: inline-block;
+            border: 1px solid #ddd;
+        }
+
+        .result-json {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #666;
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+
+        .print-btn {
+            background: #2196F3;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #printArea,
+            #printArea * {
+                visibility: visible;
+            }
+
+            #printArea {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🎟️ Stempelpass Admin-Tool</h1>
+        <p>Erstellen Sie neue Pässe für die <b>stempel_data.json</b> oder generieren Sie QR-Codes für Betriebe.</p>
+
+        <!-- SECTION 1: QR CODE GENERATOR -->
+        <div class="section">
+            <h2>1️⃣ QR-Code für Betrieb generieren</h2>
+            <p>Geben Sie die ID des Passes und den Namen des Betriebs ein.</p>
+            <div class="grid">
+                <div>
+                    <label>Pass ID (z.B. vorchdorf_winter_2025)</label>
+                    <input type="text" id="qrPassId" placeholder="Pass ID kopieren...">
+
+                    <label>Betriebs ID / Firmenname (kleingeschrieben, ohne Leerzeichen)</label>
+                    <input type="text" id="qrCompanyId" placeholder="z.b. trafik_fischer">
+
+                    <button onclick="generateQR()">QR-Code erstellen</button>
+                </div>
+                <div id="printArea" style="text-align: center;">
+                    <div id="qrcode"></div>
+                    <div id="qrLabel" style="margin-top: 10px; font-weight: bold; font-size: 1.2rem;"></div>
+                    <div id="qrSubLabel" style="font-size: 0.9rem; color: #666;">Scan für Stempelpass</div>
+                    <br>
+                    <button class="print-btn" onclick="window.print()">🖨️ Ausdrucken</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: PASS GENERATOR -->
+        <div class="section">
+            <h2>2️⃣ Neuen Pass anlegen (JSON Code)</h2>
+            <div class="grid">
+                <div>
+                    <label>Eindeutige ID (z.B. cafe_2025_sommer)</label>
+                    <input type="text" id="passId" oninput="updateJson()">
+
+                    <label>Name des Passes</label>
+                    <input type="text" id="passName" oninput="updateJson()">
+
+                    <label>Beschreibung</label>
+                    <textarea id="passDesc" oninput="updateJson()"></textarea>
+
+                    <label>Typ</label>
+                    <select id="passType" onchange="updateJson()">
+                        <option value="ORTS_PASS">Orts-Pass (Mehrere Firmen)</option>
+                        <option value="FIRMEN_PASS">Firmen-Pass (Einzelner Betrieb)</option>
+                        <option value="EVENT_PASS">Event-Pass (Zeitlich begrenzt)</option>
+                    </select>
+
+                    <label>Anzahl Stempel (z.B. 5 oder 10)</label>
+                    <input type="number" id="passTarget" value="5" oninput="updateJson()">
+                </div>
+                <div>
+                    <label>JSON Ergebnis (zum Einfügen in stempel_data.json)</label>
+                    <div id="jsonOutput" class="result-json"></div>
+                    <button class="copy-btn" onclick="copyJson()">📋 JSON in Zwischenablage kopieren</button>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">
+                        Anleitung: Kopieren Sie diesen Block und fügen Sie ihn in der Datei <b>stempel_data.json</b> in
+                        die Liste "passes" ein.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 250,
+            height: 250
+        });
+
+        function generateQR() {
+            const passId = document.getElementById('qrPassId').value.trim();
+            const companyId = document.getElementById('qrCompanyId').value.trim();
+
+            if (!passId || !companyId) {
+                alert("Bitte Pass ID und Betriebs ID eingeben!");
+                return;
+            }
+
+            const data = {
+                vorchdorf_stamp: "true",
+                pass_id: passId,
+                company_id: companyId
+            };
+
+            qrcode.makeCode(JSON.stringify(data));
+            document.getElementById('qrLabel').innerText = companyId.toUpperCase();
+            document.getElementById('qrSubLabel').innerText = "Vorchdorfer Stempelpass: " + passId;
+        }
+
+        function updateJson() {
+            const obj = {
+                id: document.getElementById('passId').value.trim() || "id_hier",
+                name: document.getElementById('passName').value.trim() || "Name hier",
+                description: document.getElementById('passDesc').value.trim() || "Beschreibung hier",
+                type: document.getElementById('passType').value,
+                target_stamps: parseInt(document.getElementById('passTarget').value) || 5,
+                valid_from: new Date().toISOString().split('T')[0],
+                valid_to: "2025-12-31",
+                status: "ACTIVE",
+                companies: ["Betriebs-ID hier"]
+            };
+            document.getElementById('jsonOutput').innerText = JSON.stringify(obj, null, 2);
+        }
+
+        function copyJson() {
+            const text = document.getElementById('jsonOutput').innerText;
+            navigator.clipboard.writeText(text);
+            alert("JSON kopiert!");
+        }
+
+        // Initial load
+        updateJson();
+    </script>
+
+</body>
+
+</html>
