@@ -1,0 +1,45 @@
+{
+    "passes": [
+        {
+            "id": "vorchdorf_winter_2025",
+            "name": "Winter-Stempelpass Vorchdorf",
+            "description": "Sammle 5 Stempel bei teilnehmenden Vorchdorfer Betrieben und gewinne Werbering-Gutscheine!",
+            "type": "ORTS_PASS",
+            "target_stamps": 5,
+            "valid_from": "2024-12-01",
+            "valid_to": "2025-03-31",
+            "status": "ACTIVE",
+            "companies": [
+                "Jeder Werbering-Betrieb"
+            ]
+        },
+        {
+            "id": "ecke_stempel_10",
+            "name": "Ecke Vorchdorf - Cafe & Bar",
+            "description": "Der Klassiker: 10 Kaffee trinken, der 11. geht auf uns!",
+            "type": "FIRMEN_PASS",
+            "target_stamps": 10,
+            "valid_from": "2024-01-01",
+            "valid_to": "2026-12-31",
+            "status": "ACTIVE",
+            "companies": [
+                "Ecke Vorchdorf"
+            ]
+        },
+        {
+            "id": "fasching_event_2025",
+            "name": "Faschings-Tour 2025",
+            "description": "Besuche alle 3 Stationen am Faschingsdienstag!",
+            "type": "EVENT_PASS",
+            "target_stamps": 3,
+            "valid_from": "2025-03-04",
+            "valid_to": "2025-03-04",
+            "status": "ACTIVE",
+            "companies": [
+                "Kitzmantelfabrik",
+                "Ecke",
+                "Schloss Hochhaus"
+            ]
+        }
+    ]
+}

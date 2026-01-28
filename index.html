@@ -12,6 +12,9 @@
     <!-- Koordinaten für Direktvermarkter -->
     <script src="company-coordinates.js"></script>
 
+    <!-- QR Code Library -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, public, proxy-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -2399,12 +2402,180 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             margin-right: 8px;
-            flex-shrink: 0;
+            border: 1px solid white;
         }
+
+        /* ============================================ */
+        /* STEMPELPASS STYLES */
+        /* ============================================ */
+        .stempel-container {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .stempel-container.active {
+            display: block;
+        }
+
+        .stempel-header {
+            background: linear-gradient(135deg, #FF9800 0%, #F44336 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .stempel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .stempel-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px var(--shadow);
+            border-top: 5px solid #FF9800;
+            transition: transform 0.3s;
+        }
+
+        .stempel-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stempel-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stempel-progress-container {
+            margin: 20px 0;
+            background: #f0f0f0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stempel-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FF9800, #F44336);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .stempel-dots {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stempel-dot {
+            aspect-ratio: 1;
+            background: #eee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #ccc;
+            border: 2px dashed #ddd;
+        }
+
+        .stempel-dot.active {
+            background: #FFF3E0;
+            color: #FF9800;
+            border: 2px solid #FF9800;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .stempel-scan-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .stempel-scan-btn:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        .scanner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10002;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanner-overlay.active {
+            display: flex;
+        }
+
+        #qr-reader {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .scanner-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
 
         .rp-dm-company-name {
             font-weight: 600;
@@ -3051,6 +3222,28 @@
             <div id="rpDirectMarketersSection" class="rp-direct-marketers-section hidden">
                 <h3 class="rp-section-title">📋 Direktvermarkter A-Z nach Orten</h3>
                 <div id="rpDirectMarketersGrid" class="rp-direct-marketers-grid"></div>
+            </div>
+
+            <!-- Stempelpass Container -->
+            <div id="stempelContainer" class="stempel-container">
+                <div class="stempel-header">
+                    <h2>🎟️ Vorchdorfer Stempelpässe</h2>
+                    <p>Besuche Betriebe in Vorchdorf und lass dich belohnen!</p>
+                </div>
+
+                <div id="stempelGrid" class="stempel-grid">
+                    <!-- Pässe werden dynamisch geladen -->
+                </div>
+
+                <div id="stempelEmpty" class="hidden" style="text-align: center; padding: 50px;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🎟️</div>
+                    <h3>Keine aktiven Pässe gefunden</h3>
+                    <p>Aktuell gibt es keine laufenden Stempel-Aktionen.</p>
+                </div>
+
+                <footer style="margin-top: 40px; text-align: center;">
+                    Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
+                </footer>
             </div>
 
             <!-- Footer -->
@@ -4379,7 +4572,7 @@ Mit freundlichen Grüßen`;
 
                 // App Version - Update this with each release
                 // App Version - Update this with each release
-                const APP_VERSION = '8.4'; // Button Cleanup & Syntax Fixes
+                const APP_VERSION = '9.0'; // Major: Stempelpass System Integration
                 const CACHE_BUSTER = Date.now();
                 // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
                 (async function checkForUpdates() {
@@ -4446,6 +4639,170 @@ Mit freundlichen Grüßen`;
                 let currentCategory = null;
                 let currentSubcategory = null;
                 let categoryCounts = {};
+
+                // Stempelpass State
+                let activePasses = [];
+                let userStamps = JSON.parse(localStorage.getItem('vorchdorf_stamps') || '{}');
+                let html5QrCode = null;
+
+                // Anonyme Geräte-ID generieren/laden
+                function getDeviceId() {
+                    let deviceId = localStorage.getItem('vorchdorf_device_id');
+                    if (!deviceId) {
+                        deviceId = 'device_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                        localStorage.setItem('vorchdorf_device_id', deviceId);
+                    }
+                    return deviceId;
+                }
+
+                // Stempelpass Initialisierung
+                async function initializeStempelpässe() {
+                    const grid = document.getElementById('stempelGrid');
+                    const empty = document.getElementById('stempelEmpty');
+
+                    try {
+                        const response = await fetch('./stempel_data.json?v=' + Date.now());
+                        const data = await response.json();
+                        activePasses = data.passes;
+
+                        if (activePasses.length === 0) {
+                            grid.innerHTML = '';
+                            empty.classList.remove('hidden');
+                        } else {
+                            empty.classList.add('hidden');
+                            renderStempelCards();
+                        }
+                    } catch (error) {
+                        console.error('Fehler beim Laden der Stempelpässe:', error);
+                        showDataError('Stempelpässe');
+                    }
+                }
+
+                function renderStempelCards() {
+                    const grid = document.getElementById('stempelGrid');
+                    grid.innerHTML = activePasses.map(pass => {
+                        const stamps = userStamps[pass.id] || [];
+                        const count = stamps.length;
+                        const progress = Math.min((count / pass.target_stamps) * 100, 100);
+
+                        return `
+                            <div class="stempel-card">
+                                <div class="stempel-card-title">
+                                    <span>🎟️</span>
+                                    <span>${pass.name}</span>
+                                </div>
+                                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px;">${pass.description}</p>
+                                
+                                <div class="stempel-progress-container">
+                                    <div class="stempel-progress-bar" style="width: ${progress}%"></div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--primary);">
+                                    <span>Fortschritt</span>
+                                    <span>${count} / ${pass.target_stamps}</span>
+                                </div>
+
+                                <div class="stempel-dots">
+                                    ${Array.from({ length: pass.target_stamps }).map((_, i) => `
+                                        <div class="stempel-dot ${i < count ? 'active' : ''}">
+                                            ${i < count ? '✅' : i + 1}
+                                        </div>
+                                    `).join('')}
+                                </div>
+
+                                <button class="stempel-scan-btn" onclick="openScanner('${pass.id}')">
+                                    📸 QR-Code scannen
+                                </button>
+                                
+                                ${count >= pass.target_stamps ? `
+                                    <button class="stempel-scan-btn" style="background: #4CAF50; margin-top: 10px;" onclick="redeemReward('${pass.id}')">
+                                        🎁 Belohnung einlösen
+                                    </button>
+                                ` : ''}
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                function openScanner(passId) {
+                    const overlay = document.getElementById('scannerOverlay');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+
+                    html5QrCode = new Html5Qrcode("qr-reader");
+                    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+                    html5QrCode.start({ facingMode: "environment" }, config, (decodedText) => {
+                        handleQrResult(decodedText, passId);
+                    });
+                }
+
+                function closeScanner() {
+                    const overlay = document.getElementById('scannerOverlay');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+
+                    if (html5QrCode) {
+                        html5QrCode.stop().then(() => {
+                            html5QrCode = null;
+                        }).catch(err => console.error("Scanner Error:", err));
+                    }
+                }
+
+                function handleQrResult(text, passId) {
+                    closeScanner();
+
+                    try {
+                        const data = JSON.parse(text);
+                        // Erwartetes Format: {"vorchdorf_stamp": "UUID", "pass_id": "...", "company_id": "..."}
+
+                        if (data.vorchdorf_stamp && data.pass_id === passId) {
+                            validateAndAddStamp(passId, data.company_id);
+                        } else {
+                            alert("❌ Ungültiger QR-Code für diesen Stempelpass.");
+                        }
+                    } catch (e) {
+                        alert("❌ Dieser QR-Code gehört nicht zum Vorchdorfer Stempel-System.");
+                    }
+                }
+
+                function validateAndAddStamp(passId, companyId) {
+                    if (!userStamps[passId]) userStamps[passId] = [];
+
+                    // Regel: Nur 1 Stempel pro Tag pro Firma
+                    const today = new Date().toISOString().split('T')[0];
+                    const existing = userStamps[passId].find(s => s.companyId === companyId && s.date === today);
+
+                    if (existing) {
+                        alert("⚠️ Du hast heute bereits einen Stempel für diesen Betrieb erhalten!");
+                        return;
+                    }
+
+                    // Stempel hinzufügen
+                    userStamps[passId].push({
+                        companyId: companyId,
+                        date: today,
+                        timestamp: Date.now()
+                    });
+
+                    localStorage.setItem('vorchdorf_stamps', JSON.stringify(userStamps));
+                    renderStempelCards();
+
+                    // Erfolgssound/Vibration simulieren & Info
+                    if ("vibrate" in navigator) navigator.vibrate(200);
+                    alert("✅ Stempel erfolgreich hinzugefügt!");
+                }
+
+                function redeemReward(passId) {
+                    const pass = activePasses.find(p => p.id === passId);
+                    if (confirm(`Möchtest du deine Belohnung für "${pass.name}" jetzt beim Wirt/Händler einlösen?\n\nACHTUNG: Dies darf nur im Beisein des Personals geschehen!`)) {
+                        // In echt würde hier ein Server-Call passieren
+                        userStamps[passId] = []; // Zurücksetzen nach Einlösung
+                        localStorage.setItem('vorchdorf_stamps', JSON.stringify(userStamps));
+                        renderStempelCards();
+                        alert("🎉 Belohnung eingelöst! Herzlichen Glückwunsch.");
+                    }
+                }
 
                 // Hilfsfunktion: Zählt Einträge pro Kategorie
                 function getCategoryItemCount(catId) {
@@ -4616,6 +4973,7 @@ Mit freundlichen Grüßen`;
 
                 // Initialize App
                 function init() {
+                    getDeviceId(); // Sicherstellen, dass Device ID existiert
                     renderHome();
                 }
 
@@ -4677,7 +5035,7 @@ Mit freundlichen Grüßen`;
                     const weatherWidget = document.getElementById('weatherWidget');
 
                     // Render categories in custom order
-                    const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'mittagstisch', 'waste_calendar', 'flohmarkt', 'regionale_produkte', 'sags_uns'];
+                    const categoryOrder = ['welcome', 'municipality', 'health', 'emergency', 'administration', 'mobility', 'education', 'shopping', 'leisure', 'sport_fitness', 'clubs', 'events', 'gallery', 'mittagstisch', 'waste_calendar', 'stempelpass', 'flohmarkt', 'regionale_produkte', 'sags_uns'];
                     const sortedCategories = categoryOrder.map(id => categories[id]).filter(cat => cat);
 
                     mainContent.innerHTML = `
@@ -4785,6 +5143,25 @@ Mit freundlichen Grüßen`;
                         document.getElementById('rpProductsSection').classList.remove('hidden');
                         document.getElementById('rpBackBtn').classList.add('hidden'); // Verstecke lokalen Button auf Startseite
                         document.getElementById('backButton').classList.remove('hidden'); // Zeige globalen Button
+                        return;
+                    }
+
+                    // Handle Stempelpass
+                    if (category.isStempelpass) {
+                        currentView = 'stempelpass';
+                        currentCategory = categoryId;
+                        navigationHistory.push({ type: 'home' });
+
+                        document.getElementById('emergencyBanner').classList.add('hidden');
+                        document.getElementById('weatherWidget').classList.add('hidden');
+                        document.getElementById('backButton').classList.remove('hidden');
+                        window.scrollTo({ top: 0, behavior: 'instant' });
+                        document.getElementById('mainContent').style.display = 'none';
+                        document.getElementById('mainFooter').style.display = 'none';
+                        document.getElementById('stempelContainer').classList.add('active');
+                        updateBreadcrumb([{ text: category.title }]);
+
+                        initializeStempelpässe();
                         return;
                     }
 

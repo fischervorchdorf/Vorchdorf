@@ -20,6 +20,13 @@
     "description": "Aktuelle Menüpläne der Wirte",
     "externalLink": "mittagstisch.html"
   },
+  "stempelpass": {
+    "id": "stempelpass",
+    "title": "Stempelpässe",
+    "icon": "🎟️",
+    "description": "Stempel sammeln & Belohnungen erhalten",
+    "isStempelpass": true
+  },
   "welcome": {
     "id": "welcome",
     "title": "Willkommen",

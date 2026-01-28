@@ -1,0 +1,254 @@
+📘 PROJEKTSPEZIFIKATION
+
+Digitale Stempelpässe – Vorchdorf App
+
+Auftraggeber: Marktgemeinde Vorchdorf
+Ziel: Einführung eines modularen, anonymen Stempelpass-Systems zur Stärkung der lokalen Wirtschaft
+Kostenmodell: kostenlos für Werbering-Mitglieder (Gemeindeaktion)
+
+1️⃣ ZIELSETZUNG
+
+Es soll ein digitales Stempelpass-System in die bestehende Vorchdorf-App integriert werden mit folgenden Eigenschaften:
+	•	keine Benutzerkonten
+	•	keine Registrierung
+	•	keine personenbezogenen Daten
+	•	anonyme, gerätebasierte Nutzung
+	•	mehrere Stempelpässe parallel
+	•	Firmen können eigene Stempelpässe anlegen
+	•	Gemeinde kann ortsweite & Event-Pässe anlegen
+	•	Nutzung über QR-Code
+
+Das System muss robust, erweiterbar und DSGVO-konform sein.
+
+2️⃣ GRUNDPRINZIP (SEHR WICHTIG)
+
+❌ Keine User-Tabelle
+❌ Kein Login
+❌ Keine E-Mail / Telefonnummer
+
+✅ Identifikation ausschließlich über anonyme Geräte-ID
+
+3️⃣ ROLLEN & BERECHTIGUNGEN
+
+Rollen:
+	•	ADMIN (Gemeinde)
+	•	COMPANY (Betrieb)
+	•	USER (Bürger – anonym)
+
+Rechte:
+Aktion
+ADMIN
+COMPANY
+USER
+Orts-Pass anlegen
+✅
+❌
+❌
+Firmen-Pass anlegen
+❌
+✅
+❌
+Event-Pass anlegen
+✅
+❌
+❌
+Stempel sammeln
+❌
+❌
+✅
+Belohnung einlösen
+❌
+❌
+✅
+Statistiken sehen
+✅
+✅ (eigene)
+❌
+
+
+4️⃣ PASS-TYPEN
+
+A) ORTS_PASS
+	•	mehrere Firmen
+	•	wird ausschließlich von ADMIN angelegt
+
+B) FIRMEN_PASS
+	•	exakt eine Firma
+	•	wird vom Betrieb selbst angelegt
+	•	voll gebrandet (Firmenname)
+
+C) EVENT_PASS
+	•	zeitlich begrenzt
+	•	mehrere Firmen
+	•	ADMIN-angelegt
+
+5️⃣ DATENMODELL (PFLICHT)
+
+Device
+device_id UUID PRIMARY KEY
+created_at TIMESTAMP
+
+Pass
+pass_id UUID PRIMARY KEY
+name TEXT
+description TEXT
+type ENUM('ORTS_PASS','FIRMEN_PASS','EVENT_PASS')
+target_stamps INT
+valid_from DATE
+valid_to DATE
+created_by ENUM('ADMIN','COMPANY')
+status ENUM('ACTIVE','INACTIVE')
+
+Company
+
+company_id UUID PRIMARY KEY
+name TEXT
+werbering_member BOOLEAN
+
+PassCompany
+pass_id UUID
+company_id UUID
+PRIMARY KEY (pass_id, company_id)
+
+Stamp
+
+stamp_id UUID PRIMARY KEY
+pass_id UUID
+company_id UUID
+device_id UUID
+timestamp TIMESTAMP
+
+RewardRedemption
+redemption_id UUID PRIMARY KEY
+pass_id UUID
+device_id UUID
+timestamp TIMESTAMP
+
+6️⃣ GERÄTE-IDENTIFIKATION (APP-SEITIG)
+
+Beim ersten App-Start:
+	•	generiere device_id (UUID v4)
+	•	speichere lokal (Secure Storage / Keychain)
+	•	sende bei jeder API-Anfrage mit
+
+❗️Bei App-Neuinstallation → neue device_id (akzeptiert)
+
+7️⃣ QR-CODE-SYSTEM
+
+QR-Code enthält:
+{
+  "pass_id": "UUID",
+  "company_id": "UUID",
+  "token": "STRING"
+}
+
+Token-Regeln:
+	•	serverseitig generiert
+	•	zeitlich begrenzt (z. B. 24 Stunden)
+	•	nach Ablauf ungültig
+	•	verhindert Kopieren / Weitergeben
+
+8️⃣ STEMPLEN (KERNFUNKTION)
+
+API Endpoint
+POST /stamp
+
+Payload
+
+{
+  "device_id": "UUID",
+  "pass_id": "UUID",
+  "company_id": "UUID",
+  "token": "STRING"
+}
+
+Server-Prüfungen (ALLE PFLICHT):
+	•	Token gültig?
+	•	Pass aktiv?
+	•	Gerät hat heute noch keinen Stempel für diese Firma erhalten?
+	•	Firma gehört zum Pass?
+
+Ergebnis:
+	•	Stempel speichern
+	•	aktuellen Fortschritt zurückgeben
+
+9️⃣ REGELN (SERVERSEITIG)
+	•	max. 1 Stempel / Firma / Gerät / Tag
+	•	Firmen-Pass darf nur 1 Firma enthalten
+	•	Stempel außerhalb der Gültigkeit → ablehnen
+
+Optional (konfigurierbar):
+	•	Standortprüfung (Radius 50–100 m)
+
+🔟 BELOHNUNG EINLÖSEN
+
+Bedingung:
+	•	Anzahl Stempel ≥ target_stamps
+
+API Endpoint
+POST /redeem
+
+Payload
+{
+  "device_id": "UUID",
+  "pass_id": "UUID"
+}
+
+Server:
+	•	prüft Vollständigkeit
+	•	speichert Redemption
+	•	setzt Stempel für diesen Pass zurück
+
+1️⃣1️⃣ OFFLINE-FÄHIGKEIT
+	•	App darf Stempel lokal puffern
+	•	Sync bei Internetverbindung
+	•	Server filtert Duplikate
+
+1️⃣2️⃣ APP-UX (MINIMAL)
+
+Menüpunkt:
+
+„Stempelpässe in Vorchdorf“
+
+Screens:
+	•	Übersicht aller aktiven Pässe
+	•	Pass-Detail (Erklärung, Firmen, Fortschritt)
+	•	QR-Code-Scan
+	•	Erfolgsmeldung
+	•	Belohnungseinlösung
+
+1️⃣3️⃣ FIRMEN-BACKEND (MINIMAL)
+
+Firma kann:
+	•	eigenen Firmen-Pass anlegen
+	•	QR-Code herunterladen
+	•	Statistiken sehen:
+	•	vergebene Stempel
+	•	eingelöste Belohnungen
+
+❌ keine Einsicht in Gerätedaten
+
+1️⃣4️⃣ ADMIN-BACKEND
+
+Admin kann:
+	•	Orts- & Event-Pässe anlegen
+	•	Firmen zuweisen
+	•	Pässe aktivieren/deaktivieren
+	•	Gesamtstatistiken sehen
+
+1️⃣5️⃣ NICHT-TEIL DES MVP
+	•	Bezahlung
+	•	Werbung
+	•	User-Profile
+	•	Social Features
+
+🎯 ERFOLGSKRITERIUM
+
+Das System ist erfolgreich, wenn:
+	•	Bürger ohne Erklärung Stempel sammeln können
+	•	Firmen ohne Hilfe Pässe anlegen
+	•	keine personenbezogenen Daten gespeichert werden
+	•	mehrere Pässe parallel laufen können
+
+🔚 ENDE DER SPEZIFIKATION
+
