@@ -3221,12 +3221,6 @@
                 </div>
             </div>
 
-            <!-- Direktvermarkter A-Z View (versteckt) -->
-            <div id="rpDirectMarketersSection" class="rp-direct-marketers-section hidden">
-                <h3 class="rp-section-title">📋 Direktvermarkter A-Z nach Orten</h3>
-                <div id="rpDirectMarketersGrid" class="rp-direct-marketers-grid"></div>
-            </div>
-
         </div>
     </div>
 
@@ -3269,7 +3263,7 @@
         Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
         <span id="versionInfo"></span>
     </footer>
-    </div>
+    </div> <!-- Ende app-container -->
 
     <!-- Regionale Produkte Modal -->
     <div class="rp-modal-overlay" id="rpModalOverlay">
@@ -4588,7 +4582,7 @@ Mit freundlichen Grüßen`;
 
         // App Version - Update this with each release
         // App Version - Update this with each release
-        const APP_VERSION = '9.5'; // Fix: Added missing Scanner HTML & Error Handling
+        const APP_VERSION = '9.6'; // Fix: Corrected HTML Nesting & Empty Screen on Start
         const CACHE_BUSTER = Date.now();
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
