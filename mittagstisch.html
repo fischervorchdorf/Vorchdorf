@@ -382,7 +382,7 @@
             </div>
 
             <div class="tabs">
-                <button class="tab-btn active" onclick="setMode('week')">📅 Diese Woche</button>
+                <button class="tab-btn active" onclick="setMode('week')">📅 Ab Heute</button>
                 <button class="tab-btn" onclick="setMode('all')">📋 Alle Menüs</button>
             </div>
 
@@ -491,6 +491,10 @@
                 return;
             }
 
+            // Aktueller Wochentag
+            const today = new Date();
+            const todayDayIndex = today.getDay(); // 0 = Sonntag, 1 = Montag, etc.
+
             // Gruppiere nach Tag
             const dayMap = {};
 
@@ -504,28 +508,30 @@
 
             // Sortiere Tage
             const dayOrder = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-            const sortedDays = Object.keys(dayMap).sort((a, b) => {
-                const aIndex = dayOrder.indexOf(a);
-                const bIndex = dayOrder.indexOf(b);
-                if (aIndex === -1) return 1;
-                if (bIndex === -1) return -1;
-                return aIndex - bIndex;
-            });
 
-            // Filter nach Modus
-            let daysToShow = sortedDays;
+            // Filter nur heutige und zukünftige Tage
+            const filteredDays = dayOrder.filter((day, index) => {
+                const dayIndex = index + 1; // dayOrder startet bei Montag (1)
 
-            if (currentMode === 'week') {
-                // Zeige nur diese Woche (Montag - Sonntag)
-                const today = new Date().getDay(); // 0 = Sonntag
-                const relevantDays = [];
+                // Sonntag = 0, aber in dayOrder ist Sonntag am Ende (Index 6)
+                const adjustedDayIndex = dayIndex === 7 ? 0 : dayIndex;
 
-                for (let i = 0; i < 7; i++) {
-                    const dayIndex = (today + i) % 7;
-                    relevantDays.push(WEEKDAYS[dayIndex]);
+                // Zeige nur heutige und zukünftige Tage
+                if (todayDayIndex === 0) {
+                    // Sonntag - zeige nur Sonntag
+                    return adjustedDayIndex === 0;
                 }
 
-                daysToShow = sortedDays.filter(day => relevantDays.includes(day));
+                return adjustedDayIndex >= todayDayIndex;
+            });
+
+            // Nur Tage anzeigen die Daten haben
+            const daysToShow = filteredDays.filter(day => dayMap[day]);
+
+            // Filter nach Modus
+            if (currentMode === 'week') {
+                // Im Wochen-Modus: Nur diese Woche (bis Sonntag)
+                // daysToShow ist bereits gefiltert
             }
 
             // Render
@@ -535,9 +541,13 @@
                 const dayBlock = document.createElement('div');
                 dayBlock.className = 'day-block fade-in';
 
+                // Markiere heutigen Tag
+                const isToday = WEEKDAYS[todayDayIndex] === day;
+                const dayLabel = isToday ? `${day} (Heute)` : day;
+
                 dayBlock.innerHTML = `
                     <div class="day-header">
-                        <span class="day-name">${day}</span>
+                        <span class="day-name" style="${isToday ? 'color: #2d7a47; font-size: 1.3rem;' : ''}">${dayLabel}</span>
                     </div>
                 `;
 
@@ -582,7 +592,7 @@
             });
 
             if (daysToShow.length === 0) {
-                container.innerHTML = '<div class="empty-msg">Keine Menüs für diesen Zeitraum.</div>';
+                container.innerHTML = '<div class="empty-msg">Keine aktuellen Menüs verfügbar. Bitte später nochmal schauen!</div>';
             }
         }
 
