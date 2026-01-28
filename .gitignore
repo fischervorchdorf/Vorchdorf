@@ -1,0 +1,5 @@
+vorchdorf-scraper/credentials.json
+vorchdorf-scraper/menus.json
+vorchdorf-scraper/*.pyc
+vorchdorf_menu_scraper.py
+.DS_Store

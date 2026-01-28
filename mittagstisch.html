@@ -148,47 +148,6 @@
             font-weight: 700;
         }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            header {
-                padding: 10px 15px;
-            }
-
-            header img {
-                height: 40px;
-            }
-
-            header h1 {
-                font-size: 1.2rem;
-            }
-
-            .content-wrapper {
-                padding: 15px;
-            }
-
-            .page-title h2 {
-                font-size: 1.4rem;
-            }
-        }
-
         /* Tabs */
         .tabs {
             display: flex;
@@ -230,9 +189,9 @@
             padding: 16px;
         }
 
-        /* Compact Card Design */
+        /* Day Block */
         .day-block {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .day-header {
@@ -240,83 +199,65 @@
             justify-content: flex-start;
             align-items: baseline;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
             padding: 0 4px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 4px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
         }
 
         .day-name {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: var(--text-main);
+            color: var(--primary);
             text-transform: uppercase;
         }
 
-        .day-date {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .menu-row {
-            background: #f9f9f9;
+        /* Menu Card */
+        .menu-card {
+            background: #f9fafb;
             border-radius: var(--radius);
-            padding: 12px;
-            margin-bottom: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            display: flex;
-            gap: 12px;
+            border-left: 4px solid var(--primary);
         }
 
-        .wirt-icon {
-            width: 40px;
-            height: 40px;
-            background: #ecfdf5;
+        .restaurant-name {
+            font-size: 0.9rem;
+            font-weight: 700;
             color: var(--primary);
-            border-radius: 8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            gap: 6px;
         }
 
-        .menu-details {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .wirt-name {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-sec);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .dish-name {
+        .menu-text {
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-main);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             white-space: pre-wrap;
+            line-height: 1.5;
         }
 
-        .meta-info {
+        .menu-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #e5e7eb;
         }
 
         .price-badge {
-            background: #f1f5f9;
-            padding: 2px 8px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
             border-radius: 6px;
             font-weight: 700;
-            color: var(--text-main);
+            font-size: 0.9rem;
         }
 
         .note-text {
@@ -325,66 +266,23 @@
             font-style: italic;
         }
 
-        /* Hosts Grid */
-        .hosts-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .host-btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: var(--shadow);
-        }
-
-        .host-btn:active {
-            transform: scale(0.98);
-            background: #f1f5f9;
-        }
-
-        .host-btn-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .host-btn-name {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        /* Host Modal/Detail */
-        .host-detail-view {
-            display: none;
-            margin-top: 16px;
-        }
-
-        .host-detail-view.active {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
-
-        .close-host-btn {
-            background: #f1f5f9;
-            border: none;
-            padding: 8px 16px;
+        /* OCR Warning */
+        .ocr-warning {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
             border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 16px;
-            width: 100%;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #92400e;
         }
 
-        /* Utilities */
-        .hidden {
-            display: none;
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary);
+            font-weight: 600;
         }
 
         .empty-msg {
@@ -394,23 +292,65 @@
             font-style: italic;
         }
 
-        .loading {
+        .hidden {
+            display: none;
+        }
+
+        /* Footer */
+        .footer {
             text-align: center;
-            padding: 40px;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
             color: var(--primary);
+            text-decoration: none;
             font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 10px 15px;
+            }
+
+            header img {
+                height: 40px;
+            }
+
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            .page-title h2 {
+                font-size: 1.4rem;
+            }
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(5px);
+                transform: translateY(10px);
             }
 
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
         }
     </style>
 </head>
@@ -442,295 +382,235 @@
             </div>
 
             <div class="tabs">
-                <button class="tab-btn active" onclick="setMode('today')">📅 Heute + Woche</button>
-                <button class="tab-btn" onclick="setMode('hosts')">🍽️ Wirte wählen</button>
+                <button class="tab-btn active" onclick="setMode('week')">📅 Diese Woche</button>
+                <button class="tab-btn" onclick="setMode('all')">📋 Alle Menüs</button>
             </div>
 
             <div class="main">
                 <div id="loader" class="loading">Lade frische Menüs...</div>
 
-                <!-- View: Timeline -->
-                <div id="view-timeline" class="view-section">
-                    <div id="timeline-container"></div>
-                </div>
-
-                <!-- View: Hosts -->
-                <div id="view-hosts" class="view-section hidden">
-                    <div id="hosts-grid" class="hosts-grid"></div>
-
-                    <div id="host-detail-container" class="host-detail-view">
-                        <button class="close-host-btn" onclick="closeHostDetail()">← Zurück zur Auswahl</button>
-                        <div id="host-plan"></div>
-                    </div>
-                </div>
+                <!-- Content Container -->
+                <div id="content-container" class="hidden"></div>
             </div>
-
-            <script>
-                const CSV_URL = 'https://docs.google.com/spreadsheets/d/16oJAdKlUthvoQBdOiFbI-1OXYnspNc3Yn8cRuqILNsw/export?format=csv';
-                const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-
-                let allItems = [];
-                let uniqueHosts = [];
-
-                async function init() {
-                    try {
-                        const res = await fetch(CSV_URL);
-                        const text = await res.text();
-                        const raw = parseCSV(text);
-
-                        allItems = raw.flatMap(entry => processEntry(entry));
-
-                        // Hosts extraction
-                        const hostSet = new Set();
-                        allItems.forEach(i => hostSet.add(i.gasthaus));
-                        uniqueHosts = Array.from(hostSet).sort();
-
-                        buildTimeline();
-                        buildHostsGrid();
-
-                        document.getElementById('loader').classList.add('hidden');
-                    } catch (e) {
-                        document.getElementById('loader').innerText = "Fehler beim Laden. Bitte neu laden.";
-                        console.error(e);
-                    }
-                }
-
-                // --- Render Logic ---
-
-                function buildTimeline() {
-                    const container = document.getElementById('timeline-container');
-                    container.innerHTML = '';
-
-                    const now = new Date();
-                    now.setHours(12, 0, 0, 0);
-
-                    // Find maximum date in our data
-                    let maxDate = new Date(now);
-                    allItems.forEach(item => {
-                        const d = new Date(item.dateStr);
-                        d.setHours(12, 0, 0, 0);
-                        if (d > maxDate) maxDate = d;
-                    });
-
-                    // Calculate days diff (cap at 28 days to avoid infinite loops on bad data)
-                    const diffTime = Math.abs(maxDate - now);
-                    let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    if (diffDays < 1) diffDays = 1; // Show at least today/tomorrow logic
-                    if (diffDays > 28) diffDays = 28;
-
-                    // Show timeline up to the last available data
-                    for (let i = 0; i <= diffDays; i++) {
-                        const date = new Date(now);
-                        date.setDate(now.getDate() + i);
-                        const dateStr = date.toISOString().split('T')[0];
-                        const dayName = DAYS[date.getDay()];
-
-                        // Find items for this day
-                        const dayItems = allItems.filter(item => item.dateStr === dateStr);
-
-                        // Render Day Header
-                        const dayBlock = document.createElement('div');
-                        dayBlock.className = 'day-block';
-
-                        let prettyDate = date.toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' });
-                        let label = dayName;
-                        if (i === 0) label = "Heute";
-                        if (i === 1) label = "Morgen";
-
-                        const headerHTML = `
-                    <div class="day-header">
-                        <span class="day-name">${label}, ${prettyDate}.</span>
-                    </div>
-                `;
-
-                        let contentHTML = '';
-                        if (dayItems.length === 0) {
-                            // Only show empty message if it's today or tomorrow, skip empty future days to save space
-                            if (i < 2) contentHTML = `<div class="empty-msg">Keine Menüs eingetragen.</div>`;
-                            else continue; // Skip rendering completely if empty and far future
-                        } else {
-                            contentHTML = dayItems.map(item => `
-                        <div class="menu-row">
-                            <div class="wirt-icon">🍽️</div>
-                            <div class="menu-details">
-                                <div class="wirt-name">${item.gasthaus}</div>
-                                <div class="dish-name">${item.menu}</div>
-                                <div class="meta-info">
-                                    <span class="note-text">${item.anmerkung}</span>
-                                    ${item.preis ? `<span class="price-badge">€ ${item.preis}</span>` : ''}
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
-                        }
-
-                        dayBlock.innerHTML = headerHTML + contentHTML;
-                        container.appendChild(dayBlock);
-                    }
-                }
-
-                function buildHostsGrid() {
-                    const grid = document.getElementById('hosts-grid');
-                    grid.innerHTML = uniqueHosts.map(host => `
-                <div class="host-btn" onclick="showHost('${host}')">
-                    <span class="host-btn-icon">👨‍🍳</span>
-                    <div class="host-btn-name">${host}</div>
-                </div>
-            `).join('');
-                }
-
-                function showHost(name) {
-                    document.getElementById('hosts-grid').classList.add('hidden');
-                    const detailView = document.getElementById('host-detail-container');
-                    const planContainer = document.getElementById('host-plan');
-                    detailView.classList.add('active');
-
-                    // Find all future/current items for this host
-                    const items = allItems.filter(i => i.gasthaus === name && new Date(i.dateStr) >= new Date().setHours(0, 0, 0, 0))
-                        .sort((a, b) => a.date - b.date);
-
-                    if (items.length === 0) {
-                        planContainer.innerHTML = `<div class="empty-msg">Keine aktuellen Pläne vorhanden.</div>`;
-                        return;
-                    }
-
-                    planContainer.innerHTML = items.map(item => `
-                <div class="day-header" style="margin-top:16px; border-bottom:1px dashed #ccc; justify-content: flex-start; gap: 10px;">
-                     <span class="day-name" style="font-size:1rem">${item.dayName}, ${new Date(item.date).toLocaleDateString('de-AT', { day: '2-digit', month: '2-digit' })}.</span>
-                </div>
-                <div class="menu-row" style="box-shadow:none; border:1px solid #eee; margin-top:8px">
-                    <div class="menu-details">
-                        <div class="dish-name">${item.menu}</div>
-                        <div class="meta-info">
-                             <span class="note-text">${item.anmerkung}</span>
-                             ${item.preis ? `<span class="price-badge">€ ${item.preis}</span>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-                }
-
-                function closeHostDetail() {
-                    document.getElementById('host-detail-container').classList.remove('active');
-                    document.getElementById('hosts-grid').classList.remove('hidden');
-                }
-
-                function setMode(mode) {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
-
-                    if (mode === 'today') {
-                        document.querySelector('button[onclick="setMode(\'today\')"]').classList.add('active');
-                        document.getElementById('view-timeline').classList.remove('hidden');
-                    } else {
-                        document.querySelector('button[onclick="setMode(\'hosts\')"]').classList.add('active');
-                        document.getElementById('view-hosts').classList.remove('hidden');
-                        document.getElementById('hosts-grid').classList.remove('hidden'); // Reset grid visibility
-                        document.getElementById('host-detail-container').classList.remove('active');
-                    }
-                }
-
-                // --- Parsing Logic (Kept from V2) ---
-
-                function processEntry(entry) {
-                    // Logic: Relative Week Calculation + Freitext Parsing
-                    const gasthaus = entry.gasthausname;
-                    const selection = entry.woche;
-                    const freitext = entry.menueplanfreitext || entry.menuplanfreitext || "";
-                    const preis = entry.preis || "";
-                    const anmerkung = entry.anmerkung || "";
-
-                    const timestamp = parseDate(entry.zeitstempel);
-                    timestamp.setHours(12, 0, 0, 0); // Noon
-
-                    const mondayCurrent = new Date(timestamp);
-                    mondayCurrent.setDate(timestamp.getDate() - (timestamp.getDay() === 0 ? 6 : timestamp.getDay() - 1));
-
-                    let targetMonday = new Date(mondayCurrent);
-                    if (selection.includes("Nächste")) targetMonday.setDate(mondayCurrent.getDate() + 7);
-                    else if (selection.includes("Übernächste")) targetMonday.setDate(mondayCurrent.getDate() + 14);
-
-                    const extracted = extractFromFreitext(freitext);
-                    const items = [];
-
-                    ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'].forEach((day, idx) => {
-                        const dayKey = day.toLowerCase();
-                        let menu = entry[dayKey] || extracted[dayKey] || "";
-
-                        // Add "Geschlossen" if explicitly mentioned? For now just skip empty unless needed
-                        // Feature: If text contains "Ruhetag" or "Geschlossen", show it!
-                        if (menu.trim().length > 2) {
-                            const menuDate = new Date(targetMonday);
-                            menuDate.setDate(targetMonday.getDate() + idx);
-                            items.push({
-                                gasthaus, menu: menu.trim(), preis, anmerkung,
-                                date: menuDate, dayName: day, dateStr: menuDate.toISOString().split('T')[0]
-                            });
-                        }
-                    });
-                    return items;
-                }
-
-                function extractFromFreitext(text) {
-                    const days = { montag: ['montag', 'mo'], dienstag: ['dienstag', 'di'], mittwoch: ['mittwoch', 'mi'], donnerstag: ['donnerstag', 'do'], freitag: ['freitag', 'fr'], samstag: ['samstag', 'sa'], sonntag: ['sonntag', 'so'] };
-                    const result = {};
-                    text.split('\n').forEach(line => {
-                        const clean = line.trim();
-                        let foundHeader = false;
-                        for (let day in days) {
-                            const pattern = new RegExp('^(' + days[day].join('|') + ')[:\\s,\\.]', 'i');
-                            if (pattern.test(clean)) {
-                                currentDay = day;
-                                result[currentDay] = clean.replace(pattern, '').trim();
-                                foundHeader = true; break;
-                            }
-                        }
-                        if (!foundHeader && typeof currentDay !== 'undefined') {
-                            result[currentDay] = (result[currentDay] ? result[currentDay] + '\n' : '') + clean;
-                        }
-                    });
-                    return result;
-                }
-
-                function parseCSV(text) {
-                    // Robust Parser V2
-                    const arr = []; let quote = false; let col = 0, row = 0;
-                    text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-                    for (let c = 0; c < text.length; c++) {
-                        let cc = text[c], nc = text[c + 1];
-                        arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
-                        if (cc == '"') { if (quote && nc == '"') { arr[row][col] += cc; ++c; } else { quote = !quote; } }
-                        else if (cc == ',' && !quote) { ++col; }
-                        else if (cc == '\n' && !quote) { ++row; col = 0; }
-                        else { arr[row][col] += cc; }
-                    }
-                    const headers = arr[0].map(h => normalizeHeader(h));
-                    return arr.slice(1).map(row => {
-                        if (row.length < 2) return null;
-                        const obj = {}; headers.forEach((h, i) => obj[h] = row[i] ? row[i].trim() : '');
-                        return obj.gasthausname ? obj : null;
-                    }).filter(x => x);
-                }
-
-                function normalizeHeader(h) {
-                    return h.trim().toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').replace(/[^a-z0-9]/g, '');
-                }
-
-                function parseDate(str) {
-                    if (!str) return new Date();
-                    const p = str.split(' ')[0].split('.');
-                    return new Date(p[2], p[1] - 1, p[0]);
-                }
-
-                init();
-            </script>
-        </div> <!-- Ende content-wrapper -->
+        </div>
 
         <!-- Footer -->
         <div class="footer">
-            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 5.4
+            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 6.0
         </div>
-    </div> <!-- Ende app-container -->
+    </div>
+
+    <script>
+        // Google Sheet als CSV exportieren
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/16oJAdKlUthvoQBdOiFbI-1OXYnspNc3Yn8cRuqILNsw/export?format=csv';
+
+        const WEEKDAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+
+        let allMenus = [];
+        let currentMode = 'week';
+
+        // Initialisierung
+        async function init() {
+            try {
+                const response = await fetch(SHEET_URL);
+                const csvText = await response.text();
+
+                allMenus = parseMenus(csvText);
+
+                console.log('Geladene Menüs:', allMenus);
+
+                renderMenus();
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('content-container').classList.remove('hidden');
+            } catch (error) {
+                console.error('Fehler beim Laden:', error);
+                document.getElementById('loader').textContent = 'Fehler beim Laden der Menüs. Bitte Seite neu laden.';
+            }
+        }
+
+        // CSV Parser
+        function parseMenus(csv) {
+            const lines = csv.split('\n');
+            const menus = [];
+
+            // Skip Header (Zeile 1)
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+
+                const parts = parseCSVLine(line);
+                if (parts.length < 4) continue;
+
+                const [kw, restaurant, tag, menu, preis, notiz] = parts;
+
+                if (!restaurant || !restaurant.trim()) continue;
+
+                menus.push({
+                    kw: kw || '',
+                    restaurant: restaurant.trim(),
+                    tag: tag || '',
+                    menu: menu || '',
+                    preis: preis || '',
+                    notiz: notiz || ''
+                });
+            }
+
+            return menus;
+        }
+
+        // CSV Line Parser (handles quotes)
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+
+            result.push(current.trim());
+            return result;
+        }
+
+        // Render Menüs
+        function renderMenus() {
+            const container = document.getElementById('content-container');
+            container.innerHTML = '';
+
+            if (allMenus.length === 0) {
+                container.innerHTML = '<div class="empty-msg">Keine Menüs verfügbar.</div>';
+                return;
+            }
+
+            // Gruppiere nach Tag
+            const dayMap = {};
+
+            allMenus.forEach(menu => {
+                const day = menu.tag || 'Ohne Tag';
+                if (!dayMap[day]) {
+                    dayMap[day] = [];
+                }
+                dayMap[day].push(menu);
+            });
+
+            // Sortiere Tage
+            const dayOrder = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+            const sortedDays = Object.keys(dayMap).sort((a, b) => {
+                const aIndex = dayOrder.indexOf(a);
+                const bIndex = dayOrder.indexOf(b);
+                if (aIndex === -1) return 1;
+                if (bIndex === -1) return -1;
+                return aIndex - bIndex;
+            });
+
+            // Filter nach Modus
+            let daysToShow = sortedDays;
+
+            if (currentMode === 'week') {
+                // Zeige nur diese Woche (Montag - Sonntag)
+                const today = new Date().getDay(); // 0 = Sonntag
+                const relevantDays = [];
+
+                for (let i = 0; i < 7; i++) {
+                    const dayIndex = (today + i) % 7;
+                    relevantDays.push(WEEKDAYS[dayIndex]);
+                }
+
+                daysToShow = sortedDays.filter(day => relevantDays.includes(day));
+            }
+
+            // Render
+            daysToShow.forEach(day => {
+                const dayMenus = dayMap[day];
+
+                const dayBlock = document.createElement('div');
+                dayBlock.className = 'day-block fade-in';
+
+                dayBlock.innerHTML = `
+                    <div class="day-header">
+                        <span class="day-name">${day}</span>
+                    </div>
+                `;
+
+                dayMenus.forEach(menu => {
+                    const card = document.createElement('div');
+                    card.className = 'menu-card';
+
+                    let menuHTML = `
+                        <div class="restaurant-name">
+                            🍽️ ${menu.restaurant}
+                        </div>
+                    `;
+
+                    if (menu.menu) {
+                        menuHTML += `<div class="menu-text">${escapeHtml(menu.menu)}</div>`;
+                    }
+
+                    if (menu.preis || menu.notiz) {
+                        menuHTML += `<div class="menu-footer">`;
+
+                        if (menu.notiz) {
+                            menuHTML += `<span class="note-text">${escapeHtml(menu.notiz)}</span>`;
+                        }
+
+                        if (menu.preis) {
+                            menuHTML += `<span class="price-badge">${escapeHtml(menu.preis)}</span>`;
+                        }
+
+                        menuHTML += `</div>`;
+                    }
+
+                    // OCR Warnung
+                    if (menu.notiz && menu.notiz.includes('OCR')) {
+                        menuHTML += `<div class="ocr-warning">⚠️ Automatisch gescannt - bitte im Restaurant nachfragen</div>`;
+                    }
+
+                    card.innerHTML = menuHTML;
+                    dayBlock.appendChild(card);
+                });
+
+                container.appendChild(dayBlock);
+            });
+
+            if (daysToShow.length === 0) {
+                container.innerHTML = '<div class="empty-msg">Keine Menüs für diesen Zeitraum.</div>';
+            }
+        }
+
+        // Modus wechseln
+        function setMode(mode) {
+            currentMode = mode;
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            if (mode === 'week') {
+                document.querySelector('button[onclick="setMode(\'week\')"]').classList.add('active');
+            } else {
+                document.querySelector('button[onclick="setMode(\'all\')"]').classList.add('active');
+            }
+
+            renderMenus();
+        }
+
+        // HTML Escape
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Start
+        init();
+    </script>
 </body>
 
 </html>
