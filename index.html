@@ -2434,6 +2434,12 @@
             box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
         }
 
+        @media (max-width: 768px) {
+            .stempel-header {
+                display: none;
+            }
+        }
+
         .stempel-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -3056,10 +3062,7 @@
         <!-- Weather Widget (shown on home below emergency) -->
         <div id="weatherWidget" class="weather-widget hidden"></div>
 
-        <footer id="mainFooter">
-            Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
-            <span id="versionInfo"></span>
-        </footer>
+
 
         <!-- Flohmarkt Container -->
         <div id="flohmarktContainer" class="flohmarkt-container">
@@ -3234,6 +3237,13 @@
             <p>Besuche Betriebe in Vorchdorf und lass dich belohnen!</p>
         </div>
 
+        <!-- Info Box (Neu) -->
+        <div id="stempelMainInfoBox" class="info-item" style="margin-bottom: 20px;">
+            <h4>🎟️ Digital sammeln & profitieren</h4>
+            <p>Mit dem digitalen Sammelpass unterstützen Sie die Vorchdorfer Wirtschaft. Sammeln Sie bei jedem Einkauf
+                Stempel und schalten Sie attraktive Belohnungen frei.</p>
+        </div>
+
         <div id="stempelGrid" class="stempel-grid">
             <!-- Pässe werden dynamisch geladen -->
         </div>
@@ -3245,13 +3255,21 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer id="rpFooter"
-        style="margin-top: 40px; text-align: center; padding: 20px; border-top: 1px solid #eee; color: #666; font-size: 0.9rem;">
-        Powered by <a href="https://fischervorchdorf.at" target="_blank"
-            style="color: var(--primary); text-decoration: none; font-weight: 600;">fischervorchdorf.at</a>
-        <span id="rpVersionInfo"></span>
+    <!-- QR Scanner Overlay -->
+    <div id="scannerOverlay" class="scanner-overlay">
+        <button class="scanner-close" onclick="closeScanner()">✕</button>
+        <div style="color: white; margin-bottom: 20px; text-align: center; padding: 0 20px;">
+            <h3>QR-Code scannen</h3>
+            <p>Richte die Kamera auf den Stempel-Code im Betrieb.</p>
+        </div>
+        <div id="qr-reader"></div>
+    </div>
+
+    <footer id="mainFooter">
+        Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
+        <span id="versionInfo"></span>
     </footer>
+    </div>
 
     <!-- Regionale Produkte Modal -->
     <div class="rp-modal-overlay" id="rpModalOverlay">
@@ -4570,7 +4588,7 @@ Mit freundlichen Grüßen`;
 
         // App Version - Update this with each release
         // App Version - Update this with each release
-        const APP_VERSION = '9.2'; // Stempelpass & Admin Tools created
+        const APP_VERSION = '9.5'; // Fix: Added missing Scanner HTML & Error Handling
         const CACHE_BUSTER = Date.now();
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
         (async function checkForUpdates() {
@@ -4724,15 +4742,39 @@ Mit freundlichen Grüßen`;
 
         function openScanner(passId) {
             const overlay = document.getElementById('scannerOverlay');
+            if (!overlay) {
+                alert("Fehler: Scanner-UI nicht gefunden.");
+                return;
+            }
+
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            html5QrCode = new Html5Qrcode("qr-reader");
-            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+            try {
+                html5QrCode = new Html5Qrcode("qr-reader");
+                const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-            html5QrCode.start({ facingMode: "environment" }, config, (decodedText) => {
-                handleQrResult(decodedText, passId);
-            });
+                html5QrCode.start(
+                    { facingMode: "environment" },
+                    config,
+                    (decodedText) => {
+                        handleQrResult(decodedText, passId);
+                    }
+                ).catch(err => {
+                    console.error("Kamera-Fehler:", err);
+                    let msg = "Kamera konnte nicht gestartet werden.\n\n";
+                    if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+                        msg += "HINWEIS: Browser erlauben Kamera-Zugriff oft nur über HTTPS (verschlüsselt).\nBeim Testen per IP-Adresse kann dies blockiert werden.";
+                    } else {
+                        msg += "Bitte prüfe, ob du der App den Zugriff auf die Kamera erlaubt hast.";
+                    }
+                    alert(msg);
+                    closeScanner();
+                });
+            } catch (e) {
+                alert("Scanner-Initialisierungsfehler: " + e.message);
+                closeScanner();
+            }
         }
 
         function closeScanner() {
@@ -5131,7 +5173,7 @@ Mit freundlichen Grüßen`;
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
                 document.querySelector('.search-container').classList.add('hidden');
-                document.getElementById('mainFooter').style.display = 'none';
+                document.getElementById('mainFooter').style.display = 'block';
                 document.getElementById('rpContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 
@@ -5157,7 +5199,7 @@ Mit freundlichen Grüßen`;
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 document.getElementById('mainContent').style.display = 'none';
                 document.querySelector('.search-container').classList.add('hidden'); // Neu
-                document.getElementById('mainFooter').style.display = 'none';
+                document.getElementById('mainFooter').style.display = 'block';
                 document.getElementById('stempelContainer').classList.add('active');
                 updateBreadcrumb([{ text: category.title }]);
 

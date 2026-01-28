@@ -1,44 +1,57 @@
 {
     "passes": [
         {
-            "id": "vorchdorf_winter_2025",
-            "name": "Winter-Stempelpass Vorchdorf",
-            "description": "Sammle 5 Stempel bei teilnehmenden Vorchdorfer Betrieben und gewinne Werbering-Gutscheine!",
+            "id": "vorchdorf_fruehling_2026",
+            "name": "Frühlings-Stempelpass Vorchdorf",
+            "description": "Sammle 10 Stempel bei teilnehmenden Vorchdorfer Betrieben und nimm an unserem Oster-Gewinnspiel teil!",
             "type": "ORTS_PASS",
-            "target_stamps": 5,
-            "valid_from": "2024-12-01",
-            "valid_to": "2025-03-31",
+            "target_stamps": 10,
+            "valid_from": "2026-01-01",
+            "valid_to": "2026-04-03",
             "status": "ACTIVE",
             "companies": [
-                "Jeder Werbering-Betrieb"
+                "all_werbering"
             ]
         },
         {
-            "id": "ecke_stempel_10",
-            "name": "Ecke Vorchdorf - Cafe & Bar",
-            "description": "Der Klassiker: 10 Kaffee trinken, der 11. geht auf uns!",
+            "id": "gwoelb_kaffee_2026",
+            "name": "Gwölb Vorchdorf - Kaffee-Pass",
+            "description": "Der Klassiker: 10 Kaffee genießen, der 11. geht auf uns!",
             "type": "FIRMEN_PASS",
             "target_stamps": 10,
-            "valid_from": "2024-01-01",
+            "valid_from": "2026-01-28",
             "valid_to": "2026-12-31",
             "status": "ACTIVE",
             "companies": [
-                "Ecke Vorchdorf"
+                "cafe_gwoelb"
             ]
         },
         {
-            "id": "fasching_event_2025",
-            "name": "Faschings-Tour 2025",
+            "id": "fasching_tour_2026",
+            "name": "Faschings-Tour 2026",
             "description": "Besuche alle 3 Stationen am Faschingsdienstag!",
             "type": "EVENT_PASS",
             "target_stamps": 3,
-            "valid_from": "2025-03-04",
-            "valid_to": "2025-03-04",
+            "valid_from": "2026-01-28",
+            "valid_to": "2026-02-28",
             "status": "ACTIVE",
             "companies": [
-                "Kitzmantelfabrik",
-                "Ecke",
-                "Schloss Hochhaus"
+                "cafe_zwirn",
+                "cafe_gwoelb",
+                "schloss_hochhaus"
+            ]
+        },
+        {
+            "id": "trafik_fischer_feuerzeug_2026",
+            "name": "Trafik Fischer - Feuerzeug-Aktion",
+            "description": "Kaufen Sie 10 Feuerzeuge und das 11. bekommen Sie gratis von uns.",
+            "type": "FIRMEN_PASS",
+            "target_stamps": 10,
+            "valid_from": "2026-01-28",
+            "valid_to": "2026-12-31",
+            "status": "ACTIVE",
+            "companies": [
+                "trafik_fischer"
             ]
         }
     ]
