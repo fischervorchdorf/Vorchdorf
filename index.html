@@ -12,8 +12,9 @@
     <!-- Koordinaten für Direktvermarkter -->
     <script src="company-coordinates.js"></script>
 
-    <!-- QR Code Library -->
+    <!-- QR Code Library (Scan & Generate) -->
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, public, proxy-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -2459,6 +2460,98 @@
             transform: translateY(-5px);
         }
 
+        /* BACKUP SYSTEM STYLES */
+        .stempel-backup-box {
+            background: #fff8e1;
+            border: 2px dashed #ffb300;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .stempel-backup-content h4 {
+            margin: 0 0 5px 0;
+            color: #f57c00;
+        }
+
+        .stempel-backup-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #5d4037;
+        }
+
+        .stempel-backup-btn {
+            background: #ffb300;
+            color: #4e342e;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .backup-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .backup-modal-overlay.active {
+            display: flex;
+        }
+
+        .backup-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .backup-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        #backupQrCanvas {
+            margin: 20px auto;
+            padding: 15px;
+            background: white;
+            border: 1px solid #eee;
+            display: inline-block;
+        }
+
+        .backup-user-id {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: 700;
+            margin: 15px 0;
+            color: var(--primary);
+            border: 1px solid #ddd;
+        }
+
         .stempel-card-title {
             font-size: 1.3rem;
             font-weight: 700;
@@ -3246,6 +3339,39 @@
             <div style="font-size: 4rem; margin-bottom: 20px;">🎟️</div>
             <h3>Keine aktiven Pässe gefunden</h3>
             <p>Aktuell gibt es keine laufenden Stempel-Aktionen.</p>
+        </div>
+
+        <!-- Sicherungs-Information -->
+        <div id="stempelBackupInfo" class="stempel-backup-box hidden">
+            <div class="stempel-backup-content">
+                <h4>🔒 Sicherung empfohlen</h4>
+                <p>Speichern Sie Ihren Backup-QR-Code, um Ihre Stempel bei einem Handywechsel wiederherzustellen.</p>
+            </div>
+            <button class="stempel-backup-btn" onclick="openBackupModal()">Sicherungs-QR</button>
+        </div>
+    </div>
+
+    <!-- Backup QR Modal -->
+    <div id="backupModal" class="backup-modal-overlay">
+        <div class="backup-modal">
+            <button class="backup-modal-close" onclick="closeBackupModal()">✕</button>
+            <h3 style="color: var(--primary);">Ihre Sicherung</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                Machen Sie einen Screenshot von diesem QR-Code. Mit diesem können Sie Ihre Stempel jederzeit
+                wiederherstellen.
+            </p>
+
+            <div id="backupQrCanvas"></div>
+
+            <div class="backup-user-id" id="backupUserIdDisplay">vch_...</div>
+
+            <p style="font-size: 0.8rem; color: #888;">
+                ⚠️ Geben Sie diesen Code niemals an andere weiter. Er ist Ihre anonyme Identität.
+            </p>
+
+            <button class="stempel-scan-btn" onclick="window.print()" style="background: #666;">
+                🖨️ PDF / Drucken
+            </button>
         </div>
     </div>
 
@@ -4655,15 +4781,20 @@ Mit freundlichen Grüßen`;
         let userStamps = JSON.parse(localStorage.getItem('vorchdorf_stamps') || '{}');
         let html5QrCode = null;
 
-        // Anonyme Geräte-ID generieren/laden
-        function getDeviceId() {
-            let deviceId = localStorage.getItem('vorchdorf_device_id');
-            if (!deviceId) {
-                deviceId = 'device_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-                localStorage.setItem('vorchdorf_device_id', deviceId);
+        // Anonyme User-ID generieren/laden (vch_ + 12 hex chars)
+        function getUserId() {
+            let userId = localStorage.getItem('vorchdorf_user_id');
+            if (!userId) {
+                // Generiere anonymen 12-stelligen Hex-Token
+                const hex = Array.from({ length: 12 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+                userId = 'vch_' + hex;
+                localStorage.setItem('vorchdorf_user_id', userId);
             }
-            return deviceId;
+            return userId;
         }
+
+        // Vormals device_id, jetzt vereinheitlicht auf user_id
+        function getDeviceId() { return getUserId(); }
 
         // Stempelpass Initialisierung
         async function initializeStempelpässe() {
@@ -4678,8 +4809,14 @@ Mit freundlichen Grüßen`;
                 if (activePasses.length === 0) {
                     grid.innerHTML = '';
                     empty.classList.remove('hidden');
+                    document.getElementById('stempelBackupInfo').classList.add('hidden');
                 } else {
                     empty.classList.add('hidden');
+                    // Backup Info nur zeigen wenn mindestens ein Stempel vorhanden ist
+                    const totalStamps = Object.values(userStamps).reduce((acc, curr) => acc + curr.length, 0);
+                    if (totalStamps > 0) {
+                        document.getElementById('stempelBackupInfo').classList.remove('hidden');
+                    }
                     renderStempelCards();
                 }
             } catch (error) {
@@ -4788,15 +4925,33 @@ Mit freundlichen Grüßen`;
 
             try {
                 const data = JSON.parse(text);
-                // Erwartetes Format: {"vorchdorf_stamp": "UUID", "pass_id": "...", "company_id": "..."}
 
-                if (data.vorchdorf_stamp && data.pass_id === passId) {
+                // FALL 1: Stempel-QR gescannt
+                // Unterstützt altes Format (vorchdorf_stamp) und neues Format (type: VORCHDORF_STAMP)
+                if ((data.vorchdorf_stamp || data.type === 'VORCHDORF_STAMP') && data.pass_id === passId) {
                     validateAndAddStamp(passId, data.company_id);
-                } else {
+                }
+                // FALL 2: Backup-QR gescannt
+                else if (data.type === 'VORCHDORF_USER_BACKUP' && data.user_id) {
+                    restoreFromBackup(data.user_id);
+                }
+                else {
                     alert("❌ Ungültiger QR-Code für diesen Stempelpass.");
                 }
             } catch (e) {
                 alert("❌ Dieser QR-Code gehört nicht zum Vorchdorfer Stempel-System.");
+            }
+        }
+
+        async function restoreFromBackup(newUserId) {
+            if (confirm("Möchten Sie Ihren Stempelpass von der ID " + newUserId + " wiederherstellen?\n\nIhre aktuellen lokalen Stempel werden dabei überschrieben.")) {
+                localStorage.setItem('vorchdorf_user_id', newUserId);
+
+                // Hier in Zukunft: API Call um Stände vom Server zu laden
+                // await loadStampsFromServer(newUserId);
+
+                alert("✅ Stempelpass erfolgreich wiederhergestellt!");
+                location.reload();
             }
         }
 
@@ -4822,9 +4977,70 @@ Mit freundlichen Grüßen`;
             localStorage.setItem('vorchdorf_stamps', JSON.stringify(userStamps));
             renderStempelCards();
 
+            // Backup Info einblenden
+            document.getElementById('stempelBackupInfo').classList.remove('hidden');
+
             // Erfolgssound/Vibration simulieren & Info
             if ("vibrate" in navigator) navigator.vibrate(200);
+
+            // API SYNC STUB
+            syncStampWithServer(passId, companyId);
+
             alert("✅ Stempel erfolgreich hinzugefügt!");
+        }
+
+        // ============================================
+        // BACKUP LOGIC
+        // ============================================
+        let backupQrInstance = null;
+
+        function openBackupModal() {
+            const overlay = document.getElementById('backupModal');
+            const userId = getUserId();
+            document.getElementById('backupUserIdDisplay').innerText = userId;
+            overlay.classList.add('active');
+
+            const qrContainer = document.getElementById('backupQrCanvas');
+            qrContainer.innerHTML = ''; // Clear
+
+            const backupData = {
+                type: 'VORCHDORF_USER_BACKUP',
+                user_id: userId
+            };
+
+            backupQrInstance = new QRCode(qrContainer, {
+                text: JSON.stringify(backupData),
+                width: 250,
+                height: 250,
+                colorDark: "#1a472a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function closeBackupModal() {
+            document.getElementById('backupModal').classList.remove('active');
+        }
+
+        // ============================================
+        // SERVER SYNC STUBS
+        // ============================================
+        async function syncStampWithServer(passId, companyId) {
+            const userId = getUserId();
+            console.log("Syncing stamp to server:", { userId, passId, companyId });
+            /* 
+            fetch('/api/stamp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, pass_id: passId, company_id: companyId })
+            }).catch(e => console.warn("Offline sync later..."));
+            */
+        }
+
+        async function loadStampsFromServer(userId) {
+            console.log("Loading stamps for user:", userId);
+            // userStamps = await fetch('/api/user/' + userId).then(r => r.json());
+            // localStorage.setItem('vorchdorf_stamps', JSON.stringify(userStamps));
         }
 
         function redeemReward(passId) {
@@ -6503,11 +6719,24 @@ Mit freundlichen Grüßen`;
 
         // Enter key for search
         document.addEventListener('DOMContentLoaded', async function () {
-            await loadCategories();  // Lade Kategorien aus JSON
-            await loadBusinesses();  // Lade businesses aus JSON
-            await loadClubs();       // Lade vereine aus JSON
-            await loadGemeindeData(); // Lade Gemeinde-Verwaltung Daten
-            await initializeRP(); // Lade Regionale Produkte (Produkte + Firmen)
+            try {
+                // Essenzielle Daten laden
+                await Promise.all([
+                    loadCategories(),
+                    loadBusinesses(),
+                    loadClubs()
+                ]);
+
+                // Optionale Daten laden (nicht blockierend für den ersten Render)
+                loadGemeindeData();
+                initializeRP();
+                initializeStempelpässe();
+            } catch (error) {
+                console.error('Initialisierungsfehler:', error);
+            }
+
+            // Sicherstellen, dass die App gerendert wird
+            init();
 
             // Ensure COMPANY_COORDINATES is loaded
             if (typeof COMPANY_COORDINATES === 'undefined') {
@@ -6565,10 +6794,13 @@ Mit freundlichen Grüßen`;
             };
 
 
-            // Display version in footer
-            document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
-            document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
-            document.getElementById('rpVersionInfo').textContent = ' | Version ' + APP_VERSION;
+            // Display version in footer (with safety checks)
+            if (document.getElementById('versionInfo'))
+                document.getElementById('versionInfo').textContent = ' | Version ' + APP_VERSION;
+            if (document.getElementById('flohmarktVersionInfo'))
+                document.getElementById('flohmarktVersionInfo').textContent = ' | Version ' + APP_VERSION;
+            if (document.getElementById('rpVersionInfo'))
+                document.getElementById('rpVersionInfo').textContent = ' | Version ' + APP_VERSION;
 
             // Event Listeners for Regionale Produkte
             document.getElementById('rpSearchInput').addEventListener('input', filterRPProducts);
