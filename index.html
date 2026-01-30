@@ -317,10 +317,7 @@
         <div id="qr-reader"></div>
     </div>
 
-    <footer id="mainFooter">
-        Powered by <a href="https://fischervorchdorf.at" target="_blank">fischervorchdorf.at</a>
-        <span id="versionInfo"></span>
-    </footer>
+    <!-- Footer loaded by js/common.js -->
     </div> <!-- Ende app-container -->
 
     <!-- Regionale Produkte Modal -->
@@ -1643,38 +1640,8 @@ Mit freundlichen Grüßen`;
         // APP_VERSION is defined in js/common.js
         const CACHE_BUSTER = Date.now();
         // AGGRESSIVE CACHE BUSTING - Prüfe online ob neue Version existiert
-        (async function checkForUpdates() {
-            try {
-                const response = await fetch('./index.html?t=' + Date.now(), {
-                    cache: 'no-store',
-                    headers: {
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
-                    }
-                });
-                const html = await response.text();
-                const match = html.match(/const APP_VERSION = '([^']+)'/);
-                if (match && match[1] !== APP_VERSION) {
-                    console.log('Neue Version verfügbar: ' + match[1]);
-                    // Aktualisiere alle Caches und lade neu
-                    if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.getRegistrations().then(registrations => {
-                            registrations.forEach(reg => reg.unregister());
-                        });
-                    }
-                    if ('caches' in window) {
-                        caches.keys().then(names => names.forEach(name => caches.delete(name)));
-                    }
-                    // Hard reload nach 2 Sekunden
-                    setTimeout(() => {
-                        window.location.href = './?t=' + Date.now();
-                    }, 2000);
-                }
-            } catch (e) {
-                console.log('Update-Check fehlgeschlagen:', e);
-            }
-        })();
+        // Legacy checkForUpdates removed to prevent reload loops during refactoring
+        // Version check is handled by common.js and localStorage logic below
 
         // AGGRESSIVE CACHE CLEARING
         // 1. Unregister all service workers
