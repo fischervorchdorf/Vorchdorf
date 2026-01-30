@@ -108,6 +108,30 @@
             background: #2196F3;
         }
 
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
         @media print {
             body * {
                 visibility: hidden;
@@ -135,19 +159,32 @@
         <h1>🎟️ Stempelpass Admin-Tool</h1>
         <p>Erstellen Sie neue Pässe für die <b>stempel_data.json</b> oder generieren Sie QR-Codes für Betriebe.</p>
 
+        <div class="info-box">
+            <strong>ℹ️ Wichtig:</strong> Dieses Tool muss vom gleichen Server geladen werden wie die Vorchdorf-App,
+            damit es die <code>stempel_data.json</code> Datei finden kann.
+        </div>
+
         <!-- SECTION 0: EXISTING PASSES -->
         <div class="section">
             <h2>📜 Vorhandene Pässe</h2>
             <p>Klicken Sie auf einen Pass, um die ID für den QR-Generator zu übernehmen:</p>
             <div id="existingPassesList"
                 style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
-                <!-- Dynamisch geladen -->
+                <div style="padding: 20px; text-align: center; color: #999;">
+                    🔄 Lade Pässe...
+                </div>
             </div>
         </div>
 
         <!-- SECTION 1: QR CODE GENERATOR -->
         <div class="section">
             <h2>1️⃣ QR-Code für Betrieb generieren</h2>
+
+            <div class="warning-box">
+                <strong>⚠️ NEU:</strong> QR-Codes werden jetzt im Cloud-kompatiblen Format generiert!<br>
+                Format: <code>{"type": "VORCHDORF_STAMP", "pass_id": "...", "company_id": "..."}</code>
+            </div>
+
             <p>Geben Sie die ID des Passes und den Namen des Betriebs ein.</p>
             <div class="grid">
                 <div>
@@ -175,13 +212,15 @@
             <div class="grid">
                 <div>
                     <label>Eindeutige ID (z.B. cafe_2025_sommer)</label>
-                    <input type="text" id="passId" oninput="updateJson()">
+                    <input type="text" id="passId" oninput="updateJson()"
+                        placeholder="nur_kleinbuchstaben_und_unterstriche">
 
                     <label>Name des Passes</label>
-                    <input type="text" id="passName" oninput="updateJson()">
+                    <input type="text" id="passName" oninput="updateJson()" placeholder="z.B. Café-Pass Winter 2025">
 
                     <label>Beschreibung</label>
-                    <textarea id="passDesc" oninput="updateJson()"></textarea>
+                    <textarea id="passDesc" oninput="updateJson()"
+                        placeholder="z.B. Sammle 10 Stempel bei teilnehmenden Cafés in Vorchdorf" rows="3"></textarea>
 
                     <label>Typ</label>
                     <select id="passType" onchange="updateJson()">
@@ -191,17 +230,42 @@
                     </select>
 
                     <label>Anzahl Stempel (z.B. 5 oder 10)</label>
-                    <input type="number" id="passTarget" value="5" oninput="updateJson()">
+                    <input type="number" id="passTarget" value="10" min="3" max="20" oninput="updateJson()">
+
+                    <label>Gültig von (Datum)</label>
+                    <input type="date" id="passValidFrom" oninput="updateJson()">
+
+                    <label>Gültig bis (Datum)</label>
+                    <input type="date" id="passValidTo" oninput="updateJson()">
                 </div>
                 <div>
                     <label>JSON Ergebnis (zum Einfügen in stempel_data.json)</label>
                     <div id="jsonOutput" class="result-json"></div>
                     <button class="copy-btn" onclick="copyJson()">📋 JSON in Zwischenablage kopieren</button>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">
-                        Anleitung: Kopieren Sie diesen Block und fügen Sie ihn in der Datei <b>stempel_data.json</b> in
-                        die Liste "passes" ein.
-                    </p>
+                    <div class="info-box" style="margin-top: 15px; font-size: 0.85rem;">
+                        <strong>📝 Anleitung:</strong><br>
+                        1. Kopieren Sie diesen JSON-Block<br>
+                        2. Öffnen Sie die Datei <code>stempel_data.json</code><br>
+                        3. Fügen Sie den Block in die Liste "passes" ein (mit Komma davor!)<br>
+                        4. Speichern Sie die Datei<br>
+                        5. App neu laden → Neuer Pass erscheint!
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: GOOGLE SHEETS INTEGRATION INFO -->
+        <div class="section">
+            <h2>3️⃣ Cloud-Synchronisation</h2>
+            <div class="info-box">
+                <strong>☁️ Automatische Synchronisation aktiv!</strong><br><br>
+                Alle Stempel werden automatisch in Google Sheets gespeichert:<br>
+                • Tab "Stempel" → Alle gescannten Stempel<br>
+                • Tab "Users" → Benutzerstatistiken<br><br>
+                Die Stempel sind damit:<br>
+                ✅ Geräteübergreifend verfügbar<br>
+                ✅ Automatisch gesichert<br>
+                ✅ Offline-fähig (Queue-System)
             </div>
         </div>
     </div>
@@ -209,77 +273,146 @@
     <script>
         let qrcode = new QRCode(document.getElementById("qrcode"), {
             width: 250,
-            height: 250
+            height: 250,
+            colorDark: "#1a472a",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
         });
+
+        // Setze heutige Daten als Default
+        document.getElementById('passValidFrom').value = new Date().toISOString().split('T')[0];
+        const endDate = new Date();
+        endDate.setFullYear(endDate.getFullYear() + 1);
+        document.getElementById('passValidTo').value = endDate.toISOString().split('T')[0];
 
         function generateQR() {
             const passId = document.getElementById('qrPassId').value.trim();
             const companyId = document.getElementById('qrCompanyId').value.trim();
 
             if (!passId || !companyId) {
-                alert("Bitte Pass ID und Betriebs ID eingeben!");
+                alert("❌ Bitte Pass ID und Betriebs ID eingeben!");
                 return;
             }
 
+            // NEUES FORMAT (Cloud-kompatibel)
             const data = {
-                vorchdorf_stamp: "true",
+                type: "VORCHDORF_STAMP",  // ← NEU!
                 pass_id: passId,
                 company_id: companyId
             };
 
+            qrcode.clear();
             qrcode.makeCode(JSON.stringify(data));
             document.getElementById('qrLabel').innerText = companyId.toUpperCase();
             document.getElementById('qrSubLabel').innerText = "Vorchdorfer Stempelpass: " + passId;
+
+            console.log('✅ QR-Code generiert:', data);
         }
 
         function updateJson() {
+            const id = document.getElementById('passId').value.trim() || "pass_id_hier";
+            const name = document.getElementById('passName').value.trim() || "Pass Name hier";
+            const desc = document.getElementById('passDesc').value.trim() || "Beschreibung hier";
+            const type = document.getElementById('passType').value;
+            const target = parseInt(document.getElementById('passTarget').value) || 10;
+            const validFrom = document.getElementById('passValidFrom').value || new Date().toISOString().split('T')[0];
+            const validTo = document.getElementById('passValidTo').value || "2025-12-31";
+
             const obj = {
-                id: document.getElementById('passId').value.trim() || "id_hier",
-                name: document.getElementById('passName').value.trim() || "Name hier",
-                description: document.getElementById('passDesc').value.trim() || "Beschreibung hier",
-                type: document.getElementById('passType').value,
-                target_stamps: parseInt(document.getElementById('passTarget').value) || 5,
-                valid_from: new Date().toISOString().split('T')[0],
-                valid_to: "2025-12-31",
+                id: id,
+                name: name,
+                description: desc,
+                type: type,
+                target_stamps: target,
+                valid_from: validFrom,
+                valid_to: validTo,
                 status: "ACTIVE",
-                companies: ["Betriebs-ID hier"]
+                companies: ["betriebs_id_hier", "weitere_betriebe_hier"]
             };
+
             document.getElementById('jsonOutput').innerText = JSON.stringify(obj, null, 2);
         }
 
         function copyJson() {
             const text = document.getElementById('jsonOutput').innerText;
-            navigator.clipboard.writeText(text);
-            alert("JSON kopiert!");
+            navigator.clipboard.writeText(text).then(() => {
+                alert("✅ JSON in Zwischenablage kopiert!");
+            }).catch(err => {
+                alert("❌ Fehler beim Kopieren: " + err);
+            });
         }
 
-        // Initialize
+        // Load existing passes
         async function loadExistingPasses() {
             const list = document.getElementById('existingPassesList');
             try {
                 const response = await fetch('./stempel_data.json?v=' + Date.now());
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
                 const data = await response.json();
 
-                list.innerHTML = data.passes.map(pass => `
-                    <div onclick="selectPass('${pass.id}')" style="background: #fff; border: 2px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
-                        <div style="font-weight: 700; color: var(--primary);">${pass.name}</div>
-                        <div style="font-size: 0.8rem; color: #666; font-family: monospace;">ID: ${pass.id}</div>
+                if (!data.passes || data.passes.length === 0) {
+                    list.innerHTML = `
+                        <div class="warning-box" style="grid-column: 1/-1;">
+                            <strong>⚠️ Keine Pässe gefunden!</strong><br>
+                            Die stempel_data.json enthält noch keine Pässe. Erstellen Sie unten einen neuen Pass.
+                        </div>
+                    `;
+                    return;
+                }
+
+                list.innerHTML = data.passes.map(pass => {
+                    const statusColor = pass.status === 'ACTIVE' ? '#4caf50' : '#999';
+                    return `
+                        <div onclick="selectPass('${pass.id}')" 
+                             style="background: #fff; border: 2px solid ${statusColor}; padding: 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">${pass.name}</div>
+                            <div style="font-size: 0.75rem; color: #666; font-family: monospace; margin-bottom: 5px;">ID: ${pass.id}</div>
+                            <div style="font-size: 0.75rem; color: #999;">
+                                🎯 ${pass.target_stamps} Stempel | 📅 bis ${pass.valid_to}
+                            </div>
+                            <div style="font-size: 0.7rem; margin-top: 8px; padding: 4px 8px; background: ${statusColor}; color: white; border-radius: 4px; display: inline-block;">
+                                ${pass.status}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                console.log('✅ Pässe geladen:', data.passes.length);
+
+            } catch (error) {
+                console.error('❌ Fehler beim Laden:', error);
+                list.innerHTML = `
+                    <div class="error-box" style="grid-column: 1/-1;">
+                        <strong>❌ stempel_data.json konnte nicht geladen werden!</strong><br><br>
+                        Mögliche Ursachen:<br>
+                        • Die Datei existiert nicht im gleichen Ordner<br>
+                        • Die HTML wird lokal geöffnet (file://) statt vom Server<br>
+                        • Die JSON-Datei hat Syntaxfehler<br><br>
+                        <strong>Lösung:</strong> Laden Sie diese HTML vom gleichen Server wie die Vorchdorf-App!<br><br>
+                        <small>Fehler: ${error.message}</small>
                     </div>
-                `).join('');
-            } catch (e) {
-                list.innerHTML = '<p style="color: red;">Fehler beim Laden der stempel_data.json!</p>';
+                `;
             }
         }
 
         function selectPass(id) {
             document.getElementById('qrPassId').value = id;
             // Scroll to QR Generator
-            document.getElementById('qrPassId').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.section:nth-of-type(2)').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Highlight input
+            document.getElementById('qrPassId').focus();
+            document.getElementById('qrPassId').select();
         }
 
-        // Initial load
+        // Initialize
         updateJson();
         loadExistingPasses();
+
+        console.log('🎟️ Stempelpass Admin Tool geladen - Cloud Version');
     </script>
 
 </body>
