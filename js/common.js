@@ -88,3 +88,20 @@ if (typeof window.goHome !== 'function') {
         window.location.href = 'index.html';
     };
 }
+
+// Helper to keep footer at the bottom even when DOM changes
+function keepFooterAtBottom() {
+    const footer = document.querySelector('.global-footer');
+    const container = document.querySelector('.app-container') || document.body;
+
+    if (footer && container) {
+        // If footer is not the last child, move it to the end
+        if (container.lastElementChild !== footer) {
+            container.appendChild(footer);
+        }
+    }
+}
+
+// Run this check periodically / on clicks
+setInterval(keepFooterAtBottom, 1000);
+document.addEventListener('click', () => setTimeout(keepFooterAtBottom, 50));
