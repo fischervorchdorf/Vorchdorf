@@ -1,4 +1,4 @@
-const APP_VERSION = '9.6';
+const APP_VERSION = '9.7';
 window.APP_VERSION = APP_VERSION;
 
 document.addEventListener("DOMContentLoaded", function () {
