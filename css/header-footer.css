@@ -1,0 +1,107 @@
+:root {
+    --primary: #1a472a;
+    --primary-light: #2d7a47;
+    --primary-lighter: #4a9b64;
+    --secondary: #f4b923;
+    --accent-secondary: #ff6b6b;
+    --accent-tertiary: #4ecdc4;
+    --bg: #f0f4f8;
+    --card-bg: #ffffff;
+    --text: #1a2332;
+    --text-light: #5a6f86;
+    --border: #d8e1eb;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow-md: rgba(0, 0, 0, 0.12);
+    --shadow-lg: rgba(0, 0, 0, 0.15);
+    --accent: #e74c3c;
+    --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d7a47 100%);
+    --gradient-2: linear-gradient(135deg, #f0f4f8 0%, #e8f0f5 100%);
+    --gradient-wild: linear-gradient(-45deg, #1a472a, #f4b923, #2d7a47, #ff6b6b, #1a472a);
+}
+
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Header */
+header {
+    background: var(--gradient-1);
+    background-size: 200% 200%;
+    animation: gradient-flow 6s ease infinite;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 40px var(--shadow-lg), 0 0 1px rgba(0, 0, 0, 0.05), 0 0 30px rgba(244, 185, 35, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+header:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(26, 71, 42, 0.3), 0 0 60px rgba(244, 185, 35, 0.4);
+}
+
+header img {
+    height: 60px;
+    width: auto;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+    }
+    header img {
+        height: 40px;
+    }
+    header h1 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

@@ -45,38 +45,7 @@
             margin: 0 auto;
         }
 
-        /* Header mit Wappen */
-        header {
-            background: var(--gradient-1);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 40px var(--shadow-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            cursor: pointer;
-            transition: all 0.4s;
-        }
 
-        header:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 50px rgba(26, 71, 42, 0.3);
-        }
-
-        header img {
-            height: 60px;
-            width: auto;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-        }
-
-        header h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            font-weight: 700;
-        }
 
         /* Back Button */
         .back-button-container {
@@ -296,20 +265,7 @@
             display: none;
         }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #666;
-            font-size: 14px;
-        }
 
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
 
         @media (max-width: 768px) {
             body {
@@ -353,16 +309,13 @@
             animation: fadeIn 0.3s ease-out;
         }
     </style>
+    <script src="js/common.js"></script>
 </head>
 
 <body>
     <div class="app-container">
         <!-- App Header mit Wappen -->
-        <header onclick="window.location.href='index.html'">
-            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
-            <h1>Vorchdorf-APP</h1>
-            <img src="AUT_Vorchdorf_COA.svg.png" alt="Wappen Vorchdorf">
-        </header>
+        <!-- Header loaded by js/common.js -->
 
         <!-- Zurück Button -->
         <div class="back-button-container">
@@ -395,9 +348,7 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer">
-            powered by <a href="https://www.fischervorchdorf.at" target="_blank">fischervorchdorf</a> | Version 6.0
-        </div>
+        <!-- Footer loaded by js/common.js -->
     </div>
 
     <script>
