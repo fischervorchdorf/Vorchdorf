@@ -19,25 +19,7 @@
             padding: 20px;
         }
 
-        /* Header wie bei Gesundheit & Soziales */
-        .app-header {
-            background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 100%);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
 
-        .app-header h1 {
-            color: white;
-            font-size: 24px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
 
         /* Suchfeld Container */
         .search-container {
@@ -255,17 +237,11 @@
             }
         }
     </style>
+    <script src="js/common.js"></script>
 </head>
 
 <body>
-    <!-- App Header -->
-    <div class="app-header">
-        <h1>
-            <span>🏛️</span>
-            Vorchdorf-APP
-            <span>🏛️</span>
-        </h1>
-    </div>
+    <!-- Header loaded by js/common.js -->
 
     <!-- Suchfeld -->
     <div class="search-container">
@@ -285,7 +261,13 @@
         <a href="../index.html">🏠 Start</a> › Gemeinde & Verwaltung
     </div>
 
-    <!-- Content -->
+    /* Breadcrumb modified path for subdirectory support in common.js not present, manually adjusting if needed, but
+    standard header loading works relative to index.html if using relative paths correctly, however js/common.js uses
+    'components/header.html' which is relative to the current PAGE.
+    Wait, this file is in 'gemeinde-verwaltung' directory or root?
+    User path: /Users/martinfischer/Library/CloudStorage/Dropbox/github/vorchdorf/gemeinde-verwaltung-index.html
+    It is in the ROOT of vorchdorf corpus per the path, despite the name 'gemeinde-verwaltung-index.html'. */
+
     <div class="content-container">
         <!-- Page Title -->
         <div class="page-title">
@@ -403,10 +385,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        Powered by <a href="https://fischervorchdorf.at">fischervorchdorf.at</a> | Version 5.4
-    </div>
+    <!-- Footer loaded by js/common.js -->
 
     <script>
         function performSearch() {
